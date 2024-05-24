@@ -17,10 +17,6 @@ public abstract class BaseScene : MonoBehaviour
         {
             Managers.Resource.Instantiate("EventSystem").name = "@EventSystem";
         }
-        if (obj == null)
-        {
-            Managers.Resource.Instantiate("ClickEffectCreator").name = "@ClickEffectCreator";
-        }
         Managers.Scene.CurrentScene = this;
     }
 

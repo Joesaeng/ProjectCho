@@ -7,15 +7,12 @@ public class PoolManager
     class Pool
     {
         public GameObject Original { get; private set; }
-        public Transform Root { get; set; }
 
         Stack<Poolable> _poolStack = new Stack<Poolable>();
 
         public void Init(GameObject original, int count = 5)
         {
             Original = original;
-            Root = new GameObject().transform;
-            Root.name = $"{original.name}_Root";
 
             for (int i = 0; i < count; ++i)
             {
@@ -35,14 +32,13 @@ public class PoolManager
             if (poolable == null)
                 return;
 
-            poolable.transform.SetParent(Root);
             poolable.gameObject.SetActive(false);
             poolable.isUsing = false;
 
             _poolStack.Push(poolable);
         }
 
-        public Poolable Pop(Transform parent)
+        public Poolable Pop()
         {
             Poolable poolable;
 
@@ -53,11 +49,6 @@ public class PoolManager
 
             poolable.gameObject.SetActive(true);
 
-            // DontDestroyOnLoad 해제 용도
-            if (parent == null)
-                poolable.transform.SetParent(Managers.Scene.CurrentScene.transform);
-
-            poolable.transform.SetParent(parent);
             poolable.isUsing = true;
 
             return poolable;
@@ -68,23 +59,11 @@ public class PoolManager
     Dictionary<string, Pool> _pool = new Dictionary<string, Pool>();
     Transform _root;
 
-    public void Init()
-    {
-        if (_root == null)
-        {
-            _root = new GameObject { name = "@Pool_root" }.transform;
-            Object.DontDestroyOnLoad(_root);
-        }
-    }
-
-    /// <summary>
-    /// Prefab의 이름으로 Pool Root 산하에 Prefab Root를 만들고 Pool을 생성합니다.
-    /// </summary>
+    // 풀을 만들고 데이터에 저장합니다.
     public void CreatePool(GameObject original, int count = 5)
     {
         Pool pool = new Pool();
         pool.Init(original, count);
-        pool.Root.parent = _root;
 
         _pool.Add(original.name, pool);
     }
@@ -113,7 +92,7 @@ public class PoolManager
         {
             CreatePool(original);
         }
-        return _pool[original.name].Pop(parent);
+        return _pool[original.name].Pop();
     }
 
     public GameObject GetOriginal(string name)

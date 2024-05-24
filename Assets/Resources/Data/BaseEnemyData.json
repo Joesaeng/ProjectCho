@@ -1,0 +1,14 @@
+{
+  "datas": [
+    {
+      "id" : 0,
+      "baseHp": 10,
+      "baseMoveSpeed": 5,
+      "baseAttackDamage": 1,
+      "baseAttackDelay": 1,
+      "baseAttackRange": 1,
+      "isRange": false
+    }
+  ]
+}
+ 
