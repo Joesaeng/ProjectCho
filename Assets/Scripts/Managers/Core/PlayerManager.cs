@@ -1,7 +1,6 @@
 using System.IO;
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾îÀÇ µ¥ÀÌÅÍ¸¦ °ü¸®, ÀúÀå ¹× ·Îµå ´ã´ç
 public class PlayerManager
 {
     Data.PlayerData _playerData;
@@ -22,7 +21,7 @@ public class PlayerManager
         LoadFromJson();
     }
 
-    // ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ¸¦ UTF-8 ÀÎÄÚµùÇÏ¿© ÀúÀå
+    // í”Œë ˆì´ì–´ ë°ì´í„°ë¥¼ UTF-8ë¡œ ì¸ì½”ë”©í•˜ì—¬ ì €ì¥í•©ë‹ˆë‹¤
     public void SaveToJson()
     {
         if (File.Exists(_path))
@@ -38,7 +37,7 @@ public class PlayerManager
 
     }
 
-    // UTF-8 µ¥ÀÌÅÍ·Î ÀúÀåµÈ ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â ÈÄ µğÄÚµù
+    // UTF-8ë¡œ ì¸ì½”ë”©ëœ ë°ì´í„°ë¥¼ ë””ì½”ë”©í•˜ì—¬ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤
     public void LoadFromJson()
     {
         if (!File.Exists(_path))

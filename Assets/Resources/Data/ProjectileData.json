@@ -1,0 +1,12 @@
+{
+  "datas": [
+    {
+      "id": 1,
+      "baseMoveSpeed": 25,
+      "pierceCount" : 1,
+      "projectileName": "EarthMissileTiny",
+      "explosionName": "EarthExplosionTiny"
+    }
+  ]
+}
+ 

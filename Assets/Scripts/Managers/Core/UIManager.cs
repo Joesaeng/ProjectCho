@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIManager
 {
-    int _order = ConstantData.PopupUISortOrder; // UIµéÀÇ sort order
+    int _order = ConstantData.PopupUISortOrder; // UIë“¤ì˜ sort order
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
@@ -22,14 +22,14 @@ public class UIManager
     }
 
     /// <summary>
-    /// ¿ÜºÎ¿¡¼­ ÆË¾÷UI°¡ ÄÑÁú ¶§ º»ÀÎ Äµ¹ö½ºÀÇ sortorder¸¦ Ã¤¿öÁÖ´Â ÇÔ¼ö
+    /// ì™¸ë¶€ì—ì„œ íŒì—…UIê°€ ì¼œì§ˆ ë•Œ ë³¸ì¸ ìº”ë²„ìŠ¤ì˜ sortorderë¥¼ ì±„ì›Œì£¼ëŠ” í•¨ìˆ˜
     /// </summary>
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-        // Canvas°¡ ÁßÃ¸À¸·Î ÀÖÀ» ¶§, ºÎ¸ğÀÇ sortingorder¸¦ µû¶ó°¡Áö ¾Ê°í ÀÚ½ÅÀÇ sortingorder¸¦ °¡Áö°Ô ÇÔ
+        // Canvasê°€ ì¤‘ì²©ìœ¼ë¡œ ìˆì„ ë•Œ, ë¶€ëª¨ì˜ sortingorderë¥¼ ë”°ë¼ê°€ì§€ ì•Šê³  ìì‹ ì˜ sortingorderë¥¼ ê°€ì§€ê²Œ í•¨
         canvas.overrideSorting = true;
 
         if (sort)

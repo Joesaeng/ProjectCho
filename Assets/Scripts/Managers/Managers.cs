@@ -20,7 +20,7 @@ public class Managers : MonoBehaviour
     UIManager _UI = new UIManager();
     ComponentCacheManager _compCache = new ComponentCacheManager();
 
-    // MonoBehaviour »ó¼Ó ¸Å´ÏÀú
+    // MonoBehaviour ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
     SceneManagerEx _scene;
 
     public static DataManager Data { get { return Instance._data; } }
@@ -32,7 +32,7 @@ public class Managers : MonoBehaviour
     public static ComponentCacheManager CompCache { get {  return Instance._compCache; } }
     public static PlayerManager Player { get {  return Instance._player; } }
 
-    // MonoBehaviour »ó¼Ó ¸Å´ÏÀú
+    // MonoBehaviour ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     #endregion
 
@@ -61,9 +61,9 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
 
-            // ÃÊ±âÈ­°¡ ÇÊ¿äÇÑ ¸Å´ÏÀúµé ÃÊ±âÈ­ ÀÛ¾÷
+            // ì´ˆê¸°í™”ê°€ í•„ìš”í•œ ë§¤ë‹ˆì €ë“¤ ì´ˆê¸°í™” ì‘ì—…
 
-            // MonoBehaviour¸¦ »ó¼Ó¹ŞÀº ¸Å´ÏÀúµé
+            // MonoBehaviourë¥¼ ìƒì†ë°›ì€ ë§¤ë‹ˆì €ë“¤
             {
                 s_instance._game = go.GetOrAddComponent<GameManager>();
                 s_instance._scene = go.GetOrAddComponent<SceneManagerEx>();

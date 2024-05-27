@@ -1,6 +1,48 @@
 {
   "datas": [
-
+    {
+      "id": 0,
+      "spellType": "TargetedProjectile",
+      "elementType": "Energy",
+      "spellName": "Energy Ball",
+      "spellDamage": 10.0,
+      "spellDelay": 1.0,
+      "spellRange": 45.0,
+      "spellSpeed": 25.0,
+      "spellDuration": 0.0
+    },
+    {
+      "id": 1,
+      "spellType": "StraightProjectile",
+      "elementType": "Water",
+      "spellName": "Tsunami",
+      "spellDamage": 20.0,
+      "spellDelay": 2.0,
+      "spellRange": 40.0,
+      "spellSpeed": 20.0,
+      "spellDuration": 0.0
+    },
+    {
+      "id": 2,
+      "spellType": "TargetedProjectile",
+      "elementType": "Fire",
+      "spellName": "Fire Ball",
+      "spellDamage": 15.0,
+      "spellDelay": 1.0,
+      "spellRange": 45.0,
+      "spellSpeed": 25.0,
+      "spellDuration": 0.0
+    },
+    {
+      "id": 3,
+      "spellType": "TargetedAOE",
+      "elementType": "Lightning",
+      "spellName": "Lightning Strike",
+      "spellDamage": 25.0,
+      "spellDelay": 3.0,
+      "spellRange": 45.0,
+      "spellSpeed": 0.0,
+      "spellDuration": 0.0
+    }
   ]
 }
- 

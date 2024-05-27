@@ -60,7 +60,7 @@ public abstract class UI_Base : MonoBehaviour
     protected Image GetImage(int index) { return Get<Image>(index); }
 
     /// <summary>
-    /// UI GameObject¿¡ UIEvent¸¦ Bind ÇÕ´Ï´Ù.
+    /// UI GameObjectì— UIEventë¥¼ Bind ë°”ì¸ë“œ
     /// </summary>
     public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Ç®¸µÀ» ÇÏ´Â ¿ÀºêÁ§Æ®¿¡ ´Ş¾ÆµÎ´Â ÄÄÆ÷³ÍÆ®
+// ì˜¤ë¸Œì íŠ¸ í’€ì— ë“¤ì–´ê°€ëŠ” ëª¨ë“  ê°ì²´ëŠ” ê°€ì§€ê³ ìˆìŠµë‹ˆë‹¤.
 public class Poolable : MonoBehaviour
 {
     public bool isUsing;

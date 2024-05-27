@@ -46,19 +46,19 @@ public static class Extension
     }
 
     /// <summary>
-    /// str ¹®ÀÚ¿­¿¡¼­ prefix ¹®ÀÚ¿­À» Á¦°ÅÇÑ ¹®ÀÚ¿­À» ¹İÈ¯
+    /// str ë¬¸ìì—´ì—ì„œ prefix ë¬¸ìì—´ì„ ì œê±°í•œ ë¬¸ìì—´ì„ ë°˜í™˜
     /// </summary>
     public static string RemovePrefix(this string str, string prefix)
     {
-        // ¹®ÀÚ¿­ÀÌ nullÀÌ°Å³ª ºñ¾îÀÖÀ» °æ¿ì ±×´ë·Î ¹İÈ¯
+        // ë¬¸ìì—´ì´ nullì´ê±°ë‚˜ ë¹„ì–´ìˆì„ ê²½ìš° ê·¸ëŒ€ë¡œ ë°˜í™˜
         if (string.IsNullOrEmpty(str))
             return str;
 
-        // Á¢µÎ»ç°¡ ¹®ÀÚ¿­ÀÇ ½ÃÀÛ°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎÇÏ°í, ÀÏÄ¡ÇÏ¸é ÇØ´ç ºÎºĞÀ» Á¦°ÅÇÑ ¹®ÀÚ¿­ ¹İÈ¯
+        // ì ‘ë‘ì‚¬ê°€ ë¬¸ìì—´ì˜ ì‹œì‘ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ , ì¼ì¹˜í•˜ë©´ í•´ë‹¹ ë¶€ë¶„ì„ ì œê±°í•œ ë¬¸ìì—´ ë°˜í™˜
         if (str.StartsWith(prefix))
             return str.Substring(prefix.Length);
 
-        // ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ¿ø·¡ ¹®ÀÚ¿­ ±×´ë·Î ¹İÈ¯
+        // ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ì›ë˜ ë¬¸ìì—´ ê·¸ëŒ€ë¡œ ë°˜í™˜
         return str;
     }
 }

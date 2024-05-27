@@ -55,39 +55,6 @@ public static class Util
         return null;
     }
 
-    public static float GetDistance(UnityEngine.Object left, UnityEngine.Object right)
-    {
-        Vector3 leftVec = Vector3.zero;
-        Vector3 rightVec = Vector3.zero;
-        if (left is GameObject leftObj)
-        {
-            leftVec = leftObj.transform.position;
-        }
-        else if (left is UnityEngine.Component leftComp)
-        {
-            leftVec = leftComp.transform.position;
-        }
-        else
-        {
-            Debug.Log("GetDistance()¿¡ ¿ÀºêÁ§Æ®µµ, ÄÄÆ÷³ÍÆ®µµ ¾Æ´Ñ °ÍÀÌ µé¾î¿Ô½À´Ï´Ù");
-            return 0f;
-        }
-        if (right is GameObject rightObj)
-        {
-            rightVec = rightObj.transform.position;
-        }
-        else if (right is UnityEngine.Component rightComp)
-        {
-            rightVec = rightComp.transform.position;
-        }
-        else
-        {
-            Debug.Log("GetDistance()¿¡ ¿ÀºêÁ§Æ®µµ, ÄÄÆ÷³ÍÆ®µµ ¾Æ´Ñ °ÍÀÌ µé¾î¿Ô½À´Ï´Ù");
-            return 0f;
-        }
-        return Vector3.Distance(leftVec, rightVec);
-    }
-
     public static T Parse<T>(string stringData)
     {
         return (T)Enum.Parse(typeof(T), stringData);
@@ -95,15 +62,15 @@ public static class Util
 
     public static string RemovePrefix(string str, string prefix)
     {
-        // ¹®ÀÚ¿­ÀÌ nullÀÌ°Å³ª ºñ¾îÀÖÀ» °æ¿ì ±×´ë·Î ¹İÈ¯
+        // ë¬¸ìì—´ì´ nullì´ê±°ë‚˜ ë¹„ì–´ìˆì„ ê²½ìš° ê·¸ëŒ€ë¡œ ë°˜í™˜
         if (string.IsNullOrEmpty(str))
             return str;
 
-        // Á¢µÎ»ç°¡ ¹®ÀÚ¿­ÀÇ ½ÃÀÛ°ú ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎÇÏ°í, ÀÏÄ¡ÇÏ¸é ÇØ´ç ºÎºĞÀ» Á¦°ÅÇÑ ¹®ÀÚ¿­ ¹İÈ¯
+        // ì ‘ë‘ì‚¬ê°€ ë¬¸ìì—´ì˜ ì‹œì‘ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ , ì¼ì¹˜í•˜ë©´ í•´ë‹¹ ë¶€ë¶„ì„ ì œê±°í•œ ë¬¸ìì—´ ë°˜í™˜
         if (str.StartsWith(prefix))
             return str.Substring(prefix.Length);
 
-        // ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ¿ø·¡ ¹®ÀÚ¿­ ±×´ë·Î ¹İÈ¯
+        // ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ì›ë˜ ë¬¸ìì—´ ê·¸ëŒ€ë¡œ ë°˜í™˜
         return str;
     }
 

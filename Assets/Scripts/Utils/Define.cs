@@ -1,6 +1,12 @@
-public class Define
+namespace Define
 {
-    
+    public enum AttackableState
+    {
+        SearchTarget,
+        Attack,
+        Idle,
+    }
+
     public enum SFXNames
     {
 

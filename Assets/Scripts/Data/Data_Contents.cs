@@ -11,9 +11,26 @@ public interface IData
 }
 
 [Serializable]
-public enum SpellDamageType
+public enum SpellType
 {
+    TargetedProjectile,
+    StraightProjectile,
+    TargetedAOE,
+    Summon,
+}
 
+[Serializable]
+public enum ElementType
+{
+                // 동일 속성 적(Light,Dark 제외)에게는 75%의 데미지를 가함.
+    Energy,     // 모든 속성의 적(어둠,빛 제외) 100% 데미지
+    Fire,       // Air 속성의 적에게 200% 데미지, Water 속성 적에게 50% 데미지
+    Water,      // Fire 속성 적에게 200% 데미지, Lightning 속성 적에게 50% 데미지
+    Lightning,  // Water 속성 적에게 200% 데미지, Earth 속성 적에게 50% 데미지
+    Earth,      // Lightning 속성 적에게 200% 데미지, Air 속성 적에게 50% 데미지
+    Air,        // Earth 속성 적에게 200% 데미지, Fire 속성 적에게 50% 데미지
+    Light,      // Dark속성 적에게 300% 데미지, Light 속성 적에게 0% 데미지
+    Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
 }
 
 namespace Data
@@ -29,17 +46,37 @@ namespace Data
         public bool sfxOn = true;
     }
 
+    public class PlayerWallData : IData
+    {
+        int IData.id => id;
+        public int id;
+        public float maxHp;
+    }
+
     [Serializable]
     public class BaseEnemyData : IData
     {
         int IData.id => id;
         public int id;
+        public ElementType elementType;
         public float baseHp;
         public float baseMoveSpeed;
         public float baseAttackDamage;
         public float baseAttackDelay;
         public float baseAttackRange;
         public bool isRange;
+        public int projectileId;
+    }
+
+    [Serializable]
+    public class ProjectileData : IData
+    {
+        int IData.id => id;
+        public int id;
+        public float baseMoveSpeed;
+        public int pierceCount;
+        public string projectileName;
+        public string explosionName;
     }
 
     [Serializable]
@@ -47,9 +84,14 @@ namespace Data
     {
         int IData.id => id;
         public int id;
-        public SpellDamageType spellDamageType;
-        public float damage;
-        public float damageDuration;
+        public SpellType spellType;
+        public ElementType elementType;
+        public string spellName;
+        public float spellDamage;
+        public float spellDelay;
+        public float spellRange;
+        public float spellSpeed;
+        public float spellDuration;
     }
 
     [Serializable]

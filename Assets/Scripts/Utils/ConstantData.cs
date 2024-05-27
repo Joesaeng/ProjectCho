@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class ConstantData
 {
-    #region »ó¼ö µ¥ÀÌÅÍ
+    #region ìƒìˆ˜ ë°ì´í„°
     public const int    PopupUISortOrder = 10;
     public const int    SceneUISortOrder = 9;
     public const int    WorldSpaceUISortOrder = 8;

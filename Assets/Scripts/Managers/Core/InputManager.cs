@@ -12,7 +12,6 @@ public class InputManager
 
     public void OnUpdate()
     {
-        // UI가 클릭된 상황일 때 마우스 인풋 방지
         if (IsPointerOverUIObject())
             return;
 

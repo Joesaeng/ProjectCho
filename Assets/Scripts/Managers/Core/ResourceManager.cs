@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class ResourceManager
 {
@@ -27,7 +28,7 @@ public class ResourceManager
             return null;
         }
 
-        if (original.GetComponent<Poolable>() != null)
+        if (original.TryGetComponent<Poolable>(out Poolable poolable))
             return Managers.Pool.Pop(original, parent).gameObject;
 
         GameObject go;
@@ -49,7 +50,7 @@ public class ResourceManager
 
         GameObject go;
 
-        if (original.GetComponent<Poolable>() != null)
+        if (original.TryGetComponent<Poolable>(out Poolable poolable))
         {
             go = Managers.Pool.Pop(original).gameObject;
             go.transform.SetPositionAndRotation(pos, Quaternion.identity);
@@ -65,8 +66,7 @@ public class ResourceManager
         if (go == null)
             return;
 
-        Poolable poolable = go.GetComponent<Poolable>();
-        if (poolable != null)
+        if (go.TryGetComponent<Poolable>(out Poolable poolable))
         {
             Managers.Pool.Push(poolable);
             return;

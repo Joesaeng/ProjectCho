@@ -38,7 +38,7 @@ public class PoolManager
             _poolStack.Push(poolable);
         }
 
-        public Poolable Pop()
+        public Poolable Pop(Transform parent = null)
         {
             Poolable poolable;
 
@@ -47,6 +47,8 @@ public class PoolManager
             else
                 poolable = Create();
 
+            poolable.transform.SetParent(parent);
+            poolable.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             poolable.gameObject.SetActive(true);
 
             poolable.isUsing = true;
@@ -57,9 +59,7 @@ public class PoolManager
     #endregion
 
     Dictionary<string, Pool> _pool = new Dictionary<string, Pool>();
-    Transform _root;
 
-    // 풀을 만들고 데이터에 저장합니다.
     public void CreatePool(GameObject original, int count = 5)
     {
         Pool pool = new Pool();
@@ -68,9 +68,6 @@ public class PoolManager
         _pool.Add(original.name, pool);
     }
 
-    /// <summary>
-    /// 풀에 풀링오브젝트를 넣는다
-    /// </summary>
     public void Push(Poolable poolable)
     {
         string name = poolable.gameObject.name;
@@ -83,16 +80,13 @@ public class PoolManager
         _pool[name].Push(poolable);
     }
 
-    /// <summary>
-    /// 풀에서 꺼내온다
-    /// </summary>
     public Poolable Pop(GameObject original, Transform parent = null)
     {
         if (_pool.ContainsKey(original.name) == false)
         {
             CreatePool(original);
         }
-        return _pool[original.name].Pop();
+        return _pool[original.name].Pop(parent);
     }
 
     public GameObject GetOriginal(string name)
@@ -105,9 +99,6 @@ public class PoolManager
 
     public void Clear()
     {
-        foreach (Transform child in _root)
-            GameObject.Destroy(child.gameObject);
-
         _pool.Clear();
     }
 }

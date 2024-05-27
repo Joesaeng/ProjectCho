@@ -46,7 +46,7 @@ public class SoundManager
     }
 
     /// <summary>
-    /// {path} ==> Æú´õÀÌ¸§/»ç¿îµåÀÌ¸§
+    /// {path} ==> í´ë”ì´ë¦„/ì‚¬ìš´ë“œì´ë¦„
     /// </summary>
     public void Play(Define.SFXNames SFXname, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
@@ -58,7 +58,7 @@ public class SoundManager
         Play(audioClip, type, pitch);
     }
     /// <summary>
-    /// AudioClipÀ» ¹Ş¾Æ¿Í¼­ Àç»ıÇÕ´Ï´Ù.
+    /// AudioClipì„ ë°›ì•„ì™€ì„œ ì¬ìƒí•©ë‹ˆë‹¤.
     /// </summary>
     public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {

@@ -7,7 +7,7 @@ public class SceneManagerEx : MonoBehaviour
     public BaseScene CurrentScene { get; set; }
 
     /// <summary>
-    /// ÇöÀç SceneÀ» Å¬¸®¾îÇÏ°í type¿¡ ¸Â´Â SceneÀ» µ¿±âÀûÀ¸·Î ·ÎµåÇÕ´Ï´Ù.
+    /// í˜„ì¬ Sceneì„ í´ë¦¬ì–´í•˜ê³  typeì— ë§ëŠ” Sceneì„ ë™ê¸°ì ìœ¼ë¡œ ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public void LoadScene(Define.Scene type)
     {
