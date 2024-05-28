@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 // 적 객체
 [RequireComponent(typeof(Rigidbody))]
-public class Enemy : Creature, IMoveable, IAttackable, IHitable
+public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitable
 {
     #region Variable
     private Vector3         _destination;
@@ -16,11 +16,11 @@ public class Enemy : Creature, IMoveable, IAttackable, IHitable
     private Rigidbody       _rigid;
     private float           _moveSpeed;
 
-    private float           _attackDelay;
-    private float           _attackRange;
-    private AttackableState _attackerState;
-    private IHitable        _target;
-    private LayerMask       _targetLayer;
+    //private float           _attackDelay;
+    //private float           _attackRange;
+    //private AttackableState _attackerState;
+    //private IHitable        _target;
+    //private LayerMask       _targetLayer;
 
     private float           _maxHp;
     private float           _curHp;
@@ -32,22 +32,23 @@ public class Enemy : Creature, IMoveable, IAttackable, IHitable
     public Rigidbody Rigid { get => _rigid; set => _rigid = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
-    public float AttackDelay { get => _attackDelay; set => _attackDelay = value; }
-    public float AttackRange { get => _attackRange; set => _attackRange = value; }
-    public AttackableState AttackerState
-    {
-        get => _attackerState;
-        set
-        {
-            _attackerState = value;
-            ChangeAttackerState();
-        }
-    }
-    public IHitable Target { get => _target; set => _target = value; }
-    public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
+    //public float AttackDelay { get => _attackDelay; set => _attackDelay = value; }
+    //public float AttackRange { get => _attackRange; set => _attackRange = value; }
+    //public AttackableState AttackerState
+    //{
+    //    get => _attackerState;
+    //    set
+    //    {
+    //        _attackerState = value;
+    //        ChangeAttackerState();
+    //    }
+    //}
+    //public IHitable Target { get => _target; set => _target = value; }
+    //public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
+    public Transform Tf { get => transform; }
     #endregion
 
     public void InitMoveable(IData data)
@@ -59,12 +60,13 @@ public class Enemy : Creature, IMoveable, IAttackable, IHitable
             | RigidbodyConstraints.FreezeRotationY;
     }
 
-    public void InitAttackable(IData data)
+    public override void InitAttackable(IData data)
     {
         BaseEnemyData enemyData = data as BaseEnemyData;
         AttackDelay = enemyData.baseAttackDelay;
         AttackRange = enemyData.baseAttackRange;
         TargetLayer = 1 << LayerMask.NameToLayer("EnemyTarget");
+        AttackerState = AttackableState.SearchTarget;
     }
     public void InitHitable(IData data)
     {
@@ -76,10 +78,10 @@ public class Enemy : Creature, IMoveable, IAttackable, IHitable
     {
         base.Init(data);
         InitMoveable(data);
-        InitAttackable(data);
         InitHitable(data);
+        InitAttackable(data);
 
-        AttackerState = AttackableState.SearchTarget;
+        Target = Managers.Game.PlayerWall;
     }
 
     public void SetDir(Vector3 destination)
@@ -106,54 +108,53 @@ public class Enemy : Creature, IMoveable, IAttackable, IHitable
         Move();
     }
 
-    public void ChangeAttackerState()
+    //public void ChangeAttackerState()
+    //{
+    //    switch (AttackerState)
+    //    {
+    //        case AttackableState.SearchTarget:
+    //            StartCoroutine(CoSearchTarget());
+    //            break;
+    //        case AttackableState.Attack:
+    //            StartCoroutine(CoAttack(Target));
+    //            break;
+    //        case AttackableState.Idle:
+    //            StartCoroutine(CoIdle());
+    //            break;
+    //    }
+    //}
+
+    //public IEnumerator CoSearchTarget()
+    //{
+    //    yield return YieldCache.WaitForSeconds(0.1f);
+    //    if (SearchTarget(out IHitable hitable))
+    //    {
+    //        Target = hitable;
+    //        AttackerState = AttackableState.Idle;
+    //    }
+    //    else
+    //        AttackerState = AttackableState.SearchTarget;
+    //}
+
+    public override bool SearchTarget()
     {
-        switch (AttackerState)
-        {
-            case AttackableState.SearchTarget:
-                StartCoroutine(CoSearchTarget());
-                break;
-            case AttackableState.Attack:
-                StartCoroutine(CoAttack(Target));
-                break;
-            case AttackableState.Idle:
-                StartCoroutine(CoIdle());
-                break;
-        }
+        return Physics.Raycast(transform.position, Direction,AttackRange,TargetLayer);
     }
 
-    public IEnumerator CoSearchTarget()
-    {
-        yield return YieldCache.WaitForSeconds(0.1f);
-        if (SearchTarget(out IHitable hitable))
-        {
-            Target = hitable;
-            AttackerState = AttackableState.Idle;
-        }
-        else
-            AttackerState = AttackableState.SearchTarget;
-    }
-    private bool SearchTarget(out IHitable hitable)
-    {
-        hitable = null;
-        return Physics.Raycast(transform.position, Direction, out RaycastHit hit, AttackRange,TargetLayer) &&
-            hit.transform.TryGetComponent<IHitable>(out hitable);
-    }
+    //public abstract IEnumerator CoAttack(IHitable target)
+    //{
+    //    // 공격 실행
+    //    Debug.Log("적의 공격!");
+    //    yield return YieldCache.WaitForSeconds(AttackDelay);
+    //    AttackerState = AttackableState.Idle;
+    //}
 
-    public virtual IEnumerator CoAttack(IHitable target)
-    {
-        // 공격 실행
-        Debug.Log("적의 공격!");
-        yield return YieldCache.WaitForSeconds(AttackDelay);
-        AttackerState = AttackableState.Idle;
-    }
-
-    public IEnumerator CoIdle()
-    {
-        yield return null;
-        if (SearchTarget(out IHitable hitable))
-            AttackerState = AttackableState.Attack;
-        else
-            AttackerState = AttackableState.SearchTarget;
-    }
+    //public IEnumerator CoIdle()
+    //{
+    //    yield return null;
+    //    if (SearchTarget(out IHitable hitable))
+    //        AttackerState = AttackableState.Attack;
+    //    else
+    //        AttackerState = AttackableState.SearchTarget;
+    //}
 }

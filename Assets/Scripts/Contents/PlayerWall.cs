@@ -10,6 +10,7 @@ public class PlayerWall : MonoBehaviour, IHitable
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
+    public Transform Tf { get => transform; }
 
     public void InitHitable(IData data)
     {

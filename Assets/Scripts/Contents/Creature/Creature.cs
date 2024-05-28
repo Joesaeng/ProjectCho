@@ -8,10 +8,16 @@ using UnityEngine;
 public abstract class Creature : MonoBehaviour
 {
     protected AnimationController _animationController;
+
     public virtual void Init(IData data)
     {
         _animationController = GetComponentInChildren<AnimationController>();
         _animationController.Init();
+    }
+
+    protected void PlayAnimation(string animName)
+    {
+        _animationController.PlayAnimation(animName);
     }
 
     public abstract void OnUpdate();

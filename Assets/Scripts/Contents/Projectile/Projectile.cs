@@ -5,7 +5,7 @@ using Interfaces;
 using UnityEngine.AI;
 using Data;
 
-[RequireComponent(typeof(Rigidbody),typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 {
     GameObject ProjectileObject { get; set; }
@@ -39,7 +39,9 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         _explosionPath = "Explosions/" + projectileData.explosionName;
 
         if(ProjectileObject == null)
+        {
             ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
+        }
         else
         {
             if (ProjectileObject.name != projectileData.projectileName)
@@ -83,7 +85,12 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.TryGetComponent<IHitable>(out IHitable hitable))
+        if(collision.gameObject.CompareTag("Wall"))
+        {
+            Managers.Resource.Destroy(gameObject);
+            return;
+        }
+        if (collision.gameObject.TryGetComponent<IHitable>(out IHitable hitable))
         {
             hitable.TakeDamage(this);
             GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);

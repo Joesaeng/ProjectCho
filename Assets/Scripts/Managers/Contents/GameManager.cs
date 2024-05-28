@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject EnemysTarget;
-    PlayerWall PlayerWall;
+    GameObject EnemysTarget { get; set; }
+    public PlayerWall PlayerWall { get; set; }
+    public List<Enemy> Enemies { get; set; } = new();
+
+    List<Transform> MagicianPoints { get; set; } = new();
+    List<Magician> Magicians { get; set; } = new();
+    int MagicianCount { get; set; } = 0;
 
     GameObject SpawnArea;
     float LeftX { get; set; }
@@ -23,15 +28,44 @@ public class GameManager : MonoBehaviour
         PosZ = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.z;
         LeftX = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.x;
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
+
+        Transform magicianPointParent = GameObject.Find("MagicainPoint").transform;
+        for(int i = 0; i < magicianPointParent.childCount; ++i)
+        {
+            MagicianPoints.Add(magicianPointParent.GetChild(i));
+        }
+        
     }
-    // TEMP
+
+    #region TEMP
     public void MouseEventListner(Define.MouseEvent mouseEvent)
     {
         if(mouseEvent == Define.MouseEvent.Click)
         {
+            CreateMagician();
+        }
+    }
+
+    public void KeyInput()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
             CreateEnemy();
         }
     }
+
+    void CreateMagician()
+    {
+        if(MagicianCount < MagicianPoints.Count)
+        {
+            GameObject obj = Managers.Resource.Instantiate("Magician", MagicianPoints[MagicianCount]);
+            MagicianCount++;
+
+            Magician magician = obj.GetOrAddComponent<Magician>();
+            Magicians.Add(magician);
+        }
+    }
+
     void CreateEnemy()
     {
         float posX = Random.Range(LeftX, RightX);
@@ -55,17 +89,17 @@ public class GameManager : MonoBehaviour
         enemy.Init(data);
         enemy.SetDir(new Vector3(posX, 0, EnemysTarget.transform.position.z));
 
-        _creatures.Add(enemy);
+        Enemies.Add(enemy);
     }
-    //
+    #endregion
 
-    List<Creature> _creatures = new();
 
     private void Update()
     {
-        foreach(var creature in _creatures)
+        KeyInput();
+        foreach (var enemy in Enemies)
         {
-            creature.OnUpdate();
+            enemy.OnUpdate();
         }
     }
 }

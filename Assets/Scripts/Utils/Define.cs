@@ -1,5 +1,13 @@
 namespace Define
 {
+    public enum MagicianAnim
+    {
+        ProjectileAttack,
+        AOEAttack,
+        StraightProjectileAttack,
+        BeamAttack,
+    }
+
     public enum AttackableState
     {
         SearchTarget,

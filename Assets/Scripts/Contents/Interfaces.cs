@@ -26,15 +26,17 @@ namespace Interfaces
 
         void InitAttackable(IData data);
         void ChangeAttackerState();
-        IEnumerator CoAttack(IHitable target);
+        IEnumerator CoAttack();
         IEnumerator CoSearchTarget();
         IEnumerator CoIdle();
+        bool SearchTarget();
     }
 
     public interface IHitable
     {
         float MaxHp { get; set; }
         float CurHp { get; set; }
+        Transform Tf { get;}
         void InitHitable(IData data);
         void TakeDamage(IDamageDealer dealer);
     }

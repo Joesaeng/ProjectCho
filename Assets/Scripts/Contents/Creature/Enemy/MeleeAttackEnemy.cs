@@ -11,10 +11,10 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
 
     public float AttackDamage { get => _attackDamage; set => _attackDamage = value; }
 
-    public override IEnumerator CoAttack(IHitable target)
+    public override IEnumerator CoAttack()
     {
         yield return YieldCache.WaitForSeconds(AttackDelay);
-        target.TakeDamage(this);
+        Target.TakeDamage(this);
         AttackerState = AttackableState.Idle;
     }
 

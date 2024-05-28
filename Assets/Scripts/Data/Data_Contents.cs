@@ -1,3 +1,4 @@
+using Define;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,11 +81,21 @@ namespace Data
     }
 
     [Serializable]
+    public class AOEEffectData : IData
+    {
+        int IData.id => id;
+        public int id;
+        public string effectName;
+    }
+
+    [Serializable]
     public class BaseSpellData : IData
     {
         int IData.id => id;
         public int id;
+        public int effectId;
         public SpellType spellType;
+        public MagicianAnim animType;
         public ElementType elementType;
         public string spellName;
         public float spellDamage;

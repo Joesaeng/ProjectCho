@@ -13,13 +13,17 @@ public interface ILoader<Key, Value>
 
 public class DataManager 
 {
-    public Dictionary<int, BaseEnemyData> BaseEnemyDataDict { get; private set; } = new Dictionary<int, BaseEnemyData>();
-    public Dictionary<int, ProjectileData> ProjectileDataDict { get; private set; } = new Dictionary<int, ProjectileData>();
+    public Dictionary<int, BaseEnemyData>   BaseEnemyDataDict { get; private set; } = new Dictionary<int, BaseEnemyData>();
+    public Dictionary<int, BaseSpellData>   BaseSpellDataDict { get; private set; } = new Dictionary<int, BaseSpellData>();
+    public Dictionary<int, ProjectileData>  ProjectileDataDict { get; private set; } = new Dictionary<int, ProjectileData>();
+    public Dictionary<int, AOEEffectData>   AOEEffectDataDict { get; private set; } = new Dictionary<int, AOEEffectData>();
 
     public void Init()
     {
         BaseEnemyDataDict = LoadJson<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
+        BaseSpellDataDict = LoadJson<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
         ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
+        AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key,Value>

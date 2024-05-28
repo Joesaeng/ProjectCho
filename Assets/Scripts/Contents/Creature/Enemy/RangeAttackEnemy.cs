@@ -16,7 +16,7 @@ public class RangeAttackEnemy : Enemy
         EnemyData = data as BaseEnemyData;
         ProjectileData = Managers.Data.ProjectileDataDict[EnemyData.projectileId];
     }
-    public override IEnumerator CoAttack(IHitable target)
+    public override IEnumerator CoAttack()
     {
         yield return YieldCache.WaitForSeconds(AttackDelay);
         // 투사체 생성

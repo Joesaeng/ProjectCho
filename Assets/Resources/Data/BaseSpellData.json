@@ -2,7 +2,9 @@
   "datas": [
     {
       "id": 0,
+      "effectId": 2,
       "spellType": "TargetedProjectile",
+      "animType": "ProjectileAttack",
       "elementType": "Energy",
       "spellName": "Energy Ball",
       "spellDamage": 10.0,
@@ -13,29 +15,35 @@
     },
     {
       "id": 1,
+      "effectId": 3,
       "spellType": "StraightProjectile",
+      "animType": "StraightProjectileAttack",
       "elementType": "Water",
       "spellName": "Tsunami",
       "spellDamage": 20.0,
       "spellDelay": 2.0,
       "spellRange": 40.0,
-      "spellSpeed": 20.0,
+      "spellSpeed": 15.0,
       "spellDuration": 0.0
     },
     {
       "id": 2,
+      "effectId": 4,
       "spellType": "TargetedProjectile",
+      "animType": "ProjectileAttack",
       "elementType": "Fire",
       "spellName": "Fire Ball",
       "spellDamage": 15.0,
       "spellDelay": 1.0,
       "spellRange": 45.0,
-      "spellSpeed": 25.0,
+      "spellSpeed": 20.0,
       "spellDuration": 0.0
     },
     {
       "id": 3,
+      "effectId": 0,
       "spellType": "TargetedAOE",
+      "animType": "AOEAttack",
       "elementType": "Lightning",
       "spellName": "Lightning Strike",
       "spellDamage": 25.0,

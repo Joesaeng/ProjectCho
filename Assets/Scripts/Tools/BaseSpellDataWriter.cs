@@ -9,7 +9,9 @@ public class BaseSpellDataWriter : MonoBehaviour
 {
     string jsonpath = "Resources/Data/BaseSpellData.json";
 
+    public int effectId;
     public SpellType spellType;
+    public MagicianAnim animType;
     public ElementType elementType;
     public string spellName;
     public float spellDamage;
@@ -22,7 +24,9 @@ public class BaseSpellDataWriter : MonoBehaviour
     {
         BaseSpellData newData = new BaseSpellData()
         {
+            effectId = effectId,
             spellType = spellType,
+            animType = animType,
             elementType = elementType,
             spellName = spellName,
             spellDamage = spellDamage,
