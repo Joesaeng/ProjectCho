@@ -13,8 +13,8 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
 
     public override IEnumerator CoAttack()
     {
+        PlayAnimationOnTrigger("Attack");
         yield return YieldCache.WaitForSeconds(AttackDelay);
-        Target.TakeDamage(this);
         AttackerState = AttackableState.Idle;
     }
 
@@ -28,5 +28,10 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
     {
         BaseEnemyData enemyData = data as BaseEnemyData;
         AttackDamage = enemyData.baseAttackDamage;
+    }
+
+    public override void AttackAnimListner()
+    {
+        Target.TakeDamage(this);
     }
 }

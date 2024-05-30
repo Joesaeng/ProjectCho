@@ -3,6 +3,7 @@ using Define;
 using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,14 +17,11 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private Rigidbody       _rigid;
     private float           _moveSpeed;
 
-    //private float           _attackDelay;
-    //private float           _attackRange;
-    //private AttackableState _attackerState;
-    //private IHitable        _target;
-    //private LayerMask       _targetLayer;
+    private LayerMask       _targetLayer;
 
     private float           _maxHp;
     private float           _curHp;
+    private bool            _isDead;
     #endregion
 
     #region Property
@@ -32,24 +30,34 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public Rigidbody Rigid { get => _rigid; set => _rigid = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
-    //public float AttackDelay { get => _attackDelay; set => _attackDelay = value; }
-    //public float AttackRange { get => _attackRange; set => _attackRange = value; }
-    //public AttackableState AttackerState
-    //{
-    //    get => _attackerState;
-    //    set
-    //    {
-    //        _attackerState = value;
-    //        ChangeAttackerState();
-    //    }
-    //}
-    //public IHitable Target { get => _target; set => _target = value; }
-    //public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
+    public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
+    public bool IsDead { get => _isDead; set => _isDead = value; }
     public Transform Tf { get => transform; }
+
+    private bool IsHit { get; set; } = false;
     #endregion
+
+    public override void ChangeAttackerState()
+    {
+        switch (AttackerState)
+        {
+            case AttackableState.SearchTarget:
+                StartCoroutine(CoSearchTarget());
+                PlayAnimationOnBool("IsMove", true);
+                break;
+            case AttackableState.Attack:
+                StartCoroutine(CoAttack());
+                PlayAnimationOnBool("IsMove", false);
+                break;
+            case AttackableState.Idle:
+                StartCoroutine(CoIdle());
+                PlayAnimationOnBool("IsMove", false);
+                break;
+        }
+    }
 
     public void InitMoveable(IData data)
     {
@@ -65,7 +73,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         BaseEnemyData enemyData = data as BaseEnemyData;
         AttackDelay = enemyData.baseAttackDelay;
         AttackRange = enemyData.baseAttackRange;
-        TargetLayer = 1 << LayerMask.NameToLayer("EnemyTarget");
+        TargetLayer = 1 << LayerMask.NameToLayer("Player");
         AttackerState = AttackableState.SearchTarget;
     }
     public void InitHitable(IData data)
@@ -76,85 +84,66 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     }
     public override void Init(IData data)
     {
-        base.Init(data);
+        _animationController = transform.GetOrAddComponent<AnimationController>();
+        _animationController.Init();
+
+        _animationController.OnAttackAnimEvent -= AttackAnimListner;
+        _animationController.OnAttackAnimEvent += AttackAnimListner;
+
+        _animationController.OnHitRecoverAnimEvent -= HitRecoverEventListner;
+        _animationController.OnHitRecoverAnimEvent += HitRecoverEventListner;
+
         InitMoveable(data);
         InitHitable(data);
         InitAttackable(data);
 
+
+        IsDead = false;
+        IsHit = false;
         Target = Managers.Game.PlayerWall;
     }
 
-    public void SetDir(Vector3 destination)
+    public void SetDir(Vector3 direction)
     {
-        Destination = destination;
-        Direction = (Destination - transform.position).normalized;
+        // Destination = destination;
+        Direction = direction;
         transform.LookAt(Direction);
     }
 
     public void Move()
     {
-        Rigid.velocity = MoveSpeed * Direction;
+        Rigid.velocity = Direction * MoveSpeed + new Vector3(0, Rigid.velocity.y, 0);
     }
 
     public void TakeDamage(IDamageDealer dealer)
     {
+        _curHp -= dealer.AttackDamage;
+        PlayAnimationOnTrigger("GetHit");
+        IsHit = true;
 
+        if(_curHp < 0 )
+        {
+            IsDead = true;
+            Managers.Game.KillEnemy(this);
+        }
     }
 
     public override void OnUpdate()
     {
-        if (AttackerState != AttackableState.SearchTarget)
+        if (AttackerState != AttackableState.SearchTarget || IsHit)
             return;
         Move();
     }
-
-    //public void ChangeAttackerState()
-    //{
-    //    switch (AttackerState)
-    //    {
-    //        case AttackableState.SearchTarget:
-    //            StartCoroutine(CoSearchTarget());
-    //            break;
-    //        case AttackableState.Attack:
-    //            StartCoroutine(CoAttack(Target));
-    //            break;
-    //        case AttackableState.Idle:
-    //            StartCoroutine(CoIdle());
-    //            break;
-    //    }
-    //}
-
-    //public IEnumerator CoSearchTarget()
-    //{
-    //    yield return YieldCache.WaitForSeconds(0.1f);
-    //    if (SearchTarget(out IHitable hitable))
-    //    {
-    //        Target = hitable;
-    //        AttackerState = AttackableState.Idle;
-    //    }
-    //    else
-    //        AttackerState = AttackableState.SearchTarget;
-    //}
 
     public override bool SearchTarget()
     {
         return Physics.Raycast(transform.position, Direction,AttackRange,TargetLayer);
     }
 
-    //public abstract IEnumerator CoAttack(IHitable target)
-    //{
-    //    // 공격 실행
-    //    Debug.Log("적의 공격!");
-    //    yield return YieldCache.WaitForSeconds(AttackDelay);
-    //    AttackerState = AttackableState.Idle;
-    //}
+    public void HitRecoverEventListner()
+    {
+        IsHit = false;
+    }
 
-    //public IEnumerator CoIdle()
-    //{
-    //    yield return null;
-    //    if (SearchTarget(out IHitable hitable))
-    //        AttackerState = AttackableState.Attack;
-    //    else
-    //        AttackerState = AttackableState.SearchTarget;
-    //}
+    public abstract void AttackAnimListner();
 }

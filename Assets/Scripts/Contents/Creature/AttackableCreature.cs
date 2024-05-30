@@ -12,7 +12,6 @@ public abstract class AttackableCreature : Creature, IAttackable
     private float           _attackRange;
     private AttackableState _attackerState;
     private IHitable        _target;
-    private LayerMask       _targetLayer;
 
     public float AttackDelay { get => _attackDelay; set => _attackDelay = value; }
     public float AttackRange { get => _attackRange; set => _attackRange = value; }
@@ -26,11 +25,10 @@ public abstract class AttackableCreature : Creature, IAttackable
         }
     }
     public IHitable Target { get => _target; set => _target = value; }
-    public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
     
     public abstract void InitAttackable(IData data);
 
-    public void ChangeAttackerState()
+    public virtual void ChangeAttackerState()
     {
         switch (AttackerState)
         {
@@ -51,7 +49,8 @@ public abstract class AttackableCreature : Creature, IAttackable
     public IEnumerator CoIdle()
     {
         yield return null;
-        if (SearchTarget())
+        if ((Target.IsDead == false && Vector3.Distance(Target.Tf.position,transform.position) < AttackRange 
+            || SearchTarget()))
             AttackerState = AttackableState.Attack;
         else
             AttackerState = AttackableState.SearchTarget;

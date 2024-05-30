@@ -10,7 +10,6 @@ public class ProjectileDataWriter : MonoBehaviour
     string jsonpath = "Resources/Data/ProjectileData.json";
 
     public float baseMoveSpeed;
-    public int pierceCount;
     [Header("ProjectTilePrefab의 경로는 Resources/Prefabs/Projectiles 이어야 합니다")]
     public GameObject projectilePrefab;
     [Header("ExplosionPrefab 경로는 Resources/Prefabs/Explosion 이어야 합니다")]
@@ -25,7 +24,6 @@ public class ProjectileDataWriter : MonoBehaviour
         ProjectileData newData = new ProjectileData()
         {
             baseMoveSpeed = baseMoveSpeed,
-            pierceCount = pierceCount,
             projectileName = projectileName,
             explosionName = explosionName,
         };

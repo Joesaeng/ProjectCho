@@ -75,7 +75,6 @@ namespace Data
         int IData.id => id;
         public int id;
         public float baseMoveSpeed;
-        public int pierceCount;
         public string projectileName;
         public string explosionName;
     }
@@ -103,6 +102,8 @@ namespace Data
         public float spellRange;
         public float spellSpeed;
         public float spellDuration;
+        public float spellSize;
+        public int pierceCount;
     }
 
     [Serializable]

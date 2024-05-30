@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Data;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 
 public interface ILoader<Key, Value>
 {
@@ -26,9 +28,20 @@ public class DataManager
         AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
     }
 
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key,Value>
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
-        return JsonUtility.FromJson<Loader>(textAsset.text);
+        TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
+        if (textAsset == null)
+        {
+            Debug.LogError($"Failed to load JSON file at path: Data/{path}");
+            return default(Loader);
+        }
+
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            Converters = new List<JsonConverter> { new StringEnumConverter() }
+        };
+
+        return JsonConvert.DeserializeObject<Loader>(textAsset.text, settings);
     }
 }

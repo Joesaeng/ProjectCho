@@ -3,30 +3,32 @@
     {
       "id": 1,
       "baseMoveSpeed": 25,
-      "pierceCount": 1,
       "projectileName": "EarthMissileTiny",
       "explosionName": "EarthExplosionTiny"
     },
     {
       "id": 2,
       "baseMoveSpeed": 25.0,
-      "pierceCount": 1,
       "projectileName": "ArcaneMissileTiny",
       "explosionName": "ArcaneExplosionTiny"
     },
     {
       "id": 3,
       "baseMoveSpeed": 15.0,
-      "pierceCount": -1,
       "projectileName": "WaterWall",
-      "explosionName": "WaterMuzzleNormal"
+      "explosionName": "WaterMuzzleBig"
     },
     {
       "id": 4,
       "baseMoveSpeed": 20.0,
-      "pierceCount": 1,
       "projectileName": "FireMissileTiny",
       "explosionName": "FireExplosionTiny"
+    },
+    {
+      "id": 5,
+      "baseMoveSpeed": 20.0,
+      "projectileName": "EarthOrbitSphere",
+      "explosionName": "EarthSlashHit"
     }
   ]
 }

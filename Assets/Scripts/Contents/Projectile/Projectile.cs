@@ -5,13 +5,12 @@ using Interfaces;
 using UnityEngine.AI;
 using Data;
 
-[RequireComponent(typeof(Rigidbody))]
 public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 {
     GameObject ProjectileObject { get; set; }
 
-    private string _projectilePath;
-    private string _explosionPath;
+    protected string _projectilePath;
+    protected string _explosionPath;
 
     private Vector3 _destination;
     private Vector3 _direction;
@@ -27,6 +26,8 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
     public int PierceCount { get => _pierceCount; set => _pierceCount = value; }
 
+    TrailRenderer TrailRenderer { get; set; }
+
     public virtual void Init(IData data)
     {
         Managers.CompCache.GetOrAddComponentCache(gameObject, out _rigid);
@@ -34,40 +35,28 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
             | RigidbodyConstraints.FreezeRotationY;
         ProjectileData projectileData = data as ProjectileData;
-        PierceCount = projectileData.pierceCount;
-        _projectilePath = "Projectiles/" + projectileData.projectileName;
-        _explosionPath = "Explosions/" + projectileData.explosionName;
+        _projectilePath = "ParticleEffects/Projectiles/" + projectileData.projectileName;
+        _explosionPath = "ParticleEffects/Explosions/" + projectileData.explosionName;
 
-        if(ProjectileObject == null)
-        {
-            ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
-        }
-        else
-        {
-            if (ProjectileObject.name != projectileData.projectileName)
-            {
-                Managers.Resource.Destroy(ProjectileObject);
-                ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
-            }
-            else
-            {
-                ProjectileObject.SetActive(true);
-                ProjectileObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            }
-        }
+        ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
+
+        TrailRenderer = null;
+        TrailRenderer = ProjectileObject.GetComponentInChildren<TrailRenderer>();
 
         StartCoroutine(CoMoveUpdate());
     }
 
     public abstract void InitDamageDealer(IData data);
 
-    public abstract void InitMoveable(IData data);
-
-    public void SetDir(Vector3 targetPos)
+    public virtual void InitMoveable(IData data)
     {
-        Destination = targetPos;
-        Direction = (Destination - transform.position).normalized;
-        transform.LookAt(Direction);
+        ProjectileData projectileData = data as ProjectileData;
+        MoveSpeed = projectileData.baseMoveSpeed;
+    }
+
+    public void SetDir(Vector3 dir)
+    {
+        Direction = dir;
     }
 
     public void Move()
@@ -76,21 +65,21 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     }
     IEnumerator CoMoveUpdate()
     {
-        while(true)
+        while (true)
         {
             yield return null;
             Move();
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall"))
         {
-            Managers.Resource.Destroy(gameObject);
+            Managers.Resource.Instantiate(_explosionPath, transform.position);
+            DestroyBullet();
             return;
         }
-        if (collision.gameObject.TryGetComponent<IHitable>(out IHitable hitable))
+        if (other.gameObject.TryGetComponent(out IHitable hitable))
         {
             hitable.TakeDamage(this);
             GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
@@ -99,11 +88,47 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 
             PierceCount--;
 
-            if(PierceCount == 0)
+            if (PierceCount == 0)
             {
-                StopCoroutine(CoMoveUpdate());
-                Managers.Resource.Destroy(gameObject);
+                if (TrailRenderer != null)
+                {
+                    TrailRenderer.Clear();
+                }
+                DestroyBullet();
             }
         }
     }
+
+    protected void DestroyBullet()
+    {
+        Managers.Resource.Destroy(ProjectileObject);
+        Managers.Resource.Destroy(gameObject);
+    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Wall"))
+    //    {
+    //        Managers.Resource.Destroy(gameObject);
+    //        return;
+    //    }
+    //    if (collision.gameObject.TryGetComponent(out IHitable hitable))
+    //    {
+    //        hitable.TakeDamage(this);
+    //        GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
+    //        Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
+    //        projectileExplosion.Init();
+
+    //        PierceCount--;
+
+    //        if(PierceCount == 0)
+    //        {
+    //            StopCoroutine(CoMoveUpdate());
+    //            if (TrailRenderer != null)
+    //            {
+    //                TrailRenderer.Clear();
+    //            }
+    //            Managers.Resource.Destroy(gameObject);
+    //        }
+    //    }
+    //}
 }

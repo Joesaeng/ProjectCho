@@ -22,7 +22,6 @@ namespace Interfaces
         float AttackRange { get; set; }
         AttackableState AttackerState { get; set; }
         IHitable Target {  get; set; }
-        LayerMask TargetLayer { get; set; }
 
         void InitAttackable(IData data);
         void ChangeAttackerState();
@@ -37,6 +36,7 @@ namespace Interfaces
         float MaxHp { get; set; }
         float CurHp { get; set; }
         Transform Tf { get;}
+        bool IsDead { get; set; }
         void InitHitable(IData data);
         void TakeDamage(IDamageDealer dealer);
     }

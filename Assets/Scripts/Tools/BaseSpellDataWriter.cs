@@ -19,6 +19,8 @@ public class BaseSpellDataWriter : MonoBehaviour
     public float spellRange;
     public float spellSpeed;
     public float spellDuration;
+    public float spellSize;
+    public int pierceCount;
 
     public void WriteData()
     {
@@ -33,8 +35,10 @@ public class BaseSpellDataWriter : MonoBehaviour
             spellDelay = spellDelay,
             spellRange = spellRange, 
             spellSpeed = spellSpeed, 
-            spellDuration = spellDuration
-        };
+            spellDuration = spellDuration,
+            spellSize = spellSize,
+            pierceCount = pierceCount
+};
         JsonDataWriter.WriteData(jsonpath, newData);
     }
 }

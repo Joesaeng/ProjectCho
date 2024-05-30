@@ -7,15 +7,17 @@ public class GameManager : MonoBehaviour
 {
     GameObject EnemysTarget { get; set; }
     public PlayerWall PlayerWall { get; set; }
-    public List<Enemy> Enemies { get; set; } = new();
+    public HashSet<Enemy> Enemies { get; set; } = new();
 
     List<Transform> MagicianPoints { get; set; } = new();
     List<Magician> Magicians { get; set; } = new();
     int MagicianCount { get; set; } = 0;
 
+    public SpellDataBase SpellDatas { get; set; } = new();
+
     GameObject SpawnArea;
-    float LeftX { get; set; }
-    float RightX { get; set; }
+    public float LeftX { get; set; }
+    public float RightX { get; set; }
     float PosZ { get; set; }
     private void Start()
     {
@@ -29,18 +31,19 @@ public class GameManager : MonoBehaviour
         LeftX = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.x;
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
 
-        Transform magicianPointParent = GameObject.Find("MagicainPoint").transform;
-        for(int i = 0; i < magicianPointParent.childCount; ++i)
+        Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
+        for (int i = 0; i < magicianPointParent.childCount; ++i)
         {
             MagicianPoints.Add(magicianPointParent.GetChild(i));
         }
-        
+
+        SpellDatas.Init();
     }
 
     #region TEMP
     public void MouseEventListner(Define.MouseEvent mouseEvent)
     {
-        if(mouseEvent == Define.MouseEvent.Click)
+        if (mouseEvent == Define.MouseEvent.Click)
         {
             CreateMagician();
         }
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void KeyInput()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             CreateEnemy();
         }
@@ -56,12 +59,17 @@ public class GameManager : MonoBehaviour
 
     void CreateMagician()
     {
-        if(MagicianCount < MagicianPoints.Count)
+        if (MagicianCount < MagicianPoints.Count)
         {
             GameObject obj = Managers.Resource.Instantiate("Magician", MagicianPoints[MagicianCount]);
-            MagicianCount++;
 
             Magician magician = obj.GetOrAddComponent<Magician>();
+            BaseSpellData data = Managers.Data.BaseSpellDataDict[MagicianCount];
+            GameObject aura = Managers.Resource.Instantiate($"ParticleEffects/Aura/Aura{data.elementType}",
+                MagicianPoints[MagicianCount].position + new Vector3(0, 0.1f, 0));
+            aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+            MagicianCount++;
+            magician.Init(data);
             Magicians.Add(magician);
         }
     }
@@ -72,34 +80,52 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(posX, 0, PosZ);
         GameObject obj;
 
-        int monsterId = 1;
+        int monsterId = Random.Range(0,2);
         BaseEnemyData data = Managers.Data.BaseEnemyDataDict[monsterId];
-        if(data.isRange)
+        if (data.isRange)
         {
-            obj = Managers.Resource.Instantiate("RangeEnemy",spawnPos);
+            obj = Managers.Resource.Instantiate("Enemys/RangeEnemy0", spawnPos);
             Managers.CompCache.GetOrAddComponentCache<RangeAttackEnemy>(obj);
         }
         else
         {
-            obj = Managers.Resource.Instantiate("MeleeEnemy",spawnPos);
+            obj = Managers.Resource.Instantiate("Enemys/MeleeEnemy0", spawnPos);
             Managers.CompCache.GetOrAddComponentCache<MeleeAttackEnemy>(obj);
         }
 
         Enemy enemy = obj.GetComponent<Enemy>();
         enemy.Init(data);
-        enemy.SetDir(new Vector3(posX, 0, EnemysTarget.transform.position.z));
+        enemy.SetDir(new Vector3(0, 0, -1));
 
         Enemies.Add(enemy);
     }
+
+    public void KillEnemy(Enemy enemy)
+    {
+        Managers.Resource.Destroy(enemy.gameObject);
+        Enemies.Remove(enemy);
+    }
     #endregion
 
-
+    // TEMP
+    float curTime = 0f;
+    float enemySpawnTime = 0.5f;
     private void Update()
     {
+        curTime += Time.deltaTime;
+        if (curTime > enemySpawnTime)
+        {
+            CreateEnemy();
+            curTime = 0f;
+        }
         KeyInput();
         foreach (var enemy in Enemies)
         {
             enemy.OnUpdate();
+        }
+        foreach (var magician in Magicians)
+        {
+            magician.OnUpdate();
         }
     }
 }

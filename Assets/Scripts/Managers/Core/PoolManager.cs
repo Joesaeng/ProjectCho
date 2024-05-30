@@ -32,6 +32,7 @@ public class PoolManager
             if (poolable == null)
                 return;
 
+            poolable.transform.SetParent(null);
             poolable.gameObject.SetActive(false);
             poolable.isUsing = false;
 

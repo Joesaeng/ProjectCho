@@ -1,4 +1,5 @@
 using Data;
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,6 @@ public class EnemyBullet : Projectile
     {
         BaseEnemyData enemydata = data as BaseEnemyData;
         AttackDamage = enemydata.baseAttackDamage;
-    }
-
-    public override void InitMoveable(IData data)
-    {
-        ProjectileData enemyBulletData = data as ProjectileData;
-        MoveSpeed = enemyBulletData.baseMoveSpeed;
+        PierceCount = 1;
     }
 }

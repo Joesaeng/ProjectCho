@@ -3,7 +3,7 @@
     {
       "id": 0,
       "elementType": "Fire",
-      "baseHp": 10,
+      "baseHp": 50,
       "baseMoveSpeed": 5,
       "baseAttackDamage": 1,
       "baseAttackDelay": 1,
@@ -14,11 +14,11 @@
     {
       "id": 1,
       "elementType": "Earth",
-      "baseHp": 10,
+      "baseHp": 50,
       "baseMoveSpeed": 5,
       "baseAttackDamage": 2,
       "baseAttackDelay": 2,
-      "baseAttackRange": 15,
+      "baseAttackRange": 7,
       "isRange": true,
       "projectileId": 1
     }

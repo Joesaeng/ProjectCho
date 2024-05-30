@@ -197,9 +197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 20
-  pierceCount: 1
-  projectilePrefab: {fileID: 141582, guid: b6c1533d81a254e46a96d9257859766d, type: 3}
-  explosionPrefab: {fileID: 123764, guid: df88151f0f75a224e91ecd643edd81b8, type: 3}
+  projectilePrefab: {fileID: 5964719868977000675, guid: 7517c60c882184346a5996847c723562,
+    type: 3}
+  explosionPrefab: {fileID: 6123832745311090913, guid: fac4b6277bfb03047bdbde251c3793d5,
+    type: 3}
 --- !u!4 &924026044
 Transform:
   m_ObjectHideFlags: 0
@@ -244,15 +245,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ae7a21417957e4a92135150ce4c26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectId: 0
-  spellType: 2
-  elementType: 3
-  spellName: Lightning Strike
-  spellDamage: 25
+  effectId: 5
+  spellType: 0
+  animType: 0
+  elementType: 4
+  spellName: Earth Orv
+  spellDamage: 10
   spellDelay: 3
-  spellRange: 45
-  spellSpeed: 0
+  spellRange: 35
+  spellSpeed: 15
   spellDuration: 0
+  spellSize: 1.4
+  pierceCount: -1
 --- !u!4 &2094037433
 Transform:
   m_ObjectHideFlags: 0

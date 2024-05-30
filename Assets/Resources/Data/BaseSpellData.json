@@ -8,10 +8,12 @@
       "elementType": "Energy",
       "spellName": "Energy Ball",
       "spellDamage": 10.0,
-      "spellDelay": 1.0,
-      "spellRange": 45.0,
-      "spellSpeed": 25.0,
-      "spellDuration": 0.0
+      "spellDelay": 3.0,
+      "spellRange": 40.0,
+      "spellSpeed": 45.0,
+      "spellDuration": 0.0,
+      "spellSize": 1,
+      "pierceCount": 1
     },
     {
       "id": 1,
@@ -21,10 +23,12 @@
       "elementType": "Water",
       "spellName": "Tsunami",
       "spellDamage": 20.0,
-      "spellDelay": 2.0,
+      "spellDelay": 5.0,
       "spellRange": 40.0,
       "spellSpeed": 15.0,
-      "spellDuration": 0.0
+      "spellDuration": 0.0,
+      "spellSize": 3.5,
+      "pierceCount": -1
     },
     {
       "id": 2,
@@ -34,10 +38,12 @@
       "elementType": "Fire",
       "spellName": "Fire Ball",
       "spellDamage": 15.0,
-      "spellDelay": 1.0,
+      "spellDelay": 3.0,
       "spellRange": 45.0,
-      "spellSpeed": 20.0,
-      "spellDuration": 0.0
+      "spellSpeed": 40.0,
+      "spellDuration": 0.0,
+      "spellSize": 1,
+      "pierceCount": 1
     },
     {
       "id": 3,
@@ -50,7 +56,24 @@
       "spellDelay": 3.0,
       "spellRange": 45.0,
       "spellSpeed": 0.0,
-      "spellDuration": 0.0
+      "spellDuration": 0.0,
+      "spellSize": 3,
+      "pierceCount": -1
+    },
+    {
+      "id": 4,
+      "effectId": 5,
+      "spellType": "TargetedProjectile",
+      "animType": "ProjectileAttack",
+      "elementType": "Earth",
+      "spellName": "Earth Orv",
+      "spellDamage": 10.0,
+      "spellDelay": 3.0,
+      "spellRange": 35.0,
+      "spellSpeed": 15.0,
+      "spellDuration": 0.0,
+      "spellSize": 1.4,
+      "pierceCount": -1
     }
   ]
 }
