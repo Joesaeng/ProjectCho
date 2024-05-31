@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             GameObject obj = Managers.Resource.Instantiate("Magician", MagicianPoints[MagicianCount]);
 
             Magician magician = obj.GetOrAddComponent<Magician>();
-            BaseSpellData data = Managers.Data.BaseSpellDataDict[MagicianCount];
+            BaseSpellData data = Managers.Data.BaseSpellDataDict[3];
             GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
                 MagicianPoints[MagicianCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));

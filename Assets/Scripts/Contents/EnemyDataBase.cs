@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class EnemyDataBase
 {
-    public Dictionary<int, SetEnemyData> EnemyDataDict { get; } = new();
+    public Dictionary<int, SetEnemyData> EnemyDataDict { get; private set; } = new();
 
     public void Init()
     {
+        var builder = new DataBuilder<int, BaseEnemyData, SetEnemyData>(data => new SetEnemyData(data));
         foreach (BaseEnemyData enemyData in Managers.Data.BaseEnemyDataDict.Values)
         {
-            EnemyDataDict.Add(enemyData.id, new SetEnemyData(enemyData));
+            builder.AddData(enemyData.id, enemyData);
         }
+        EnemyDataDict = builder.Build();
     }
 }

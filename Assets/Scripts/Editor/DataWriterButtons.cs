@@ -62,3 +62,18 @@ public class BaseEnemyDataWriterButtons : Editor
         }
     }
 }
+
+[CustomEditor(typeof(SpellUpgradeDataWriter))]
+public class SpellUpgradeDataWriterButtons : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        SpellUpgradeDataWriter writer = (SpellUpgradeDataWriter)target;
+        if (GUILayout.Button("Write Data"))
+        {
+            writer.WriteData();
+        }
+    }
+}

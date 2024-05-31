@@ -38,6 +38,18 @@ public enum ElementType
     Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
 }
 
+[Serializable]
+public enum SpellUpgradeType
+{
+    IncreaseDamage,
+    IncreaseSize,
+    AddExplosionOnImpact,
+    IncreasePierce,
+    ChainProjectile,
+    DecreaseSpellDelay,
+    AddProjectile,
+}
+
 namespace Data
 {
     [Serializable]
@@ -104,6 +116,24 @@ namespace Data
         public float spellDuration;
         public float spellSize;
         public int pierceCount;
+    }
+
+    [Serializable]
+    public class SpellUpgradeData
+    {
+        public SpellUpgradeType spellUpgradeType;
+        public string upgradeName;
+        public int integerValue;
+        public float floatValue;
+    }
+
+    [Serializable]
+    public class SpellUpgradeDatas : IData
+    {
+        int IData.id => id;
+        public int id;
+        public int spellId;
+        public List<SpellUpgradeData> spellUpgradeDatas;
     }
 
     [Serializable]

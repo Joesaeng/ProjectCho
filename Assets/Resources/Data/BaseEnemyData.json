@@ -9,7 +9,7 @@
       "baseAttackDelay": 1,
       "baseAttackRange": 1,
       "isRange": false,
-      "projectileId": 0
+      "projectileId": -1
     },
     {
       "id": 1,
@@ -20,7 +20,7 @@
       "baseAttackDelay": 2,
       "baseAttackRange": 7,
       "isRange": true,
-      "projectileId": 1
+      "projectileId": 0
     }
   ]
 }

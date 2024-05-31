@@ -30,6 +30,7 @@ public abstract class AttackableCreature : Creature, IAttackable
 
     public virtual void ChangeAttackerState()
     {
+        
         switch (AttackerState)
         {
             case AttackableState.SearchTarget:
@@ -49,8 +50,8 @@ public abstract class AttackableCreature : Creature, IAttackable
     public IEnumerator CoIdle()
     {
         yield return null;
-        if ((Target.IsDead == false && Vector3.Distance(Target.Tf.position,transform.position) < AttackRange 
-            || SearchTarget()))
+        // if (Target.IsDead == false && Vector3.Distance(Target.Tf.position,transform.position) < AttackRange)
+        if(Target != null)
             AttackerState = AttackableState.Attack;
         else
             AttackerState = AttackableState.SearchTarget;
@@ -58,10 +59,10 @@ public abstract class AttackableCreature : Creature, IAttackable
 
     public IEnumerator CoSearchTarget()
     {
-        yield return YieldCache.WaitForSeconds(0.1f);
+        yield return null;
         if (SearchTarget())
         {
-            AttackerState = AttackableState.Idle;
+            AttackerState = AttackableState.Attack;
         }
         else
             AttackerState = AttackableState.SearchTarget;

@@ -4,10 +4,13 @@ using UnityEngine;
 using Interfaces;
 using UnityEngine.AI;
 using Data;
+using System;
 
 public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 {
     GameObject ProjectileObject { get; set; }
+
+    public Action<Transform> OnImpact; 
 
     protected string _projectilePath;
     protected string _explosionPath;
@@ -59,6 +62,8 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     public void SetDir(Vector3 dir)
     {
         Direction = dir;
+        if(dir != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(dir);
     }
 
     public void Move()
@@ -77,7 +82,9 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            Managers.Resource.Instantiate(_explosionPath, transform.position);
+            GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
+            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+            hitEffect.Init();
             DestroyBullet();
             return;
         }
@@ -88,14 +95,12 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
             Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
             hitEffect.Init();
 
+            OnImpact?.Invoke(transform);
+            OnImpact = null;
             PierceCount--;
 
             if (PierceCount == 0)
             {
-                if (TrailRenderer != null)
-                {
-                    TrailRenderer.Clear();
-                }
                 DestroyBullet();
             }
         }
@@ -103,6 +108,11 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 
     protected void DestroyBullet()
     {
+        OnImpact = null;
+        if (TrailRenderer != null)
+        {
+            TrailRenderer.Clear();
+        }
         Managers.Resource.Destroy(ProjectileObject);
         Managers.Resource.Destroy(gameObject);
     }

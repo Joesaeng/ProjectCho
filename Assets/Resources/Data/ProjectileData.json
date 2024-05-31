@@ -1,33 +1,33 @@
 {
   "datas": [
     {
-      "id": 1,
+      "id": 0,
       "baseMoveSpeed": 25,
-      "projectileName": "EarthMissileTiny",
-      "explosionName": "EarthExplosionTiny"
+      "projectileName": "EarthBall",
+      "explosionName": "EarthBallExplosion"
+    },
+    {
+      "id": 1,
+      "baseMoveSpeed": 25.0,
+      "projectileName": "EnergyBall",
+      "explosionName": "EnergyBallExplosion"
     },
     {
       "id": 2,
-      "baseMoveSpeed": 25.0,
-      "projectileName": "ArcaneMissileTiny",
-      "explosionName": "ArcaneExplosionTiny"
+      "baseMoveSpeed": 15.0,
+      "projectileName": "Tsunami",
+      "explosionName": "TsunamiHit"
     },
     {
       "id": 3,
-      "baseMoveSpeed": 15.0,
-      "projectileName": "WaterWall",
-      "explosionName": "WaterSlashHit"
+      "baseMoveSpeed": 20.0,
+      "projectileName": "FireBall",
+      "explosionName": "FireBallExplosion"
     },
     {
       "id": 4,
       "baseMoveSpeed": 20.0,
-      "projectileName": "FireMissileTiny",
-      "explosionName": "FireExplosionTiny"
-    },
-    {
-      "id": 5,
-      "baseMoveSpeed": 20.0,
-      "projectileName": "EarthOrbitSphere",
+      "projectileName": "EarthOrv",
       "explosionName": "EarthSlashHit"
     }
   ]

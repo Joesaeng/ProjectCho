@@ -1,10 +1,11 @@
 using Data;
 using Interfaces;
+using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
+public class ExplosionImpact : MonoBehaviour, IDamageDealer
 {
     GameObject AOESpellObject { get; set; }
     private ElementType _elementType;
@@ -12,7 +13,6 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     public ElementType ElementType { get => _elementType; set => _elementType = value; }
 
     string AOESpellPath;
-    string ExplosionPath;
 
     public float AttackDamage { get; set; }
 
@@ -20,18 +20,17 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     {
         AOEEffectData aOEEffectData = data as AOEEffectData;
         AOESpellPath = "Effects/AOE/" + aOEEffectData.effectName;
-        ExplosionPath = "Effects/Explosions/" + aOEEffectData.explosionName;
 
         AOESpellObject = Managers.Resource.Instantiate(AOESpellPath, transform);
     }
 
     public void InitDamageDealer(IData data)
     {
-        MagicianSpell spellData = data as MagicianSpell;
-        AttackDamage = spellData.SpellDamage;
-        ElementType = spellData.ElementType;
+        AddExplosionOnImpactUpgrade explosionData = data as AddExplosionOnImpactUpgrade;
+        AttackDamage = explosionData.AttackDamage;
+        ElementType = explosionData.ElementType;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = spellData.BaseSpellSize;
+        sphCol.radius = explosionData.ExplosionColSize;
 
         StartCoroutine(CoImpact());
     }
@@ -49,20 +48,15 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
         yield return YieldCache.WaitForSeconds(0.01f);
         foreach (IHitable target in Targets)
         {
-            if(target.IsDead) 
+            if (target.IsDead)
                 continue;
             target.TakeDamage(this);
-
-            GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
-            hitEffect.Init();
-
         }
         yield return YieldCache.WaitForSeconds(1f);
-        DestroyAOE();
+        DestroyImpact();
     }
 
-    protected void DestroyAOE()
+    protected void DestroyImpact()
     {
         Targets.Clear();
         Managers.Resource.Destroy(AOESpellObject);

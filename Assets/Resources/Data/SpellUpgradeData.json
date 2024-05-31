@@ -1,0 +1,70 @@
+{
+  "datas": [
+    {
+      "id": 0,
+      "spellId": 0,
+      "spellUpgradeDatas": [
+        {
+          "spellUpgradeType": "IncreasePierce",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "IncreasePierce",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "IncreasePierce",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "ChainProjectile",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "ChainProjectile",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "ChainProjectile",
+          "upgradeName": "IncreasePierce",
+          "integerValue": 2,
+          "floatValue": 0.0
+        },
+        {
+          "spellUpgradeType": "IncreaseDamage",
+          "upgradeName": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 2.0
+        },
+        {
+          "spellUpgradeType": "IncreaseDamage",
+          "upgradeName": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 2.0
+        },
+        {
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "upgradeName": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.7
+        },
+        {
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "upgradeName": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.7
+        }
+      ]
+    }
+  ]
+}

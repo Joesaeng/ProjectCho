@@ -20,7 +20,7 @@ public class ParticleEffectEditor : Editor
             // 파티클 이펙트에 Poolable컴포넌트룰 추가하고
             go.GetOrAddComponent<Poolable>();
 
-            int maxParticles = 25;
+            int maxParticles = 100;
             ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
             for (int j = 0; j < particles.Length; j++)
             {

@@ -1,9 +1,12 @@
 using Data;
 using Interfaces;
+using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Searcher;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class MagicianSpell : ISetData
 {
@@ -11,7 +14,13 @@ public abstract class MagicianSpell : ISetData
     int IData.id => id;
     public int id;
 
-    #region 변동가능
+    public System.Action OnUpdateSpellDelay;
+    public System.Action<Transform> OnAddProjectile;
+
+    private Transform _ownMagicianTransform;
+
+    public Transform OwnMagicianTransform { set => _ownMagicianTransform = value; }
+
     public int EffectId { get; set; }
     public ElementType ElementType { get; set; }
     public float SpellDamage { get; set; }
@@ -20,9 +29,11 @@ public abstract class MagicianSpell : ISetData
     public float SpellSpeed { get; set; }
     public float SpellDuration { get; set; }
     public float SpellSize { get; set; }
+    public float BaseSpellSize { get; set; }
     public int PireceCount { get; set; }
 
-    #endregion
+    public List<ISpellUpgrade> Upgrades { get; set; } = new();
+
     protected void Init(BaseSpellData data)
     {
         EffectId = data.effectId;
@@ -33,14 +44,22 @@ public abstract class MagicianSpell : ISetData
         SpellSpeed = data.spellSpeed;
         SpellDuration = data.spellDuration;
         SpellSize = data.spellSize;
+        BaseSpellSize = data.spellSize;
         PireceCount = data.pierceCount;
     }
 
-    public abstract void UseSpell(IHitable target, Transform projectileSpawnPoint = null);
+    public void AddUpgrade(ISpellUpgrade upgrade)
+    {
+        Upgrades.Add(upgrade);
+        upgrade.ApplyUpgrade(this);
+    }
+    public abstract void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null);
+
+    public abstract void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null);
 
     public abstract IHitable SearchTarget(Transform transform);
 
-    protected IHitable SearchTarget_Closest(Transform transform)
+    public IHitable SearchTarget_Closest(Transform transform)
     {
         IHitable target = null;
         bool searched = false;
@@ -50,10 +69,10 @@ public abstract class MagicianSpell : ISetData
         foreach (Enemy enemy in Managers.Game.Enemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance > BaseSpellData.spellRange)
+            if (distance > SpellRange)
                 continue;
 
-            if (closestEnemy == null || distance < closestDistance)
+            if (distance < closestDistance)
             {
                 closestEnemy = enemy;
                 closestDistance = distance;
@@ -69,42 +88,88 @@ public abstract class MagicianSpell : ISetData
         return target;
     }
 
-    protected IHitable SearchTarget_Random(Transform transform)
+    public IHitable SearchTarget_Random()
     {
-        List<Enemy> enemies = new List<Enemy>(Managers.Game.Enemies);
-        int randIndex = Random.Range(0, enemies.Count);
+        List<Enemy> enemies = new ();
+
+        foreach (Enemy enemy in Managers.Game.Enemies)
+        {
+            float distance = Vector3.Distance(_ownMagicianTransform.position, enemy.transform.position);
+            if (distance > SpellRange)
+                continue;
+
+            enemies.Add(enemy);
+        }
+
         if (enemies.Count == 0)
             return null;
+
+        int randIndex = Random.Range(0, enemies.Count);
         return enemies[randIndex];
     }
 }
 
-public class TargettedProjecttile : MagicianSpell
+public class TargetedProjecttile : MagicianSpell
 {
     ProjectileData ProjectileData { get; set; }
-    public TargettedProjecttile(BaseSpellData data)
+
+    public ImpactUpgrade Impact;
+
+    public TargetedProjecttile(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
         ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
     }
 
-    public override void UseSpell(IHitable target, Transform projectileSpawnPoint = null)
+    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
+            targetPos.z - projectileSpawnPoint.position.z).normalized;
+
+        PlayerBullet playerBullet = ShotProjectile(dir,projectileSpawnPoint);
+
+        if (Impact != null)
+        {
+            playerBullet.OnImpact += Impact.ApplyImpact;
+        }
+
+        OnAddProjectile?.Invoke(projectileSpawnPoint);
+    }
+
+    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
+            targetPos.z - projectileSpawnPoint.position.z).normalized;
+
+        PlayerBullet playerBullet = ShotProjectile(dir,projectileSpawnPoint);
+
+        if (Impact != null)
+        {
+            playerBullet.OnImpact += Impact.ApplyImpact;
+        }
+    }
+
+    public PlayerBullet ShotProjectile(Vector3 dir, Transform projectileSpawnPoint = null)
     {
         GameObject obj = Managers.Resource.Instantiate("PlayerBullet",projectileSpawnPoint.position);
         Managers.CompCache.GetOrAddComponentCache(obj, out PlayerBullet playerBullet);
+        obj.transform.localScale = Vector3.one * SpellSize;
         playerBullet.Init(ProjectileData);
         playerBullet.InitDamageDealer(this);
         playerBullet.InitMoveable(this);
-        Vector3 dir = new Vector3(target.Tf.position.x - projectileSpawnPoint.position.x,0,
-            target.Tf.position.z - projectileSpawnPoint.position.z);
-        playerBullet.SetDir(dir.normalized);
+
+        playerBullet.SetDir(dir);
+        return playerBullet;
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
+        // Debug.Log("SearchTarget");
         return SearchTarget_Closest(transform);
     }
+
+    
 }
 
 public class StraightProjectile : MagicianSpell
@@ -117,9 +182,9 @@ public class StraightProjectile : MagicianSpell
         ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
     }
 
-    public override void UseSpell(IHitable target, Transform projectileSpawnPoint = null)
+    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
-        Vector3 pos = new Vector3(target.Tf.position.x, 0,0);
+        Vector3 pos = new Vector3(targetPos.x, 0,0);
         GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
         Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
         playerBullet.Init(ProjectileData);
@@ -127,38 +192,86 @@ public class StraightProjectile : MagicianSpell
         playerBullet.InitMoveable(this);
         Vector3 dir = Vector3.forward;
         playerBullet.SetDir(dir);
+
+        float newSize = this.SpellSize;
+        SetParticleSystemSize(obj, newSize);
+
+        OnAddProjectile?.Invoke(projectileSpawnPoint);
+    }
+
+    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 pos = new Vector3(targetPos.x, 0,0);
+        GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
+        Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
+        playerBullet.Init(ProjectileData);
+        playerBullet.InitDamageDealer(this);
+        playerBullet.InitMoveable(this);
+        Vector3 dir = Vector3.forward;
+        playerBullet.SetDir(dir);
+
+        float newSize = this.SpellSize;
+        SetParticleSystemSize(obj, newSize);
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
-        return SearchTarget_Random(transform);
+        return SearchTarget_Random();
     }
+
+    private void SetParticleSystemSize(GameObject obj, float newSize)
+    {
+        var particleSystems = obj.GetComponentsInChildren<ParticleSystem>();
+        foreach (var ps in particleSystems)
+        {
+            var shapeModule = ps.shape;
+            shapeModule.radius = newSize;
+        }
+    }
+
+    
 }
 
-public class TargettedAOE : MagicianSpell
+public class TargetedAOE : MagicianSpell
 {
     AOEEffectData AOEEffectData { get; set; }
-    public TargettedAOE(BaseSpellData data)
+    public TargetedAOE(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
         AOEEffectData = Managers.Data.AOEEffectDataDict[data.effectId];
     }
 
-    public override void UseSpell(IHitable target, Transform projectileSpawnPoint = null)
+    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
-        Vector3 pos = new Vector3(target.Tf.position.x, 0,target.Tf.position.z);
+        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
         Vector3 rot = new Vector3(-90,0,0);
         GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
         obj.transform.rotation = Quaternion.Euler(rot);
-        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell playerBullet);
-        playerBullet.Init(AOEEffectData);
-        playerBullet.InitDamageDealer(this);
+        obj.transform.localScale = Vector3.one * SpellSize;
+        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell spell);
+        spell.Init(AOEEffectData);
+        spell.InitDamageDealer(this);
+
+        OnAddProjectile?.Invoke(projectileSpawnPoint);
+    }
+
+    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
+        Vector3 rot = new Vector3(-90,0,0);
+        GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
+        obj.transform.rotation = Quaternion.Euler(rot);
+        obj.transform.localScale = Vector3.one * SpellSize;
+        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell spell);
+        spell.Init(AOEEffectData);
+        spell.InitDamageDealer(this);
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
-        return SearchTarget_Random(transform);
+        return SearchTarget_Random();
     }
 
+    
 }

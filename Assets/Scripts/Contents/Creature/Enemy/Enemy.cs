@@ -40,6 +40,8 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private bool IsHit { get; set; } = false;
     #endregion
 
+    public System.Action OnDead;
+
     public ElementType ElementType { get; set; }
     public override void ChangeAttackerState()
     {
@@ -131,6 +133,8 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         if(_curHp < 0 )
         {
             IsDead = true;
+            OnDead?.Invoke();
+            OnDead = null;
             Managers.Game.KillEnemy(this);
         }
     }

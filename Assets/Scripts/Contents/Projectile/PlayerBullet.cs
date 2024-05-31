@@ -13,7 +13,7 @@ public class PlayerBullet : Projectile
         AttackDamage = spellData.SpellDamage;
         PierceCount = spellData.PireceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = spellData.SpellSize;
+        sphCol.radius = spellData.BaseSpellSize;
     }
 
     public override void InitMoveable(IData data)

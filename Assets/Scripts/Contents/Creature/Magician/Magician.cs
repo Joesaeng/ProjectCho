@@ -9,7 +9,8 @@ using UnityEngine;
 public class Magician : AttackableCreature
 {
     private MagicianSpell _spell;
-    private string _animTrigger;
+    private string _animName;
+    private Vector3 _targetPos;
 
     public MagicianSpell Spell { get { return _spell; } set => _spell = value; }
     private Transform ProjectileSpawnPoint { get; set; }
@@ -19,9 +20,11 @@ public class Magician : AttackableCreature
         base.Init(data);
         BaseSpellData spelldata = data as BaseSpellData;
         Spell = Managers.Game._SpellDataBase.SpellDict[spelldata.id];
+        Spell.OnUpdateSpellDelay += UpdateSpellDelay;
+        Spell.OwnMagicianTransform = transform;
         ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint");
 
-        _animTrigger = spelldata.animType.ToString();
+        _animName = spelldata.animType.ToString();
 
         InitAttackable(data);
 
@@ -32,19 +35,20 @@ public class Magician : AttackableCreature
 
     public override IEnumerator CoAttack()
     {
-        PlayAnimationOnTrigger(_animTrigger);
+        PlayAnimationOnTrigger(_animName);
         yield return YieldCache.WaitForSeconds(AttackDelay);
         AttackerState = AttackableState.Idle;
     }
 
     public void AttackAnimListner()
     {
-        Spell.UseSpell(Target, ProjectileSpawnPoint);
+        // Spell.UseSpell(Target, ProjectileSpawnPoint);
+        Spell.UseSpell(_targetPos, ProjectileSpawnPoint);
     }
 
     public override void InitAttackable(IData data)
     {
-        AttackDelay = Spell.SpellDelay;
+        UpdateSpellDelay();
         AttackRange = Spell.SpellRange;
 
         AttackerState = AttackableState.SearchTarget;
@@ -53,17 +57,34 @@ public class Magician : AttackableCreature
     public override void OnUpdate()
     {
         if(Target == null) return;
+        _targetPos = Target.Tf.position;
         Vector3 direction = Target.Tf.position - transform.position;
         direction.y = 0;  // y축 값만 사용
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3f);
     }
 
     public override bool SearchTarget()
     {
         Target = Spell.SearchTarget(transform);
         if (Target != null)
+        {
+            Enemy enemy = Target as Enemy;
+            _targetPos = Target.Tf.position;
+            enemy.OnDead += OnDeadListner;
             return true;
+        }
         return false;
+    }
+
+    private void UpdateSpellDelay()
+    {
+        AttackDelay = Spell.SpellDelay;
+        _animationController.SetAttackSpeed("Magician" + _animName,AttackDelay);
+    }
+
+    private void OnDeadListner()
+    {
+        Target = null;
     }
 }
