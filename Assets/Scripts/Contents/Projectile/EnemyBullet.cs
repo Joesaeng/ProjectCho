@@ -8,8 +8,8 @@ public class EnemyBullet : Projectile
 {
     public override void InitDamageDealer(IData data)
     {
-        BaseEnemyData enemydata = data as BaseEnemyData;
-        AttackDamage = enemydata.baseAttackDamage;
+        SetEnemyData enemydata = data as SetEnemyData;
+        AttackDamage = enemydata.AttackDamage;
         PierceCount = 1;
     }
 }

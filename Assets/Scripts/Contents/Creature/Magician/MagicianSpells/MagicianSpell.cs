@@ -5,13 +5,40 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class MagicianSpell
+public abstract class MagicianSpell : ISetData
 {
     protected BaseSpellData BaseSpellData { get; set; }
+    int IData.id => id;
+    public int id;
+
+    #region 변동가능
+    public int EffectId { get; set; }
+    public float SpellDamage { get; set; }
+    public float SpellDelay { get; set; }
+    public float SpellRange { get; set; }
+    public float SpellSpeed { get; set; }
+    public float SpellDuration { get; set; }
+    public float SpellSize { get; set; }
+    public int PireceCount { get; set; }
+
+    #endregion
+    protected void Init(BaseSpellData data)
+    {
+        EffectId = data.effectId;
+        SpellDamage = data.spellDamage;
+        SpellDelay = data.spellDelay;
+        SpellRange = data.spellRange;
+        SpellSpeed = data.spellSpeed;
+        SpellDuration = data.spellDuration;
+        SpellSize = data.spellSize;
+        PireceCount = data.pierceCount;
+    }
 
     public abstract void UseSpell(IHitable target, Transform projectileSpawnPoint = null);
 
-    public virtual IHitable SearchTarget(Transform transform)
+    public abstract IHitable SearchTarget(Transform transform);
+
+    protected IHitable SearchTarget_Closest(Transform transform)
     {
         IHitable target = null;
         bool searched = false;
@@ -39,6 +66,15 @@ public abstract class MagicianSpell
 
         return target;
     }
+
+    protected IHitable SearchTarget_Random(Transform transform)
+    {
+        List<Enemy> enemies = new List<Enemy>(Managers.Game.Enemies);
+        int randIndex = Random.Range(0, enemies.Count);
+        if (enemies.Count == 0)
+            return null;
+        return enemies[randIndex];
+    }
 }
 
 public class TargetedProjecttile : MagicianSpell
@@ -47,6 +83,7 @@ public class TargetedProjecttile : MagicianSpell
     public TargetedProjecttile(BaseSpellData data)
     {
         BaseSpellData = data;
+        Init(data);
         ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
     }
 
@@ -55,11 +92,16 @@ public class TargetedProjecttile : MagicianSpell
         GameObject obj = Managers.Resource.Instantiate("PlayerBullet",projectileSpawnPoint.position);
         Managers.CompCache.GetOrAddComponentCache(obj, out PlayerBullet playerBullet);
         playerBullet.Init(ProjectileData);
-        playerBullet.InitDamageDealer(BaseSpellData);
-        playerBullet.InitMoveable(BaseSpellData);
+        playerBullet.InitDamageDealer(this);
+        playerBullet.InitMoveable(this);
         Vector3 dir = new Vector3(target.Tf.position.x - projectileSpawnPoint.position.x,0,
             target.Tf.position.z - projectileSpawnPoint.position.z);
         playerBullet.SetDir(dir.normalized);
+    }
+
+    public override IHitable SearchTarget(Transform transform)
+    {
+        return SearchTarget_Closest(transform);
     }
 }
 
@@ -69,6 +111,7 @@ public class StraightProjectile : MagicianSpell
     public StraightProjectile(BaseSpellData data)
     {
         BaseSpellData = data;
+        Init(data);
         ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
     }
 
@@ -78,19 +121,15 @@ public class StraightProjectile : MagicianSpell
         GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
         Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
         playerBullet.Init(ProjectileData);
-        playerBullet.InitDamageDealer(BaseSpellData);
-        playerBullet.InitMoveable(BaseSpellData);
+        playerBullet.InitDamageDealer(this);
+        playerBullet.InitMoveable(this);
         Vector3 dir = Vector3.forward;
         playerBullet.SetDir(dir);
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
-        List<Enemy> enemies = new List<Enemy>(Managers.Game.Enemies);
-        int randIndex = Random.Range(0, enemies.Count);
-        if(enemies.Count == 0)
-            return null;
-        return enemies[randIndex];
+        return SearchTarget_Random(transform);
     }
 }
 
@@ -100,6 +139,7 @@ public class TargetedAOE : MagicianSpell
     public TargetedAOE(BaseSpellData data)
     {
         BaseSpellData = data;
+        Init(data);
         AOEEffectData = Managers.Data.AOEEffectDataDict[data.effectId];
     }
 
@@ -116,11 +156,7 @@ public class TargetedAOE : MagicianSpell
 
     public override IHitable SearchTarget(Transform transform)
     {
-        List<Enemy> enemies = new List<Enemy>(Managers.Game.Enemies);
-        int randIndex = Random.Range(0, enemies.Count);
-        if (enemies.Count == 0)
-            return null;
-        return enemies[randIndex];
+        return SearchTarget_Random(transform);
     }
 
 }

@@ -9,14 +9,18 @@ public class AOEEffectDataWriter : MonoBehaviour
 
     [Header("AOEEffectPrefab의 경로는 Resources/Prefabs/AOE 이어야 합니다")]
     public GameObject aOEEffectPrefab;
+    public GameObject explosionPrefab;
     string aOEEffectName;
+    string explosionName;
 
     public void WriteData()
     {
         aOEEffectName = aOEEffectPrefab.name;
+        explosionName = explosionPrefab.name;
         AOEEffectData newData = new AOEEffectData()
         {
-            effectName = aOEEffectName
+            effectName = aOEEffectName,
+            explosionName = explosionName
         };
         JsonDataWriter.WriteData(jsonpath, newData);
     }

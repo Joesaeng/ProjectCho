@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     List<Magician> Magicians { get; set; } = new();
     int MagicianCount { get; set; } = 0;
 
-    public SpellDataBase SpellDatas { get; set; } = new();
+    public SpellDataBase _SpellDataBase { get; } = new();
+    public EnemyDataBase _EnemyDataBase { get; } = new();
 
     GameObject SpawnArea;
     public float LeftX { get; set; }
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
             MagicianPoints.Add(magicianPointParent.GetChild(i));
         }
 
-        SpellDatas.Init();
+        _SpellDataBase.Init();
+        _EnemyDataBase.Init();
     }
 
     #region TEMP
@@ -65,7 +67,7 @@ public class GameManager : MonoBehaviour
 
             Magician magician = obj.GetOrAddComponent<Magician>();
             BaseSpellData data = Managers.Data.BaseSpellDataDict[MagicianCount];
-            GameObject aura = Managers.Resource.Instantiate($"ParticleEffects/Aura/Aura{data.elementType}",
+            GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
                 MagicianPoints[MagicianCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
             MagicianCount++;
@@ -81,8 +83,9 @@ public class GameManager : MonoBehaviour
         GameObject obj;
 
         int monsterId = Random.Range(0,2);
-        BaseEnemyData data = Managers.Data.BaseEnemyDataDict[monsterId];
-        if (data.isRange)
+        // BaseEnemyData data = Managers.Data.BaseEnemyDataDict[monsterId];
+        SetEnemyData setData = _EnemyDataBase.EnemyDataDict[monsterId];
+        if (setData.IsRange)
         {
             obj = Managers.Resource.Instantiate("Enemys/RangeEnemy0", spawnPos);
             Managers.CompCache.GetOrAddComponentCache<RangeAttackEnemy>(obj);
@@ -94,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
 
         Enemy enemy = obj.GetComponent<Enemy>();
-        enemy.Init(data);
+        enemy.Init(setData);
         enemy.SetDir(new Vector3(0, 0, -1));
 
         Enemies.Add(enemy);

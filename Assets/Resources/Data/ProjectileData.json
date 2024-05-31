@@ -16,7 +16,7 @@
       "id": 3,
       "baseMoveSpeed": 15.0,
       "projectileName": "WaterWall",
-      "explosionName": "WaterMuzzleBig"
+      "explosionName": "WaterSlashHit"
     },
     {
       "id": 4,

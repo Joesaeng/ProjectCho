@@ -11,6 +11,8 @@ public interface IData
     public int id { get; }
 }
 
+
+
 [Serializable]
 public enum SpellType
 {
@@ -47,12 +49,7 @@ namespace Data
         public bool sfxOn = true;
     }
 
-    public class PlayerWallData : IData
-    {
-        int IData.id => id;
-        public int id;
-        public float maxHp;
-    }
+    
 
     [Serializable]
     public class BaseEnemyData : IData
@@ -85,6 +82,7 @@ namespace Data
         int IData.id => id;
         public int id;
         public string effectName;
+        public string explosionName;
     }
 
     [Serializable]

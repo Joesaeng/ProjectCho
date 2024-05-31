@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class PlayerWallData : ISetData
+{
+    int IData.id => id;
+    public int id;
+    public float maxHp;
+
+}
+
 public class PlayerWall : MonoBehaviour, IHitable
 {
     private float _maxHp;
@@ -23,7 +31,7 @@ public class PlayerWall : MonoBehaviour, IHitable
     public void TakeDamage(IDamageDealer dealer)
     {
         CurHp -= dealer.AttackDamage;
-        if(CurHp < 0)
+        if (CurHp < 0)
         {
             // 게임오버
         }

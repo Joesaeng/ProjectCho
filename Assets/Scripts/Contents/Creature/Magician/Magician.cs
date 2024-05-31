@@ -18,10 +18,8 @@ public class Magician : AttackableCreature
     {
         base.Init(data);
         BaseSpellData spelldata = data as BaseSpellData;
+        Spell = Managers.Game._SpellDataBase.SpellDict[spelldata.id];
         ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint");
-
-        AttackDelay = spelldata.spellDelay;
-        AttackRange = spelldata.spellRange;
 
         _animTrigger = spelldata.animType.ToString();
 
@@ -30,7 +28,6 @@ public class Magician : AttackableCreature
         _animationController.OnAttackAnimEvent -= AttackAnimListner;
         _animationController.OnAttackAnimEvent += AttackAnimListner;
 
-        Spell = Managers.Game.SpellDatas.SpellDict[spelldata.id];
     }
 
     public override IEnumerator CoAttack()
@@ -47,9 +44,8 @@ public class Magician : AttackableCreature
 
     public override void InitAttackable(IData data)
     {
-        BaseSpellData spellData = data as BaseSpellData;
-        AttackDelay = spellData.spellDelay;
-        AttackRange = spellData.spellRange;
+        AttackDelay = Spell.SpellDelay;
+        AttackRange = Spell.SpellRange;
 
         AttackerState = AttackableState.SearchTarget;
     }

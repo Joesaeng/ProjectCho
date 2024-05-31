@@ -2,7 +2,8 @@
   "datas": [
     {
       "id": 0,
-      "effectName": "LightningPillarBlast"
+      "effectName": "LightningPillarBlast",
+      "explosionName": "LightningSlashHit"
     }
   ]
 }

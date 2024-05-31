@@ -61,8 +61,8 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public void InitMoveable(IData data)
     {
-        BaseEnemyData enemyData = data as BaseEnemyData;
-        MoveSpeed = enemyData.baseMoveSpeed;
+        SetEnemyData enemyData = data as SetEnemyData;
+        MoveSpeed = enemyData.MoveSpeed;
         Rigid = GetComponent<Rigidbody>();
         Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
             | RigidbodyConstraints.FreezeRotationY;
@@ -70,16 +70,16 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public override void InitAttackable(IData data)
     {
-        BaseEnemyData enemyData = data as BaseEnemyData;
-        AttackDelay = enemyData.baseAttackDelay;
-        AttackRange = enemyData.baseAttackRange;
+        SetEnemyData enemyData = data as SetEnemyData;
+        AttackDelay = enemyData.AttackDelay;
+        AttackRange = enemyData.AttackRange;
         TargetLayer = 1 << LayerMask.NameToLayer("Player");
         AttackerState = AttackableState.SearchTarget;
     }
     public void InitHitable(IData data)
     {
-        BaseEnemyData enemyData = data as BaseEnemyData;
-        MaxHp = enemyData.baseHp;
+        SetEnemyData enemyData = data as SetEnemyData;
+        MaxHp = enemyData.Hp;
         CurHp = MaxHp;
     }
     public override void Init(IData data)

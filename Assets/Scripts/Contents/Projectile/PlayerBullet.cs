@@ -8,17 +8,17 @@ public class PlayerBullet : Projectile
 {
     public override void InitDamageDealer(IData data)
     {
-        BaseSpellData spellData = data as BaseSpellData;
-        AttackDamage = spellData.spellDamage;
-        PierceCount = spellData.pierceCount;
+        MagicianSpell spellData = data as MagicianSpell;
+        AttackDamage = spellData.SpellDamage;
+        PierceCount = spellData.PireceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = spellData.spellSize;
+        sphCol.radius = spellData.SpellSize;
     }
 
     public override void InitMoveable(IData data)
     {
-        BaseSpellData baseSpellData = data as BaseSpellData;
-        MoveSpeed = baseSpellData.spellSpeed;
+        MagicianSpell spellData = data as MagicianSpell;
+        MoveSpeed = spellData.SpellSpeed;
     }
 }
 
@@ -26,11 +26,11 @@ public class StarightTypePlayerBullet : PlayerBullet
 {
     public override void InitDamageDealer(IData data)
     {
-        BaseSpellData spellData = data as BaseSpellData;
-        AttackDamage = spellData.spellDamage;
-        PierceCount = spellData.pierceCount;
+        MagicianSpell spellData = data as MagicianSpell;
+        AttackDamage = spellData.SpellDamage;
+        PierceCount = spellData.PireceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out BoxCollider boxCol);
-        boxCol.size = new Vector3(spellData.spellSize * 2, 1, 1);
+        boxCol.size = new Vector3(spellData.SpellSize * 2, 1, 1);
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -44,9 +44,9 @@ public class StarightTypePlayerBullet : PlayerBullet
         {
             hitable.TakeDamage(this);
 
-            // GameObject obj = Managers.Resource.Instantiate(_explosionPath, hitable.Tf.position);
-            // Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
-            // projectileExplosion.Init();
+            GameObject obj = Managers.Resource.Instantiate(_explosionPath, hitable.Tf.position);
+            Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
+            projectileExplosion.Init();
         }
     }
 }

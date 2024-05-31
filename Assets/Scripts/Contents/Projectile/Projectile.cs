@@ -104,31 +104,4 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         Managers.Resource.Destroy(ProjectileObject);
         Managers.Resource.Destroy(gameObject);
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Wall"))
-    //    {
-    //        Managers.Resource.Destroy(gameObject);
-    //        return;
-    //    }
-    //    if (collision.gameObject.TryGetComponent(out IHitable hitable))
-    //    {
-    //        hitable.TakeDamage(this);
-    //        GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
-    //        Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
-    //        projectileExplosion.Init();
-
-    //        PierceCount--;
-
-    //        if(PierceCount == 0)
-    //        {
-    //            StopCoroutine(CoMoveUpdate());
-    //            if (TrailRenderer != null)
-    //            {
-    //                TrailRenderer.Clear();
-    //            }
-    //            Managers.Resource.Destroy(gameObject);
-    //        }
-    //    }
-    //}
 }

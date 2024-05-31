@@ -10,18 +10,14 @@ public class ProjectileExplosion : MonoBehaviour
     public void Init()
     {
         IsLive = true;
-        if(ParticleSystem == null)
+        if (ParticleSystem == null)
             ParticleSystem = GetComponent<ParticleSystem>();
         StartCoroutine(CoStoppedDestroy());
     }
 
     IEnumerator CoStoppedDestroy()
     {
-        while(true)
-        {
-            yield return null;
-            if (ParticleSystem.isStopped)
-                Managers.Resource.Destroy(gameObject);
-        }
+        yield return YieldCache.WaitForSeconds(1f);
+        Managers.Resource.Destroy(gameObject);
     }
 }

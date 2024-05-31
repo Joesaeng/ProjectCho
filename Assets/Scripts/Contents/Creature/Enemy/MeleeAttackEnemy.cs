@@ -26,8 +26,8 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
 
     public void InitDamageDealer(IData data)
     {
-        BaseEnemyData enemyData = data as BaseEnemyData;
-        AttackDamage = enemyData.baseAttackDamage;
+        SetEnemyData enemyData = data as SetEnemyData;
+        AttackDamage = enemyData.AttackDamage;
     }
 
     public override void AttackAnimListner()

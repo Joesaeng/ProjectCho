@@ -10,6 +10,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     HashSet<IHitable> Targets { get; set; } = new();
 
     string AOESpellPath;
+    string ExplosionPath;
 
     public float AttackDamage { get; set; }
 
@@ -17,6 +18,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     {
         AOEEffectData aOEEffectData = data as AOEEffectData;
         AOESpellPath = "ParticleEffects/AOE/" + aOEEffectData.effectName;
+        ExplosionPath = "ParticleEffects/Explosions/" + aOEEffectData.explosionName;
 
         AOESpellObject = Managers.Resource.Instantiate(AOESpellPath, transform);
     }
@@ -44,7 +46,14 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     {
         yield return YieldCache.WaitForSeconds(0.1f);
         foreach (IHitable target in Targets)
+        {
             target.TakeDamage(this);
+
+            GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
+            Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
+            projectileExplosion.Init();
+
+        }
         yield return YieldCache.WaitForSeconds(1f);
         DestroyAOE();
     }

@@ -8,14 +8,14 @@ using UnityEngine;
 public class RangeAttackEnemy : Enemy
 {
     ProjectileData ProjectileData { get; set; }
-    BaseEnemyData EnemyData { get; set; }
+    SetEnemyData EnemyData { get; set; }
     private Transform ProjectileSpawnPoint { get; set; }
 
     public override void Init(IData data)
     {
         base.Init(data);
-        EnemyData = data as BaseEnemyData;
-        ProjectileData = Managers.Data.ProjectileDataDict[EnemyData.projectileId];
+        EnemyData = data as SetEnemyData;
+        ProjectileData = Managers.Data.ProjectileDataDict[EnemyData.ProjectileId];
         ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint");
     }
     public override IEnumerator CoAttack()
