@@ -25,7 +25,9 @@ public enum SpellType
 [Serializable]
 public enum ElementType
 {
-                // 동일 속성 적(Light,Dark 제외)에게는 75%의 데미지를 가함.
+                // 상성이 아닌 속성에는 75%의 데미지
+                // 동일 속성 적(Light,Dark 제외)에게는 50%의 데미지.
+                // Light,Dark 속성은 다른 속성에게 50%의 데미지만 받음
     Energy,     // 모든 속성의 적(어둠,빛 제외) 100% 데미지
     Fire,       // Air 속성의 적에게 200% 데미지, Water 속성 적에게 50% 데미지
     Water,      // Fire 속성 적에게 200% 데미지, Lightning 속성 적에게 50% 데미지

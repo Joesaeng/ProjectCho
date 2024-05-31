@@ -9,6 +9,7 @@ public class PlayerBullet : Projectile
     public override void InitDamageDealer(IData data)
     {
         MagicianSpell spellData = data as MagicianSpell;
+        ElementType = spellData.ElementType;
         AttackDamage = spellData.SpellDamage;
         PierceCount = spellData.PireceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
@@ -27,6 +28,7 @@ public class StarightTypePlayerBullet : PlayerBullet
     public override void InitDamageDealer(IData data)
     {
         MagicianSpell spellData = data as MagicianSpell;
+        ElementType = spellData.ElementType;
         AttackDamage = spellData.SpellDamage;
         PierceCount = spellData.PireceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out BoxCollider boxCol);
@@ -45,8 +47,8 @@ public class StarightTypePlayerBullet : PlayerBullet
             hitable.TakeDamage(this);
 
             GameObject obj = Managers.Resource.Instantiate(_explosionPath, hitable.Tf.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
-            projectileExplosion.Init();
+            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+            hitEffect.Init();
         }
     }
 }

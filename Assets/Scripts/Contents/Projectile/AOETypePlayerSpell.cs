@@ -7,7 +7,9 @@ using UnityEngine;
 public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
 {
     GameObject AOESpellObject { get; set; }
+    private ElementType _elementType;
     HashSet<IHitable> Targets { get; set; } = new();
+    public ElementType ElementType { get => _elementType; set => _elementType = value; }
 
     string AOESpellPath;
     string ExplosionPath;
@@ -17,19 +19,19 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     public void Init(IData data)
     {
         AOEEffectData aOEEffectData = data as AOEEffectData;
-        AOESpellPath = "ParticleEffects/AOE/" + aOEEffectData.effectName;
-        ExplosionPath = "ParticleEffects/Explosions/" + aOEEffectData.explosionName;
+        AOESpellPath = "Effects/AOE/" + aOEEffectData.effectName;
+        ExplosionPath = "Effects/Explosions/" + aOEEffectData.explosionName;
 
         AOESpellObject = Managers.Resource.Instantiate(AOESpellPath, transform);
     }
 
     public void InitDamageDealer(IData data)
     {
-        BaseSpellData spellData = data as BaseSpellData;
-        AttackDamage = spellData.spellDamage;
-
+        MagicianSpell spellData = data as MagicianSpell;
+        AttackDamage = spellData.SpellDamage;
+        ElementType = spellData.ElementType;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = spellData.spellSize;
+        sphCol.radius = spellData.SpellSize;
 
         StartCoroutine(CoImpact());
     }
@@ -50,8 +52,8 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
             target.TakeDamage(this);
 
             GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
-            projectileExplosion.Init();
+            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+            hitEffect.Init();
 
         }
         yield return YieldCache.WaitForSeconds(1f);

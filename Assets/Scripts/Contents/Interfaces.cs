@@ -44,6 +44,7 @@ namespace Interfaces
     public interface IDamageDealer
     {
         float AttackDamage { get; set; }
+        ElementType ElementType { get; set; }
 
         void InitDamageDealer(IData data);
     }

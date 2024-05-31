@@ -25,11 +25,11 @@ public class SpellDataBase
         return data.spellType switch
         {
             SpellType.TargetedProjectile
-            => new TargetedProjecttile(data),
+            => new TargettedProjecttile(data),
             SpellType.StraightProjectile
             => new StraightProjectile(data),
             SpellType.TargetedAOE
-            => new TargetedAOE(data),
+            => new TargettedAOE(data),
             // SpellType.Summon
             // => new StraightProjectile(data),
 

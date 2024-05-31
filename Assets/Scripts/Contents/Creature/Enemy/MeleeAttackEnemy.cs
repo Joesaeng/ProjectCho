@@ -8,6 +8,8 @@ using UnityEngine;
 public class MeleeAttackEnemy : Enemy, IDamageDealer
 {
     private float _attackDamage;
+    private Transform _hitEffectTf;
+    private string _hitEffectPath;
 
     public float AttackDamage { get => _attackDamage; set => _attackDamage = value; }
 
@@ -22,6 +24,12 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
     {
         base.Init(data);
         InitDamageDealer(data);
+        SetEnemyData enemyData = data as SetEnemyData;
+        _hitEffectPath = $"Effects/Explosions/{enemyData.ElementType}SlashHit";
+        if (_hitEffectTf == null)
+        {
+            _hitEffectTf = Util.FindChild(gameObject, "HitEffectPos").transform;
+        }
     }
 
     public void InitDamageDealer(IData data)
@@ -33,5 +41,8 @@ public class MeleeAttackEnemy : Enemy, IDamageDealer
     public override void AttackAnimListner()
     {
         Target.TakeDamage(this);
+        GameObject obj = Managers.Resource.Instantiate(_hitEffectPath, _hitEffectTf.position);
+        Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+        hitEffect.Init();
     }
 }

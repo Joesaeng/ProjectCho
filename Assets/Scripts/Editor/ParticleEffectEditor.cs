@@ -9,7 +9,7 @@ public class ParticleEffectEditor : Editor
     private static void ParticleEffectOptimization()
     {
         // Load ParticleEffect Prefabs
-        string folderPath = "Assets/Resources/Prefabs/ParticleEffects";
+        string folderPath = "Assets/Resources/Prefabs/Effects";
         string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
         for (int i = 0; i < prefabGUIDs.Length; i++)
         {

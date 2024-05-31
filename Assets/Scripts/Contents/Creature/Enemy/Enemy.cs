@@ -40,6 +40,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private bool IsHit { get; set; } = false;
     #endregion
 
+    public ElementType ElementType { get; set; }
     public override void ChangeAttackerState()
     {
         switch (AttackerState)
@@ -79,6 +80,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public void InitHitable(IData data)
     {
         SetEnemyData enemyData = data as SetEnemyData;
+        ElementType = enemyData.ElementType;
         MaxHp = enemyData.Hp;
         CurHp = MaxHp;
     }
@@ -117,7 +119,12 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public void TakeDamage(IDamageDealer dealer)
     {
-        _curHp -= dealer.AttackDamage;
+        float damage = ElementalDamageCalculator.CalculateDamage(dealer.ElementType, ElementType, dealer.AttackDamage);
+        _curHp -= damage;
+        GameObject damageTextObj = Managers.Resource.Instantiate("DamageText", transform.position + Vector3.up);
+        Managers.CompCache.GetOrAddComponentCache(damageTextObj, out DamageText damageText);
+        damageText.Init(Mathf.RoundToInt(damage));
+
         PlayAnimationOnTrigger("GetHit");
         IsHit = true;
 

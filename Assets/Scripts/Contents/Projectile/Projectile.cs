@@ -18,11 +18,13 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     private Rigidbody _rigid;
     private float _moveSpeed;
     private int _pierceCount;
+    private ElementType _elementType;
 
     public Vector3 Destination { get => _destination; set => _destination = value; }
     public Vector3 Direction { get => _direction; set => _direction = value; }
     public float AttackDamage { get => _attackDamage; set => _attackDamage = value; }
     public Rigidbody Rigid { get => _rigid; set => _rigid = value; }
+    public ElementType ElementType { get => _elementType; set => _elementType = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
     public int PierceCount { get => _pierceCount; set => _pierceCount = value; }
 
@@ -35,8 +37,8 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
             | RigidbodyConstraints.FreezeRotationY;
         ProjectileData projectileData = data as ProjectileData;
-        _projectilePath = "ParticleEffects/Projectiles/" + projectileData.projectileName;
-        _explosionPath = "ParticleEffects/Explosions/" + projectileData.explosionName;
+        _projectilePath = "Effects/Projectiles/" + projectileData.projectileName;
+        _explosionPath = "Effects/Explosions/" + projectileData.explosionName;
 
         ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
 
@@ -83,8 +85,8 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         {
             hitable.TakeDamage(this);
             GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out ProjectileExplosion projectileExplosion);
-            projectileExplosion.Init();
+            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+            hitEffect.Init();
 
             PierceCount--;
 

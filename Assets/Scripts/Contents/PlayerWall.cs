@@ -16,6 +16,7 @@ public class PlayerWall : MonoBehaviour, IHitable
     private float _maxHp;
     private float _curHp;
     private bool _isDead;
+    private Transform Wall { get; set; }
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
@@ -26,14 +27,18 @@ public class PlayerWall : MonoBehaviour, IHitable
     {
         MaxHp = 3000;
         CurHp = MaxHp;
+        Wall = GameObject.Find("ArcaneWall").transform;
     }
 
     public void TakeDamage(IDamageDealer dealer)
     {
         CurHp -= dealer.AttackDamage;
+        float scaleY = CurHp > 0 ? 2 * (CurHp / MaxHp) : 0;
+        Wall.localScale = new Vector3(Wall.localScale.x, scaleY, Wall.localScale.z);
         if (CurHp < 0)
         {
             // 게임오버
+            Debug.Log("GameOver");
         }
     }
 }

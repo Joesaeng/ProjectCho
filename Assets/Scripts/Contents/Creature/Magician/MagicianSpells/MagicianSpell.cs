@@ -13,6 +13,7 @@ public abstract class MagicianSpell : ISetData
 
     #region 변동가능
     public int EffectId { get; set; }
+    public ElementType ElementType { get; set; }
     public float SpellDamage { get; set; }
     public float SpellDelay { get; set; }
     public float SpellRange { get; set; }
@@ -25,6 +26,7 @@ public abstract class MagicianSpell : ISetData
     protected void Init(BaseSpellData data)
     {
         EffectId = data.effectId;
+        ElementType = data.elementType;
         SpellDamage = data.spellDamage;
         SpellDelay = data.spellDelay;
         SpellRange = data.spellRange;
@@ -77,10 +79,10 @@ public abstract class MagicianSpell : ISetData
     }
 }
 
-public class TargetedProjecttile : MagicianSpell
+public class TargettedProjecttile : MagicianSpell
 {
     ProjectileData ProjectileData { get; set; }
-    public TargetedProjecttile(BaseSpellData data)
+    public TargettedProjecttile(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
@@ -133,10 +135,10 @@ public class StraightProjectile : MagicianSpell
     }
 }
 
-public class TargetedAOE : MagicianSpell
+public class TargettedAOE : MagicianSpell
 {
     AOEEffectData AOEEffectData { get; set; }
-    public TargetedAOE(BaseSpellData data)
+    public TargettedAOE(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
@@ -151,7 +153,7 @@ public class TargetedAOE : MagicianSpell
         obj.transform.rotation = Quaternion.Euler(rot);
         Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell playerBullet);
         playerBullet.Init(AOEEffectData);
-        playerBullet.InitDamageDealer(BaseSpellData);
+        playerBullet.InitDamageDealer(this);
     }
 
     public override IHitable SearchTarget(Transform transform)
