@@ -24,7 +24,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellDamage *= _damageIncrease;
+            spell.SpellDamage += spell.SpellDamage * _damageIncrease;
         }
     }
 
@@ -39,7 +39,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellDelay *= _delayDecrease;
+            spell.SpellDelay -= spell.SpellDelay * _delayDecrease;
             spell.OnUpdateSpellDelay?.Invoke();
         }
     }
@@ -55,7 +55,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellSize *= _sizeIncrease;
+            spell.SpellSize += spell.SpellSize * _sizeIncrease;
         }
     }
 
@@ -88,12 +88,13 @@ namespace MagicianSpellUpgrade
         public void ApplyUpgrade(MagicianSpell spell)
         {
             _spell = spell;
+            _spell.AddProjectileCount += _addProjectileCount;
             _spell.OnAddProjectile += UseSpellOfUpgrade;
         }
 
         public void UseSpellOfUpgrade(Transform projectileSpawnPoint = null)
         {
-            for(int i = 0; i <  _addProjectileCount; i++)
+            for(int i = 0; i <  _spell.AddProjectileCount; i++)
             {
                 IHitable hitable = _spell.SearchTarget_Random();
                 if(hitable != null)
@@ -104,11 +105,15 @@ namespace MagicianSpellUpgrade
 
     public abstract class ImpactUpgrade : ISpellUpgrade
     {
+        public ElementType _elementType;
+        public MagicianSpell _spell;
         public virtual void ApplyUpgrade(MagicianSpell spell)
         {
             if (spell is TargetedProjecttile targeted)
             {
                 targeted.Impact = this;
+                _spell = spell;
+                _elementType = spell.ElementType;
             }
         }
 
@@ -117,24 +122,18 @@ namespace MagicianSpellUpgrade
 
     public class AddExplosionOnImpactUpgrade : ImpactUpgrade, IData
     {
-        public int id => throw new System.NotImplementedException();
-        private float _explosionDamage;
+        public int Id => throw new System.NotImplementedException();
         private float _explosionRadius;
-        private float _explosionColSize = 1f;
-        private ElementType _elementType;
         private AOEEffectData _AOEEffectData;
 
-        public AddExplosionOnImpactUpgrade(float explosionDamage, float explosionRadius, ElementType elementType, AOEEffectData aOEEffectData)
+        public AddExplosionOnImpactUpgrade(float explosionRadius, AOEEffectData aOEEffectData)
         {
-            _explosionDamage = explosionDamage;
             _explosionRadius = explosionRadius;
-            _elementType = elementType;
             _AOEEffectData = aOEEffectData;
         }
 
-        public float AttackDamage { get => _explosionDamage; set => _explosionDamage = value; }
+        public float AttackDamage { get => _spell.SpellDamage; }
         public float ExplosionRadius { get => _explosionRadius; }
-        public float ExplosionColSize { get => _explosionColSize; }
         public ElementType ElementType { get => _elementType; set => _elementType = value; }
 
         public override void ApplyImpact(Transform tf)
@@ -148,50 +147,29 @@ namespace MagicianSpellUpgrade
         }
     }
 
-    public class ChainProjectileUpgrade : ImpactUpgrade
+
+    public static class SpellUpgradeFactory
     {
-        private int _chainProjectileCount;
-        private float _damageDecrease;
-        private MagicianSpell _spell;
-
-        public ChainProjectileUpgrade(int chainProjectileCount, float damageDecrease)
+        public static ISpellUpgrade CreateUpgrade(SpellUpgradeData upgradeData)
         {
-            _chainProjectileCount = chainProjectileCount;
-            _damageDecrease = damageDecrease;
-        }
-
-        public override void ApplyUpgrade(MagicianSpell spell)
-        {
-            base.ApplyUpgrade(spell);
-            _spell = spell;
-            spell.SpellDamage *= _damageDecrease;
-            
-        }
-        public override void ApplyImpact(Transform tf)
-        {
-            if(_spell is TargetedProjecttile spell)
+            switch (upgradeData.spellUpgradeType)
             {
-                Vector3[] dirs = GenerateDirctions(tf,_chainProjectileCount);
-                foreach(Vector3 dir in dirs)
-                {
-                    spell.ShotProjectile(dir, tf);
-                }
+                case SpellUpgradeType.IncreaseDamage:
+                    return new IncreaseDamageUpgrade(upgradeData.floatValue);
+                case SpellUpgradeType.DecreaseSpellDelay:
+                    return new DecreaseDelayUpgrade(upgradeData.floatValue);
+                case SpellUpgradeType.IncreaseSize:
+                    return new IncreaseSizeUpgrade(upgradeData.floatValue);
+                case SpellUpgradeType.IncreasePierce:
+                    return new IncreasePierceUpgrade(upgradeData.integerValue);
+                case SpellUpgradeType.AddProjectile:
+                    return new AddProjectileUpgrade(upgradeData.integerValue);
+                case SpellUpgradeType.AddExplosionOnImpact:
+                    return new AddExplosionOnImpactUpgrade(upgradeData.floatValue,
+                        Managers.Data.AOEEffectDataDict[1]);
+                default:
+                    throw new System.ArgumentOutOfRangeException();
             }
-        }
-        
-        private Vector3[] GenerateDirctions(Transform tf,int count)
-        {
-            Vector3[] directions = new Vector3[count];
-            float angleStep = 360f / count;
-
-            for (int i = 0; i < count; i++)
-            {
-                float angle = i * angleStep;
-                Vector3 dir = Quaternion.Euler(0,angle,0) * tf.forward;
-                directions[i] = dir.normalized;
-            }
-
-            return directions;
         }
     }
 }

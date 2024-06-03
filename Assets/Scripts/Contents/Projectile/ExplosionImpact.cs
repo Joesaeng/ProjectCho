@@ -30,7 +30,7 @@ public class ExplosionImpact : MonoBehaviour, IDamageDealer
         AttackDamage = explosionData.AttackDamage;
         ElementType = explosionData.ElementType;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = explosionData.ExplosionColSize;
+        sphCol.radius = 1f;
 
         StartCoroutine(CoImpact());
     }

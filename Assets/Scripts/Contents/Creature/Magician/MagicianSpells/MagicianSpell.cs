@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public abstract class MagicianSpell : ISetData
 {
     protected BaseSpellData BaseSpellData { get; set; }
-    int IData.id => id;
+    int IData.Id => id;
     public int id;
 
     public System.Action OnUpdateSpellDelay;
@@ -31,11 +31,13 @@ public abstract class MagicianSpell : ISetData
     public float SpellSize { get; set; }
     public float BaseSpellSize { get; set; }
     public int PireceCount { get; set; }
+    public int AddProjectileCount { get; set; }
 
     public List<ISpellUpgrade> Upgrades { get; set; } = new();
 
     protected void Init(BaseSpellData data)
     {
+        id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
         SpellDamage = data.spellDamage;
@@ -46,6 +48,7 @@ public abstract class MagicianSpell : ISetData
         SpellSize = data.spellSize;
         BaseSpellSize = data.spellSize;
         PireceCount = data.pierceCount;
+        AddProjectileCount = 0;
     }
 
     public void AddUpgrade(ISpellUpgrade upgrade)

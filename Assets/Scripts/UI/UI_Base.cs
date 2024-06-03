@@ -79,5 +79,22 @@ public abstract class UI_Base : MonoBehaviour
         }
     }
 
-    public abstract void OnChangeLanguage();
+    public static void BindEvent<T>(GameObject go, Action<T, PointerEventData> action, T value, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_EventHandler evt = go.GetOrAddComponent<UI_EventHandler>();
+
+        switch (type)
+        {
+            case Define.UIEvent.Click:
+                evt.OnClickHandler -= (data) => action(value, data);
+                evt.OnClickHandler += (data) => action(value, data);
+                break;
+            case Define.UIEvent.Drag:
+                evt.OnDragHandler -= (data) => action(value, data);
+                evt.OnDragHandler += (data) => action(value, data);
+                break;
+        }
+    }
+
+    // public abstract void OnChangeLanguage();
 }

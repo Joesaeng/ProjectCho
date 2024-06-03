@@ -11,6 +11,11 @@ public static class Extension
         UI_Base.BindEvent(go, action, type);
     }
 
+    public static void AddUIEvent<T>(this GameObject go, Action<T,PointerEventData> action,T value ,Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_Base.BindEvent<T>(go, action, value, type);
+    }
+
     public static bool TryGetChild(this Transform parent, int index , out Transform child)
     {
         child = null;

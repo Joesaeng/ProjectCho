@@ -19,6 +19,9 @@ public class DataManager
     public Dictionary<int, BaseSpellData>   BaseSpellDataDict { get; private set; } = new Dictionary<int, BaseSpellData>();
     public Dictionary<int, ProjectileData>  ProjectileDataDict { get; private set; } = new Dictionary<int, ProjectileData>();
     public Dictionary<int, AOEEffectData>   AOEEffectDataDict { get; private set; } = new Dictionary<int, AOEEffectData>();
+    public Dictionary<int, SpellUpgradeDatas>   UpgradeDataDict { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
+
+    public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
 
     public void Init()
     {
@@ -26,6 +29,9 @@ public class DataManager
         BaseSpellDataDict = LoadJson<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
         ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
         AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
+        UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
+
+        LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData> ("LanguageData").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

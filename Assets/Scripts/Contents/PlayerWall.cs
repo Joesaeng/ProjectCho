@@ -1,11 +1,12 @@
 using Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWallData : ISetData
 {
-    int IData.id => id;
+    int IData.Id => id;
     public int id;
     public float maxHp;
 
@@ -17,6 +18,7 @@ public class PlayerWall : MonoBehaviour, IHitable
     private float _curHp;
     private bool _isDead;
     private Transform Wall { get; set; }
+    public Action<int> OnUpdatePlayerHp;
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
@@ -38,7 +40,8 @@ public class PlayerWall : MonoBehaviour, IHitable
         if (CurHp < 0)
         {
             // 게임오버
-            Debug.Log("GameOver");
+            CurHp = 0;
         }
+        OnUpdatePlayerHp?.Invoke(Mathf.FloorToInt(CurHp));
     }
 }

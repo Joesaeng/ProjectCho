@@ -13,5 +13,7 @@ public class DefenseScene : BaseScene
     {
         base.Init();
         Managers.Init();
+
+        Managers.UI.ShowSceneUI<UI_DefenseScene>();
     }
 }

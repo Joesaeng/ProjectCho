@@ -8,7 +8,7 @@ using UnityEngine.Diagnostics;
 
 public interface IData
 {
-    public int id { get; }
+    public int Id { get; }
 }
 
 
@@ -45,7 +45,6 @@ public enum SpellUpgradeType
     IncreaseSize,
     AddExplosionOnImpact,
     IncreasePierce,
-    ChainProjectile,
     DecreaseSpellDelay,
     AddProjectile,
 }
@@ -68,7 +67,8 @@ namespace Data
     [Serializable]
     public class BaseEnemyData : IData
     {
-        int IData.id => id;
+        int IData.Id => id;
+
         public int id;
         public ElementType elementType;
         public float baseHp;
@@ -83,7 +83,7 @@ namespace Data
     [Serializable]
     public class ProjectileData : IData
     {
-        int IData.id => id;
+        int IData.Id => id;
         public int id;
         public float baseMoveSpeed;
         public string projectileName;
@@ -93,7 +93,7 @@ namespace Data
     [Serializable]
     public class AOEEffectData : IData
     {
-        int IData.id => id;
+        int IData.Id => id;
         public int id;
         public string effectName;
         public string explosionName;
@@ -102,7 +102,7 @@ namespace Data
     [Serializable]
     public class BaseSpellData : IData
     {
-        int IData.id => id;
+        int IData.Id => id;
         public int id;
         public int effectId;
         public SpellType spellType;
@@ -121,8 +121,8 @@ namespace Data
     [Serializable]
     public class SpellUpgradeData
     {
+        public int spellId;
         public SpellUpgradeType spellUpgradeType;
-        public string upgradeName;
         public int integerValue;
         public float floatValue;
     }
@@ -130,23 +130,47 @@ namespace Data
     [Serializable]
     public class SpellUpgradeDatas : IData
     {
-        int IData.id => id;
+        int IData.Id => id;
         public int id;
         public int spellId;
         public List<SpellUpgradeData> spellUpgradeDatas;
     }
 
     [Serializable]
-    public class Datas<T> : ILoader<int, T> where T : IData
+    public class Datas<K> : ILoader<int, K> where K : IData
     {
-        public List<T> datas = new List<T>();
+        public List<K> datas = new List<K>();
 
-        public Dictionary<int, T> MakeDict()
+        public Dictionary<int, K> MakeDict()
         {
-            Dictionary<int, T> dict = new Dictionary<int, T>();
-            foreach (T data in datas)
+            Dictionary<int, K> dict = new Dictionary<int, K>();
+            foreach (K data in datas)
             {
-                dict.Add(data.id, data);
+                dict.Add(data.Id, data);
+            }
+            return dict;
+        }
+    }
+
+    [Serializable]
+    public class LanguageData
+    {
+        public string key;
+        public string eng;
+        public string kr;
+    }
+
+    [Serializable]
+    public class LanguageDatas : ILoader<string, LanguageData>
+    {
+        public List<LanguageData> datas = new List<LanguageData>();
+
+        public Dictionary<string, LanguageData> MakeDict()
+        {
+            Dictionary<string, LanguageData> dict = new Dictionary<string, LanguageData>();
+            foreach (LanguageData data in datas)
+            {
+                dict.Add(data.key, data);
             }
             return dict;
         }

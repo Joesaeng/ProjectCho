@@ -18,6 +18,10 @@ public class SpellUpgradeDataWriter : MonoBehaviour
             spellId = spellId,
             spellUpgradeDatas = datas
         };
+        foreach (SpellUpgradeData data in newData.spellUpgradeDatas )
+        {
+            data.spellId = spellId;
+        }
         JsonDataWriter.WriteData(jsonpath, newData);
     }
 }

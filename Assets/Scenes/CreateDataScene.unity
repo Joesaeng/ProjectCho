@@ -151,48 +151,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0eb72507a20e2848af7eaec75205123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellId: 1
+  spellId: 4
   datas:
-  - spellUpgradeType: 1
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 3
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 3
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 4
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 4
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 4
-    upgradeName: IncreasePierce
-    integerValue: 2
-    floatValue: 0
-  - spellUpgradeType: 0
-    upgradeName: IncreaseDamage
+  - spellId: 4
+    spellUpgradeType: 0
     integerValue: 0
-    floatValue: 2
-  - spellUpgradeType: 0
-    upgradeName: IncreaseDamage
+    floatValue: 0.6
+  - spellId: 4
+    spellUpgradeType: 0
     integerValue: 0
-    floatValue: 2
-  - spellUpgradeType: 5
-    upgradeName: DecreaseSpellDelay
+    floatValue: 0.6
+  - spellId: 4
+    spellUpgradeType: 0
     integerValue: 0
-    floatValue: 0.7
-  - spellUpgradeType: 5
-    upgradeName: DecreaseSpellDelay
+    floatValue: 0.6
+  - spellId: 4
+    spellUpgradeType: 0
     integerValue: 0
-    floatValue: 0.7
+    floatValue: 0.6
+  - spellId: 4
+    spellUpgradeType: 6
+    integerValue: 1
+    floatValue: 0
+  - spellId: 4
+    spellUpgradeType: 6
+    integerValue: 1
+    floatValue: 0
+  - spellId: 4
+    spellUpgradeType: 4
+    integerValue: 1
+    floatValue: 0
+  - spellId: 4
+    spellUpgradeType: 4
+    integerValue: 1
+    floatValue: 0
+  - spellId: 4
+    spellUpgradeType: 1
+    integerValue: 0
+    floatValue: 0.5
+  - spellId: 4
+    spellUpgradeType: 1
+    integerValue: 0
+    floatValue: 0.5
 --- !u!4 &30611868
 Transform:
   m_ObjectHideFlags: 0

@@ -46,7 +46,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
 
     IEnumerator CoImpact()
     {
-        yield return YieldCache.WaitForSeconds(0.01f);
+        yield return YieldCache.WaitForSeconds(0.05f);
         foreach (IHitable target in Targets)
         {
             if(target.IsDead) 

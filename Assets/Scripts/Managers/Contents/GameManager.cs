@@ -1,6 +1,7 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,11 +16,18 @@ public class GameManager : MonoBehaviour
 
     public SpellDataBase _SpellDataBase { get; } = new();
     public EnemyDataBase _EnemyDataBase { get; } = new();
+    public HashSet<SpellUpgradeData> _SpellUpgradeDatas { get; set; } = new();
+    LevelUpOptionsBuilder _LevelUpOptionsBuilder { get; } = new();
 
     GameObject SpawnArea;
     public float LeftX { get; set; }
     public float RightX { get; set; }
     float PosZ { get; set; }
+
+    #region UI에게 보낼 이벤트
+    public System.Action<int,int> OnUpdatePlayerHp;
+    #endregion
+
     private void Start()
     {
         Managers.Input.MouseAction += MouseEventListner;
@@ -40,6 +48,21 @@ public class GameManager : MonoBehaviour
 
         _SpellDataBase.Init();
         _EnemyDataBase.Init();
+
+        foreach(SpellUpgradeDatas datas in Managers.Data.UpgradeDataDict.Values)
+        {
+            foreach(SpellUpgradeData data in datas.spellUpgradeDatas)
+            {
+                _SpellUpgradeDatas.Add(data);
+            }
+        }
+
+        #region UI용 이벤트 바인드
+        PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
+        PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
+        #endregion
+
+        LevelUp();
     }
 
     #region TEMP
@@ -47,7 +70,8 @@ public class GameManager : MonoBehaviour
     {
         if (mouseEvent == Define.MouseEvent.Click)
         {
-            CreateMagician();
+            // CreateMagician();
+            // LevelUp();
         }
     }
 
@@ -59,14 +83,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CreateMagician()
+    public List<LevelUpOptions> SetLevelUpOptions { get; set; }
+    void LevelUp()
+    {
+        SetLevelUpOptions = _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
+
+        Managers.UI.ShowPopupUI<UI_LevelUpPopup>().OnClickedLevelUpOption += ClickedLevelUpOptionListner;
+    }
+
+    void ClickedLevelUpOptionListner(LevelUpOptions option)
+    {
+        if (option.IsNewSpell)
+            CreateMagician(option.SpellId);
+        else
+        {
+            _SpellUpgradeDatas.Remove(option.SpellUpgradeData);
+            MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
+            _SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
+        }
+    }
+
+    void CreateMagician(int spellId)
     {
         if (MagicianCount < MagicianPoints.Count)
         {
             GameObject obj = Managers.Resource.Instantiate("Magician", MagicianPoints[MagicianCount]);
 
             Magician magician = obj.GetOrAddComponent<Magician>();
-            BaseSpellData data = Managers.Data.BaseSpellDataDict[3];
+            BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
             GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
                 MagicianPoints[MagicianCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
@@ -103,23 +147,41 @@ public class GameManager : MonoBehaviour
         Enemies.Add(enemy);
     }
 
+    int killCount = 0;
+    int levelUpKillCount = 0;
     public void KillEnemy(Enemy enemy)
     {
         Managers.Resource.Destroy(enemy.gameObject);
         Enemies.Remove(enemy);
+        killCount++;
+        if (killCount > enemyCountByStage[levelUpKillCount])
+        {
+            LevelUp();
+            levelUpKillCount++;
+            killCount = 0;
+        }
     }
     #endregion
 
     // TEMP
-    float curTime = 0f;
-    float enemySpawnTime = 0.5f;
+    static int[] enemyCountByStage = new int[]{5,10,20,40,60,80,100,100,100,100};
+    static int stage = 0;
+    float curSpawnTime = 0f;
+    float stageTime = 0f;
+    float enemySpawnTime = 20 / enemyCountByStage[stage];
     private void Update()
     {
-        curTime += Time.deltaTime;
-        if (curTime > enemySpawnTime)
+        curSpawnTime += Time.deltaTime;
+        stageTime += Time.deltaTime;
+        if (curSpawnTime > enemySpawnTime)
         {
             CreateEnemy();
-            curTime = 0f;
+            curSpawnTime = 0f;
+        }
+        if(stageTime > 20f)
+        {
+            stage++;
+            stageTime = 0f;
         }
         KeyInput();
         foreach (var enemy in Enemies)
@@ -130,5 +192,10 @@ public class GameManager : MonoBehaviour
         {
             magician.OnUpdate();
         }
+    }
+
+    private void UpdatePlayerHpListner(int curHp)
+    {
+        OnUpdatePlayerHp.Invoke(curHp,Mathf.RoundToInt(PlayerWall.MaxHp));
     }
 }

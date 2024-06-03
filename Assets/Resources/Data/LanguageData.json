@@ -1,0 +1,149 @@
+{
+  "datas": [
+    {
+      "key": "NewSpell",
+      "eng": "NewSpell!",
+      "kr": "새로운 스펠!"
+    },
+    {
+      "key": "EnergyBall",
+      "eng": "EnergyBall",
+      "kr": "에너지 볼"
+    },
+    {
+      "key": "Tsunami",
+      "eng": "Tsunami",
+      "kr": "해일"
+    },
+    {
+      "key": "FireBall",
+      "eng": "FireBall",
+      "kr": "화염구"
+    },
+    {
+      "key": "LightningStrike",
+      "eng": "LightningStrike",
+      "kr": "번개 충격"
+    },
+    {
+      "key": "EarthOrv",
+      "eng": "EarthOrv",
+      "kr": "땅의 오브"
+    },
+    {
+      "key": "EnergyBall_Desc",
+      "eng": "Fire the skill of energy attributes to the nearest enemy",
+      "kr": "가장 가까운 적에게 에너지 속성의 스킬 발사합니다"
+    },
+    {
+      "key": "Tsunami_Desc",
+      "eng": "Going all the way and firing a tidal wave that damages every enemy within range",
+      "kr": "맵 끝까지 나아가며 범위 내의 모든 적들에게 피해를 주는 해일을 일으킵니다"
+    },
+    {
+      "key": "FireBall_Desc",
+      "eng": "Fireball to your nearest enemy",
+      "kr": "가장 가까운 적에게 화염구를 날립니다"
+    },
+    {
+      "key": "LightningStrike_Desc",
+      "eng": "Use lightning strikes on random enemies",
+      "kr": "무작위 적에게 번개충격을 사용합니다"
+    },
+    {
+      "key": "EarthOrv_Desc",
+      "eng": "Fires a EarthOrv that damages all enemies in its path",
+      "kr": "경로에 있는 모든 적에게 피해를 주는 땅의 오브를 발사합니다"
+    },
+    {
+      "key": "Energy",
+      "eng": "Energy",
+      "kr": "에너지"
+    },
+    {
+      "key": "Fire",
+      "eng": "Fire",
+      "kr": "불"
+    },
+    {
+      "key": "Water",
+      "eng": "Water",
+      "kr": "물"
+    },
+    {
+      "key": "Lightning",
+      "eng": "Lightning",
+      "kr": "번개"
+    },
+    {
+      "key": "Earth",
+      "eng": "Earth",
+      "kr": "땅"
+    },
+    {
+      "key": "Air",
+      "eng": "Air",
+      "kr": "공기"
+    },
+    {
+      "key": "Light",
+      "eng": "Light",
+      "kr": "빛"
+    },
+    {
+      "key": "Dark",
+      "eng": "Dark",
+      "kr": "어둠"
+    },
+    {
+      "key": "IncreaseDamage",
+      "eng": "Damage to this Spell increases by {0}%",
+      "kr": "해당 스킬의 데미지가 {0}% 증가합니다"
+    },
+    {
+      "key": "IncreaseSize",
+      "eng": "Size of the Spell increases by {0}%.",
+      "kr": "스킬의 크기가 {0}% 증가합니다."
+    },
+    {
+      "key": "AddExplosionOnImpact",
+      "eng": "Adds an explosion effect on impact dealing damage in a radius of {0}.",
+      "kr": "충돌 시 {0} 범위 내에 데미지를 주는 폭발 효과를 추가합니다."
+    },
+    {
+      "key": "IncreasePierce",
+      "eng": "Increases the Spell's pierce count by {0}.",
+      "kr": "스킬의 관통 횟수를 {0} 증가시킵니다."
+    },
+    {
+      "key": "DecreaseSpellDelay",
+      "eng": "Reduces the delay between casting the skill by {0}%.",
+      "kr": "스킬 시전 간의 지연 시간을 {0}% 감소시킵니다."
+    },
+    {
+      "key": "AddProjectile",
+      "eng": "Adds {0} additional projectiles.",
+      "kr": "추가 투사체 {0}개를 발사합니다."
+    },
+    {
+      "key": "ElementType",
+      "eng": "Element Type: {0}",
+      "kr": "속성 타입: {0}"
+    },
+    {
+      "key": "DamageCoefficient",
+      "eng": "Damage Coefficient: {0}%",
+      "kr": "피해 계수: {0}%"
+    },
+    {
+      "key": "AttackDelay",
+      "eng": "Attack Delay: {0} sec",
+      "kr": "공격 딜레이: {0} 초"
+    },
+    {
+      "key": "AttackRange",
+      "eng": "Attack Range: {0}m",
+      "kr": "공격 사정거리: {0}m"
+    }
+  ]
+}

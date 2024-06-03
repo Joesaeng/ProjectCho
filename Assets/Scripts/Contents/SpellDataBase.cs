@@ -16,17 +16,6 @@ public class SpellDataBase
             builder.AddData(spellData.id, spellData);
         }
         SpellDict = builder.Build();
-
-        SpellDict[0].AddUpgrade(new ChainProjectileUpgrade(4,0.5f));
-        SpellDict[0].AddUpgrade(new IncreasePierceUpgrade(2));
-        SpellDict[1].AddUpgrade(new IncreaseSizeUpgrade(1.5f));
-        SpellDict[2].AddUpgrade(new AddExplosionOnImpactUpgrade(20, 2f, SpellDict[2].ElementType,
-            Managers.Data.AOEEffectDataDict[1]));
-        SpellDict[2].AddUpgrade(new IncreasePierceUpgrade(2));
-        SpellDict[3].AddUpgrade(new AddProjectileUpgrade(1));
-        SpellDict[4].AddUpgrade(new AddProjectileUpgrade(1));
-        SpellDict[4].AddUpgrade(new DecreaseDelayUpgrade(0.5f));
-        SpellDict[4].AddUpgrade(new IncreaseSizeUpgrade(2f));
     }
 
     private MagicianSpell NewMagicianSpell(BaseSpellData data)

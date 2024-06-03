@@ -9,7 +9,7 @@ public interface ISetData : IData
 }
 public class SetEnemyData : ISetData
 {
-    int IData.id => Id;
+    int IData.Id => Id;
     public int Id;
     public ElementType ElementType { get; set; }
 

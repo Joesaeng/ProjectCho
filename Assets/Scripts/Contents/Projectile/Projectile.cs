@@ -96,7 +96,7 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
             hitEffect.Init();
 
             OnImpact?.Invoke(transform);
-            OnImpact = null;
+            // OnImpact = null;
             PierceCount--;
 
             if (PierceCount == 0)

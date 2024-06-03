@@ -1,0 +1,35 @@
+using Data;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class LevelUpOptionsBuilder
+{
+    public List<LevelUpOptions> CreateLevelUpOptions(List<Magician> magicians)
+    {
+        var ownSpells = magicians.Select(m => m.Spell.id).ToHashSet();
+        var tempOptions = new List<LevelUpOptions>();
+
+        if(ownSpells.Count < 5)
+        {
+            tempOptions.AddRange(
+            Managers.Data.BaseSpellDataDict.Values
+                .Where(data => !ownSpells.Contains(data.id))
+                .Select(data => new LevelUpOptions(true, data)));
+        }
+        
+        foreach(var data in Managers.Game._SpellUpgradeDatas)
+        {
+            if (ownSpells.Contains(data.spellId))
+                tempOptions.Add(new LevelUpOptions(false, upgradeData: data));
+        }
+
+        return GetRandomOptions(tempOptions, 3);
+    }
+
+    private List<LevelUpOptions> GetRandomOptions(List<LevelUpOptions> options, int count)
+    {
+        return options.OrderBy(_ => UnityEngine.Random.value).Take(count).ToList();
+    }
+}
