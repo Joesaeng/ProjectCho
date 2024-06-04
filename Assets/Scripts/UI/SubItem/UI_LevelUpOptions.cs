@@ -85,9 +85,6 @@ public class UI_LevelUpOptions : UI_Base
             case SpellUpgradeType.DecreaseSpellDelay:
                 return string.Format(template, upgradeData.floatValue * 100);
 
-            case SpellUpgradeType.AddExplosionOnImpact:
-                return string.Format(template, upgradeData.floatValue * 100);
-
             case SpellUpgradeType.IncreasePierce:
             case SpellUpgradeType.AddProjectile:
                 return string.Format(template, upgradeData.integerValue);

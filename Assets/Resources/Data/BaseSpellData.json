@@ -33,7 +33,7 @@
     {
       "id": 2,
       "effectId": 3,
-      "spellType": "TargetedProjectile",
+      "spellType": "TargetedProjectileOfExplosion",
       "animType": "ProjectileAttack",
       "elementType": "Fire",
       "spellName": "FireBall",
@@ -43,7 +43,8 @@
       "spellSpeed": 40.0,
       "spellDuration": 0.0,
       "spellSize": 1,
-      "pierceCount": 1
+      "pierceCount": 1,
+      "explosionRange": 2
     },
     {
       "id": 3,

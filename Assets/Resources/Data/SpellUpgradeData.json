@@ -183,12 +183,6 @@
           "spellUpgradeType": "DecreaseSpellDelay",
           "integerValue": 0,
           "floatValue": 0.15
-        },
-        {
-          "spellId": 2,
-          "spellUpgradeType": "AddExplosionOnImpact",
-          "integerValue": 0,
-          "floatValue": 2.0
         }
       ]
     },

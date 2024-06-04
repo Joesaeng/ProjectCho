@@ -22,7 +22,8 @@ public class SpellDataBase
     {
         return data.spellType switch
         {
-            SpellType.TargetedProjectile => new TargetedProjecttile(data),
+            SpellType.TargetedProjectile => new TargetedProjectile(data),
+            SpellType.TargetedProjectileOfExplosion => new TargetedProjectileOfExplosion(data),
             SpellType.StraightProjectile => new StraightProjectile(data),
             SpellType.TargetedAOE => new TargetedAOE(data),
             // SpellType.Summon => new Summon(data), // 필요 시 추가

@@ -42,7 +42,6 @@ public class Magician : AttackableCreature
 
     public void AttackAnimListner()
     {
-        // Spell.UseSpell(Target, ProjectileSpawnPoint);
         Spell.UseSpell(_targetPos, ProjectileSpawnPoint);
     }
 

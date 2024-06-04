@@ -10,7 +10,7 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
 {
     GameObject ProjectileObject { get; set; }
 
-    public Action<Transform> OnImpact; 
+    public Action<IDamageDealer,Transform> OnImpact; 
 
     protected string _projectilePath;
     protected string _explosionPath;
@@ -83,21 +83,16 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
-            hitEffect.Init();
             DestroyBullet();
             return;
         }
         if (other.gameObject.TryGetComponent(out IHitable hitable))
         {
             hitable.TakeDamage(this);
-            GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
-            hitEffect.Init();
+            ShowHitEffect();
 
-            OnImpact?.Invoke(transform);
-            // OnImpact = null;
+            OnImpact?.Invoke(this,transform);
+            
             PierceCount--;
 
             if (PierceCount == 0)
@@ -105,6 +100,13 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
                 DestroyBullet();
             }
         }
+    }
+
+    private void ShowHitEffect()
+    {
+        GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
+        Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+        hitEffect.Init();
     }
 
     protected void DestroyBullet()

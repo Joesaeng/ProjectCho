@@ -17,7 +17,7 @@ public interface ISpellBehavior
 
 public class TargetedDirectionBehavior : ISpellBehavior
 {
-    public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
+    public virtual void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
         Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
             targetPos.z - projectileSpawnPoint.position.z).normalized;
@@ -33,7 +33,7 @@ public class TargetedDirectionBehavior : ISpellBehavior
 
         if (spell.Impact != null)
         {
-            playerBullet.OnImpact += spell.Impact.ApplyImpact;
+            playerBullet.OnImpact += spell.Impact.OnImpact;
         }
     }
 }
@@ -114,7 +114,7 @@ public abstract class MagicianSpell : ISetData
     #endregion
 
     public List<ISpellUpgrade> Upgrades { get; set; } = new();
-    public ImpactUpgrade Impact;
+    public ExplosionOnImpact Impact = null;
 
     protected void Init(BaseSpellData data)
     {
@@ -201,9 +201,9 @@ public abstract class MagicianSpell : ISetData
     }
 }
 
-public class TargetedProjecttile : MagicianSpell
+public class TargetedProjectile : MagicianSpell
 {
-    public TargetedProjecttile(BaseSpellData data)
+    public TargetedProjectile(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
@@ -214,6 +214,46 @@ public class TargetedProjecttile : MagicianSpell
     public override IHitable SearchTarget(Transform transform)
     {
         return SearchTarget_Closest(transform);
+    }
+}
+
+public class TargetedProjectileOfExplosion : MagicianSpell
+{
+    public TargetedProjectileOfExplosion(BaseSpellData data)
+    {
+        BaseSpellData = data;
+        Init(data);
+        
+        EffectData = Managers.Data.ProjectileDataDict[data.effectId];
+        SpellBehavior = new TargetedDirectionBehavior();
+        Impact = new ExplosionOnImpact();
+
+        Impact.explosionRange = (float)data.explosionRange;
+    }
+
+    public override IHitable SearchTarget(Transform transform)
+    {
+        return SearchTarget_Closest(transform);
+    }
+}
+
+public class ExplosionOnImpact
+{
+    public float explosionRange;
+
+    public void OnImpact(IDamageDealer dealer,Transform tf)
+    {
+        // 폭발 데미지를 적용하는 로직 구현
+        List<IHitable> hits = new List<IHitable>();
+        foreach (Enemy enemy in Managers.Game.Enemies)
+        {
+            float distance = Vector3.Distance(tf.position, enemy.transform.position);
+            if (distance > explosionRange)
+                continue;
+            hits.Add(enemy);
+        }
+        foreach (IHitable hit in hits)
+            hit.TakeDamage(dealer);
     }
 }
 

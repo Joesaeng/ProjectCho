@@ -17,6 +17,7 @@ public interface IData
 public enum SpellType
 {
     TargetedProjectile,
+    TargetedProjectileOfExplosion,
     StraightProjectile,
     TargetedAOE,
     Summon,
@@ -43,7 +44,6 @@ public enum SpellUpgradeType
 {
     IncreaseDamage,
     IncreaseSize,
-    AddExplosionOnImpact,
     IncreasePierce,
     DecreaseSpellDelay,
     AddProjectile,
@@ -120,6 +120,10 @@ namespace Data
         public float spellDuration;
         public float spellSize;
         public int pierceCount;
+
+        // Optional fields
+        public float? explosionDamage;
+        public float? explosionRange;
     }
 
     [Serializable]

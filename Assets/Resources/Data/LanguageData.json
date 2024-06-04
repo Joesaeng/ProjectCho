@@ -42,8 +42,8 @@
     },
     {
       "key": "FireBall_Desc",
-      "eng": "Fireball to your nearest enemy",
-      "kr": "가장 가까운 적에게 화염구를 날립니다"
+      "eng": "Launches a fireball that deals explosion damage",
+      "kr": "폭발피해를 가진 화염구를 날립니다."
     },
     {
       "key": "LightningStrike_Desc",
