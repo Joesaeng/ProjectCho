@@ -79,8 +79,13 @@ namespace Data
         public int projectileId;
     }
 
+    public interface ISpellEffectData
+    {
+
+    }
+
     [Serializable]
-    public class ProjectileData : IData
+    public class ProjectileData : IData, ISpellEffectData
     {
         int IData.Id => id;
         public int id;
@@ -90,7 +95,7 @@ namespace Data
     }
 
     [Serializable]
-    public class AOEEffectData : IData
+    public class AOEEffectData : IData, ISpellEffectData
     {
         int IData.Id => id;
         public int id;

@@ -44,6 +44,7 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         _explosionPath = "Effects/Explosions/" + projectileData.explosionName;
 
         ProjectileObject = Managers.Resource.Instantiate(_projectilePath, transform);
+        ProjectileObject.transform.localScale = Vector3.one;
 
         TrailRenderer = null;
         TrailRenderer = ProjectileObject.GetComponentInChildren<TrailRenderer>();

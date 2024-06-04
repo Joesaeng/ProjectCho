@@ -59,6 +59,7 @@ public class UI_LevelUpPopup : UI_Popup
 
     public void ClickedReroll(PointerEventData data)
     {
+        Managers.Game.CreateLevelUpOptions();
         GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(false);
         for (int i = 0; i < _panelLevelupTf.childCount; i++)
         {

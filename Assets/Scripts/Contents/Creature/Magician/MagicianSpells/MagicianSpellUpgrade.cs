@@ -74,13 +74,13 @@ namespace MagicianSpellUpgrade
         }
     }
 
-
     public class AddProjectileUpgrade : ISpellUpgrade
     {
         private int _addProjectileCount;
         private MagicianSpell _spell;
+        private float _delayBetweenShots = 0.15f;
 
-        public AddProjectileUpgrade(int  addProjectileCount)
+        public AddProjectileUpgrade(int addProjectileCount)
         {
             _addProjectileCount = addProjectileCount;
         }
@@ -89,38 +89,30 @@ namespace MagicianSpellUpgrade
         {
             _spell = spell;
             _spell.AddProjectileCount += _addProjectileCount;
-            if(_spell.OnAddProjectile == null)
-                _spell.OnAddProjectile += UseSpellOfUpgrade;
+            if (_spell.OnAddProjectile == null)
+                _spell.OnAddProjectile += Execute;
         }
 
-        // public void UseSpellOfUpgrade(Transform projectileSpawnPoint = null)
-        // {
-        //     for(int i = 0; i <  _spell.AddProjectileCount; i++)
-        //     {
-        //         IHitable hitable = _spell.SearchTarget_Random();
-        //         if(hitable != null)
-        //             _spell.UseSpellOfUpgrade(hitable.Tf.position, projectileSpawnPoint);
-        //     }
-        // }
+        private void Execute(Transform projectileSpawnPoint)
+        {
+            for (int i = 0; i < _spell.AddProjectileCount; i++)
+            {
+                float delay = _delayBetweenShots * (i+1);
+                Managers.Timer.StartTimer(delay, () => ShootProjectile(projectileSpawnPoint));
+            }
+        }
 
-        public void UseSpellOfUpgrade(Transform projectileSpawnPoint = null)
+        private void ShootProjectile(Transform projectileSpawnPoint)
         {
             IHitable primaryTarget = _spell.SearchTarget(_spell.OwnMagicianTransform);
 
             if (primaryTarget == null)
                 return;
 
-            Vector3 primaryPosition = primaryTarget.Tf.position;
-
-            for (int i = 0; i < _spell.AddProjectileCount; i++)
-            {
-                float angle = 360f / _spell.AddProjectileCount * i;
-                Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * 2f; // Adjust the multiplier as needed
-                Vector3 newTargetPosition = primaryPosition + offset;
-
-                _spell.UseSpellOfUpgrade(newTargetPosition, projectileSpawnPoint);
-            }
+            Vector3 targetPosition = primaryTarget.Tf.position;
+            _spell.UseSpellOfUpgrade(targetPosition, projectileSpawnPoint);
         }
+
     }
 
     public abstract class ImpactUpgrade : ISpellUpgrade

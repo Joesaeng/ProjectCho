@@ -78,38 +78,18 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        CreateMagician(0);
+        CreateMagician(2);
         StartStage(CurStage);
     }
 
     void StartStage(int stage)
     {
-        // StopCoroutine("SpawnEnemies");
-
         LevelData levelData = Managers.Data.LevelDataDict[0];
         StageData stageData = levelData.stageDatas[stage];
         _EnemyDataBase.SetEnemyStatusByStageData(stage, levelData);
         EnemiesToSpawn = stageData.spawnEnemyCount;
         EnemiesSpwaned = 0;
         SpawnInterval = OneStageTime / EnemiesToSpawn;
-        // StartCoroutine(SpawnEnemies());
-        // StartCoroutine(StageTimer());
-    }
-
-    IEnumerator SpawnEnemies()
-    {
-        while (EnemiesSpwaned < EnemiesToSpawn)
-        {
-            CreateEnemy();
-            EnemiesSpwaned++;
-            yield return YieldCache.WaitForSeconds(SpawnInterval);
-        }
-    }
-
-    IEnumerator StageTimer()
-    {
-        yield return YieldCache.WaitForSeconds(OneStageTime);
-        NextStage();
     }
 
     void NextStage()
@@ -124,10 +104,15 @@ public class GameManager : MonoBehaviour
     void LevelUp()
     {
         PlayerLevel++;
-        SetLevelUpOptions = _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
+        CreateLevelUpOptions();
 
         Managers.UI.ShowPopupUI<UI_LevelUpPopup>().OnClickedLevelUpOption += ClickedLevelUpOptionListner;
         Managers.Time.GamePause();
+    }
+
+    public void CreateLevelUpOptions()
+    {
+        SetLevelUpOptions = _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
     }
 
     void ClickedLevelUpOptionListner(LevelUpOptions option)

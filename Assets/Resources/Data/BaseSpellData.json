@@ -27,7 +27,7 @@
       "spellRange": 15.0,
       "spellSpeed": 15.0,
       "spellDuration": 0.0,
-      "spellSize": 4,
+      "spellSize": 2,
       "pierceCount": -1
     },
     {
@@ -37,8 +37,8 @@
       "animType": "ProjectileAttack",
       "elementType": "Fire",
       "spellName": "FireBall",
-      "spellDamage": 15.0,
-      "spellDelay": 2.0,
+      "spellDamage": 20.0,
+      "spellDelay": 1.5,
       "spellRange": 22.0,
       "spellSpeed": 40.0,
       "spellDuration": 0.0,
@@ -57,7 +57,7 @@
       "spellRange": 25.0,
       "spellSpeed": 0.0,
       "spellDuration": 0.0,
-      "spellSize": 1.5,
+      "spellSize": 1,
       "pierceCount": -1
     },
     {

@@ -23,6 +23,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
         ExplosionPath = "Effects/Explosions/" + aOEEffectData.explosionName;
 
         AOESpellObject = Managers.Resource.Instantiate(AOESpellPath, transform);
+        AOESpellObject.transform.localScale = Vector3.one;
     }
 
     public void InitDamageDealer(IData data)

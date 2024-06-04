@@ -8,11 +8,89 @@ using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+#region Spell Behavior
+public interface ISpellBehavior
+{
+    void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null);
+}
+
+public class TargetedDirectionBehavior : ISpellBehavior
+{
+    public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
+            targetPos.z - projectileSpawnPoint.position.z).normalized;
+
+        GameObject obj = Managers.Resource.Instantiate("PlayerBullet",projectileSpawnPoint.position);
+        Managers.CompCache.GetOrAddComponentCache(obj, out PlayerBullet playerBullet);
+        obj.transform.localScale = Vector3.one * spell.SpellSize;
+        playerBullet.Init(spell.EffectData as ProjectileData);
+        playerBullet.InitDamageDealer(spell);
+        playerBullet.InitMoveable(spell);
+
+        playerBullet.SetDir(dir);
+
+        if (spell.Impact != null)
+        {
+            playerBullet.OnImpact += spell.Impact.ApplyImpact;
+        }
+    }
+}
+
+public class StraightDirectionBehavior : ISpellBehavior
+{
+    public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 pos = new Vector3(targetPos.x, 0,0);
+        GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
+        Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
+        playerBullet.Init(spell.EffectData as ProjectileData);
+        playerBullet.InitDamageDealer(spell);
+        playerBullet.InitMoveable(spell);
+        Vector3 dir = Vector3.forward;
+        playerBullet.SetDir(dir);
+
+        float newSize = spell.SpellSize;
+        SetParticleSystemSize(obj, newSize);
+    }
+
+    private void SetParticleSystemSize(GameObject obj, float newSize)
+    {
+        var particleSystems = obj.GetComponentsInChildren<ParticleSystem>();
+        foreach (var ps in particleSystems)
+        {
+            var shapeModule = ps.shape;
+            shapeModule.radius = newSize;
+        }
+    }
+}
+
+public class TargetPositionBehavior : ISpellBehavior
+{
+    public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
+        Vector3 rot = new Vector3(-90,0,0);
+        GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
+        obj.transform.rotation = Quaternion.Euler(rot);
+        obj.transform.localScale = Vector3.one * spell.SpellSize;
+        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell aoespell);
+        aoespell.Init(spell.EffectData as AOEEffectData);
+        aoespell.InitDamageDealer(spell);
+    }
+}
+#endregion
+
 public abstract class MagicianSpell : ISetData
 {
     protected BaseSpellData BaseSpellData { get; set; }
     int IData.Id => id;
     public int id;
+
+    public ISpellEffectData EffectData { get; set; }
+
+    public ISpellBehavior SpellBehavior { get; set; }
 
     public System.Action OnUpdateSpellDelay;
     public System.Action<Transform> OnAddProjectile;
@@ -21,6 +99,7 @@ public abstract class MagicianSpell : ISetData
 
     public Transform OwnMagicianTransform { get => _ownMagicianTransform; set => _ownMagicianTransform = value; }
 
+    #region 데이터
     public int EffectId { get; set; }
     public ElementType ElementType { get; set; }
     public float SpellDamage { get; set; }
@@ -32,8 +111,10 @@ public abstract class MagicianSpell : ISetData
     public float BaseSpellSize { get; set; }
     public int PireceCount { get; set; }
     public int AddProjectileCount { get; set; }
+    #endregion
 
     public List<ISpellUpgrade> Upgrades { get; set; } = new();
+    public ImpactUpgrade Impact;
 
     protected void Init(BaseSpellData data)
     {
@@ -56,9 +137,17 @@ public abstract class MagicianSpell : ISetData
         Upgrades.Add(upgrade);
         upgrade.ApplyUpgrade(this);
     }
-    public abstract void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null);
 
-    public abstract void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null);
+    public virtual void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        SpellBehavior.Execute(this, targetPos, projectileSpawnPoint);
+        OnAddProjectile?.Invoke(projectileSpawnPoint);
+    }
+
+    public virtual void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
+    {
+        SpellBehavior.Execute(this, targetPos, projectileSpawnPoint);
+    }
 
     public abstract IHitable SearchTarget(Transform transform);
 
@@ -114,167 +203,48 @@ public abstract class MagicianSpell : ISetData
 
 public class TargetedProjecttile : MagicianSpell
 {
-    ProjectileData ProjectileData { get; set; }
-
-    public ImpactUpgrade Impact;
-
     public TargetedProjecttile(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
-        ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
-    }
-
-    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
-            targetPos.z - projectileSpawnPoint.position.z).normalized;
-
-        PlayerBullet playerBullet = ShotProjectile(dir,projectileSpawnPoint);
-
-        if (Impact != null)
-        {
-            playerBullet.OnImpact += Impact.ApplyImpact;
-        }
-
-        OnAddProjectile?.Invoke(projectileSpawnPoint);
-    }
-
-    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 dir = new Vector3(targetPos.x - projectileSpawnPoint.position.x,0,
-            targetPos.z - projectileSpawnPoint.position.z).normalized;
-
-        PlayerBullet playerBullet = ShotProjectile(dir,projectileSpawnPoint);
-
-        if (Impact != null)
-        {
-            playerBullet.OnImpact += Impact.ApplyImpact;
-        }
-    }
-
-    public PlayerBullet ShotProjectile(Vector3 dir, Transform projectileSpawnPoint = null)
-    {
-        GameObject obj = Managers.Resource.Instantiate("PlayerBullet",projectileSpawnPoint.position);
-        Managers.CompCache.GetOrAddComponentCache(obj, out PlayerBullet playerBullet);
-        obj.transform.localScale = Vector3.one * SpellSize;
-        playerBullet.Init(ProjectileData);
-        playerBullet.InitDamageDealer(this);
-        playerBullet.InitMoveable(this);
-
-        playerBullet.SetDir(dir);
-        return playerBullet;
+        EffectData = Managers.Data.ProjectileDataDict[data.effectId];
+        SpellBehavior = new TargetedDirectionBehavior();
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
-        // Debug.Log("SearchTarget");
         return SearchTarget_Closest(transform);
     }
-
-    
 }
 
 public class StraightProjectile : MagicianSpell
 {
-    ProjectileData ProjectileData { get; set; }
     public StraightProjectile(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
-        ProjectileData = Managers.Data.ProjectileDataDict[data.effectId];
-    }
-
-    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 pos = new Vector3(targetPos.x, 0,0);
-        GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
-        Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
-        playerBullet.Init(ProjectileData);
-        playerBullet.InitDamageDealer(this);
-        playerBullet.InitMoveable(this);
-        Vector3 dir = Vector3.forward;
-        playerBullet.SetDir(dir);
-
-        float newSize = this.SpellSize;
-        SetParticleSystemSize(obj, newSize);
-
-        OnAddProjectile?.Invoke(projectileSpawnPoint);
-    }
-
-    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 pos = new Vector3(targetPos.x, 0,0);
-        GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
-        Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
-        playerBullet.Init(ProjectileData);
-        playerBullet.InitDamageDealer(this);
-        playerBullet.InitMoveable(this);
-        Vector3 dir = Vector3.forward;
-        playerBullet.SetDir(dir);
-
-        float newSize = this.SpellSize;
-        SetParticleSystemSize(obj, newSize);
+        EffectData = Managers.Data.ProjectileDataDict[data.effectId];
+        SpellBehavior = new StraightDirectionBehavior();
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
         return SearchTarget_Random();
-    }
-
-    private void SetParticleSystemSize(GameObject obj, float newSize)
-    {
-        var particleSystems = obj.GetComponentsInChildren<ParticleSystem>();
-        foreach (var ps in particleSystems)
-        {
-            var shapeModule = ps.shape;
-            shapeModule.radius = newSize;
-        }
-    }
-
-    
+    } 
 }
 
 public class TargetedAOE : MagicianSpell
 {
-    AOEEffectData AOEEffectData { get; set; }
     public TargetedAOE(BaseSpellData data)
     {
         BaseSpellData = data;
         Init(data);
-        AOEEffectData = Managers.Data.AOEEffectDataDict[data.effectId];
-    }
-
-    public override void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
-        Vector3 rot = new Vector3(-90,0,0);
-        GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
-        obj.transform.rotation = Quaternion.Euler(rot);
-        obj.transform.localScale = Vector3.one * SpellSize;
-        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell spell);
-        spell.Init(AOEEffectData);
-        spell.InitDamageDealer(this);
-
-        OnAddProjectile?.Invoke(projectileSpawnPoint);
-    }
-
-    public override void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
-    {
-        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
-        Vector3 rot = new Vector3(-90,0,0);
-        GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
-        obj.transform.rotation = Quaternion.Euler(rot);
-        obj.transform.localScale = Vector3.one * SpellSize;
-        Managers.CompCache.GetOrAddComponentCache(obj, out AOETypePlayerSpell spell);
-        spell.Init(AOEEffectData);
-        spell.InitDamageDealer(this);
+        EffectData = Managers.Data.AOEEffectDataDict[data.effectId];
+        SpellBehavior = new TargetPositionBehavior();
     }
 
     public override IHitable SearchTarget(Transform transform)
     {
         return SearchTarget_Random();
-    }
-
-    
+    }  
 }
