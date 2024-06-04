@@ -284,11 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df66a65f2c80fd941aa988ed99bba26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveSpeed: 20
-  projectilePrefab: {fileID: 5964719868977000675, guid: 7517c60c882184346a5996847c723562,
-    type: 3}
-  explosionPrefab: {fileID: 6123832745311090913, guid: fac4b6277bfb03047bdbde251c3793d5,
-    type: 3}
+  baseMoveSpeed: 25
+  projectilePrefab: {fileID: 197658, guid: 8169d435360120f4aa57777e898fd03b, type: 3}
+  explosionPrefab: {fileID: 156488, guid: bb898fbb9206f6c439c245cf9aba2c4d, type: 3}
 --- !u!4 &924026044
 Transform:
   m_ObjectHideFlags: 0
@@ -389,14 +387,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967ad8e5add9c4d4da5911502883bc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementType: 0
-  baseHp: 0
-  baseMoveSpeed: 0
-  baseAttackDamage: 0
-  baseAttackDelay: 0
-  baseAttackRange: 0
-  isRange: 0
-  projectileId: 0
+  elementType: 3
+  baseHp: 10
+  baseMoveSpeed: 2
+  baseAttackDamage: 3
+  baseAttackDelay: 3
+  baseAttackRange: 5
+  isRange: 1
+  projectileId: 5
 --- !u!4 &2130175834
 Transform:
   m_ObjectHideFlags: 0

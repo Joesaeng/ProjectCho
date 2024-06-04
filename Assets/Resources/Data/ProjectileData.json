@@ -29,6 +29,12 @@
       "baseMoveSpeed": 20.0,
       "projectileName": "EarthOrv",
       "explosionName": "EarthSlashHit"
+    },
+    {
+      "id": 5,
+      "baseMoveSpeed": 25.0,
+      "projectileName": "LightningBall",
+      "explosionName": "LightningBallExplosion"
     }
   ]
 }

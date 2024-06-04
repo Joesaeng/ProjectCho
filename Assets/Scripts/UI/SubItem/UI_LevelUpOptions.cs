@@ -22,13 +22,14 @@ public class UI_LevelUpOptions : UI_Base
         Text_SpellName,
         Text_UpgradeDesc,
         Text_UpgradeStatus,
-        Text_NewSpell
+        Text_NewSpell,
     }
+
     public override void Init()
     {
-        
+
     }
-    string statusFormat = 
+    string statusFormat =
 @"{0}
 {1}
 {2}
@@ -43,7 +44,7 @@ public class UI_LevelUpOptions : UI_Base
             Debug.LogError("LevelUpOptions is null!");
             return;
         }
-        if(options.IsNewSpell)
+        if (options.IsNewSpell)
         {
             BaseSpellData data = options.BaseSpellData;
             GetText((int)Texts.Text_NewSpell).gameObject.SetActive(true);

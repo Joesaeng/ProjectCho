@@ -89,16 +89,36 @@ namespace MagicianSpellUpgrade
         {
             _spell = spell;
             _spell.AddProjectileCount += _addProjectileCount;
-            _spell.OnAddProjectile += UseSpellOfUpgrade;
+            if(_spell.OnAddProjectile == null)
+                _spell.OnAddProjectile += UseSpellOfUpgrade;
         }
+
+        // public void UseSpellOfUpgrade(Transform projectileSpawnPoint = null)
+        // {
+        //     for(int i = 0; i <  _spell.AddProjectileCount; i++)
+        //     {
+        //         IHitable hitable = _spell.SearchTarget_Random();
+        //         if(hitable != null)
+        //             _spell.UseSpellOfUpgrade(hitable.Tf.position, projectileSpawnPoint);
+        //     }
+        // }
 
         public void UseSpellOfUpgrade(Transform projectileSpawnPoint = null)
         {
-            for(int i = 0; i <  _spell.AddProjectileCount; i++)
+            IHitable primaryTarget = _spell.SearchTarget(_spell.OwnMagicianTransform);
+
+            if (primaryTarget == null)
+                return;
+
+            Vector3 primaryPosition = primaryTarget.Tf.position;
+
+            for (int i = 0; i < _spell.AddProjectileCount; i++)
             {
-                IHitable hitable = _spell.SearchTarget_Random();
-                if(hitable != null)
-                    _spell.UseSpellOfUpgrade(hitable.Tf.position, projectileSpawnPoint);
+                float angle = 360f / _spell.AddProjectileCount * i;
+                Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * 2f; // Adjust the multiplier as needed
+                Vector3 newTargetPosition = primaryPosition + offset;
+
+                _spell.UseSpellOfUpgrade(newTargetPosition, projectileSpawnPoint);
             }
         }
     }

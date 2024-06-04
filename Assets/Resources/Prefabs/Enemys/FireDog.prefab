@@ -1926,7 +1926,7 @@ GameObject:
   - component: {fileID: 4997753542920710275}
   - component: {fileID: 827395275717709309}
   m_Layer: 6
-  m_Name: MeleeEnemy0
+  m_Name: FireDog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

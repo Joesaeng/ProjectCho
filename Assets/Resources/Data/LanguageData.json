@@ -144,6 +144,12 @@
       "key": "AttackRange",
       "eng": "Attack Range: {0}m",
       "kr": "공격 사정거리: {0}m"
+    },
+    {
+      "key": "Reroll",
+      "eng": "Reroll",
+      "kr": "다시뽑기"
     }
+
   ]
 }

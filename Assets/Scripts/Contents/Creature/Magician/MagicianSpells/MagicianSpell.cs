@@ -19,7 +19,7 @@ public abstract class MagicianSpell : ISetData
 
     private Transform _ownMagicianTransform;
 
-    public Transform OwnMagicianTransform { set => _ownMagicianTransform = value; }
+    public Transform OwnMagicianTransform { get => _ownMagicianTransform; set => _ownMagicianTransform = value; }
 
     public int EffectId { get; set; }
     public ElementType ElementType { get; set; }

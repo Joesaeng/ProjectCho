@@ -62,14 +62,13 @@ namespace Data
         public bool sfxOn = true;
     }
 
-    
-
     [Serializable]
     public class BaseEnemyData : IData
     {
         int IData.Id => id;
 
         public int id;
+        public string prefabName;
         public ElementType elementType;
         public float baseHp;
         public float baseMoveSpeed;
@@ -137,14 +136,31 @@ namespace Data
     }
 
     [Serializable]
-    public class Datas<K> : ILoader<int, K> where K : IData
+    public class StageData
     {
-        public List<K> datas = new List<K>();
+        public List<int> spawnEnemyIds;
+        public int spawnEnemyCount;
+        public float damageCoefficient;
+        public float hpCoefficient;
+    }
 
-        public Dictionary<int, K> MakeDict()
+    [Serializable]
+    public class LevelData : IData
+    {
+        int IData.Id => id;
+        public int id;
+        public List<StageData> stageDatas;
+    }
+
+    [Serializable]
+    public class Datas<T> : ILoader<int, T> where T : IData
+    {
+        public List<T> datas = new List<T>();
+
+        public Dictionary<int, T> MakeDict()
         {
-            Dictionary<int, K> dict = new Dictionary<int, K>();
-            foreach (K data in datas)
+            Dictionary<int, T> dict = new Dictionary<int, T>();
+            foreach (T data in datas)
             {
                 dict.Add(data.Id, data);
             }

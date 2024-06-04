@@ -11,6 +11,7 @@ public class SetEnemyData : ISetData
 {
     int IData.Id => Id;
     public int Id;
+    public string prefabName;
     public ElementType ElementType { get; set; }
 
     public float Hp { get; set; }
@@ -24,6 +25,7 @@ public class SetEnemyData : ISetData
     public SetEnemyData(BaseEnemyData data)
     {
         Id = data.id;
+        prefabName = data.prefabName;
         ElementType = data.elementType;
         Hp = data.baseHp;
         MoveSpeed = data.baseMoveSpeed;

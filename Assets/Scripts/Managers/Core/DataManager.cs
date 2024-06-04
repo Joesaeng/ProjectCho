@@ -20,6 +20,7 @@ public class DataManager
     public Dictionary<int, ProjectileData>  ProjectileDataDict { get; private set; } = new Dictionary<int, ProjectileData>();
     public Dictionary<int, AOEEffectData>   AOEEffectDataDict { get; private set; } = new Dictionary<int, AOEEffectData>();
     public Dictionary<int, SpellUpgradeDatas>   UpgradeDataDict { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
+    public Dictionary<int, LevelData>       LevelDataDict { get; private set; } = new Dictionary<int, LevelData>();
 
     public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
 
@@ -30,6 +31,7 @@ public class DataManager
         ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
         AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
         UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
+        LevelDataDict = LoadJson<Datas<LevelData>, int, Data.LevelData>("LevelData").MakeDict();
 
         LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData> ("LanguageData").MakeDict();
     }

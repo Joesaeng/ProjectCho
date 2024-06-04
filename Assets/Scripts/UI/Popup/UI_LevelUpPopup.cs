@@ -30,9 +30,18 @@ public class UI_LevelUpPopup : UI_Popup
         Bind<GameObject>(typeof(GameObjects));
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
+        GetText((int)Texts.Text_Reroll).text = Language.GetLanguage("Reroll");
+        GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(true);
+        GetButton((int)Buttons.Button_Reroll).gameObject.AddUIEvent(ClickedReroll);
 
         _panelLevelupTf = GetObject((int)GameObjects.Panel_LevelUpOptions).transform;
-        for(int i = 0; i < Managers.Game.SetLevelUpOptions.Count; i++)
+
+        MakeLevelUpOptions();
+    }
+
+    void MakeLevelUpOptions()
+    {
+        for (int i = 0; i < Managers.Game.SetLevelUpOptions.Count; i++)
         {
             UI_LevelUpOptions option = Managers.UI.MakeSubItem<UI_LevelUpOptions>(_panelLevelupTf);
             // option.Init();
@@ -46,5 +55,15 @@ public class UI_LevelUpPopup : UI_Popup
         OnClickedLevelUpOption.Invoke(option);
         OnClickedLevelUpOption = null;
         Managers.UI.ClosePopupUI(this);
+    }
+
+    public void ClickedReroll(PointerEventData data)
+    {
+        GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(false);
+        for (int i = 0; i < _panelLevelupTf.childCount; i++)
+        {
+            Managers.Resource.Destroy(_panelLevelupTf.GetChild(i).gameObject);
+        }
+        MakeLevelUpOptions();
     }
 }

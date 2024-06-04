@@ -24,13 +24,29 @@ public class GameManager : MonoBehaviour
     public float RightX { get; set; }
     float PosZ { get; set; }
 
+    private int PlayerLevel = 0;
+
+    #region StageData
+
+    private int CurLevel = 0;
+    private int CurStage = 0;
+    private int EnemiesToSpawn;
+    private int EnemiesSpwaned = 0;
+    private int EnemiesDestroyed = 0;
+    private float SpawnInterval;
+
+    private float CurStageTime = 0;
+    private float CurSpawnTime = 0;
+    private readonly float OneStageTime = 10f;
+
+    #endregion
+
     #region UI에게 보낼 이벤트
     public System.Action<int,int> OnUpdatePlayerHp;
     #endregion
 
     private void Start()
     {
-        Managers.Input.MouseAction += MouseEventListner;
         SpawnArea = GameObject.Find("EnemySpawnArea");
         EnemysTarget = GameObject.Find("EnemyTarget");
         PlayerWall = EnemysTarget.GetComponent<PlayerWall>();
@@ -49,9 +65,9 @@ public class GameManager : MonoBehaviour
         _SpellDataBase.Init();
         _EnemyDataBase.Init();
 
-        foreach(SpellUpgradeDatas datas in Managers.Data.UpgradeDataDict.Values)
+        foreach (SpellUpgradeDatas datas in Managers.Data.UpgradeDataDict.Values)
         {
-            foreach(SpellUpgradeData data in datas.spellUpgradeDatas)
+            foreach (SpellUpgradeData data in datas.spellUpgradeDatas)
             {
                 _SpellUpgradeDatas.Add(data);
             }
@@ -62,33 +78,56 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        LevelUp();
+        CreateMagician(0);
+        StartStage(CurStage);
     }
 
-    #region TEMP
-    public void MouseEventListner(Define.MouseEvent mouseEvent)
+    void StartStage(int stage)
     {
-        if (mouseEvent == Define.MouseEvent.Click)
-        {
-            // CreateMagician();
-            // LevelUp();
-        }
+        // StopCoroutine("SpawnEnemies");
+
+        LevelData levelData = Managers.Data.LevelDataDict[0];
+        StageData stageData = levelData.stageDatas[stage];
+        _EnemyDataBase.SetEnemyStatusByStageData(stage, levelData);
+        EnemiesToSpawn = stageData.spawnEnemyCount;
+        EnemiesSpwaned = 0;
+        SpawnInterval = OneStageTime / EnemiesToSpawn;
+        // StartCoroutine(SpawnEnemies());
+        // StartCoroutine(StageTimer());
     }
 
-    public void KeyInput()
+    IEnumerator SpawnEnemies()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        while (EnemiesSpwaned < EnemiesToSpawn)
         {
             CreateEnemy();
+            EnemiesSpwaned++;
+            yield return YieldCache.WaitForSeconds(SpawnInterval);
         }
     }
+
+    IEnumerator StageTimer()
+    {
+        yield return YieldCache.WaitForSeconds(OneStageTime);
+        NextStage();
+    }
+
+    void NextStage()
+    {
+        CurStage++;
+
+        StartStage(CurStage);
+    }
+
 
     public List<LevelUpOptions> SetLevelUpOptions { get; set; }
     void LevelUp()
     {
+        PlayerLevel++;
         SetLevelUpOptions = _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
 
         Managers.UI.ShowPopupUI<UI_LevelUpPopup>().OnClickedLevelUpOption += ClickedLevelUpOptionListner;
+        Managers.Time.GamePause();
     }
 
     void ClickedLevelUpOptionListner(LevelUpOptions option)
@@ -101,6 +140,7 @@ public class GameManager : MonoBehaviour
             MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
             _SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
         }
+        Managers.Time.GameResume();
     }
 
     void CreateMagician(int spellId)
@@ -126,64 +166,60 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(posX, 0, PosZ);
         GameObject obj;
 
-        int monsterId = Random.Range(0,2);
-        // BaseEnemyData data = Managers.Data.BaseEnemyDataDict[monsterId];
+        int randIndex = Random.Range(0,Managers.Data.LevelDataDict[CurLevel].stageDatas[CurStage].spawnEnemyIds.Count);
+        int monsterId = Managers.Data.LevelDataDict[CurLevel].stageDatas[CurStage].spawnEnemyIds[randIndex];
+
         SetEnemyData setData = _EnemyDataBase.EnemyDataDict[monsterId];
+        obj = Managers.Resource.Instantiate($"Enemys/{setData.prefabName}", spawnPos);
         if (setData.IsRange)
         {
-            obj = Managers.Resource.Instantiate("Enemys/RangeEnemy0", spawnPos);
-            Managers.CompCache.GetOrAddComponentCache<RangeAttackEnemy>(obj);
+            Managers.CompCache.GetOrAddComponentCache<RangeAttackEnemy>(obj, out RangeAttackEnemy enemy);
+            enemy.Init(setData);
+            enemy.SetDir(new Vector3(0, 0, -1));
+            Enemies.Add(enemy);
         }
         else
         {
-            obj = Managers.Resource.Instantiate("Enemys/MeleeEnemy0", spawnPos);
-            Managers.CompCache.GetOrAddComponentCache<MeleeAttackEnemy>(obj);
+            Managers.CompCache.GetOrAddComponentCache<MeleeAttackEnemy>(obj, out MeleeAttackEnemy enemy);
+            enemy.Init(setData);
+            enemy.SetDir(new Vector3(0, 0, -1));
+            Enemies.Add(enemy);
         }
-
-        Enemy enemy = obj.GetComponent<Enemy>();
-        enemy.Init(setData);
-        enemy.SetDir(new Vector3(0, 0, -1));
-
-        Enemies.Add(enemy);
     }
 
-    int killCount = 0;
-    int levelUpKillCount = 0;
     public void KillEnemy(Enemy enemy)
     {
         Managers.Resource.Destroy(enemy.gameObject);
         Enemies.Remove(enemy);
-        killCount++;
-        if (killCount > enemyCountByStage[levelUpKillCount])
+        EnemiesDestroyed++;
+
+        if(EnemiesDestroyed >= Managers.Data.LevelDataDict[CurLevel].stageDatas[PlayerLevel].spawnEnemyCount)
         {
             LevelUp();
-            levelUpKillCount++;
-            killCount = 0;
-        }
+            EnemiesDestroyed = 0;
+        }    
     }
-    #endregion
 
-    // TEMP
-    static int[] enemyCountByStage = new int[]{5,10,20,40,60,80,100,100,100,100};
-    static int stage = 0;
-    float curSpawnTime = 0f;
-    float stageTime = 0f;
-    float enemySpawnTime = 20 / enemyCountByStage[stage];
     private void Update()
     {
-        curSpawnTime += Time.deltaTime;
-        stageTime += Time.deltaTime;
-        if (curSpawnTime > enemySpawnTime)
+        if (Managers.Time.IsPause)
+            return;
+        CurStageTime += Time.deltaTime;
+        CurSpawnTime += Time.deltaTime;
+
+        if (CurSpawnTime >= SpawnInterval && EnemiesSpwaned < EnemiesToSpawn)
         {
             CreateEnemy();
-            curSpawnTime = 0f;
+            EnemiesSpwaned++;
+            CurSpawnTime = 0;
         }
-        if(stageTime > 20f)
+
+        if(CurStageTime >= OneStageTime)
         {
-            stage++;
-            stageTime = 0f;
+            NextStage();
+            CurStageTime = 0;
         }
-        KeyInput();
+
         foreach (var enemy in Enemies)
         {
             enemy.OnUpdate();
@@ -196,6 +232,6 @@ public class GameManager : MonoBehaviour
 
     private void UpdatePlayerHpListner(int curHp)
     {
-        OnUpdatePlayerHp.Invoke(curHp,Mathf.RoundToInt(PlayerWall.MaxHp));
+        OnUpdatePlayerHp.Invoke(curHp, Mathf.RoundToInt(PlayerWall.MaxHp));
     }
 }

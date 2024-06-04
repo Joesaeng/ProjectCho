@@ -16,4 +16,17 @@ public class EnemyDataBase
         }
         EnemyDataDict = builder.Build();
     }
+
+    public void SetEnemyStatusByStageData(int curStage, LevelData data)
+    {
+        StageData stageData = data.stageDatas[curStage];
+        foreach (var enemyId in stageData.spawnEnemyIds)
+        {
+            if (EnemyDataDict.TryGetValue(enemyId, out SetEnemyData setData))
+            {
+                setData.AttackDamage = Managers.Data.BaseEnemyDataDict[setData.Id].baseAttackDamage * stageData.damageCoefficient;
+                setData.Hp = Managers.Data.BaseEnemyDataDict[setData.Id].baseHp * stageData.hpCoefficient;
+            }
+        }
+    }
 }
