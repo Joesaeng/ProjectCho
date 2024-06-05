@@ -32,6 +32,6 @@ public class RangeAttackEnemy : Enemy
         enemyBullet.Init(ProjectileData);
         enemyBullet.InitDamageDealer(EnemyData);
         enemyBullet.InitMoveable(ProjectileData);
-        enemyBullet.SetDir(Direction);
+        enemyBullet.SetDir(transform.forward);
     }
 }

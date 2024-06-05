@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        CreateMagician(0);
+        // CreateMagician(0);
         StartStage(CurStage);
     }
 
@@ -162,14 +162,12 @@ public class GameManager : MonoBehaviour
         {
             Managers.CompCache.GetOrAddComponentCache<RangeAttackEnemy>(obj, out RangeAttackEnemy enemy);
             enemy.Init(setData);
-            enemy.SetDir(new Vector3(0, 0, -1));
             Enemies.Add(enemy);
         }
         else
         {
             Managers.CompCache.GetOrAddComponentCache<MeleeAttackEnemy>(obj, out MeleeAttackEnemy enemy);
             enemy.Init(setData);
-            enemy.SetDir(new Vector3(0, 0, -1));
             Enemies.Add(enemy);
         }
     }

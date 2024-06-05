@@ -109,14 +109,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         Target = Managers.Game.PlayerWall;
         PlayerWall = Managers.Game.PlayerWall.transform;
         MoveToClosestPointOnWall();
-
-
-    }
-
-    public void SetDir(Vector3 direction)
-    {
-        Direction = transform.forward;
-        transform.LookAt(Direction);
     }
 
     void MoveToClosestPointOnWall()
@@ -170,7 +162,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public override bool SearchTarget()
     {
-        return Physics.Raycast(transform.position, Direction,AttackRange,TargetLayer);
+        return Physics.Raycast(transform.position, transform.forward, AttackRange,TargetLayer);
     }
 
     public void HitRecoverEventListner()
