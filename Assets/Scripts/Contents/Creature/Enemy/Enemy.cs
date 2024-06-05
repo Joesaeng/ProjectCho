@@ -123,7 +123,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     {
         float damage = ElementalDamageCalculator.CalculateDamage(dealer.ElementType, ElementType, dealer.AttackDamage);
         _curHp -= damage;
-        GameObject damageTextObj = Managers.Resource.Instantiate("DamageText", transform.position + Vector3.up);
+        GameObject damageTextObj = Managers.Resource.Instantiate("DamageText", transform.position + Vector3.up * 2);
         Managers.CompCache.GetOrAddComponentCache(damageTextObj, out DamageText damageText);
         damageText.Init(Mathf.RoundToInt(damage));
 

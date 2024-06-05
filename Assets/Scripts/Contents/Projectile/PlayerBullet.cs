@@ -37,7 +37,7 @@ public class StarightTypePlayerBullet : PlayerBullet
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("FrontWall"))
         {
             DestroyBullet();
             return;

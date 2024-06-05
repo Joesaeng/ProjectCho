@@ -6,9 +6,12 @@ using TMPro;
 public class DamageText : MonoBehaviour
 {
     TextMeshPro Text;
+    Camera MainCamera;
     public void Init(int damage)
     {
-        transform.localRotation = Quaternion.Euler(60, 0, 0);
+        if(MainCamera == null)
+            MainCamera = Camera.main;
+        transform.localRotation = MainCamera.transform.localRotation;
         if(Text == null)
             Managers.CompCache.GetOrAddComponentCache(gameObject, out Text);
         Text.text = damage.ToString();

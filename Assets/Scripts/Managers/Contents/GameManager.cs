@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        CreateMagician(2);
+        CreateMagician(0);
         StartStage(CurStage);
     }
 

@@ -29,13 +29,13 @@ public class PlayerWall : MonoBehaviour, IHitable
     {
         MaxHp = 3000;
         CurHp = MaxHp;
-        Wall = GameObject.Find("ArcaneWall").transform;
+        Wall = GameObject.Find("LifeWall").transform;
     }
 
     public void TakeDamage(IDamageDealer dealer)
     {
         CurHp -= dealer.AttackDamage;
-        float scaleY = CurHp > 0 ? 2 * (CurHp / MaxHp) : 0;
+        float scaleY = CurHp > 0 ? (CurHp / MaxHp) : 0;
         Wall.localScale = new Vector3(Wall.localScale.x, scaleY, Wall.localScale.z);
         if (CurHp < 0)
         {

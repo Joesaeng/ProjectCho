@@ -81,8 +81,9 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("FrontWall"))
         {
+            ShowHitEffect();
             DestroyBullet();
             return;
         }
@@ -102,7 +103,7 @@ public abstract class Projectile : MonoBehaviour, IDamageDealer, IMoveable
         }
     }
 
-    private void ShowHitEffect()
+    protected void ShowHitEffect()
     {
         GameObject obj = Managers.Resource.Instantiate(_explosionPath, transform.position);
         Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);

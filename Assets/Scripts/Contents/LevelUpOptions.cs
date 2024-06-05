@@ -16,7 +16,7 @@ public class LevelUpOptions
         IsNewSpell = newSpell;
         if(IsNewSpell)
         {
-            if(spellData == null)
+            if(spellData.Equals(null))
             {
                 Debug.Log("Is new spell level up option but spellData is null");
                 return;
@@ -26,7 +26,7 @@ public class LevelUpOptions
         }
         else
         {
-            if(upgradeData == null)
+            if(upgradeData.Equals(null))
             {
                 Debug.Log("Is spell upgrade but spellData is null");
                 return;
