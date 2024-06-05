@@ -53,7 +53,7 @@ public class Magician : AttackableCreature
         AttackerState = AttackableState.SearchTarget;
     }
 
-    public override void OnUpdate()
+    public void OnUpdate()
     {
         if(Target == null) return;
         _targetPos = Target.Tf.position;

@@ -10,10 +10,8 @@ namespace Interfaces
     {
         Vector3 Destination { get; set; }
         Vector3 Direction { get; set; }
-        Rigidbody Rigid { get; set; }
         float MoveSpeed { get; set; }
         void InitMoveable(IData data);
-        void Move();
     }
 
     public interface IAttackable

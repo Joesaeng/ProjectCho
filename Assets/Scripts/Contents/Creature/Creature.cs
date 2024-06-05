@@ -24,6 +24,4 @@ public abstract class Creature : MonoBehaviour
     {
         _animationController.PlayAnimationOnBool(animBool, value);
     }
-
-    public abstract void OnUpdate();
 }

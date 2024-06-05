@@ -207,10 +207,6 @@ public class GameManager : MonoBehaviour
             CurStageTime = 0;
         }
 
-        foreach (var enemy in Enemies)
-        {
-            enemy.OnUpdate();
-        }
         foreach (var magician in Magicians)
         {
             magician.OnUpdate();

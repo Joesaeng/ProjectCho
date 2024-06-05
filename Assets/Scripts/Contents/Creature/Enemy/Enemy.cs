@@ -38,7 +38,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public bool IsDead { get => _isDead; set => _isDead = value; }
     public Transform Tf { get => transform; }
 
-    private bool IsHit { get; set; } = false;
     #endregion
 
     public System.Action OnDead;
@@ -70,9 +69,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     {
         SetEnemyData enemyData = data as SetEnemyData;
         MoveSpeed = enemyData.MoveSpeed;
-        // Rigid = GetComponent<Rigidbody>();
-        // Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-        //     | RigidbodyConstraints.FreezeRotationY;
+        Agent.speed = MoveSpeed;
     }
 
     public override void InitAttackable(IData data)
@@ -92,6 +89,9 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     }
     public override void Init(IData data)
     {
+        Managers.CompCache.GetOrAddComponentCache(gameObject, out Agent);
+        Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
         _animationController = transform.GetOrAddComponent<AnimationController>();
         _animationController.Init();
 
@@ -105,24 +105,17 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         InitHitable(data);
         InitAttackable(data);
 
-
-
         IsDead = false;
-        IsHit = false;
         Target = Managers.Game.PlayerWall;
-
-
         PlayerWall = Managers.Game.PlayerWall.transform;
-        Managers.CompCache.GetOrAddComponentCache(gameObject, out Agent);
-        Agent.speed = MoveSpeed;
-        Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         MoveToClosestPointOnWall();
+
+
     }
 
     public void SetDir(Vector3 direction)
     {
-        // Destination = destination;
-        Direction = direction;
+        Direction = transform.forward;
         transform.LookAt(Direction);
     }
 
@@ -155,11 +148,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         }
     }
 
-    public void Move()
-    {
-        // Rigid.velocity = Direction * MoveSpeed + new Vector3(0, Rigid.velocity.y, 0);
-    }
-
     public void TakeDamage(IDamageDealer dealer)
     {
         float damage = ElementalDamageCalculator.CalculateDamage(dealer.ElementType, ElementType, dealer.AttackDamage);
@@ -169,7 +157,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         damageText.Init(Mathf.RoundToInt(damage));
 
         PlayAnimationOnTrigger("GetHit");
-        IsHit = true;
         Agent.isStopped = true;
 
         if(_curHp < 0 )
@@ -181,13 +168,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         }
     }
 
-    public override void OnUpdate()
-    {
-        if (AttackerState != AttackableState.SearchTarget || IsHit)
-            return;
-        // Move();
-    }
-
     public override bool SearchTarget()
     {
         return Physics.Raycast(transform.position, Direction,AttackRange,TargetLayer);
@@ -195,7 +175,6 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public void HitRecoverEventListner()
     {
-        IsHit = false;
         Agent.isStopped = false;
     }
 
