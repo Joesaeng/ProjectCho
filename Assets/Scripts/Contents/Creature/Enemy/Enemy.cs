@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 // 적 객체
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitable
 {
     #region Variable
@@ -22,6 +22,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private float           _maxHp;
     private float           _curHp;
     private bool            _isDead;
+
     #endregion
 
     #region Property
@@ -42,6 +43,8 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
     public System.Action OnDead;
 
+    private NavMeshAgent Agent;
+    private Transform PlayerWall;
     public ElementType ElementType { get; set; }
     public override void ChangeAttackerState()
     {
@@ -52,6 +55,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
                 PlayAnimationOnBool("IsMove", true);
                 break;
             case AttackableState.Attack:
+                Agent.isStopped = true;
                 StartCoroutine(CoAttack());
                 PlayAnimationOnBool("IsMove", false);
                 break;
@@ -66,9 +70,9 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     {
         SetEnemyData enemyData = data as SetEnemyData;
         MoveSpeed = enemyData.MoveSpeed;
-        Rigid = GetComponent<Rigidbody>();
-        Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
-            | RigidbodyConstraints.FreezeRotationY;
+        // Rigid = GetComponent<Rigidbody>();
+        // Rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+        //     | RigidbodyConstraints.FreezeRotationY;
     }
 
     public override void InitAttackable(IData data)
@@ -102,9 +106,17 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         InitAttackable(data);
 
 
+
         IsDead = false;
         IsHit = false;
         Target = Managers.Game.PlayerWall;
+
+
+        PlayerWall = Managers.Game.PlayerWall.transform;
+        Managers.CompCache.GetOrAddComponentCache(gameObject, out Agent);
+        Agent.speed = MoveSpeed;
+        Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        MoveToClosestPointOnWall();
     }
 
     public void SetDir(Vector3 direction)
@@ -114,9 +126,38 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         transform.LookAt(Direction);
     }
 
+    void MoveToClosestPointOnWall()
+    {
+        // 벽의 콜라이더를 가져옵니다.
+        Collider wallCollider = PlayerWall.GetComponent<Collider>();
+        if (wallCollider == null)
+        {
+            Debug.LogError("벽에 콜라이더가 없습니다.");
+            return;
+        }
+
+        // 벽의 콜라이더 경계 박스를 가져옵니다.
+        Bounds wallBounds = wallCollider.bounds;
+
+        // 벽의 콜라이더 경계 내의 가장 가까운 점을 계산합니다.
+        Vector3 closestPoint = wallBounds.ClosestPoint(transform.position);
+
+        // 네비메쉬 샘플링을 통해 유효한 위치를 찾습니다.
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(closestPoint, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            // 유효한 위치가 발견되면 네비메쉬 에이전트의 목표 위치로 설정합니다.
+            Agent.SetDestination(hit.position);
+        }
+        else
+        {
+            Debug.LogError("네비메쉬 상에서 유효한 목표 위치를 찾을 수 없습니다.");
+        }
+    }
+
     public void Move()
     {
-        Rigid.velocity = Direction * MoveSpeed + new Vector3(0, Rigid.velocity.y, 0);
+        // Rigid.velocity = Direction * MoveSpeed + new Vector3(0, Rigid.velocity.y, 0);
     }
 
     public void TakeDamage(IDamageDealer dealer)
@@ -129,6 +170,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
         PlayAnimationOnTrigger("GetHit");
         IsHit = true;
+        Agent.isStopped = true;
 
         if(_curHp < 0 )
         {
@@ -143,7 +185,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     {
         if (AttackerState != AttackableState.SearchTarget || IsHit)
             return;
-        Move();
+        // Move();
     }
 
     public override bool SearchTarget()
@@ -154,6 +196,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public void HitRecoverEventListner()
     {
         IsHit = false;
+        Agent.isStopped = false;
     }
 
     public abstract void AttackAnimListner();

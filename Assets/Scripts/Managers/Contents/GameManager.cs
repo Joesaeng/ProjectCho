@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public float LeftX { get; set; }
     public float RightX { get; set; }
     float PosZ { get; set; }
+    float PosY { get; set; }
 
     private int PlayerLevel = 0;
 
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         PosZ = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.z;
         LeftX = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.x;
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
+        PosY = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.y;
 
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
@@ -148,7 +150,7 @@ public class GameManager : MonoBehaviour
     void CreateEnemy()
     {
         float posX = Random.Range(LeftX, RightX);
-        Vector3 spawnPos = new Vector3(posX, 0, PosZ);
+        Vector3 spawnPos = new Vector3(posX, PosY, PosZ);
         GameObject obj;
 
         int randIndex = Random.Range(0,Managers.Data.LevelDataDict[CurLevel].stageDatas[CurStage].spawnEnemyIds.Count);
