@@ -1,0 +1,24 @@
+-DefenseScene
+	맵 깔아서 다리 밑에 강을 지나가게 하고 다리가 이어지는 부분에 땅 만들기
+	GameOver UI 및 재화 획득
+	매지션마다의 레벨을 보여주는 UI 만들기
+	일시정지(옵션메뉴) UI
+	배속 UI
+	경험치 / 레벨 UI
+	특별한 적 구현(보스몬스터 따위의 것)
+	*Ads 연동
+-LobbyScene
+	*서버연동을 하려면 PlayerData가 필요함.
+	PlayerData에 beginner 속성을 넣어서 beginner가 true이면 LobbyScene으로 들어오지 않고 DefenseScene으로 가서 튜토리얼 진행
+	Player의 장비에 따른 Player의 Status를 적용하여 PlayerStatus를 적용한다.(DefenseScene으로 넘어갈 때)
+	- 그러려면 PlayerData에는 CurEquipments 따위의 것이 필요함.
+	- CurEquipments 는 Dictionary<EquipmentPartType,Equipment> 따위의 것으로 생성한다.
+	- EquipmentPartType는 열거형 타입으로 만들고, Equipment는 클래스로 만든다.
+	DefenseScene을 진행하여 얻은 재화로 실행할 수 있는 Equipment가챠를 구현
+	업적 or 몬스터 도감을 구현하여 Player의 게임 진행에 도움을 주고 게임을 계속 진행할수 있는 원동력 생성
+-LoginScene
+	*게스트 / 구글계정 / 게임센터 계정을 연동할 수 있게 함
+	Json으로 저장되어있는 Data들을 구글시트로 이동하여 LoginScene에서 로딩하여 쓸 수 있게 함.
+
+-최적화
+	DrawCall, UpscaleRendering, Script 등등 할거 많음

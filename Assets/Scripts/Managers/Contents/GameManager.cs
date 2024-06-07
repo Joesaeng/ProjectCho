@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     float PosY { get; set; }
 
     private int PlayerLevel = 0;
+    public float PlayerAttackPower = 10;
 
     #region StageData
 
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        // CreateMagician(0);
+        CreateMagician(0);
         StartStage(CurStage);
     }
 

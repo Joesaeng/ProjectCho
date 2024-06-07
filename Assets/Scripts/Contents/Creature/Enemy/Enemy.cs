@@ -105,6 +105,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         InitHitable(data);
         InitAttackable(data);
 
+        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         IsDead = false;
         Target = Managers.Game.PlayerWall;
         PlayerWall = Managers.Game.PlayerWall.transform;
