@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LevelUpOptionsBuilder
+public static class LevelUpOptionsBuilder
 {
-    public List<LevelUpOptions> CreateLevelUpOptions(List<Magician> magicians)
+    public static List<LevelUpOptions> CreateLevelUpOptions(List<Magician> magicians)
     {
         var ownSpells = magicians.Select(m => m.Spell.id).ToHashSet();
         var tempOptions = new List<LevelUpOptions>();
@@ -28,7 +28,7 @@ public class LevelUpOptionsBuilder
         return GetRandomOptions(tempOptions, 3);
     }
 
-    private List<LevelUpOptions> GetRandomOptions(List<LevelUpOptions> options, int count)
+    private static List<LevelUpOptions> GetRandomOptions(List<LevelUpOptions> options, int count)
     {
         return options.OrderBy(_ => UnityEngine.Random.value).Take(count).ToList();
     }

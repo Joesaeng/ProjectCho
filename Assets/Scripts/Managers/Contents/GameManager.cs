@@ -1,4 +1,5 @@
 using Data;
+using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject EnemysTarget { get; set; }
     public PlayerWall PlayerWall { get; set; }
     public HashSet<Enemy> Enemies { get; set; } = new();
 
@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     public SpellDataBase _SpellDataBase { get; } = new();
     public EnemyDataBase _EnemyDataBase { get; } = new();
     public HashSet<SpellUpgradeData> _SpellUpgradeDatas { get; set; } = new();
-    LevelUpOptionsBuilder _LevelUpOptionsBuilder { get; } = new();
 
     GameObject SpawnArea;
     public float LeftX { get; set; }
@@ -52,22 +51,19 @@ public class GameManager : MonoBehaviour
     public void Init()
     {
         SpawnArea = GameObject.Find("EnemySpawnArea");
-        EnemysTarget = GameObject.Find("EnemyTarget");
-        PlayerWall = EnemysTarget.GetComponent<PlayerWall>();
+        PlayerWall = GameObject.Find("EnemyTarget").GetComponent<PlayerWall>();
         PlayerWall.InitHitable(new PlayerWallData() { id = 0, maxHp = 3000 });
 
         PosZ = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.z;
+        PosY = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.y;
         LeftX = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.x;
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
-        PosY = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.y;
 
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
         {
             MagicianPoints.Add(magicianPointParent.GetChild(i));
         }
-
-
 
         Managers.Player.Init();
 
@@ -129,7 +125,7 @@ public class GameManager : MonoBehaviour
 
     public List<LevelUpOptions> CreateLevelUpOptions()
     {
-        return _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
+        return LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
     }
 
     void ClickedLevelUpOptionListner(LevelUpOptions option)
@@ -139,7 +135,7 @@ public class GameManager : MonoBehaviour
         else
         {
             _SpellUpgradeDatas.Remove(option.SpellUpgradeData);
-            MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
+            SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
             _SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
         }
         Managers.Time.GameResume();

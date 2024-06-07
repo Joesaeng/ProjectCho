@@ -59,6 +59,7 @@ public class PoolManager
     }
     #endregion
 
+    List<GameObject> poolablePrefabs;
     Dictionary<string, Pool> _pool = new Dictionary<string, Pool>();
 
     public void CreatePool(GameObject original, int count = 5)
@@ -98,8 +99,55 @@ public class PoolManager
         return _pool[name].Original;
     }
 
+    public void Init()
+    {
+        LoadPoolablePrefabs();
+        InitializeObjectPool();
+    }
+
+    void LoadPoolablePrefabs()
+    {
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>("Data/PoolablePrefabs");
+        if (jsonTextAsset != null)
+        {
+            PoolablePrefabList prefabList = JsonUtility.FromJson<PoolablePrefabList>(jsonTextAsset.text);
+            poolablePrefabs = new List<GameObject>();
+
+            foreach (string path in prefabList.paths)
+            {
+                GameObject prefab = Resources.Load<GameObject>(path);
+                if (prefab != null)
+                {
+                    poolablePrefabs.Add(prefab);
+                }
+                else
+                {
+                    Debug.LogWarning("Could not load prefab at path: " + path);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Could not find PoolablePrefabs.json in Resources folder.");
+        }
+    }
+
+    void InitializeObjectPool()
+    {
+        foreach (GameObject prefab in poolablePrefabs)
+        {
+            CreatePool(prefab, 5);
+        }
+    }
+
     public void Clear()
     {
         _pool.Clear();
     }
+}
+
+[System.Serializable]
+public class PoolablePrefabList
+{
+    public List<string> paths;
 }
