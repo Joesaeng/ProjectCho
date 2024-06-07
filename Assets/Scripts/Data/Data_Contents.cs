@@ -11,8 +11,6 @@ public interface IData
     public int Id { get; }
 }
 
-
-
 [Serializable]
 public enum SpellType
 {
@@ -49,8 +47,52 @@ public enum SpellUpgradeType
     AddProjectile,
 }
 
+[Serializable]
+public enum ItemType
+{
+    None,
+    Equipment,
+}
+
+[Serializable]
+public enum EquipmentType
+{
+    Weapon,
+    Hat,
+    BodyArmor,
+    Gloves,
+    Boots,
+}
+
+[Serializable]
+public enum EquipmentRarity
+{
+    Normal,
+    Rare,
+    Epic,
+    Legend,
+}
+
+[Serializable]
+public enum EquipmentOptionType
+{
+    Spell,      // Only Waapon
+    BaseDamage, // Only Weapon
+    IncreaseDamage,
+    DecreaseAttackDelay,
+    // . . .
+}
+
+
 namespace Data
 {
+    [Serializable]
+    public class InventoryData
+    {
+        public List<ItemData> itemDatas;
+        public List<EquipmentData> equipmentDatas;
+
+    }
     [Serializable]
     public class PlayerData 
     {
@@ -60,6 +102,7 @@ namespace Data
         public float sfxVolume = 1f;
         public bool bgmOn = true;
         public bool sfxOn = true;
+        public InventoryData inventoryData;
     }
 
     [Serializable]
@@ -160,6 +203,35 @@ namespace Data
         public int id;
         public List<StageData> stageDatas;
     }
+
+    [Serializable]
+    public class ItemData : IData
+    {
+        int IData.Id => id;
+        public int id;
+        public ItemType itemType;
+        public string itemName;
+    }
+
+    [Serializable]
+    public class EquipmentsOptionData : IData
+    {
+        int IData.Id => id;
+        public int id;
+        public List<EquipmentType> capableOfEquipmentType;
+        public EquipmentOptionType optionType;
+        public int spellId;
+        public float value;
+    }
+
+    [Serializable]
+    public class EquipmentData : ItemData
+    {
+        public EquipmentRarity rarity;
+        public EquipmentType equipmentType;
+        public List<EquipmentsOptionData> equipmentOptions;
+    }
+
 
     [Serializable]
     public class Datas<T> : ILoader<int, T> where T : IData

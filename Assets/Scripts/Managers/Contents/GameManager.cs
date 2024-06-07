@@ -65,6 +65,10 @@ public class GameManager : MonoBehaviour
             MagicianPoints.Add(magicianPointParent.GetChild(i));
         }
 
+
+
+        Managers.Status.Init();
+
         _SpellDataBase.Init();
         _EnemyDataBase.Init();
 
@@ -80,8 +84,7 @@ public class GameManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
-
-        CreateMagician(0);
+        CreateMagician(Managers.Status.PlayerStatus.startingSpellId);
         StartStage(CurStage);
     }
 

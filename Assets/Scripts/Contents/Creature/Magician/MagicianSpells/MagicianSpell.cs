@@ -121,8 +121,8 @@ public abstract class MagicianSpell : ISetData
         id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
-        SpellDamage = data.spellDamage * Managers.Game.PlayerAttackPower;
-        SpellDelay = data.spellDelay;
+        SpellDamage = data.spellDamage * Managers.Status.PlayerStatus.damage;
+        SpellDelay = data.spellDelay * (1 - Managers.Status.PlayerStatus.decreaseAttackDelay);
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
         SpellDuration = data.spellDuration;
@@ -226,9 +226,10 @@ public class TargetedProjectileOfExplosion : MagicianSpell
         
         EffectData = Managers.Data.ProjectileDataDict[data.effectId];
         SpellBehavior = new TargetedDirectionBehavior();
-        Impact = new ExplosionOnImpact();
-
-        Impact.explosionRange = (float)data.explosionRange;
+        Impact = new ExplosionOnImpact
+        {
+            explosionRange = (float)data.explosionRange
+        };
     }
 
     public override IHitable SearchTarget(Transform transform)

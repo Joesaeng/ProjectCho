@@ -30,8 +30,8 @@ public class SoundManager
 
             _audioSources[(int)Define.Sound.Bgm].loop = true;
         }
-        BGMVolume = Managers.Player.Data.bgmVolume;
-        SFXVolume = Managers.Player.Data.sfxVolume;
+        BGMVolume = Managers.PlayerData.Data.bgmVolume;
+        SFXVolume = Managers.PlayerData.Data.sfxVolume;
 
     }
 
@@ -67,7 +67,7 @@ public class SoundManager
 
         if (type == Define.Sound.Bgm)
         {
-            if (!Managers.Player.Data.bgmOn)
+            if (!Managers.PlayerData.Data.bgmOn)
                 return;
             AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
             if (audioSource.isPlaying)
@@ -80,7 +80,7 @@ public class SoundManager
         }
         else
         {
-            if (!Managers.Player.Data.sfxOn)
+            if (!Managers.PlayerData.Data.sfxOn)
                 return;
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
             audioSource.volume = SFXVolume;

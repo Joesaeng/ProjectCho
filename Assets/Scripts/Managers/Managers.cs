@@ -6,14 +6,16 @@ public class Managers : MonoBehaviour
     static Managers Instance { get { Init(); return s_instance; } }
 
     GameManager _game;
+    PlayerStatusManager _playerStatus = new();
     TimerManager _timer;
     TimeManager _time = new();
 
     public static GameManager Game { get { return Instance._game; } }
+    public static PlayerStatusManager Status { get { return Instance._playerStatus; } }
     public static TimerManager Timer { get { return Instance._timer; } }
     public static TimeManager Time { get { return Instance._time; } }
     #region Core
-    PlayerManager _player = new PlayerManager();
+    PlayerDataManager _playerData = new PlayerDataManager();
     DataManager _data = new DataManager();
     InputManager _input = new InputManager();
     PoolManager _pool = new PoolManager();
@@ -32,7 +34,7 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound { get { return Instance._sound; } }
     public static UIManager UI { get { return Instance._UI; } }
     public static ComponentCacheManager CompCache { get {  return Instance._compCache; } }
-    public static PlayerManager Player { get {  return Instance._player; } }
+    public static PlayerDataManager PlayerData { get {  return Instance._playerData; } }
 
     // MonoBehaviour ��� �Ŵ���
     public static SceneManagerEx Scene { get { return Instance._scene; } }
