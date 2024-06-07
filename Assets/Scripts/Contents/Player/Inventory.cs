@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Inventory
 {
-    private List<Item> items;
-    public List<Item> Items { get => items; set => items = value; }
+    private HashSet<Item> items;
+    public HashSet<Item> Items { get => items; set => items = value; }
     public Inventory(Data.InventoryData data)
     {
         items = new();
-        for(int i = 0; i < data.itemDatas.Count; ++i)
+        for(int i = 0; i < data.inventoryItemsDatas.Count; ++i)
         {
-            items.Add(ItemGenerator.GenerateItem(data.itemDatas[i]));
+            items.Add(ItemGenerator.GenerateItem(data.inventoryItemsDatas[i]));
         }
     }
 
+    public void AddItem(Item item)
+    {
+        items.Add(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        items.Remove(item);
+    }
 }

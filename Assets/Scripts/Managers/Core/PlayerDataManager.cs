@@ -27,6 +27,8 @@ public class PlayerDataManager
         if (File.Exists(_path))
             File.Delete(_path);
 
+        _playerData.inventoryData = Managers.Player.InventoryToData();
+
         string json = JsonUtility.ToJson(_playerData);
 
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);

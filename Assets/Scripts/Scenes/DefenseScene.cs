@@ -15,5 +15,7 @@ public class DefenseScene : BaseScene
         Managers.Init();
 
         Managers.UI.ShowSceneUI<UI_DefenseScene>();
+
+        Managers.Game.Init();
     }
 }

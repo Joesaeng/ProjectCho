@@ -1,6 +1,7 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Item
@@ -8,6 +9,7 @@ public abstract class Item
     private string itemName;
     public string ItemName { get => itemName; set => itemName = value; }
     public abstract void ApplyItem();
+    public abstract ItemData ToData();
 }
 
 public class EquipmentOption
@@ -26,6 +28,16 @@ public class EquipmentOption
         value = data.value;
         spellId = data.spellId;
     }
+
+    public EquipmentsOptionData ToData()
+    {
+        return new EquipmentsOptionData
+        {
+            optionType = this.optionType,
+            value = this.value,
+            spellId = this.spellId,
+        };
+    }
 }
 
 public class Equipment : Item
@@ -42,13 +54,24 @@ public class Equipment : Item
         equipmentOptions = new();
         for(int i = 0; i < data.equipmentOptions.Count; ++i)
         {
-            Debug.Log($"{i}번 옵션");
             equipmentOptions.Add(new EquipmentOption(data.equipmentOptions[i]));
         }
     }
     public override void ApplyItem()
     {
-        Managers.Status.EquipmentInventory.Equip(this);
+        Managers.Player.Equip(this);
+    }
+
+    public override ItemData ToData()
+    {
+        return new EquipmentData
+        {
+            itemName = ItemName,
+            rarity = rarity,
+            equipmentType = equipmentType,
+            itemType = ItemType.Equipment,
+            equipmentOptions = equipmentOptions.Select(option => option.ToData()).ToList()
+        };
     }
 }
 
@@ -68,5 +91,10 @@ public static class ItemGenerator
             ItemType.Equipment => new Equipment(data as EquipmentData),
             _ => throw new System.ArgumentException($"Unknown ItemType: {data.itemType}")
         };
+    }
+
+    public static ItemData ToData(Item item)
+    {
+        return item.ToData();
     }
 }

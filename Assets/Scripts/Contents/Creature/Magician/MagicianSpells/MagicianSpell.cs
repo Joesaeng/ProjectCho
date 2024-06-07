@@ -121,8 +121,8 @@ public abstract class MagicianSpell : ISetData
         id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
-        SpellDamage = data.spellDamage * Managers.Status.PlayerStatus.damage;
-        SpellDelay = data.spellDelay * (1 - Managers.Status.PlayerStatus.decreaseAttackDelay);
+        SpellDamage = data.spellDamage * Managers.Player.PlayerStatus.damage;
+        SpellDelay = data.spellDelay * (1 - Managers.Player.PlayerStatus.decreaseAttackDelay);
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
         SpellDuration = data.spellDuration;

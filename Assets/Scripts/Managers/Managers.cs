@@ -11,7 +11,7 @@ public class Managers : MonoBehaviour
     TimeManager _time = new();
 
     public static GameManager Game { get { return Instance._game; } }
-    public static PlayerStatusManager Status { get { return Instance._playerStatus; } }
+    public static PlayerStatusManager Player { get { return Instance._playerStatus; } }
     public static TimerManager Timer { get { return Instance._timer; } }
     public static TimeManager Time { get { return Instance._time; } }
     #region Core
@@ -76,7 +76,7 @@ public class Managers : MonoBehaviour
 
             s_instance._time.Init();
             s_instance._data.Init();
-            // s_instance._player.Init();
+            // s_instance._playerData.Init();
             // s_instance._sound.Init();
         }
     }

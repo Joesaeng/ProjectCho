@@ -12,10 +12,10 @@ public abstract class UI_Base : MonoBehaviour
 
     public abstract void Init();
 
-    private void Start()
-    {
-        Init();
-    }
+    // private void Start()
+    // {
+    //     Init();
+    // }
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
@@ -94,6 +94,12 @@ public abstract class UI_Base : MonoBehaviour
                 evt.OnDragHandler += (data) => action(value, data);
                 break;
         }
+    }
+
+    public static void RemoveEvent(GameObject go)
+    {
+        go.GetOrAddComponent<UI_EventHandler>().OnClickHandler = null;
+        go.GetOrAddComponent<UI_EventHandler>().OnDragHandler = null;
     }
 
     // public abstract void OnChangeLanguage();

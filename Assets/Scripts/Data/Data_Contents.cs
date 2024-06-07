@@ -89,8 +89,8 @@ namespace Data
     [Serializable]
     public class InventoryData
     {
-        public List<ItemData> itemDatas;
-        public List<EquipmentData> equipmentDatas;
+        public List<ItemData> inventoryItemsDatas;
+        public List<ItemData> equipmentDatas;
 
     }
     [Serializable]

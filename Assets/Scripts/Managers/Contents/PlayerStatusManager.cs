@@ -1,6 +1,7 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerStatus
@@ -28,33 +29,35 @@ public class PlayerStatusManager
         // Inventory = new Inventory(data);
 
         // TEMP
-        List<EquipmentData> tempDatas = new();
+        List<ItemData> tempDatas = new();
 
         EquipmentData tempEq = new();
         tempEq.itemName = "Staff";
         tempEq.itemType = ItemType.Equipment;
         tempEq.equipmentType = EquipmentType.Weapon;
-        tempEq.equipmentOptions = new();
-        tempEq.equipmentOptions.Add(new EquipmentsOptionData
+        tempEq.equipmentOptions = new()
         {
-            optionType = EquipmentOptionType.Spell,
-            spellId = 2
-        });
-        tempEq.equipmentOptions.Add(new EquipmentsOptionData
-        {
-            optionType = EquipmentOptionType.BaseDamage,
-            value = 200
-        });
-        tempEq.equipmentOptions.Add(new EquipmentsOptionData
-        {
-            optionType = EquipmentOptionType.IncreaseDamage,
-            value = 0.2f
-        });
-        tempEq.equipmentOptions.Add(new EquipmentsOptionData
-        {
-            optionType = EquipmentOptionType.DecreaseAttackDelay,
-            value = 0.5f
-        });
+            new EquipmentsOptionData
+            {
+                optionType = EquipmentOptionType.Spell,
+                spellId = 0
+            },
+            new EquipmentsOptionData
+            {
+                optionType = EquipmentOptionType.BaseDamage,
+                value = 20
+            },
+            new EquipmentsOptionData
+            {
+                optionType = EquipmentOptionType.IncreaseDamage,
+                value = 0.2f
+            },
+            new EquipmentsOptionData
+            {
+                optionType = EquipmentOptionType.DecreaseAttackDelay,
+                value = 0.5f
+            }
+        };
 
 
         InventoryData inventoryData = new();
@@ -69,5 +72,22 @@ public class PlayerStatusManager
     public void ApplyEquipmentStatus()
     {
         PlayerStatus = equipmentInventory.ApplyEquipmentStatus();
+    }
+
+    public void Equip(Equipment equipment) => EquipmentInventory.Equip(equipment);
+
+    public void UnEquip(Equipment equipment) => EquipmentInventory.UnEquip(equipment);
+
+    public void AddItem(Item item) => Inventory.AddItem(item);
+
+    public void RemoveItem(Item item) => Inventory.RemoveItem(item);
+
+    public InventoryData InventoryToData()
+    {
+        return new InventoryData
+        {
+            inventoryItemsDatas = Inventory.Items.Select(item => item.ToData()).ToList(),
+            equipmentDatas = EquipmentInventory.Equipments.Select(item => item.Value.ToData()).ToList()
+        };
     }
 }

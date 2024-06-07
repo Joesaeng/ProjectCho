@@ -8,6 +8,8 @@ public static class ConstantData
     public const int    PopupUISortOrder = 10;
     public const int    SceneUISortOrder = 9;
     public const int    WorldSpaceUISortOrder = 8;
+
+    public const int    LevelUpOptionsBasicCount = 3;
     #endregion
 
 }

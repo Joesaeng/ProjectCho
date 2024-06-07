@@ -16,6 +16,11 @@ public static class Extension
         UI_Base.BindEvent<T>(go, action, value, type);
     }
 
+    public static void RemoveEvent(this GameObject go)
+    {
+        UI_Base.RemoveEvent(go);
+    }
+
     public static bool TryGetChild(this Transform parent, int index , out Transform child)
     {
         child = null;

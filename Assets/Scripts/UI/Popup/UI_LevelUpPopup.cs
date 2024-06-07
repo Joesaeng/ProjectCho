@@ -22,7 +22,9 @@ public class UI_LevelUpPopup : UI_Popup
     }
 
     Transform _panelLevelupTf;
+    List<UI_LevelUpOptions> _levelUpOptions;
     public Action<LevelUpOptions> OnClickedLevelUpOption;
+    public Action OnClickedReroll;
 
     public override void Init()
     {
@@ -37,34 +39,49 @@ public class UI_LevelUpPopup : UI_Popup
         _panelLevelupTf = GetObject((int)GameObjects.Panel_LevelUpOptions).transform;
 
         MakeLevelUpOptions();
+        Managers.Game.OnSetLevelUpPopup += LevelUpListner;
+        Managers.Game.OnRerollLevelUpPopup += SetLevelUpOptions;
+    }
+
+    void LevelUpListner(List<LevelUpOptions> levelUpOptions)
+    {
+        gameObject.SetActive(true);
+        GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(true);
+        SetLevelUpOptions(levelUpOptions);
     }
 
     void MakeLevelUpOptions()
     {
-        for (int i = 0; i < Managers.Game.SetLevelUpOptions.Count; i++)
+        _levelUpOptions = new();
+        for (int i = 0; i < ConstantData.LevelUpOptionsBasicCount; i++)
         {
             UI_LevelUpOptions option = Managers.UI.MakeSubItem<UI_LevelUpOptions>(_panelLevelupTf);
-            // option.Init();
-            option.Set(Managers.Game.SetLevelUpOptions[i]);
-            option.gameObject.AddUIEvent(ClickedLevelUpOption, Managers.Game.SetLevelUpOptions[i]);
+            _levelUpOptions.Add(option);
         }
     }
 
     public void ClickedLevelUpOption(LevelUpOptions option, PointerEventData data)
     {
         OnClickedLevelUpOption.Invoke(option);
-        OnClickedLevelUpOption = null;
-        Managers.UI.ClosePopupUI(this);
+        gameObject.SetActive(false);
     }
 
     public void ClickedReroll(PointerEventData data)
     {
-        Managers.Game.CreateLevelUpOptions();
         GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(false);
-        for (int i = 0; i < _panelLevelupTf.childCount; i++)
+        OnClickedReroll.Invoke();
+    }
+
+    void SetLevelUpOptions(List<LevelUpOptions> levelUpOptions)
+    {
+        for (int i = 0; i < levelUpOptions.Count; i++)
         {
-            Managers.Resource.Destroy(_panelLevelupTf.GetChild(i).gameObject);
+            GameObject obj = _levelUpOptions[i].gameObject;
+            obj.gameObject.SetActive(false);
+            _levelUpOptions[i].Set(levelUpOptions[i]);
+            obj.gameObject.RemoveEvent();
+            obj.gameObject.AddUIEvent(ClickedLevelUpOption, levelUpOptions[i]);
+            obj.gameObject.SetActive(true);
         }
-        MakeLevelUpOptions();
     }
 }

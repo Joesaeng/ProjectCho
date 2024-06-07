@@ -14,7 +14,7 @@ public class EquipmentInventory
         for(int i = 0; i < data.equipmentDatas.Count; ++i)
         {
             Equipment equipment = ItemGenerator.GenerateItem(data.equipmentDatas[i]) as Equipment;
-            equipment.ApplyItem();
+            Equip(equipment);
         }
     }
 
@@ -22,19 +22,26 @@ public class EquipmentInventory
     {
         if(equipments.ContainsKey(equipment.equipmentType))
         {
-            Debug.LogError("This is the item of the equipped part");
-            return;
+            UnEquip(equipments[equipment.equipmentType]);
         }
         equipments.Add(equipment.equipmentType, equipment);
+        ApplyEquipmentStatus();
+    }
+
+    public void UnEquip(Equipment equipment)
+    {
+        equipments.Remove(equipment.equipmentType);
+        Managers.Player.AddItem(equipment);
+        ApplyEquipmentStatus();
     }
 
     public PlayerStatus ApplyEquipmentStatus()
     {
         PlayerStatus playerStatus = new();
+        int spellId = 0;
         float baseDamage = 0;
         float increaseDamage = 0;
         float decreaseAttackDelay = 0;
-        int spellId = 0;
 
         foreach(Equipment equipment in equipments.Values)
         {

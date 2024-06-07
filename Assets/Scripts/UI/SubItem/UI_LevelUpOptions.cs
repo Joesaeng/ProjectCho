@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class UI_LevelUpOptions : UI_Base
 {
+    bool isBind = false;
     Color[] _colorsByElementTypes = new Color[]
     {
         new Color(1f,0.28f,0.72f),  // Energy
@@ -38,7 +39,12 @@ public class UI_LevelUpOptions : UI_Base
 
     public void Set(LevelUpOptions options)
     {
-        Bind<TextMeshProUGUI>(typeof(Texts));
+        if(isBind == false)
+        {
+            Bind<TextMeshProUGUI>(typeof(Texts));
+            isBind = true;
+        }
+
         if (options == null)
         {
             Debug.LogError("LevelUpOptions is null!");

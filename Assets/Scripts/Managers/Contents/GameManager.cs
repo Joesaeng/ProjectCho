@@ -44,10 +44,12 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region UI에게 보낼 이벤트
+    public System.Action<List<LevelUpOptions>> OnSetLevelUpPopup;
+    public System.Action<List<LevelUpOptions>> OnRerollLevelUpPopup;
     public System.Action<int,int> OnUpdatePlayerHp;
     #endregion
 
-    private void Start()
+    public void Init()
     {
         SpawnArea = GameObject.Find("EnemySpawnArea");
         EnemysTarget = GameObject.Find("EnemyTarget");
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        Managers.Status.Init();
+        Managers.Player.Init();
 
         _SpellDataBase.Init();
         _EnemyDataBase.Init();
@@ -80,11 +82,18 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        #region UI용 이벤트 바인드
+        #region UI 초기화
+        UI_LevelUpPopup ui_levelup = Managers.UI.ShowPopupUI<UI_LevelUpPopup>();
+        ui_levelup.Init();
+        ui_levelup.OnClickedLevelUpOption += ClickedLevelUpOptionListner;
+        ui_levelup.OnClickedReroll += LevelUpOptionsReroll;
+        ui_levelup.gameObject.SetActive(false);
+
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
-        CreateMagician(Managers.Status.PlayerStatus.startingSpellId);
+
+        CreateMagician(Managers.Player.PlayerStatus.startingSpellId);
         StartStage(CurStage);
     }
 
@@ -105,20 +114,22 @@ public class GameManager : MonoBehaviour
         StartStage(CurStage);
     }
 
-
-    public List<LevelUpOptions> SetLevelUpOptions { get; set; }
     void LevelUp()
     {
         PlayerLevel++;
-        CreateLevelUpOptions();
-
-        Managers.UI.ShowPopupUI<UI_LevelUpPopup>().OnClickedLevelUpOption += ClickedLevelUpOptionListner;
+        
+        OnSetLevelUpPopup.Invoke(CreateLevelUpOptions());
         Managers.Time.GamePause();
     }
 
-    public void CreateLevelUpOptions()
+    void LevelUpOptionsReroll()
     {
-        SetLevelUpOptions = _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
+        OnRerollLevelUpPopup.Invoke(CreateLevelUpOptions());
+    }
+
+    public List<LevelUpOptions> CreateLevelUpOptions()
+    {
+        return _LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
     }
 
     void ClickedLevelUpOptionListner(LevelUpOptions option)
