@@ -40,6 +40,8 @@ namespace Define
     {
         Unknown,
         Login,
+        Lobby,
+        Defense,
     }
 
     public enum Sound

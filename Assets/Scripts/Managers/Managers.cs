@@ -87,6 +87,7 @@ public class Managers : MonoBehaviour
         Input.Clear();
         Scene.Clear();
         UI.Clear();
+        Game.Clear();
 
         CompCache.Clear();
         Pool.Clear();

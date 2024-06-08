@@ -20,7 +20,7 @@ public class AnimationController : MonoBehaviour
         _animator.SetTrigger(animTrigger);
     }
 
-    public void PlayAnimationOnBool(string animBool, bool value)
+    public void AnimationSetBool(string animBool, bool value)
     {
         _animator.SetBool(animBool, value);
     }

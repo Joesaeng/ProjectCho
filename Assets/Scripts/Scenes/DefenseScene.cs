@@ -12,6 +12,8 @@ public class DefenseScene : BaseScene
     protected override void Init()
     {
         base.Init();
+        SceneType = Define.Scene.Defense;
+
         Managers.Init();
 
         Managers.UI.ShowSceneUI<UI_DefenseScene>();

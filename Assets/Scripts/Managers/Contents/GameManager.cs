@@ -8,15 +8,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public PlayerWall PlayerWall { get; set; }
-    public HashSet<Enemy> Enemies { get; set; } = new();
+    public HashSet<Enemy> Enemies { get; set; }
 
-    List<Transform> MagicianPoints { get; set; } = new();
-    List<Magician> Magicians { get; set; } = new();
-    int MagicianCount { get; set; } = 0;
+    List<Transform> MagicianPoints { get; set; }
+    List<Magician> Magicians { get; set; }
+    int MagicianCount { get; set; }
 
-    public SpellDataBase _SpellDataBase { get; } = new();
-    public EnemyDataBase _EnemyDataBase { get; } = new();
-    public HashSet<SpellUpgradeData> _SpellUpgradeDatas { get; set; } = new();
+    public SpellDataBase _SpellDataBase { get; set; }
+    public EnemyDataBase _EnemyDataBase { get; set; }
+    public HashSet<SpellUpgradeData> _SpellUpgradeDatas { get; set; }
 
     GameObject SpawnArea;
     public float LeftX { get; set; }
@@ -29,20 +29,25 @@ public class GameManager : MonoBehaviour
 
     #region StageData
 
-    private int CurLevel = 0;
-    private int CurStage = 0;
-    private int EnemiesToSpawn;
-    private int EnemiesSpwaned = 0;
-    private int EnemiesDestroyed = 0;
-    private float SpawnInterval;
+    private int     CurLevel = 0;
+    private int     CurStage = 0;
+    private int     EnemiesToSpawn;
+    private int     EnemiesSpwaned = 0;
+    private int     EnemiesDestroyed = 0;
+    private float   SpawnInterval;
 
-    private float CurStageTime = 0;
-    private float CurSpawnTime = 0;
+    private float   CurStageTime = 0;
+    private float   CurSpawnTime = 0;
+
     private readonly float OneStageTime = 10f;
 
     #endregion
 
-    #region UI에게 보낼 이벤트
+    #region UI
+    UI_LevelUpPopup UI_LevelUpPopup;
+    UI_DefenseScene UI_DefenseScene;
+
+    // 이벤트
     public System.Action<List<LevelUpOptions>> OnSetLevelUpPopup;
     public System.Action<List<LevelUpOptions>> OnRerollLevelUpPopup;
     public System.Action<int,int> OnUpdatePlayerHp;
@@ -58,6 +63,14 @@ public class GameManager : MonoBehaviour
         PosY = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.y;
         LeftX = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.x;
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
+
+        Enemies = new();
+        MagicianPoints = new();
+        Magicians = new();
+        MagicianCount = 0;
+        _SpellDataBase = new();
+        _EnemyDataBase = new();
+        _SpellUpgradeDatas = new();
 
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
@@ -79,11 +92,14 @@ public class GameManager : MonoBehaviour
         }
 
         #region UI 초기화
-        UI_LevelUpPopup ui_levelup = Managers.UI.ShowPopupUI<UI_LevelUpPopup>();
-        ui_levelup.Init();
-        ui_levelup.OnClickedLevelUpOption += ClickedLevelUpOptionListner;
-        ui_levelup.OnClickedReroll += LevelUpOptionsReroll;
-        ui_levelup.gameObject.SetActive(false);
+        UI_DefenseScene = Managers.UI.ShowSceneUI<UI_DefenseScene>();
+        UI_DefenseScene.Init();
+
+        UI_LevelUpPopup = Managers.UI.ShowPopupUI<UI_LevelUpPopup>();
+        UI_LevelUpPopup.Init();
+        UI_LevelUpPopup.OnClickedLevelUpOption += ClickedLevelUpOptionListner;
+        UI_LevelUpPopup.OnClickedReroll += LevelUpOptionsReroll;
+        UI_LevelUpPopup.gameObject.SetActive(false);
 
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
@@ -91,6 +107,7 @@ public class GameManager : MonoBehaviour
 
         CreateMagician(Managers.Player.PlayerStatus.startingSpellId);
         StartStage(CurStage);
+        Managers.Time.ChangeTimeScale();
     }
 
     void StartStage(int stage)
@@ -113,7 +130,7 @@ public class GameManager : MonoBehaviour
     void LevelUp()
     {
         PlayerLevel++;
-        
+
         OnSetLevelUpPopup.Invoke(CreateLevelUpOptions());
         Managers.Time.GamePause();
     }
@@ -145,7 +162,7 @@ public class GameManager : MonoBehaviour
     {
         if (MagicianCount < MagicianPoints.Count)
         {
-            GameObject obj = Managers.Resource.Instantiate("Magician", MagicianPoints[MagicianCount]);
+            GameObject obj = Managers.Resource.Instantiate("Magician1", MagicianPoints[MagicianCount]);
 
             Magician magician = obj.GetOrAddComponent<Magician>();
             BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
@@ -189,11 +206,11 @@ public class GameManager : MonoBehaviour
         Enemies.Remove(enemy);
         EnemiesDestroyed++;
 
-        if(EnemiesDestroyed >= Managers.Data.LevelDataDict[CurLevel].stageDatas[PlayerLevel].spawnEnemyCount)
+        if (EnemiesDestroyed >= Managers.Data.LevelDataDict[CurLevel].stageDatas[PlayerLevel].spawnEnemyCount)
         {
             LevelUp();
             EnemiesDestroyed = 0;
-        }    
+        }
     }
 
     private void Update()
@@ -210,7 +227,7 @@ public class GameManager : MonoBehaviour
             CurSpawnTime = 0;
         }
 
-        if(CurStageTime >= OneStageTime)
+        if (CurStageTime >= OneStageTime)
         {
             NextStage();
             CurStageTime = 0;
@@ -225,5 +242,37 @@ public class GameManager : MonoBehaviour
     private void UpdatePlayerHpListner(int curHp)
     {
         OnUpdatePlayerHp.Invoke(curHp, Mathf.RoundToInt(PlayerWall.MaxHp));
+    }
+
+    public void Clear()
+    {
+        // 이벤트 구독 해제
+        UI_LevelUpPopup.OnClickedLevelUpOption -= ClickedLevelUpOptionListner;
+        UI_LevelUpPopup.OnClickedReroll -= LevelUpOptionsReroll;
+
+        PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
+
+        // 객체 제거
+        Enemies = null;
+        MagicianPoints = null;
+        Magicians = null;
+        MagicianCount = 0;
+        _SpellDataBase = null;
+        _EnemyDataBase = null;
+        _SpellUpgradeDatas = null;
+
+        // StageData 초기화
+        CurLevel = 0;
+        CurStage = 0;
+        EnemiesToSpawn = 0;
+        EnemiesSpwaned = 0;
+        EnemiesDestroyed = 0;
+        SpawnInterval = 0;
+
+        CurStageTime = 0;
+        CurSpawnTime = 0;
+
+        // UI 제거
+        UI_LevelUpPopup = null;
     }
 }

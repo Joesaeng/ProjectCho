@@ -45,17 +45,7 @@ public class PlayerStatusManager
             new EquipmentsOptionData
             {
                 optionType = EquipmentOptionType.BaseDamage,
-                value = 20
-            },
-            new EquipmentsOptionData
-            {
-                optionType = EquipmentOptionType.IncreaseDamage,
-                value = 0.2f
-            },
-            new EquipmentsOptionData
-            {
-                optionType = EquipmentOptionType.DecreaseAttackDelay,
-                value = 0.5f
+                value = 5
             }
         };
 

@@ -161,7 +161,7 @@ public abstract class MagicianSpell : ISetData
         foreach (Enemy enemy in Managers.Game.Enemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance > SpellRange)
+            if (enemy.IsDead || distance > SpellRange)
                 continue;
 
             if (distance < closestDistance)
@@ -187,7 +187,7 @@ public abstract class MagicianSpell : ISetData
         foreach (Enemy enemy in Managers.Game.Enemies)
         {
             float distance = Vector3.Distance(_ownMagicianTransform.position, enemy.transform.position);
-            if (distance > SpellRange)
+            if (enemy.IsDead || distance > SpellRange)
                 continue;
 
             enemies.Add(enemy);
@@ -249,7 +249,7 @@ public class ExplosionOnImpact
         foreach (Enemy enemy in Managers.Game.Enemies)
         {
             float distance = Vector3.Distance(tf.position, enemy.transform.position);
-            if (distance > explosionRange)
+            if (enemy.IsDead || distance > explosionRange)
                 continue;
             hits.Add(enemy);
         }

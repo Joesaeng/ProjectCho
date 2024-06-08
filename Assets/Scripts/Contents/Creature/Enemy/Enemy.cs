@@ -15,6 +15,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private Vector3         _destination;
     private Vector3         _direction;
     private Rigidbody       _rigid;
+    private Collider        _collider;
     private float           _moveSpeed;
 
     private LayerMask       _targetLayer;
@@ -29,6 +30,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public Vector3 Destination { get => _destination; set => _destination = value; }
     public Vector3 Direction { get => _direction; set => _direction = value; }
     public Rigidbody Rigid { get => _rigid; set => _rigid = value; }
+    public Collider Collider { get => _collider; set => _collider = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
     public LayerMask TargetLayer { get => _targetLayer; set => _targetLayer = value; }
@@ -51,16 +53,16 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         {
             case AttackableState.SearchTarget:
                 StartCoroutine(CoSearchTarget());
-                PlayAnimationOnBool("IsMove", true);
+                AnimationSetBool("IsMove", true);
                 break;
             case AttackableState.Attack:
                 Agent.isStopped = true;
                 StartCoroutine(CoAttack());
-                PlayAnimationOnBool("IsMove", false);
+                AnimationSetBool("IsMove", false);
                 break;
             case AttackableState.Idle:
                 StartCoroutine(CoIdle());
-                PlayAnimationOnBool("IsMove", false);
+                AnimationSetBool("IsMove", false);
                 break;
         }
     }
@@ -90,9 +92,11 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     public override void Init(IData data)
     {
         Managers.CompCache.GetOrAddComponentCache(gameObject, out Agent);
+        Managers.CompCache.GetOrAddComponentCache(gameObject, out _collider);
+        Managers.CompCache.GetOrAddComponentCache(gameObject, out _animationController);
+        Collider.enabled = true;
         Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
-        _animationController = transform.GetOrAddComponent<AnimationController>();
         _animationController.Init();
 
         _animationController.OnAttackAnimEvent -= AttackAnimListner;
@@ -149,26 +153,46 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         Managers.CompCache.GetOrAddComponentCache(damageTextObj, out DamageText damageText);
         damageText.Init(Mathf.RoundToInt(damage));
 
-        PlayAnimationOnTrigger("GetHit");
         Agent.isStopped = true;
 
-        if(_curHp < 0 )
+        if (_curHp < 0)
         {
-            IsDead = true;
-            OnDead?.Invoke();
-            OnDead = null;
-            Managers.Game.KillEnemy(this);
+            Die();
         }
+        else
+            PlayAnimationOnTrigger("GetHit");
     }
 
     public override bool SearchTarget()
     {
-        return Physics.Raycast(transform.position, transform.forward, AttackRange,TargetLayer);
+        return Physics.Raycast(transform.position, transform.forward, AttackRange, TargetLayer);
     }
 
     public void HitRecoverEventListner()
     {
+        if (IsDead)
+            return;
         Agent.isStopped = false;
+    }
+
+    void Die()
+    {
+        // 코루틴 스테이트머신 정지
+        StopAllCoroutines();
+        // 사망 코루틴 실행
+        StartCoroutine(CoDie());
+
+        Collider.enabled = false;
+        PlayAnimationOnTrigger("Dead");
+        IsDead = true;
+        OnDead?.Invoke();
+        OnDead = null;
+    }
+
+    IEnumerator CoDie()
+    {
+        yield return YieldCache.WaitForSeconds(1.5f);
+        Managers.Game.KillEnemy(this);
     }
 
     public abstract void AttackAnimListner();

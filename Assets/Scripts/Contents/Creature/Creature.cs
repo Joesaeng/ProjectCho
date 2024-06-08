@@ -20,8 +20,8 @@ public abstract class Creature : MonoBehaviour
         _animationController.PlayAnimationOnTrigger(animTrigger);
     }
 
-    protected void PlayAnimationOnBool(string animBool, bool value)
+    protected void AnimationSetBool(string animBool, bool value)
     {
-        _animationController.PlayAnimationOnBool(animBool, value);
+        _animationController.AnimationSetBool(animBool, value);
     }
 }
