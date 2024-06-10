@@ -47,7 +47,8 @@ public class UI_LobbyScene : UI_Scene
         Slider_MenuTab,
 
         // ==== 메뉴 오브젝트 ====
-        UI_LobbyHome
+        UI_LobbyHome,
+        UI_LobbyMagician
     }
 
     // ======= 오브젝트 ========
@@ -75,6 +76,8 @@ public class UI_LobbyScene : UI_Scene
         _menuUis = new UI_Base[4];
         _menuUis[0] = GetObject((int)Objects.UI_LobbyHome).GetComponent<UI_LobbyHome>();
         _menuUis[0].Init();
+        _menuUis[1] = GetObject((int)Objects.UI_LobbyMagician).GetComponent<UI_LobbyMagician>();
+        _menuUis[1].Init();
 
         _menuTabButtons = new Button[]
         {
