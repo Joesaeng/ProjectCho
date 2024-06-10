@@ -7,17 +7,7 @@ using UnityEngine;
 public class UI_LevelUpOptions : UI_Base
 {
     bool isBind = false;
-    Color[] _colorsByElementTypes = new Color[]
-    {
-        new Color(1f,0.28f,0.72f),  // Energy
-        new Color(1f,0,0),          // Fire
-        new Color(0f,0.3f,1f),      // Water
-        new Color(0.4f,0,1f),       // Lightning
-        new Color(0,0.2f,0),        // Earth
-        new Color(0.25f,1,0.55f),   // Air
-        new Color(1f,0.76f,0.33f),  // Light
-        new Color(0,0,0.22f),       // Dark
-    };
+
     enum Texts
     {
         Text_SpellName,
@@ -56,7 +46,7 @@ public class UI_LevelUpOptions : UI_Base
             GetText((int)Texts.Text_NewSpell).gameObject.SetActive(true);
             GetText((int)Texts.Text_NewSpell).text = Language.GetLanguage("NewSpell");
             GetText((int)Texts.Text_SpellName).text = Language.GetLanguage($"{data.spellName}");
-            GetText((int)Texts.Text_SpellName).color = _colorsByElementTypes[(int)data.elementType];
+            GetText((int)Texts.Text_SpellName).color = ConstantData.TextColorsByElementTypes[(int)data.elementType];
 
             GetText((int)Texts.Text_UpgradeDesc).text = Language.GetLanguage($"{data.spellName}_Desc");
 
@@ -73,7 +63,7 @@ public class UI_LevelUpOptions : UI_Base
             SpellUpgradeData data = options.SpellUpgradeData;
             GetText((int)Texts.Text_NewSpell).gameObject.SetActive(false);
             GetText((int)Texts.Text_SpellName).text = Language.GetLanguage($"{baseData.spellName}");
-            GetText((int)Texts.Text_SpellName).color = _colorsByElementTypes[(int)baseData.elementType];
+            GetText((int)Texts.Text_SpellName).color = ConstantData.TextColorsByElementTypes[(int)baseData.elementType];
 
             GetText((int)Texts.Text_UpgradeDesc).text =
                 GenerateTooltipText(Language.GetLanguage($"{data.spellUpgradeType}"), data);

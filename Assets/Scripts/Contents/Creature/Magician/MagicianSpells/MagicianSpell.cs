@@ -158,7 +158,7 @@ public abstract class MagicianSpell : ISetData
         Enemy closestEnemy = null;
         float closestDistance = float.MaxValue;
 
-        foreach (Enemy enemy in Managers.Game.Enemies)
+        foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
             if (enemy.IsDead || distance > SpellRange)
@@ -184,7 +184,7 @@ public abstract class MagicianSpell : ISetData
     {
         List<Enemy> enemies = new ();
 
-        foreach (Enemy enemy in Managers.Game.Enemies)
+        foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
             float distance = Vector3.Distance(_ownMagicianTransform.position, enemy.transform.position);
             if (enemy.IsDead || distance > SpellRange)
@@ -246,7 +246,7 @@ public class ExplosionOnImpact
     {
         // 폭발 데미지를 적용하는 로직 구현
         List<IHitable> hits = new List<IHitable>();
-        foreach (Enemy enemy in Managers.Game.Enemies)
+        foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
             float distance = Vector3.Distance(tf.position, enemy.transform.position);
             if (enemy.IsDead || distance > explosionRange)

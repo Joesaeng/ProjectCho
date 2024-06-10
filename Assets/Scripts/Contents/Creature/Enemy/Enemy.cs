@@ -21,6 +21,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     private LayerMask       _targetLayer;
 
     private float           _maxHp;
+    [SerializeField]
     private float           _curHp;
     private bool            _isDead;
 
@@ -56,6 +57,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
                 AnimationSetBool("IsMove", true);
                 break;
             case AttackableState.Attack:
+                Agent.speed = 0;
                 Agent.isStopped = true;
                 StartCoroutine(CoAttack());
                 AnimationSetBool("IsMove", false);
@@ -111,8 +113,8 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
 
         transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         IsDead = false;
-        Target = Managers.Game.PlayerWall;
-        PlayerWall = Managers.Game.PlayerWall.transform;
+        Target = DefenseSceneManager.Instance.PlayerWall;
+        PlayerWall = DefenseSceneManager.Instance.PlayerWall.transform;
         MoveToClosestPointOnWall();
     }
 
@@ -192,7 +194,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     IEnumerator CoDie()
     {
         yield return YieldCache.WaitForSeconds(1.5f);
-        Managers.Game.KillEnemy(this);
+        DefenseSceneManager.Instance.KillEnemy(this);
     }
 
     public abstract void AttackAnimListner();

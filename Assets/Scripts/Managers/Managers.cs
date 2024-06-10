@@ -5,7 +5,7 @@ public class Managers : MonoBehaviour
     static Managers s_instance;
     static Managers Instance { get { Init(); return s_instance; } }
 
-    GameManager _game;
+    GameManager _game = new();
     PlayerStatusManager _playerStatus = new();
     TimerManager _timer;
     TimeManager _time = new();
@@ -42,7 +42,7 @@ public class Managers : MonoBehaviour
 
     void Start()
     {
-        Init();
+        // Init();
     }
 
     void Update()
@@ -69,7 +69,7 @@ public class Managers : MonoBehaviour
 
             // MonoBehaviour를 상속받은 매니저들
             {
-                s_instance._game = go.GetOrAddComponent<GameManager>();
+                // s_instance._game = go.GetOrAddComponent<DefenseSceneManager>();
                 s_instance._timer = go.GetOrAddComponent<TimerManager>();
                 s_instance._scene = go.GetOrAddComponent<SceneManagerEx>();
             }
@@ -83,13 +83,11 @@ public class Managers : MonoBehaviour
 
     public static void Clear()
     {
-        Sound.Clear();
+        // Sound.Clear();
         Input.Clear();
         Scene.Clear();
         UI.Clear();
-        Game.Clear();
-
-        CompCache.Clear();
         Pool.Clear();
+        
     }
 }

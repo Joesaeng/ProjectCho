@@ -103,4 +103,15 @@ public abstract class UI_Base : MonoBehaviour
     }
 
     // public abstract void OnChangeLanguage();
+
+    /// <summary>
+    /// to 까지 커지고 release로 돌아옵니다
+    /// </summary>
+    public void ButtonClickEffect(RectTransform rectTransform,float to = 1.4f,float release = 1f)
+    {
+        LeanTween.scale(rectTransform, Vector3.one * to, 0.2f).setEaseOutQuart().setOnComplete(() =>
+        {
+            LeanTween.scale(rectTransform, Vector3.one * release, 0.2f).setEaseOutQuart();
+        });
+    }
 }

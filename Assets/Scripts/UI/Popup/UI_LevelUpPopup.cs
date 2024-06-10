@@ -39,8 +39,8 @@ public class UI_LevelUpPopup : UI_Popup
         _panelLevelupTf = GetObject((int)GameObjects.Panel_LevelUpOptions).transform;
 
         MakeLevelUpOptions();
-        Managers.Game.OnSetLevelUpPopup += LevelUpListner;
-        Managers.Game.OnRerollLevelUpPopup += SetLevelUpOptions;
+        DefenseSceneManager.Instance.OnSetLevelUpPopup += LevelUpListner;
+        DefenseSceneManager.Instance.OnRerollLevelUpPopup += SetLevelUpOptions;
     }
 
     void LevelUpListner(List<LevelUpOptions> levelUpOptions)

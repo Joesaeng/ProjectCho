@@ -17,10 +17,10 @@ public class EnemyDataBase
         EnemyDataDict = builder.Build();
     }
 
-    public void SetEnemyStatusByStageData(int curStage, LevelData data)
+    public void SetEnemyStatusByStageData(int curStage, StageData data)
     {
-        StageData stageData = data.stageDatas[curStage];
-        foreach (var enemyId in stageData.spawnEnemyIds)
+        WaveData stageData = data.stageDatas[curStage];
+        foreach (var enemyId in stageData.waveEnemyIds)
         {
             if (EnemyDataDict.TryGetValue(enemyId, out SetEnemyData setData))
             {

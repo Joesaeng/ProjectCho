@@ -19,7 +19,7 @@ public static class LevelUpOptionsBuilder
                 .Select(data => new LevelUpOptions(true, data)));
         }
         
-        foreach(var data in Managers.Game._SpellUpgradeDatas)
+        foreach(var data in DefenseSceneManager.Instance._SpellUpgradeDatas)
         {
             if (ownSpells.Contains(data.spellId))
                 tempOptions.Add(new LevelUpOptions(false, upgradeData: data));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager
@@ -7,19 +8,6 @@ public class UIManager
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
-
-    public GameObject Root
-    {
-        get
-        {
-            GameObject root = GameObject.Find("@UI_Root");
-            if (root == null)
-            {
-                root = new GameObject { name = "@UI_Root" };
-            }
-            return root;
-        }
-    }
 
     /// <summary>
     /// 외부에서 팝업UI가 켜질 때 본인 캔버스의 sortorder를 채워주는 함수
@@ -48,13 +36,19 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
-        T sceneUI = Util.GetOrAddComponent<T>(go);
+        T sceneUI;
+        if(GameObject.FindAnyObjectByType<T>() != null)
+        {
+            sceneUI = GameObject.FindAnyObjectByType<T>();
+        }
+        else
+        {
+            GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
+            sceneUI = Util.GetOrAddComponent<T>(go);
+        }
         _sceneUI = sceneUI;
-
-        go.transform.SetParent(Root.transform);
-
         return sceneUI;
+        
     }
 
     public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UI_Base
@@ -105,8 +99,6 @@ public class UIManager
         GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
-
-        go.transform.SetParent(Root.transform);
 
         return popup;
     }

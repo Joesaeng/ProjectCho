@@ -103,6 +103,7 @@ namespace Data
         public bool bgmOn = true;
         public bool sfxOn = true;
         public InventoryData inventoryData;
+        public List<int> stageClearList;
     }
 
     [Serializable]
@@ -188,20 +189,21 @@ namespace Data
     }
 
     [Serializable]
-    public class StageData
+    public class WaveData
     {
-        public List<int> spawnEnemyIds;
+        public List<int> waveEnemyIds;
         public int spawnEnemyCount;
         public float damageCoefficient;
         public float hpCoefficient;
     }
 
     [Serializable]
-    public class LevelData : IData
+    public class StageData : IData
     {
         int IData.Id => id;
         public int id;
-        public List<StageData> stageDatas;
+        public List<int> stageEnemysId;
+        public List<WaveData> stageDatas;
     }
 
     [Serializable]

@@ -23,8 +23,8 @@ public class UI_DefenseScene : UI_Scene
         _playerHpText = GetText((int)Texts.Text_PlayerHp);
 
         #region 이벤트 바인드
-        Managers.Game.OnUpdatePlayerHp -= UpdatePlayerHpListner;
-        Managers.Game.OnUpdatePlayerHp += UpdatePlayerHpListner;
+        DefenseSceneManager.Instance.OnUpdatePlayerHp -= UpdatePlayerHpListner;
+        DefenseSceneManager.Instance.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
     }
 

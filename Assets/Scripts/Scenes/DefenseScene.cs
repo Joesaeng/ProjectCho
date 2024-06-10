@@ -6,7 +6,9 @@ public class DefenseScene : BaseScene
 {
     public override void Clear()
     {
-        
+        // Managers.Game.Clear();
+        DefenseSceneManager.Instance.Clear();
+        Managers.CompCache.Clear();
     }
 
     protected override void Init()
@@ -19,7 +21,7 @@ public class DefenseScene : BaseScene
         Managers.UI.ShowSceneUI<UI_DefenseScene>();
 
         Managers.Pool.Init();
-
-        Managers.Game.Init();
+        DefenseSceneManager.Instance.Init();
+        // Managers.Game.Init();
     }
 }
