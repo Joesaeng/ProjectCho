@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_1
+      name: Home
       rect:
         serializedVersion: 2
         x: 88
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_2
+      name: Magician
       rect:
         serializedVersion: 2
         x: 218
@@ -173,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_3
+      name: Achieve
       rect:
         serializedVersion: 2
         x: 395
@@ -194,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_4
+      name: Shop
       rect:
         serializedVersion: 2
         x: 530
@@ -1118,7 +1118,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_57
+      name: UnSelected
       rect:
         serializedVersion: 2
         x: 212
@@ -2063,7 +2063,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_atlas_112
+      name: Selected
       rect:
         serializedVersion: 2
         x: 1308
@@ -2346,8 +2346,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Achieve: -1047634592
+      Home: -326012807
+      Magician: 1846428350
+      Selected: 607159656
+      Shop: -162030908
       UI_atlas_0: -1355052744
-      UI_atlas_1: -326012807
       UI_atlas_10: -1339140580
       UI_atlas_100: 591864345
       UI_atlas_101: 930839695
@@ -2362,7 +2366,6 @@ TextureImporter:
       UI_atlas_11: -1885550736
       UI_atlas_110: 937574556
       UI_atlas_111: -1329299320
-      UI_atlas_112: 607159656
       UI_atlas_113: 933047862
       UI_atlas_114: 371325974
       UI_atlas_115: -1286337906
@@ -2393,7 +2396,6 @@ TextureImporter:
       UI_atlas_17: 2064124588
       UI_atlas_18: -2037490447
       UI_atlas_19: -1908761765
-      UI_atlas_2: 1846428350
       UI_atlas_20: -1660655356
       UI_atlas_21: 1850192881
       UI_atlas_22: -566955497
@@ -2404,7 +2406,6 @@ TextureImporter:
       UI_atlas_27: 1100937029
       UI_atlas_28: 1665623297
       UI_atlas_29: 1410413170
-      UI_atlas_3: -1047634592
       UI_atlas_30: 66340487
       UI_atlas_31: 1122440666
       UI_atlas_32: 294977362
@@ -2415,7 +2416,6 @@ TextureImporter:
       UI_atlas_37: -810910219
       UI_atlas_38: -1143400107
       UI_atlas_39: 1916337448
-      UI_atlas_4: -162030908
       UI_atlas_40: -1331959979
       UI_atlas_41: -1770560101
       UI_atlas_42: 239721031
@@ -2434,7 +2434,6 @@ TextureImporter:
       UI_atlas_54: 566386755
       UI_atlas_55: 106356990
       UI_atlas_56: -2091603016
-      UI_atlas_57: -308251433
       UI_atlas_58: -1195821134
       UI_atlas_59: -892363028
       UI_atlas_6: 1047177902
@@ -2481,6 +2480,7 @@ TextureImporter:
       UI_atlas_97: 578210984
       UI_atlas_98: 655917116
       UI_atlas_99: 1968131297
+      UnSelected: -308251433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

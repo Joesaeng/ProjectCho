@@ -96,59 +96,94 @@
       "kr": "어둠"
     },
     {
-      "key": "IncreaseDamage",
+      "key": "IncreaseDamage_Desc",
       "eng": "Damage to this Spell increases by {0}%",
       "kr": "해당 스킬의 데미지가 {0}% 증가합니다"
     },
     {
-      "key": "IncreaseSize",
+      "key": "IncreaseSize_Desc",
       "eng": "Size of the Spell increases by {0}%.",
       "kr": "스킬의 크기가 {0}% 증가합니다."
     },
     {
-      "key": "AddExplosionOnImpact",
+      "key": "AddExplosionOnImpact_Desc",
       "eng": "Adds an explosion effect on impact dealing damage in a radius of {0}.",
       "kr": "충돌 시 {0} 범위 내에 데미지를 주는 폭발 효과를 추가합니다."
     },
     {
-      "key": "IncreasePierce",
+      "key": "IncreasePierce_Desc",
       "eng": "Increases the Spell's pierce count by {0}.",
       "kr": "스킬의 관통 횟수를 {0} 증가시킵니다."
     },
     {
-      "key": "DecreaseSpellDelay",
+      "key": "DecreaseSpellDelay_Desc",
       "eng": "Reduces the delay between casting the skill by {0}%.",
       "kr": "스킬 시전 간의 지연 시간을 {0}% 감소시킵니다."
     },
     {
-      "key": "AddProjectile",
+      "key": "AddProjectile_Desc",
       "eng": "Adds {0} additional projectiles.",
       "kr": "추가 투사체 {0}개를 발사합니다."
     },
     {
+      "key": "IncreaseDamage",
+      "eng": "Increase Damage",
+      "kr": "데미지 증가"
+    },
+    {
+      "key": "IncreaseSize",
+      "eng": "Increase Size",
+      "kr": "스펠 크기 증가"
+    },
+    {
+      "key": "AddExplosionOnImpact",
+      "eng": "Add Explosion OnImpact",
+      "kr": "폭발 데미지 추가"
+    },
+    {
+      "key": "IncreasePierce",
+      "eng": "Increase Pierce",
+      "kr": "관통 횟수 증가"
+    },
+    {
+      "key": "DecreaseSpellDelay",
+      "eng": "Decrease Spell Delay",
+      "kr": "스펠 지연 시간 감소"
+    },
+    {
+      "key": "AddProjectile",
+      "eng": "Add Projectile",
+      "kr": "추가 투사체 생성"
+    },
+    {
       "key": "ElementType",
-      "eng": "Element Type: {0}",
-      "kr": "속성 타입: {0}"
+      "eng": "Element Type",
+      "kr": "속성 타입"
     },
     {
       "key": "DamageCoefficient",
-      "eng": "Damage Coefficient: {0}%",
-      "kr": "피해 계수: {0}%"
+      "eng": "Damage Coefficient",
+      "kr": "피해 계수"
     },
     {
       "key": "AttackDelay",
-      "eng": "Attack Delay: {0} sec",
-      "kr": "공격 딜레이: {0} 초"
+      "eng": "Attack Delay",
+      "kr": "공격 딜레이"
     },
     {
       "key": "AttackRange",
-      "eng": "Attack Range: {0}m",
-      "kr": "공격 사정거리: {0}m"
+      "eng": "Attack Range",
+      "kr": "공격 사정거리"
     },
     {
       "key": "Reroll",
       "eng": "Reroll",
       "kr": "다시뽑기"
+    },
+    {
+      "key": "AvailableUpgrades",
+      "eng": "Available Upgrades",
+      "kr": "가능한 업그레이드"
     }
 
   ]

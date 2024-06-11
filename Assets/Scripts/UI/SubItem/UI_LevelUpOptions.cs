@@ -50,11 +50,16 @@ public class UI_LevelUpOptions : UI_Base
 
             GetText((int)Texts.Text_UpgradeDesc).text = Language.GetLanguage($"{data.spellName}_Desc");
 
+            // string v = string.Format(statusFormat,
+            //         string.Format(Language.GetLanguage("ElementType"), Language.GetLanguage($"{data.elementType}")),
+            //         string.Format(Language.GetLanguage("DamageCoefficient"), data.spellDamage * 100),
+            //         string.Format(Language.GetLanguage("AttackDelay"), data.spellDelay),
+            //         string.Format(Language.GetLanguage("AttackRange"), data.spellRange));
             string v = string.Format(statusFormat,
-                    string.Format(Language.GetLanguage("ElementType"), Language.GetLanguage($"{data.elementType}")),
-                    string.Format(Language.GetLanguage("DamageCoefficient"), data.spellDamage * 100),
-                    string.Format(Language.GetLanguage("AttackDelay"), data.spellDelay),
-                    string.Format(Language.GetLanguage("AttackRange"), data.spellRange));
+                    $"{Language.GetLanguage("ElementType")}: {Language.GetLanguage($"{data.elementType}")}",
+                    $"{Language.GetLanguage("DamageCoefficient")}: {data.spellDamage * 100}%",
+                    $"{Language.GetLanguage("AttackDelay")}: {data.spellDelay}s",
+                    $"{Language.GetLanguage("AttackRange")}: {data.spellRange}m");
             GetText((int)Texts.Text_UpgradeStatus).text = v;
         }
         else
@@ -66,7 +71,7 @@ public class UI_LevelUpOptions : UI_Base
             GetText((int)Texts.Text_SpellName).color = ConstantData.TextColorsByElementTypes[(int)baseData.elementType];
 
             GetText((int)Texts.Text_UpgradeDesc).text =
-                GenerateTooltipText(Language.GetLanguage($"{data.spellUpgradeType}"), data);
+                GenerateTooltipText(Language.GetLanguage($"{data.spellUpgradeType}_Desc"), data);
 
             GetText((int)Texts.Text_UpgradeStatus).text = "";
         }
