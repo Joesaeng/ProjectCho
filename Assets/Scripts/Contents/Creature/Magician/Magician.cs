@@ -22,7 +22,7 @@ public class Magician : AttackableCreature
         Spell = DefenseSceneManager.Instance._SpellDataBase.SpellDict[spelldata.id];
         Spell.OnUpdateSpellDelay += UpdateSpellDelay;
         Spell.OwnMagicianTransform = transform;
-        ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint");
+        ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint",recursive:true);
 
         _animName = spelldata.animType.ToString();
 

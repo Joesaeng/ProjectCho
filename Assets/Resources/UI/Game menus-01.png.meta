@@ -119,7 +119,7 @@ TextureImporter:
         height: 1715
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 218, z: 0, w: 209}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -140,7 +140,7 @@ TextureImporter:
         height: 2235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 211, z: 0, w: 212}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -155,13 +155,13 @@ TextureImporter:
       name: Game menus-01_20
       rect:
         serializedVersion: 2
-        x: 3349
+        x: 3356
         y: 1572
         width: 1547
         height: 1712
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 216, z: 0, w: 208}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -182,7 +182,7 @@ TextureImporter:
         height: 2235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 214, z: 0, w: 211}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0

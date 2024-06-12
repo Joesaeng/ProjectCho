@@ -184,6 +184,16 @@
       "key": "AvailableUpgrades",
       "eng": "Available Upgrades",
       "kr": "가능한 업그레이드"
+    },
+    {
+      "key": "BaseDamage",
+      "eng": "Base Damage",
+      "kr": "기본 피해"
+    },
+    {
+      "key": "Damage",
+      "eng": "Damage",
+      "kr": "공격력"
     }
 
   ]

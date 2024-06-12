@@ -118,18 +118,22 @@ public abstract class MagicianSpell : ISetData
 
     protected void Init(BaseSpellData data)
     {
+        PlayerStatus playerStatus = Managers.Player.PlayerStatus;
         id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
-        SpellDamage = data.spellDamage * Managers.Player.PlayerStatus.damage;
-        SpellDelay = data.spellDelay * (1 - Managers.Player.PlayerStatus.decreaseAttackDelay);
+        SpellDamage = data.spellDamage * playerStatus.damage;
+        SpellDelay = data.spellDelay * (1 - playerStatus.floatOptions[EquipmentOptionType.DecreaseSpellDelay]);
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
         SpellDuration = data.spellDuration;
         SpellSize = data.spellSize;
         BaseSpellSize = data.spellSize;
         PireceCount = data.pierceCount;
-        AddProjectileCount = 0;
+        if (playerStatus.integerOptions.TryGetValue(EquipmentOptionType.AddPirece, out int addPirece))
+            PireceCount += addPirece;
+        if(playerStatus.integerOptions.TryGetValue(EquipmentOptionType.AddProjectile, out int addProjectile))
+            AddProjectileCount += addProjectile;
     }
 
     public void AddUpgrade(ISpellUpgrade upgrade)

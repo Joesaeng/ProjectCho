@@ -7,7 +7,10 @@ using UnityEngine;
 public abstract class Item
 {
     private string itemName;
+    private string itemSpriteName;
     public string ItemName { get => itemName; set => itemName = value; }
+    public string ItemSpriteName { get => itemSpriteName; set => itemSpriteName = value; }
+
     public abstract void ApplyItem();
     public abstract ItemData ToData();
 }
@@ -15,18 +18,18 @@ public abstract class Item
 public class EquipmentOption
 {
     private EquipmentOptionType optionType;
-    private float value;
-    private int spellId;
+    private int intParam1;
+    private float floatParam1;
 
     public EquipmentOptionType OptionType { get => optionType; set => optionType = value; }
-    public float Value { get => value; set => this.value = value; }
-    public int SpellId { get => spellId; set => spellId = value; }
+    public int IntParam1 { get => intParam1; set => intParam1 = value; }
+    public float FloatParam1 { get => floatParam1; set => this.floatParam1 = value; }
 
     public EquipmentOption(EquipmentsOptionData data)
     {
         optionType = data.optionType;
-        value = data.value;
-        spellId = data.spellId;
+        intParam1 = data.intParam1;
+        floatParam1 = data.floatParam1;
     }
 
     public EquipmentsOptionData ToData()
@@ -34,8 +37,8 @@ public class EquipmentOption
         return new EquipmentsOptionData
         {
             optionType = this.optionType,
-            value = this.value,
-            spellId = this.spellId,
+            intParam1 = this.intParam1,
+            floatParam1 = this.floatParam1,
         };
     }
 }
@@ -45,12 +48,17 @@ public class Equipment : Item
     public EquipmentRarity rarity;
     public EquipmentType equipmentType;
     public List<EquipmentOption> equipmentOptions;
+    public bool isEquip;
+    public int equipSlotIndex;
 
     public Equipment(EquipmentData data)
     {
         ItemName = data.itemName;
+        ItemSpriteName = data.itemSpriteName;
         rarity = data.rarity;
         equipmentType = data.equipmentType;
+        isEquip = data.isEquip;
+        equipSlotIndex = data.equipSlotIndex;
         equipmentOptions = new();
         for(int i = 0; i < data.equipmentOptions.Count; ++i)
         {
@@ -67,8 +75,11 @@ public class Equipment : Item
         return new EquipmentData
         {
             itemName = ItemName,
+            itemSpriteName = ItemSpriteName,
             rarity = rarity,
             equipmentType = equipmentType,
+            isEquip = isEquip,
+            equipSlotIndex = equipSlotIndex,
             itemType = ItemType.Equipment,
             equipmentOptions = equipmentOptions.Select(option => option.ToData()).ToList()
         };

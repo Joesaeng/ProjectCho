@@ -97,8 +97,6 @@ public class DefenseSceneManager : MonoBehaviour
             MagicianPoints.Add(magicianPointParent.GetChild(i));
         }
 
-        Managers.Player.Init();
-
         _SpellDataBase.Init();
         _EnemyDataBase.Init();
 

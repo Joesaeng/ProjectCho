@@ -58,10 +58,7 @@ public enum ItemType
 public enum EquipmentType
 {
     Weapon,
-    Hat,
-    BodyArmor,
-    Gloves,
-    Boots,
+    Ring
 }
 
 [Serializable]
@@ -79,7 +76,9 @@ public enum EquipmentOptionType
     Spell,      // Only Waapon
     BaseDamage, // Only Weapon
     IncreaseDamage,
-    DecreaseAttackDelay,
+    DecreaseSpellDelay,
+    AddProjectile,
+    AddPirece,
     // . . .
 }
 
@@ -213,6 +212,7 @@ namespace Data
         public int id;
         public ItemType itemType;
         public string itemName;
+        public string itemSpriteName;
     }
 
     [Serializable]
@@ -222,8 +222,10 @@ namespace Data
         public int id;
         public List<EquipmentType> capableOfEquipmentType;
         public EquipmentOptionType optionType;
-        public int spellId;
-        public float value;
+        public int intParam1;
+        public int intParam2;
+        public float floatParam1;
+        public float floatParam2;
     }
 
     [Serializable]
@@ -232,6 +234,8 @@ namespace Data
         public EquipmentRarity rarity;
         public EquipmentType equipmentType;
         public List<EquipmentsOptionData> equipmentOptions;
+        public bool isEquip;
+        public int equipSlotIndex;
     }
 
 

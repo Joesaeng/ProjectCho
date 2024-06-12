@@ -10,6 +10,7 @@ public static class ConstantData
     public const int    WorldSpaceUISortOrder = 8;
 
     public const int    LevelUpOptionsBasicCount = 3;
+    public const int    MaxRingSlots = 4;
     #endregion
 
     public static readonly Color[] TextColorsByElementTypes = new Color[]
@@ -22,5 +23,13 @@ public static class ConstantData
         new Color(0.25f,1,0.55f),   // Air
         new Color(1f,0.76f,0.33f),  // Light
         new Color(0,0,0.22f),       // Dark
+    };
+
+    public static readonly Color[] TextColorsByRarity = new Color[]
+    {
+        new Color(0.33f,1f,0),      // Normal
+        new Color(0.64f,0.27f,0),   // Rare
+        new Color(0.70f,0f,1f),     // Epic
+        new Color(1f,0.87f,0f),     // Legend
     };
 }
