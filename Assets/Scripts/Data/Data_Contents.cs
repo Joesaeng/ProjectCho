@@ -78,7 +78,7 @@ public enum EquipmentOptionType
     IncreaseDamage,
     DecreaseSpellDelay,
     AddProjectile,
-    AddPirece,
+    IncreasePierce,
     // . . .
 }
 
@@ -216,12 +216,15 @@ namespace Data
     }
 
     [Serializable]
-    public class EquipmentsOptionData : IData
+    public class EquipmentOptionData : IData
     {
         int IData.Id => id;
         public int id;
         public List<EquipmentType> capableOfEquipmentType;
+        public EquipmentRarity requireRarity;
         public EquipmentOptionType optionType;
+        public string prefix;
+        public int weight;
         public int intParam1;
         public int intParam2;
         public float floatParam1;
@@ -233,7 +236,7 @@ namespace Data
     {
         public EquipmentRarity rarity;
         public EquipmentType equipmentType;
-        public List<EquipmentsOptionData> equipmentOptions;
+        public List<EquipmentOptionData> equipmentOptions;
         public bool isEquip;
         public int equipSlotIndex;
     }

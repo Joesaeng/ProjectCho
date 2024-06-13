@@ -148,7 +148,7 @@ public class EquipmentInventory
             {
                 case EquipmentOptionType.Spell:
                 case EquipmentOptionType.AddProjectile:
-                case EquipmentOptionType.AddPirece:
+                case EquipmentOptionType.IncreasePierce:
                     if (playerStatus.integerOptions.ContainsKey(option.OptionType))
                     {
                         playerStatus.integerOptions[option.OptionType] += option.IntParam1;

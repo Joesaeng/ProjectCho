@@ -70,7 +70,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.PireceCount += _pierceIncrease;
+            spell.PierceCount += _pierceIncrease;
         }
     }
 

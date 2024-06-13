@@ -108,6 +108,7 @@ public class UI_MagiciansEquip : UI_Base
                 _ringSlots[slot._slotIndex] = slot;
         }
         Managers.Player.OnChangeEquipment += ChangeEquipmentsListner;
+        Managers.Player.OnChangeInventory += ChangeInventoryListner;
         #endregion
 
         #region EquipRing 초기화
@@ -241,6 +242,11 @@ public class UI_MagiciansEquip : UI_Base
     {
         SetStatusValues();
         SetEquipSlots();
+        SetInventory();
+    }
+
+    void ChangeInventoryListner()
+    {
         SetInventory();
     }
 

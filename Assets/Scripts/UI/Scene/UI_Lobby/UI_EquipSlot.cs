@@ -15,7 +15,7 @@ public class UI_EquipSlot : UI_Base
     Equipment _equipment;
     Image _itemImage;
     [SerializeField] Sprite _nullSprite;
-    string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}_{2}";
+    string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}";
 
     public Action<Item,ItemSlotUIType> OnClickedEquipSlot;
 
@@ -35,7 +35,7 @@ public class UI_EquipSlot : UI_Base
             return;
         }
         _itemImage.sprite = Managers.Resource.Load<Sprite>(
-            string.Format(_itemSpriteFormat, equipment.equipmentType, equipment.rarity, equipment.ItemSpriteName));
+            string.Format(_itemSpriteFormat, equipment.equipmentType, equipment.ItemSpriteName));
         _itemImage.SetNativeSize();
 
     }

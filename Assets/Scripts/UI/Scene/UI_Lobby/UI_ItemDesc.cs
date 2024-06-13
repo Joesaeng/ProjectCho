@@ -126,7 +126,7 @@ public class UI_ItemDesc : UI_Base
                 {
                     if(option.OptionType == EquipmentOptionType.Spell)
                     {
-                        _attributeTexts[index].text = Managers.Data.BaseSpellDataDict[option.IntParam1].spellName;
+                        _attributeTexts[index].text = Language.GetLanguage(Managers.Data.BaseSpellDataDict[option.IntParam1].spellName);
                         _attributeTexts[index].color = 
                            ConstantData.TextColorsByElementTypes[(int)Managers.Data.BaseSpellDataDict[option.IntParam1].elementType];
                     }
@@ -156,6 +156,10 @@ public class UI_ItemDesc : UI_Base
                 string attributeValue = "";
                 switch (option.OptionType)
                 {
+                    case EquipmentOptionType.AddProjectile:
+                    case EquipmentOptionType.IncreasePierce:
+                        attributeValue = option.IntParam1.ToString();
+                        break;
                     case EquipmentOptionType.BaseDamage:
                         attributeValue = option.FloatParam1.ToString();
                         break;

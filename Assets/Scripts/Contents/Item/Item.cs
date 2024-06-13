@@ -8,8 +8,11 @@ public abstract class Item
 {
     private string itemName;
     private string itemSpriteName;
+    private Sprite itemIcon;
+
     public string ItemName { get => itemName; set => itemName = value; }
     public string ItemSpriteName { get => itemSpriteName; set => itemSpriteName = value; }
+    public Sprite ItemIcon { get => itemIcon; set => itemIcon = value; }
 
     public abstract void ApplyItem();
     public abstract ItemData ToData();
@@ -25,16 +28,34 @@ public class EquipmentOption
     public int IntParam1 { get => intParam1; set => intParam1 = value; }
     public float FloatParam1 { get => floatParam1; set => this.floatParam1 = value; }
 
-    public EquipmentOption(EquipmentsOptionData data)
+    // public EquipmentOption(EquipmentOptionData data)
+    // {
+    //     optionType = data.optionType;
+    //     intParam1 = data.intParam1;
+    //     floatParam1 = data.floatParam1;
+    // }
+
+    public EquipmentOption(EquipmentOptionData data)
     {
         optionType = data.optionType;
-        intParam1 = data.intParam1;
-        floatParam1 = data.floatParam1;
+        if (data.intParam2 != 0)
+            intParam1 = Random.Range(data.intParam1, data.intParam2);
+        else
+            intParam1 = data.intParam1;
+        if (data.floatParam2 != 0)
+        {
+            if (data.floatParam1 >= 1)
+                floatParam1 = Mathf.RoundToInt(Random.Range(data.floatParam1, data.floatParam2));
+            else
+                floatParam1 = (float)System.Math.Round(Random.Range(data.floatParam1, data.floatParam2),3);
+        }
+        else
+            floatParam1 = data.floatParam1;
     }
 
-    public EquipmentsOptionData ToData()
+    public EquipmentOptionData ToData()
     {
-        return new EquipmentsOptionData
+        return new EquipmentOptionData
         {
             optionType = this.optionType,
             intParam1 = this.intParam1,
@@ -86,26 +107,4 @@ public class Equipment : Item
     }
 }
 
-public static class ItemGenerator
-{
-    public static Item GenerateItem(ItemData data)
-    {
-        Item item = NewItem(data);
 
-        return item;
-    }
-
-    static Item NewItem(ItemData data)
-    {
-        return data.itemType switch
-        {
-            ItemType.Equipment => new Equipment(data as EquipmentData),
-            _ => throw new System.ArgumentException($"Unknown ItemType: {data.itemType}")
-        };
-    }
-
-    public static ItemData ToData(Item item)
-    {
-        return item.ToData();
-    }
-}

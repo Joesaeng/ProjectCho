@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory
@@ -18,10 +19,18 @@ public class Inventory
     public void AddItem(Item item)
     {
         items.Add(item);
+        Managers.Player.ChangeInventory();
+    }
+
+    public void AddItems(List<Item> items)
+    {
+        Items.AddRange(items);
+        Managers.Player.ChangeInventory();
     }
 
     public void RemoveItem(Item item)
     {
         items.Remove(item);
+        Managers.Player.ChangeInventory();
     }
 }

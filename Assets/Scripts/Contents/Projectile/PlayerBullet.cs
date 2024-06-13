@@ -11,7 +11,7 @@ public class PlayerBullet : Projectile
         MagicianSpell spellData = data as MagicianSpell;
         ElementType = spellData.ElementType;
         AttackDamage = spellData.SpellDamage;
-        PierceCount = spellData.PireceCount;
+        PierceCount = spellData.PierceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
         sphCol.radius = spellData.BaseSpellSize;
     }
@@ -30,7 +30,7 @@ public class StarightTypePlayerBullet : PlayerBullet
         MagicianSpell spellData = data as MagicianSpell;
         ElementType = spellData.ElementType;
         AttackDamage = spellData.SpellDamage;
-        PierceCount = spellData.PireceCount;
+        PierceCount = spellData.PierceCount;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out BoxCollider boxCol);
         boxCol.size = new Vector3(spellData.SpellSize * 2, 1, 1);
     }

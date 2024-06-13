@@ -21,6 +21,7 @@ public class DataManager
     public Dictionary<int, AOEEffectData>   AOEEffectDataDict { get; private set; } = new Dictionary<int, AOEEffectData>();
     public Dictionary<int, SpellUpgradeDatas>   UpgradeDataDict { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
     public Dictionary<int, StageData>       StageDataDict { get; private set; } = new Dictionary<int, StageData>();
+    public Dictionary<int, EquipmentOptionData> EquipmentOptionDataDict { get; private set; } = new Dictionary<int, EquipmentOptionData>();
 
     public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
 
@@ -32,6 +33,7 @@ public class DataManager
         AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
         UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
         StageDataDict = LoadJson<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
+        EquipmentOptionDataDict = LoadJson<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
 
         LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData> ("LanguageData").MakeDict();
     }

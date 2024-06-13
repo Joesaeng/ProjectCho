@@ -109,7 +109,7 @@ public abstract class MagicianSpell : ISetData
     public float SpellDuration { get; set; }
     public float SpellSize { get; set; }
     public float BaseSpellSize { get; set; }
-    public int PireceCount { get; set; }
+    public int PierceCount { get; set; }
     public int AddProjectileCount { get; set; }
     #endregion
 
@@ -123,15 +123,18 @@ public abstract class MagicianSpell : ISetData
         EffectId = data.effectId;
         ElementType = data.elementType;
         SpellDamage = data.spellDamage * playerStatus.damage;
-        SpellDelay = data.spellDelay * (1 - playerStatus.floatOptions[EquipmentOptionType.DecreaseSpellDelay]);
+        SpellDelay = data.spellDelay;
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
         SpellDuration = data.spellDuration;
         SpellSize = data.spellSize;
         BaseSpellSize = data.spellSize;
-        PireceCount = data.pierceCount;
-        if (playerStatus.integerOptions.TryGetValue(EquipmentOptionType.AddPirece, out int addPirece))
-            PireceCount += addPirece;
+        PierceCount = data.pierceCount;
+
+        if (playerStatus.floatOptions.TryGetValue(EquipmentOptionType.DecreaseSpellDelay, out float decreaseSpellDelay))
+            SpellDelay *= (1 - decreaseSpellDelay);
+        if (playerStatus.integerOptions.TryGetValue(EquipmentOptionType.IncreasePierce, out int IncreasePierce))
+            PierceCount += IncreasePierce;
         if(playerStatus.integerOptions.TryGetValue(EquipmentOptionType.AddProjectile, out int addProjectile))
             AddProjectileCount += addProjectile;
     }

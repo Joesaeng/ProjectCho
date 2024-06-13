@@ -1,0 +1,371 @@
+{
+  "datas": [
+    {
+      "id": 0,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "Spell",
+      "prefix": "",
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 1,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "BaseDamage",
+      "prefix": "",
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 10.0,
+      "floatParam2": 15.0
+    },
+    {
+      "id": 2,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Rare",
+      "optionType": "BaseDamage",
+      "prefix": "",
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 18.0,
+      "floatParam2": 25.0
+    },
+    {
+      "id": 3,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Epic",
+      "optionType": "BaseDamage",
+      "prefix": "",
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 30.0,
+      "floatParam2": 40.0
+    },
+    {
+      "id": 4,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Legend",
+      "optionType": "BaseDamage",
+      "prefix": "",
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 50.0,
+      "floatParam2": 70.0
+    },
+    {
+      "id": 5,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Increase",
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.04
+    },
+    {
+      "id": 6,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Moderate",
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.06,
+      "floatParam2": 0.08
+    },
+    {
+      "id": 7,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Strong",
+      "weight": 25,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.1,
+      "floatParam2": 0.12
+    },
+    {
+      "id": 8,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Mighty",
+      "weight": 15,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.15,
+      "floatParam2": 0.18
+    },
+    {
+      "id": 9,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Decrease",
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.01,
+      "floatParam2": 0.015
+    },
+    {
+      "id": 10,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Bunnys",
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.025
+    },
+    {
+      "id": 11,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Quick",
+      "weight": 25,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.035
+    },
+    {
+      "id": 12,
+      "capableOfEquipmentType": [
+        "Ring"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Rapid",
+      "weight": 10,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.06
+    },
+    {
+      "id": 13,
+      "capableOfEquipmentType": [
+        "Weapon",
+        "Ring"
+      ],
+      "requireRarity": "Epic",
+      "optionType": "IncreasePierce",
+      "prefix": "Piercing",
+      "weight": 30,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 14,
+      "capableOfEquipmentType": [
+        "Weapon",
+        "Ring"
+      ],
+      "requireRarity": "Rare",
+      "optionType": "IncreasePierce",
+      "prefix": "Piercing",
+      "weight": 15,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 15,
+      "capableOfEquipmentType": [
+        "Weapon",
+        "Ring"
+      ],
+      "requireRarity": "Legend",
+      "optionType": "IncreasePierce",
+      "prefix": "Piercing",
+      "weight": 50,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 16,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Legend",
+      "optionType": "AddProjectile",
+      "prefix": "Double",
+      "weight": 25,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 17,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Legend",
+      "optionType": "AddProjectile",
+      "prefix": "Triple",
+      "weight": 5,
+      "intParam1": 2,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 18,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Epic",
+      "optionType": "AddProjectile",
+      "prefix": "Double",
+      "weight": 5,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
+    },
+    {
+      "id": 19,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Fun",
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.08
+    },
+    {
+      "id": 20,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Honor",
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.1,
+      "floatParam2": 0.15
+    },
+    {
+      "id": 21,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Cruel",
+      "weight": 30,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.15,
+      "floatParam2": 0.2
+    },
+    {
+      "id": 22,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "IncreaseDamage",
+      "prefix": "Wizard's",
+      "weight": 15,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.2,
+      "floatParam2": 0.24
+    },
+    {
+      "id": 23,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Rabbit's",
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.03
+    },
+    {
+      "id": 24,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Quick",
+      "weight": 20,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
+    },
+    {
+      "id": 25,
+      "capableOfEquipmentType": [
+        "Weapon"
+      ],
+      "requireRarity": "Normal",
+      "optionType": "DecreaseSpellDelay",
+      "prefix": "Rapid",
+      "weight": 10,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.09
+    }
+  ]
+}

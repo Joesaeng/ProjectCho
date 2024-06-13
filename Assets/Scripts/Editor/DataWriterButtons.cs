@@ -77,3 +77,18 @@ public class SpellUpgradeDataWriterButtons : Editor
         }
     }
 }
+
+[CustomEditor(typeof(EquipmentOptionDataWriter))]
+public class EquipmentOptionDataWriterButtons : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        EquipmentOptionDataWriter writer = (EquipmentOptionDataWriter)target;
+        if (GUILayout.Button("Write Data"))
+        {
+            writer.WriteData();
+        }
+    }
+}

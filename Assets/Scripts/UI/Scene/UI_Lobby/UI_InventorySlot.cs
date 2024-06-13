@@ -13,7 +13,7 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
     ItemSlotUIType _slotType = ItemSlotUIType.Inventory;
     private bool _isDragging;
     private ScrollRect _scrollRect;
-    string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}_{2}";
+    string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}";
 
     Image _itemImage;
     Item _item;
@@ -22,7 +22,7 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
     {
         transform.localPosition = Vector3.zero;
         transform.localScale = Vector3.one;
-        _scrollRect = GetComponentInParent<ScrollRect>();
+        _scrollRect = GetComponentInParent<ScrollRect>(true);
         _itemImage = Util.FindChild<Image>(gameObject, "Image_Item");
     }
 
@@ -32,7 +32,7 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
         if (_item is Equipment equipment)
         {
             _itemImage.sprite = Managers.Resource.Load<Sprite>(
-            string.Format(_itemSpriteFormat, equipment.equipmentType, equipment.rarity, equipment.ItemSpriteName));
+            string.Format(_itemSpriteFormat, equipment.equipmentType, equipment.ItemSpriteName));
         }
         else
         {

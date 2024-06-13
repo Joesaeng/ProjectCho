@@ -48,14 +48,15 @@ public class UI_LobbyScene : UI_Scene
 
         // ==== 메뉴 오브젝트 ====
         UI_LobbyHome,
-        UI_LobbyMagician
+        UI_LobbyMagician,
+        UI_LobbyShop,
     }
 
     // ======= 오브젝트 ========
     // - 메뉴탭
     Slider _menuTabSlider;
     bool _menuMove = false;
-    ushort _selectedIndex = 0;
+    int _selectedIndex = 0;
     Button[] _menuTabButtons;
     TextMeshProUGUI[] _menuTabTexts;
     Image[] _menuTabImages;
@@ -78,6 +79,8 @@ public class UI_LobbyScene : UI_Scene
         _menuUis[0].Init();
         _menuUis[1] = GetObject((int)Objects.UI_LobbyMagician).GetComponent<UI_LobbyMagician>();
         _menuUis[1].Init();
+        _menuUis[2] = GetObject((int)Objects.UI_LobbyShop).GetComponent<UI_LobbyShop>();
+        _menuUis[2].Init();
 
         _menuTabButtons = new Button[]
         {
@@ -101,7 +104,7 @@ public class UI_LobbyScene : UI_Scene
             GetImage((int)Images.Image_Shop),
             GetImage((int)Images.Image_Achieve),
         };
-        for (ushort i = 0; i < _menuTabButtons.Length; i++)
+        for (int i = 0; i < _menuTabButtons.Length; i++)
         {
             _menuTabButtons[i].gameObject.AddUIEvent(ClickedMenuButtons, i);
         }
@@ -122,14 +125,14 @@ public class UI_LobbyScene : UI_Scene
     }
 
     #region 메뉴 탭 버튼 클릭
-    void MoveMenuToIndex(ushort selectIndex)
+    void MoveMenuToIndex(int selectedIndex)
     {
-        _selectedIndex = selectIndex;
-        ButtonClickEffect(_menuTabImages[selectIndex].rectTransform, release:1.2f);
+        _selectedIndex = selectedIndex;
+        ButtonClickEffect(_menuTabImages[selectedIndex].rectTransform, release:1.2f);
         _menuMove = true;
-        for (ushort i = 0; i < _menuTabButtons.Length; i++)
+        for (int i = 0; i < _menuTabButtons.Length; i++)
         {
-            if (i == selectIndex)
+            if (i == selectedIndex)
             {
                 _menuTabButtons[i].gameObject.GetComponent<Image>().color = new Color(1f,0.87f,0.46f);
                 _menuTabTexts[i].enabled = false;
@@ -148,7 +151,7 @@ public class UI_LobbyScene : UI_Scene
         }
     }
 
-    void ClickedMenuButtons(ushort selectedIndex, PointerEventData data)
+    void ClickedMenuButtons(int selectedIndex, PointerEventData data)
     {
         MoveMenuToIndex(selectedIndex);
         // Index에 맞는 메뉴 표시
