@@ -10,14 +10,14 @@ public class Managers : MonoBehaviour
     TimerManager _timer;
     TimeManager _time = new();
     ItemManager _item = new();
-    AchieveManager _achieve = new();
+    AchievementManager _achieve = new();
 
     public static GameManager Game { get { return Instance._game; } }
     public static PlayerStatusManager Player { get { return Instance._playerStatus; } }
     public static TimerManager Timer { get { return Instance._timer; } }
     public static TimeManager Time { get { return Instance._time; } }
     public static ItemManager Item { get { return Instance._item; } }
-    public static AchieveManager Achieve { get { return Instance._achieve; } }
+    public static AchievementManager Achieve { get { return Instance._achieve; } }
     #region Core
     PlayerDataManager _playerData = new PlayerDataManager();
     DataManager _data = new DataManager();

@@ -34,6 +34,20 @@ public class ItemManager
         LoadIcons(weaponPath, WeaponIcons);
     }
 
+    public List<Item> SummonItems(EquipmentType type,int count = 10)
+    {
+        // Player의 Coin, Dia 보유량 확인
+        List<Item> summonItems = new List<Item>();
+        for(int i = 0; i < count; i++)
+        {
+            Item newItem = GenerateRandomItem(type);
+            summonItems.Add(newItem);
+        }
+        Managers.Player.AddItems(summonItems);
+        Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: type);
+        return summonItems;
+    }
+
     private void LoadIcons(string path, Dictionary<EquipmentRarity, List<Sprite>> iconsDict)
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>(path);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class UI_LobbyScene : UI_Scene
         Button_Home,
         Button_Magician,
         Button_Shop,
-        Button_Achieve,
+        Button_Achievement,
 
     }
     enum Texts
@@ -32,7 +33,7 @@ public class UI_LobbyScene : UI_Scene
         Text_Home,
         Text_Magician,
         Text_Shop,
-        Text_Achieve,
+        Text_Achievement,
     }
     enum Images
     {
@@ -40,20 +41,24 @@ public class UI_LobbyScene : UI_Scene
         Image_Home,
         Image_Magician,
         Image_Shop,
-        Image_Achieve,
+        Image_Achievement,
+
+        Image_AchieveCompletable
     }
     enum Objects
     {
-        Slider_MenuTab,
-
         // ==== 메뉴 오브젝트 ====
         UI_LobbyHome,
         UI_LobbyMagician,
         UI_LobbyShop,
+        UI_LobbyAchievement,
+
+        Slider_MenuTab,
     }
 
     // ======= 오브젝트 ========
     // - 메뉴탭
+    int _tabCount = 4;
     Slider _menuTabSlider;
     bool _menuMove = false;
     int _selectedIndex = 0;
@@ -74,27 +79,29 @@ public class UI_LobbyScene : UI_Scene
         Bind<GameObject>(typeof(Objects));
 
         #region 메뉴 탭 초기화
-        _menuUis = new UI_Base[4];
+        _menuUis = new UI_Base[_tabCount];
         _menuUis[0] = GetObject((int)Objects.UI_LobbyHome).GetComponent<UI_LobbyHome>();
         _menuUis[0].Init();
         _menuUis[1] = GetObject((int)Objects.UI_LobbyMagician).GetComponent<UI_LobbyMagician>();
         _menuUis[1].Init();
         _menuUis[2] = GetObject((int)Objects.UI_LobbyShop).GetComponent<UI_LobbyShop>();
         _menuUis[2].Init();
+        _menuUis[3] = GetObject((int)Objects.UI_LobbyAchievement).GetComponent<UI_LobbyAchievement>();
+        _menuUis[3].Init();
 
         _menuTabButtons = new Button[]
         {
             GetButton((int)Buttons.Button_Home),
             GetButton((int)Buttons.Button_Magician),
             GetButton((int)Buttons.Button_Shop),
-            GetButton((int)Buttons.Button_Achieve),
+            GetButton((int)Buttons.Button_Achievement),
         };
         _menuTabTexts = new TextMeshProUGUI[]
         {
             GetText((int)Texts.Text_Home),
             GetText((int)Texts.Text_Magician),
             GetText((int)Texts.Text_Shop),
-            GetText((int)Texts.Text_Achieve)
+            GetText((int)Texts.Text_Achievement)
 
         };
         _menuTabImages = new Image[]
@@ -102,15 +109,20 @@ public class UI_LobbyScene : UI_Scene
             GetImage((int)Images.Image_Home),
             GetImage((int)Images.Image_Magician),
             GetImage((int)Images.Image_Shop),
-            GetImage((int)Images.Image_Achieve),
+            GetImage((int)Images.Image_Achievement),
         };
-        for (int i = 0; i < _menuTabButtons.Length; i++)
+        for (int i = 0; i < _tabCount; i++)
         {
             _menuTabButtons[i].gameObject.AddUIEvent(ClickedMenuButtons, i);
         }
         _selectedIndex = 0;
         MoveMenuToIndex(_selectedIndex);
         #endregion
+
+        Managers.Achieve.OnAchievementCompletable += AchievementCompletableListner;
+        Managers.Achieve.OnAchievementComplete += AchievementCompleteListner;
+
+        GetImage((int)Images.Image_AchieveCompletable).gameObject.SetActive(false);
 
         _menuTabSlider = GetObject((int)Objects.Slider_MenuTab).GetComponent<Slider>();
     }
@@ -124,13 +136,13 @@ public class UI_LobbyScene : UI_Scene
         }
     }
 
-    #region 메뉴 탭 버튼 클릭
+    #region 메뉴 탭
     void MoveMenuToIndex(int selectedIndex)
     {
         _selectedIndex = selectedIndex;
         ButtonClickEffect(_menuTabImages[selectedIndex].rectTransform, release:1.2f);
         _menuMove = true;
-        for (int i = 0; i < _menuTabButtons.Length; i++)
+        for (int i = 0; i < _tabCount; i++)
         {
             if (i == selectedIndex)
             {
@@ -138,6 +150,8 @@ public class UI_LobbyScene : UI_Scene
                 _menuTabTexts[i].enabled = false;
                 if (_menuUis[i] != null)
                     _menuUis[i].gameObject.SetActive(true);
+                if (_menuUis[i].TryGetComponent<UI_LobbyAchievement>(out var achievement))
+                    achievement.SetAchievements();
                 
             }
             else
@@ -158,4 +172,20 @@ public class UI_LobbyScene : UI_Scene
     }
 
     #endregion
+
+    void AchievementCompleteListner(AchievementType type)
+    {
+        UI_LobbyAchievement achievement = _menuUis[(int)Objects.UI_LobbyAchievement] as UI_LobbyAchievement;
+
+        GetImage((int)Images.Image_AchieveCompletable).gameObject
+            .SetActive(achievement.AchievementCompleteListner(type));
+    }
+
+    void AchievementCompletableListner(AchievementType type)
+    {
+        UI_LobbyAchievement achievement = _menuUis[(int)Objects.UI_LobbyAchievement] as UI_LobbyAchievement;
+        achievement.AchievementCompleteListner(type);
+
+        GetImage((int)Images.Image_AchieveCompletable).gameObject.SetActive(true);
+    }
 }

@@ -21,13 +21,13 @@ public static class Extension
         UI_Base.RemoveEvent(go);
     }
 
-    public static bool TryGetChild(this Transform parent, int index , out Transform child)
+    public static bool TryGetChild<T>(this Transform parent, int index , out T child)
     {
-        child = null;
+        child = default;
         if (parent.childCount <= index)
             return false;
 
-        child = parent.GetChild(index);
+        parent.GetChild(index).TryGetComponent<T>(out child);
         return true;
     }
 

@@ -91,6 +91,28 @@ public enum StatusType
     // . . .
 }
 
+[Serializable]
+public enum AchievementType
+{
+    Main,
+    Weekly,
+    Daily,
+    Repeat,
+}
+[Serializable]
+public enum AchievementRewardType
+{
+    RewardDia,
+    RewardCoins,
+    RewardStatus,
+}
+[Serializable]
+public enum AchievementTargetType
+{
+    DefeatEnemies,
+    StageClear,
+    Summon,
+}
 
 namespace Data
 {
@@ -112,7 +134,7 @@ namespace Data
         public bool sfxOn = true;
         public InventoryData inventoryData;
         public List<int> stageClearList;
-        public List<AchieveData> achieveDatas;
+        public List<AchievementData> achievementDatas;
     }
 
     [Serializable]
@@ -250,53 +272,31 @@ namespace Data
         public bool isEquip;
         public int equipSlotIndex;
     }
+    
     [Serializable]
-    public enum AchieveType
-    {
-        Main,
-        Repeat,
-        Daily,
-        Weekly,
-    }
-    [Serializable]
-    public enum AchieveRewardType
-    {
-        Dia,
-        Coins,
-        Status,
-    }
-    [Serializable]
-    public enum AchieveTargetType
-    {
-        DefeatEnemies,
-        StageClear,
-        Summon,
-
-    }
-    [Serializable]
-    public class AchieveData : IData
+    public class AchievementData : IData
     {
         int IData.Id => id;
         public int id;
-        public string achieveName;
-        public AchieveType type;
-        public AchieveTargetData target;
-        public List<AchieveRewardData> rewards;
-        public bool isClear;
+        public string achievementName;
+        public AchievementType type;
+        public AchievementTargetData target;
+        public List<AchievementRewardData> rewards;
+        public bool isCompleted;
     }
     [Serializable]
-    public class AchieveTargetData
+    public class AchievementTargetData
     {
-        public AchieveTargetType type;
+        public AchievementTargetType type;
         public ElementType elementType;
         public EquipmentType summonType;
         public int targetValue;
         public int progressValue;
     }
     [Serializable]
-    public class AchieveRewardData
+    public class AchievementRewardData
     {
-        public AchieveRewardType type;
+        public AchievementRewardType type;
         public StatusType statusType;
         public int integerParam;
         public float floatParam;

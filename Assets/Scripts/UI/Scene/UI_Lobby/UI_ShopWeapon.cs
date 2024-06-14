@@ -23,14 +23,6 @@ public class UI_ShopWeapon : UI_Base
 
     void ClickedSummon(Buttons button,PointerEventData data)
     {
-        // Buttons에 따라서 Player의 Coin, Dia 확인해서 이벤트 실행
-        List<Item> summonItems = new List<Item>();
-        for(int i = 0; i < 10; ++i)
-        {
-            Item newItem = Managers.Item.GenerateRandomItem(EquipmentType.Weapon);
-            summonItems.Add(newItem);
-        }
-        Managers.Player.AddItems(summonItems);
-        OnClickedSummon(summonItems);
+        OnClickedSummon(Managers.Item.SummonItems(EquipmentType.Weapon));
     }
 }

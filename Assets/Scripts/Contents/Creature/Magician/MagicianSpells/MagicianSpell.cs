@@ -251,7 +251,6 @@ public class ExplosionOnImpact
 
     public void OnImpact(IDamageDealer dealer,Transform tf)
     {
-        // 폭발 데미지를 적용하는 로직 구현
         List<IHitable> hits = new List<IHitable>();
         foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {

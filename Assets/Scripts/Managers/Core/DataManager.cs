@@ -22,7 +22,7 @@ public class DataManager
     public Dictionary<int, SpellUpgradeDatas>   UpgradeDataDict { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
     public Dictionary<int, StageData>       StageDataDict { get; private set; } = new Dictionary<int, StageData>();
     public Dictionary<int, EquipmentOptionData> EquipmentOptionDataDict { get; private set; } = new Dictionary<int, EquipmentOptionData>();
-    public Dictionary<int, AchieveData> AchieveDataDict { get; private set; } = new Dictionary<int, AchieveData>();
+    public Dictionary<int, AchievementData> AchievementDataDict { get; private set; } = new Dictionary<int, AchievementData>();
     public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
 
     public void Init()
@@ -34,7 +34,7 @@ public class DataManager
         UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
         StageDataDict = LoadJson<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
         EquipmentOptionDataDict = LoadJson<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
-        AchieveDataDict = LoadJson<Datas<AchieveData>, int, Data.AchieveData>("AchieveData").MakeDict();
+        AchievementDataDict = LoadJson<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
 
         LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData> ("LanguageData").MakeDict();
     }

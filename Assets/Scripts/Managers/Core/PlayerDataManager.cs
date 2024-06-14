@@ -60,6 +60,7 @@ public class PlayerDataManager
         inventoryData.inventoryItemsDatas = tempInventoryData;
 
         _playerData.inventoryData = inventoryData;
+        _playerData.achievementDatas = new List<AchievementData>();
     }
 
     // 플레이어 데이터를 UTF-8로 인코딩하여 저장합니다

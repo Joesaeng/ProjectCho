@@ -93,14 +93,14 @@ public class EquipmentOptionDataWriterButtons : Editor
     }
 }
 
-[CustomEditor(typeof(AchieveDataWriter))]
+[CustomEditor(typeof(AchievementDataWriter))]
 public class AchieveDataWriterButtons : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        AchieveDataWriter writer = (AchieveDataWriter)target;
+        AchievementDataWriter writer = (AchievementDataWriter)target;
         if (GUILayout.Button("Write Data"))
         {
             writer.WriteData();

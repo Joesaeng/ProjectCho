@@ -194,7 +194,86 @@
       "key": "Damage",
       "eng": "Damage",
       "kr": "공격력"
+    },
+    {
+      "key": "IncreaseEnergySpellDamage",
+      "eng": "Energy Damage + ",
+      "kr": "에너지 피해 + "
+    },
+    {
+      "key": "IncreaseFireSpellDamage",
+      "eng": "Fire Damage + ",
+      "kr": "화염 피해 + "
+    },
+    {
+      "key": "IncreaseWaterSpellDamage",
+      "eng": "Water Damage + ",
+      "kr": "물 피해 + "
+    },
+    {
+      "key": "IncreaseLightningSpellDamage",
+      "eng": "Lightning Damage + ",
+      "kr": "번개 피해 + "
+    },
+    {
+      "key": "IncreaseEarthSpellDamage",
+      "eng": "Earth Damage + ",
+      "kr": "대지 피해 + "
+    },
+    {
+      "key": "IncreaseAirSpellDamage",
+      "eng": "Air Damage + ",
+      "kr": "공기 피해 + "
+    },
+    {
+      "key": "IncreaseLightSpellDamage",
+      "eng": "Light Damage + ",
+      "kr": "빛 피해 + "
+    },
+    {
+      "key": "IncreaseDarkSpellDamage",
+      "eng": "Dark Damage + ",
+      "kr": "어둠 피해 + "
+    },
+    {
+      "key": "DefeatEnemies",
+      "eng": "Defeat {0} Enemies",
+      "kr": "{0} 속성 적 제거"
+    },
+    {
+      "key": "StageClear",
+      "eng": "Stage Clear",
+      "kr": "스테이지 완료"
+    },
+    {
+      "key": "Summon",
+      "eng": "Summon {0}",
+      "kr": "{0} 소환"
+    },
+    {
+      "key": "RewardDia",
+      "eng": "[+{0} Dia]",
+      "kr": "[+{0} 다이아]"
+    },
+    {
+      "key": "RewardCoins",
+      "eng": "[+{0} Coins]",
+      "kr": "[+{0} 코인]"
+    },
+    {
+      "key": "RewardStatus",
+      "eng": "[{0}{1}%]",
+      "kr": "[{0}{1}%]"
+    },
+    {
+      "key": "Weapon",
+      "eng": "Weapon",
+      "kr": "무기"
+    },
+    {
+      "key": "Ring",
+      "eng": "Ring",
+      "kr": "반지"
     }
-
   ]
 }
