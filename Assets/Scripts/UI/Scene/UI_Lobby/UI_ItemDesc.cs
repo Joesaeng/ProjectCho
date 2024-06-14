@@ -124,7 +124,7 @@ public class UI_ItemDesc : UI_Base
             {
                 foreach(EquipmentOption option in options)
                 {
-                    if(option.OptionType == EquipmentOptionType.Spell)
+                    if(option.OptionType == StatusType.Spell)
                     {
                         _attributeTexts[index].text = Language.GetLanguage(Managers.Data.BaseSpellDataDict[option.IntParam1].spellName);
                         _attributeTexts[index].color = 
@@ -142,7 +142,7 @@ public class UI_ItemDesc : UI_Base
             }
             foreach (EquipmentOption option in options)
             {
-                if (option.OptionType == EquipmentOptionType.Spell)
+                if (option.OptionType == StatusType.Spell)
                 {
                     continue;
                 }
@@ -156,15 +156,15 @@ public class UI_ItemDesc : UI_Base
                 string attributeValue = "";
                 switch (option.OptionType)
                 {
-                    case EquipmentOptionType.AddProjectile:
-                    case EquipmentOptionType.IncreasePierce:
+                    case StatusType.AddProjectile:
+                    case StatusType.IncreasePierce:
                         attributeValue = option.IntParam1.ToString();
                         break;
-                    case EquipmentOptionType.BaseDamage:
+                    case StatusType.BaseDamage:
                         attributeValue = option.FloatParam1.ToString();
                         break;
-                    case EquipmentOptionType.IncreaseDamage:
-                    case EquipmentOptionType.DecreaseSpellDelay:
+                    case StatusType.IncreaseDamage:
+                    case StatusType.DecreaseSpellDelay:
                         attributeValue = (option.FloatParam1 * 100f).ToString() + "%";
                         break;
                     default:

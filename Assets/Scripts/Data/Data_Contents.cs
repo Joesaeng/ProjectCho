@@ -71,14 +71,23 @@ public enum EquipmentRarity
 }
 
 [Serializable]
-public enum EquipmentOptionType
+public enum StatusType
 {
-    Spell,      // Only Waapon
-    BaseDamage, // Only Weapon
+    Spell,
+    BaseDamage,
     IncreaseDamage,
     DecreaseSpellDelay,
     AddProjectile,
     IncreasePierce,
+    IncreaseEnergySpellDamage,
+    IncreaseFireSpellDamage,
+    IncreaseWaterSpellDamage,
+    IncreaseLightningSpellDamage,
+    IncreaseEarthSpellDamage,
+    IncreaseAirSpellDamage,
+    IncreaseLightSpellDamage,
+    IncreaseDarkSpellDamage,
+
     // . . .
 }
 
@@ -103,6 +112,7 @@ namespace Data
         public bool sfxOn = true;
         public InventoryData inventoryData;
         public List<int> stageClearList;
+        public List<AchieveData> achieveDatas;
     }
 
     [Serializable]
@@ -222,7 +232,7 @@ namespace Data
         public int id;
         public List<EquipmentType> capableOfEquipmentType;
         public EquipmentRarity requireRarity;
-        public EquipmentOptionType optionType;
+        public StatusType optionType;
         public string prefix;
         public int weight;
         public int intParam1;
@@ -239,6 +249,57 @@ namespace Data
         public List<EquipmentOptionData> equipmentOptions;
         public bool isEquip;
         public int equipSlotIndex;
+    }
+    [Serializable]
+    public enum AchieveType
+    {
+        Main,
+        Repeat,
+        Daily,
+        Weekly,
+    }
+    [Serializable]
+    public enum AchieveRewardType
+    {
+        Dia,
+        Coins,
+        Status,
+    }
+    [Serializable]
+    public enum AchieveTargetType
+    {
+        DefeatEnemies,
+        StageClear,
+        Summon,
+
+    }
+    [Serializable]
+    public class AchieveData : IData
+    {
+        int IData.Id => id;
+        public int id;
+        public string achieveName;
+        public AchieveType type;
+        public AchieveTargetData target;
+        public List<AchieveRewardData> rewards;
+        public bool isClear;
+    }
+    [Serializable]
+    public class AchieveTargetData
+    {
+        public AchieveTargetType type;
+        public ElementType elementType;
+        public EquipmentType summonType;
+        public int targetValue;
+        public int progressValue;
+    }
+    [Serializable]
+    public class AchieveRewardData
+    {
+        public AchieveRewardType type;
+        public StatusType statusType;
+        public int integerParam;
+        public float floatParam;
     }
 
 

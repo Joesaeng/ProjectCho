@@ -161,7 +161,7 @@ public class UI_MagiciansEquip : UI_Base
         // Integer Options 설정
         foreach (var option in playerStatus.integerOptions)
         {
-            if (option.Key == EquipmentOptionType.Spell)
+            if (option.Key == StatusType.Spell)
                 continue;
             if (index >= _statusValueTexts.Count)
             {
@@ -177,7 +177,7 @@ public class UI_MagiciansEquip : UI_Base
         // Float Options 설정
         foreach (var option in playerStatus.floatOptions)
         {
-            if (option.Key == EquipmentOptionType.IncreaseDamage || option.Key == EquipmentOptionType.BaseDamage)
+            if (option.Key == StatusType.IncreaseDamage || option.Key == StatusType.BaseDamage)
                 continue;
             if (index >= _statusValueTexts.Count)
             {

@@ -99,12 +99,12 @@ public class ItemManager
             EquipmentOptionData baseDamage = null;
             foreach (var option in validOptions)
             {
-                if (option.optionType == EquipmentOptionType.Spell)
+                if (option.optionType == StatusType.Spell)
                 {
                     possibleSpells.Add(option);
                     continue;
                 }
-                if (option.optionType == EquipmentOptionType.BaseDamage && option.requireRarity == rarity)
+                if (option.optionType == StatusType.BaseDamage && option.requireRarity == rarity)
                     baseDamage = option;
             }
             if (possibleSpells.Count == 0 || baseDamage == null)

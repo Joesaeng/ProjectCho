@@ -20,11 +20,11 @@ public abstract class Item
 
 public class EquipmentOption
 {
-    private EquipmentOptionType optionType;
+    private StatusType optionType;
     private int intParam1;
     private float floatParam1;
 
-    public EquipmentOptionType OptionType { get => optionType; set => optionType = value; }
+    public StatusType OptionType { get => optionType; set => optionType = value; }
     public int IntParam1 { get => intParam1; set => intParam1 = value; }
     public float FloatParam1 { get => floatParam1; set => this.floatParam1 = value; }
 

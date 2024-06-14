@@ -122,18 +122,18 @@ public class EquipmentInventory
             }
         }
 
-        if (playerStatus.integerOptions.ContainsKey(EquipmentOptionType.Spell))
+        if (playerStatus.integerOptions.ContainsKey(StatusType.Spell))
         {
-            playerStatus.startingSpellId = playerStatus.integerOptions[EquipmentOptionType.Spell];
+            playerStatus.startingSpellId = playerStatus.integerOptions[StatusType.Spell];
         }
 
-        if (playerStatus.floatOptions.ContainsKey(EquipmentOptionType.BaseDamage))
+        if (playerStatus.floatOptions.ContainsKey(StatusType.BaseDamage))
         {
-            baseDamage = playerStatus.floatOptions[EquipmentOptionType.BaseDamage];
+            baseDamage = playerStatus.floatOptions[StatusType.BaseDamage];
         }
 
         playerStatus.damage = baseDamage;
-        if (playerStatus.floatOptions.TryGetValue(EquipmentOptionType.IncreaseDamage, out float increaseDamage))
+        if (playerStatus.floatOptions.TryGetValue(StatusType.IncreaseDamage, out float increaseDamage))
             playerStatus.damage *= (1 + increaseDamage);
 
         Managers.Player.PlayerStatus = playerStatus;
@@ -146,9 +146,9 @@ public class EquipmentInventory
         {
             switch (option.OptionType)
             {
-                case EquipmentOptionType.Spell:
-                case EquipmentOptionType.AddProjectile:
-                case EquipmentOptionType.IncreasePierce:
+                case StatusType.Spell:
+                case StatusType.AddProjectile:
+                case StatusType.IncreasePierce:
                     if (playerStatus.integerOptions.ContainsKey(option.OptionType))
                     {
                         playerStatus.integerOptions[option.OptionType] += option.IntParam1;
@@ -158,9 +158,9 @@ public class EquipmentInventory
                         playerStatus.integerOptions[option.OptionType] = option.IntParam1;
                     }
                     break;
-                case EquipmentOptionType.BaseDamage:
-                case EquipmentOptionType.IncreaseDamage:
-                case EquipmentOptionType.DecreaseSpellDelay:
+                case StatusType.BaseDamage:
+                case StatusType.IncreaseDamage:
+                case StatusType.DecreaseSpellDelay:
                     if (playerStatus.floatOptions.ContainsKey(option.OptionType))
                     {
                         playerStatus.floatOptions[option.OptionType] += option.FloatParam1;

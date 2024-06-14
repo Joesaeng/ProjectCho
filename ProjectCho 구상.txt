@@ -22,3 +22,10 @@
 
 -최적화
 	DrawCall, UpscaleRendering, Script 등등 할거 많음
+
+- 4주차
+	AchieveManager 및 UI
+	설정
+	PlayerData 저장 및 로드 (서버)
+	Login -> Lobby -> Defense 씬 이동
+	GameOver 및 재화 획득

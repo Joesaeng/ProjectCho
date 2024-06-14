@@ -10,8 +10,8 @@ public class PlayerStatus
 {
     public int startingSpellId;
     public float damage;
-    public Dictionary<EquipmentOptionType,float> floatOptions = new();
-    public Dictionary<EquipmentOptionType,int> integerOptions = new();
+    public Dictionary<StatusType,float> floatOptions = new();
+    public Dictionary<StatusType,int> integerOptions = new();
 }
 public class PlayerStatusManager
 {

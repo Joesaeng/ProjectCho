@@ -131,11 +131,11 @@ public abstract class MagicianSpell : ISetData
         BaseSpellSize = data.spellSize;
         PierceCount = data.pierceCount;
 
-        if (playerStatus.floatOptions.TryGetValue(EquipmentOptionType.DecreaseSpellDelay, out float decreaseSpellDelay))
+        if (playerStatus.floatOptions.TryGetValue(StatusType.DecreaseSpellDelay, out float decreaseSpellDelay))
             SpellDelay *= (1 - decreaseSpellDelay);
-        if (playerStatus.integerOptions.TryGetValue(EquipmentOptionType.IncreasePierce, out int IncreasePierce))
+        if (playerStatus.integerOptions.TryGetValue(StatusType.IncreasePierce, out int IncreasePierce))
             PierceCount += IncreasePierce;
-        if(playerStatus.integerOptions.TryGetValue(EquipmentOptionType.AddProjectile, out int addProjectile))
+        if(playerStatus.integerOptions.TryGetValue(StatusType.AddProjectile, out int addProjectile))
             AddProjectileCount += addProjectile;
     }
 

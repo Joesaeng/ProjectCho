@@ -38,12 +38,12 @@ public class PlayerDataManager
         {
             new EquipmentOptionData
             {
-                optionType = EquipmentOptionType.Spell,
+                optionType = StatusType.Spell,
                 intParam1 = 0
             },
             new EquipmentOptionData
             {
-                optionType = EquipmentOptionType.BaseDamage,
+                optionType = StatusType.BaseDamage,
                 floatParam1 = 10
             }
         };

@@ -9,7 +9,7 @@ public class EquipmentOptionDataWriter : MonoBehaviour
 
     public List<EquipmentType> capableOfEquipmentType;
     public EquipmentRarity requireRarity;
-    public EquipmentOptionType optionType;
+    public StatusType optionType;
     public string prefix;
     public int weight;
     public int intParam1;

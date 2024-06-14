@@ -92,3 +92,18 @@ public class EquipmentOptionDataWriterButtons : Editor
         }
     }
 }
+
+[CustomEditor(typeof(AchieveDataWriter))]
+public class AchieveDataWriterButtons : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        AchieveDataWriter writer = (AchieveDataWriter)target;
+        if (GUILayout.Button("Write Data"))
+        {
+            writer.WriteData();
+        }
+    }
+}
