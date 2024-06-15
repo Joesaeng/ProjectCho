@@ -1,0 +1,14 @@
+{
+  "datas": [
+    {
+      "id": 0,
+      "effectName": "LightningStrike",
+      "explosionName": "LightningSlashHit"
+    },
+    {
+      "id": 1,
+      "effectName": "FireBallImpact",
+      "explosionName": "FireSlashHit"
+    }
+  ]
+}

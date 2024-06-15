@@ -95,9 +95,9 @@ public abstract class MagicianSpell : ISetData
     public System.Action OnUpdateSpellDelay;
     public System.Action<Transform> OnAddProjectile;
 
-    private Transform _ownMagicianTransform;
+    private Transform _ownTransform;
 
-    public Transform OwnMagicianTransform { get => _ownMagicianTransform; set => _ownMagicianTransform = value; }
+    public Transform OwnTransform { get => _ownTransform; set => _ownTransform = value; }
 
     #region 데이터
     public int EffectId { get; set; }
@@ -106,11 +106,15 @@ public abstract class MagicianSpell : ISetData
     public float SpellDelay { get; set; }
     public float SpellRange { get; set; }
     public float SpellSpeed { get; set; }
-    public float SpellDuration { get; set; }
     public float SpellSize { get; set; }
     public float BaseSpellSize { get; set; }
     public int PierceCount { get; set; }
     public int AddProjectileCount { get; set; }
+
+    public int IntegerParam1 { get; set; }
+    public int IntegerParam2 { get; set; }
+    public float FloatParam1 { get; set; }
+    public float FloatParam2 { get; set; }
     #endregion
 
     public List<ISpellUpgrade> Upgrades { get; set; } = new();
@@ -122,14 +126,17 @@ public abstract class MagicianSpell : ISetData
         id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
-        SpellDamage = data.spellDamage * playerStatus.damage;
+        SpellDamage = data.spellDamageCoefficient * playerStatus.damage;
         SpellDelay = data.spellDelay;
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
-        SpellDuration = data.spellDuration;
         SpellSize = data.spellSize;
         BaseSpellSize = data.spellSize;
         PierceCount = data.pierceCount;
+        IntegerParam1 = data.integerParam1;
+        IntegerParam2 = data.integerParam2;
+        FloatParam1 = data.floatParam1;
+        FloatParam2 = data.floatParam2;
 
         if (playerStatus.floatOptions.TryGetValue(StatusType.DecreaseSpellDelay, out float decreaseSpellDelay))
             SpellDelay *= (1 - decreaseSpellDelay);
@@ -193,7 +200,7 @@ public abstract class MagicianSpell : ISetData
 
         foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
-            float distance = Vector3.Distance(_ownMagicianTransform.position, enemy.transform.position);
+            float distance = Vector3.Distance(_ownTransform.position, enemy.transform.position);
             if (enemy.IsDead || distance > SpellRange)
                 continue;
 
@@ -235,7 +242,7 @@ public class TargetedProjectileOfExplosion : MagicianSpell
         SpellBehavior = new TargetedDirectionBehavior();
         Impact = new ExplosionOnImpact
         {
-            explosionRange = (float)data.explosionRange
+            explosionRange = (float)data.floatParam2
         };
     }
 

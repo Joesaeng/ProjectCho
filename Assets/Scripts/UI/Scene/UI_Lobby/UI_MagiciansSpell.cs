@@ -95,7 +95,7 @@ public class UI_MagiciansSpell : UI_Base
 
         _textDict[Texts.Text_AttributesValue].text =
         $"{Language.GetLanguage($"{spellData.elementType}")}\n" +
-        $"{spellData.spellDamage * 100}%\n" +
+        $"{spellData.spellDamageCoefficient * 100}%\n" +
         $"{spellData.spellDelay}\n" +
         $"{spellData.spellRange}";
         _textDict[Texts.Text_Mechanics].text = Language.GetLanguage($"{spellData.spellName}_Desc");

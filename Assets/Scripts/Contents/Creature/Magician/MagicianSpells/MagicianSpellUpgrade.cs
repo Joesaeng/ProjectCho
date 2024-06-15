@@ -104,7 +104,7 @@ namespace MagicianSpellUpgrade
 
         private void ShootProjectile(Transform projectileSpawnPoint)
         {
-            IHitable primaryTarget = _spell.SearchTarget(_spell.OwnMagicianTransform);
+            IHitable primaryTarget = _spell.SearchTarget(_spell.OwnTransform);
 
             if (primaryTarget == null)
                 return;

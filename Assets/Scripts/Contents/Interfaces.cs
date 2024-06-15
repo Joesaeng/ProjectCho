@@ -14,6 +14,12 @@ namespace Interfaces
         void InitMoveable(IData data);
     }
 
+    public interface ISpellUseable
+    {
+        MagicianSpell Spell { get; set; }
+        void InitSpellUseable(IData data);
+    }
+
     public interface IAttackable
     {
         float AttackDelay { get; set; }

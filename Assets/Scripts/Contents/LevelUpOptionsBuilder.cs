@@ -1,4 +1,5 @@
 using Data;
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using UnityEngine;
 
 public static class LevelUpOptionsBuilder
 {
-    public static List<LevelUpOptions> CreateLevelUpOptions(List<Magician> magicians)
+    public static List<LevelUpOptions> CreateLevelUpOptions(List<ISpellUseable> spells)
     {
-        var ownSpells = magicians.Select(m => m.Spell.id).ToHashSet();
+        var ownSpells = spells.Select(m => m.Spell.id).ToHashSet();
         var tempOptions = new List<LevelUpOptions>();
 
         if(ownSpells.Count < 5)

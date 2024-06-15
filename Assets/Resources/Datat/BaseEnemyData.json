@@ -1,0 +1,52 @@
+{
+  "datas": [
+    {
+      "id": 0,
+      "prefabName": "FireDog",
+      "elementType": "Fire",
+      "baseHp": 10,
+      "baseMoveSpeed": 3,
+      "baseAttackDamage": 2,
+      "baseAttackDelay": 2,
+      "baseAttackRange": 1,
+      "isRange": false,
+      "projectileId": -1
+    },
+    {
+      "id": 1,
+      "prefabName": "EarthMage",
+      "elementType": "Earth",
+      "baseHp": 8,
+      "baseMoveSpeed": 2,
+      "baseAttackDamage": 3,
+      "baseAttackDelay": 3,
+      "baseAttackRange": 5,
+      "isRange": true,
+      "projectileId": 0
+    },
+    {
+      "id": 2,
+      "prefabName": "WaterDog",
+      "elementType": "Water",
+      "baseHp": 10.0,
+      "baseMoveSpeed": 3.5,
+      "baseAttackDamage": 2.0,
+      "baseAttackDelay": 2.0,
+      "baseAttackRange": 1.0,
+      "isRange": false,
+      "projectileId": -1
+    },
+    {
+      "id": 3,
+      "prefabName": "LightningMage",
+      "elementType": "Lightning",
+      "baseHp": 8.0,
+      "baseMoveSpeed": 2.0,
+      "baseAttackDamage": 3.0,
+      "baseAttackDelay": 3.0,
+      "baseAttackRange": 5.0,
+      "isRange": true,
+      "projectileId": 5
+    }
+  ]
+}

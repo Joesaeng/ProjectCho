@@ -57,7 +57,7 @@ public class UI_LevelUpOptions : UI_Base
             //         string.Format(Language.GetLanguage("AttackRange"), data.spellRange));
             string v = string.Format(statusFormat,
                     $"{Language.GetLanguage("ElementType")}: {Language.GetLanguage($"{data.elementType}")}",
-                    $"{Language.GetLanguage("DamageCoefficient")}: {data.spellDamage * 100}%",
+                    $"{Language.GetLanguage("DamageCoefficient")}: {data.spellDamageCoefficient * 100}%",
                     $"{Language.GetLanguage("AttackDelay")}: {data.spellDelay}s",
                     $"{Language.GetLanguage("AttackRange")}: {data.spellRange}m");
             GetText((int)Texts.Text_UpgradeStatus).text = v;

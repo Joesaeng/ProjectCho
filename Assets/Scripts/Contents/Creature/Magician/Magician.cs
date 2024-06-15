@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Magician : AttackableCreature
+public class Magician : AttackableCreature, ISpellUseable
 {
     private MagicianSpell _spell;
     private string _animName;
@@ -18,19 +18,29 @@ public class Magician : AttackableCreature
     public override void Init(IData data)
     {
         base.Init(data);
-        BaseSpellData spelldata = data as BaseSpellData;
-        Spell = DefenseSceneManager.Instance._SpellDataBase.SpellDict[spelldata.id];
-        Spell.OnUpdateSpellDelay += UpdateSpellDelay;
-        Spell.OwnMagicianTransform = transform;
-        ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint",recursive:true);
-
-        _animName = spelldata.animType.ToString();
-
+        InitSpellUseable(data);
         InitAttackable(data);
+        ProjectileSpawnPoint = Util.FindChild<Transform>(gameObject, "ProjectileSpawnPoint",recursive:true);
 
         _animationController.OnAttackAnimEvent -= AttackAnimListner;
         _animationController.OnAttackAnimEvent += AttackAnimListner;
+    }
 
+    public void InitSpellUseable(IData data)
+    {
+        BaseSpellData spelldata = data as BaseSpellData;
+        Spell = DefenseSceneManager.Instance._SpellDataBase.SpellDict[spelldata.id];
+        Spell.OnUpdateSpellDelay += UpdateSpellDelay;
+        Spell.OwnTransform = transform;
+        _animName = spelldata.animType.ToString();
+    }
+
+    public override void InitAttackable(IData data)
+    {
+        UpdateSpellDelay();
+        AttackRange = Spell.SpellRange;
+
+        AttackerState = AttackableState.SearchTarget;
     }
 
     public override IEnumerator CoAttack()
@@ -45,13 +55,7 @@ public class Magician : AttackableCreature
         Spell.UseSpell(_targetPos, ProjectileSpawnPoint);
     }
 
-    public override void InitAttackable(IData data)
-    {
-        UpdateSpellDelay();
-        AttackRange = Spell.SpellRange;
-
-        AttackerState = AttackableState.SearchTarget;
-    }
+    
 
     public void OnUpdate()
     {
@@ -86,4 +90,6 @@ public class Magician : AttackableCreature
     {
         Target = null;
     }
+
+    
 }

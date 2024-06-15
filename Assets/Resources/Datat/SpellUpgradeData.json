@@ -1,0 +1,310 @@
+{
+  "datas": [
+    {
+      "id": 0,
+      "spellId": 0,
+      "spellUpgradeDatas": [
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.25
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.25
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreasePierce",
+          "integerValue": 1,
+          "floatValue": 0
+        },
+        {
+          "spellId": 0,
+          "spellUpgradeType": "IncreasePierce",
+          "integerValue": 1,
+          "floatValue": 0
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "spellId": 1,
+      "spellUpgradeDatas": [
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.1
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.1
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 1,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "spellId": 2,
+      "spellUpgradeDatas": [
+        {
+          "spellId": 2,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.8
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "IncreasePierce",
+          "integerValue": 1,
+          "floatValue": 0
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.15
+        },
+        {
+          "spellId": 2,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.15
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "spellId": 3,
+      "spellUpgradeDatas": [
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.3
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "DecreaseSpellDelay",
+          "integerValue": 0,
+          "floatValue": 0.3
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 3,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "spellId": 4,
+      "spellUpgradeDatas": [
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseDamage",
+          "integerValue": 0,
+          "floatValue": 0.6
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "AddProjectile",
+          "integerValue": 1,
+          "floatValue": 0.0
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        },
+        {
+          "spellId": 4,
+          "spellUpgradeType": "IncreaseSize",
+          "integerValue": 0,
+          "floatValue": 0.5
+        }
+      ]
+    }
+  ]
+}

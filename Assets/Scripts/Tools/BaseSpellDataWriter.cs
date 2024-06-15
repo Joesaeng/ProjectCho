@@ -14,7 +14,7 @@ public class BaseSpellDataWriter : MonoBehaviour
     public MagicianAnim animType;
     public ElementType elementType;
     public string spellName;
-    public float spellDamage;
+    public float spellDamageCoefficient;
     public float spellDelay;
     public float spellRange;
     public float spellSpeed;
@@ -31,11 +31,10 @@ public class BaseSpellDataWriter : MonoBehaviour
             animType = animType,
             elementType = elementType,
             spellName = spellName,
-            spellDamage = spellDamage,
+            spellDamageCoefficient = spellDamageCoefficient,
             spellDelay = spellDelay,
             spellRange = spellRange, 
             spellSpeed = spellSpeed, 
-            spellDuration = spellDuration,
             spellSize = spellSize,
             pierceCount = pierceCount
 };

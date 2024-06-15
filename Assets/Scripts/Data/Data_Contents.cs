@@ -188,17 +188,18 @@ namespace Data
         public MagicianAnim animType;
         public ElementType elementType;
         public string spellName;
-        public float spellDamage;
+        public float spellDamageCoefficient;
         public float spellDelay;
         public float spellRange;
         public float spellSpeed;
-        public float spellDuration;
         public float spellSize;
         public int pierceCount;
 
         // Optional fields
-        public float? explosionDamage;
-        public float? explosionRange;
+        public int integerParam1;
+        public int integerParam2;
+        public float floatParam1;
+        public float floatParam2;
     }
 
     [Serializable]

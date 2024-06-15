@@ -27,7 +27,7 @@ public class PoolablePrefabLoader : Editor
 
         // JSON으로 경로 저장
         string json = JsonUtility.ToJson(new PoolablePrefabList(poolablePrefabPaths));
-        File.WriteAllText(Application.dataPath + "/Resources/Data/PoolablePrefabs.json", json);
+        File.WriteAllText(Application.dataPath + "/Resources/Prefabs/PoolablePrefabs.json", json);
         AssetDatabase.Refresh();
 
         Debug.Log("Poolable Prefab paths saved.");

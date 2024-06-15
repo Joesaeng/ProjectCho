@@ -1,4 +1,5 @@
 using Data;
+using Interfaces;
 using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,9 +29,10 @@ public class DefenseSceneManager : MonoBehaviour
     public PlayerWall PlayerWall { get; set; }
     public HashSet<Enemy> Enemies { get; set; }
 
-    List<Transform> MagicianPoints { get; set; }
-    List<Magician> Magicians { get; set; }
-    int MagicianCount { get; set; }
+    List<Transform> SpellUseablePoints { get; set; }
+    Magician Magician { get; set; }
+    List<ISpellUseable> SpellUseables { get; set; }
+    int SpellUseableCount { get; set; }
 
     public SpellDataBase _SpellDataBase { get; set; }
     public EnemyDataBase _EnemyDataBase { get; set; }
@@ -84,9 +86,9 @@ public class DefenseSceneManager : MonoBehaviour
         RightX = Util.FindChild<Transform>(SpawnArea, "AreaRightPos").position.x;
 
         Enemies = new();
-        MagicianPoints = new();
-        Magicians = new();
-        MagicianCount = 0;
+        SpellUseablePoints = new();
+        SpellUseables = new();
+        SpellUseableCount = 0;
         _SpellDataBase = new();
         _EnemyDataBase = new();
         _SpellUpgradeDatas = new();
@@ -94,7 +96,7 @@ public class DefenseSceneManager : MonoBehaviour
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
         {
-            MagicianPoints.Add(magicianPointParent.GetChild(i));
+            SpellUseablePoints.Add(magicianPointParent.GetChild(i));
         }
 
         _SpellDataBase.Init();
@@ -159,13 +161,13 @@ public class DefenseSceneManager : MonoBehaviour
 
     public List<LevelUpOptions> CreateLevelUpOptions()
     {
-        return LevelUpOptionsBuilder.CreateLevelUpOptions(Magicians);
+        return LevelUpOptionsBuilder.CreateLevelUpOptions(SpellUseables);
     }
 
     void ClickedLevelUpOptionListner(LevelUpOptions option)
     {
         if (option.IsNewSpell)
-            CreateMagician(option.SpellId);
+            CreateCharge(option.SpellId);
         else
         {
             _SpellUpgradeDatas.Remove(option.SpellUpgradeData);
@@ -177,18 +179,37 @@ public class DefenseSceneManager : MonoBehaviour
 
     void CreateMagician(int spellId)
     {
-        if (MagicianCount < MagicianPoints.Count)
+        if (SpellUseableCount < SpellUseablePoints.Count)
         {
-            GameObject obj = Managers.Resource.Instantiate("Magician1", MagicianPoints[MagicianCount]);
+            GameObject obj = Managers.Resource.Instantiate("Magician1", SpellUseablePoints[SpellUseableCount]);
 
             Magician magician = obj.GetOrAddComponent<Magician>();
             BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
             GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
-                MagicianPoints[MagicianCount].position + new Vector3(0, 0.1f, 0));
+                SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-            MagicianCount++;
+            SpellUseableCount++;
             magician.Init(data);
-            Magicians.Add(magician);
+            SpellUseables.Add(magician);
+            Magician = magician;
+        }
+    }
+
+    void CreateCharge(int spellId)
+    {
+        if (SpellUseableCount < SpellUseablePoints.Count)
+        {
+            GameObject obj = Managers.Resource.Instantiate("SpellCharge", SpellUseablePoints[SpellUseableCount]);
+            obj.transform.localPosition += Vector3.up;
+
+            SpellCharge spellCharge = obj.GetOrAddComponent<SpellCharge>();
+            BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
+            GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
+                SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
+            aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+            SpellUseableCount++;
+            spellCharge.Init(data);
+            SpellUseables.Add(spellCharge);
         }
     }
 
@@ -250,10 +271,7 @@ public class DefenseSceneManager : MonoBehaviour
             CurWaveTime = 0;
         }
 
-        foreach (var magician in Magicians)
-        {
-            magician.OnUpdate();
-        }
+        Magician.OnUpdate();
     }
 
     private void UpdatePlayerHpListner(int curHp)
@@ -271,9 +289,9 @@ public class DefenseSceneManager : MonoBehaviour
 
         // 객체 제거
         Enemies = null;
-        MagicianPoints = null;
-        Magicians = null;
-        MagicianCount = 0;
+        SpellUseablePoints = null;
+        SpellUseables = null;
+        SpellUseableCount = 0;
         _SpellDataBase = null;
         _EnemyDataBase = null;
         _SpellUpgradeDatas = null;

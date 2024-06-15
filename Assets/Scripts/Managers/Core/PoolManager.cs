@@ -107,7 +107,7 @@ public class PoolManager
 
     void LoadPoolablePrefabs()
     {
-        TextAsset jsonTextAsset = Resources.Load<TextAsset>("Data/PoolablePrefabs");
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>("Prefabs/PoolablePrefabs");
         if (jsonTextAsset != null)
         {
             PoolablePrefabList prefabList = JsonUtility.FromJson<PoolablePrefabList>(jsonTextAsset.text);
