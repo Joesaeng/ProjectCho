@@ -13,15 +13,18 @@ public class PlayerStatus
     public Dictionary<StatusType,float> floatOptions = new();
     public Dictionary<StatusType,int> integerOptions = new();
 }
+
 public class PlayerStatusManager
 {
     PlayerStatus playerStatus;
+    SpellDataBase spellDataBase;
     Inventory inventory;
     EquipmentInventory equipmentInventory;
 
     public Inventory Inventory { get => inventory; set => inventory = value; }
     public EquipmentInventory EquipmentInventory { get => equipmentInventory; set => equipmentInventory = value; }
     public PlayerStatus PlayerStatus { get => playerStatus; set => playerStatus = value; }
+    public SpellDataBase SpellDataBase { get => spellDataBase; set => spellDataBase = value; }
 
     public Action OnChangeEquipment;
     public Action OnChangeInventory;
@@ -31,6 +34,8 @@ public class PlayerStatusManager
         Data.InventoryData data = Managers.PlayerData.Data.inventoryData;
         inventory = new Inventory(data);
         equipmentInventory = new EquipmentInventory(data);
+        SpellDataBase = new SpellDataBase();
+        SpellDataBase.Init();
     }
 
     public void ChangeEquipments()

@@ -141,17 +141,6 @@ public class ExportJsonToGoogleSheets : EditorWindow
         }
     }
 
-    private void ShowOverwriteDialog(string sheetName, string jsonFilePath)
-    {
-        if (EditorUtility.DisplayDialog("Sheet Exists",
-            $"A sheet named '{sheetName}' already exists. Do you want to overwrite it?",
-            "Overwrite", "Cancel"))
-        {
-            overwriteConfirmed = true;
-            CreateAndExportToSheet(sheetName, jsonFilePath);
-        }
-    }
-
     private void CreateAndExportToSheet(string sheetName, string jsonFilePath)
     {
         if (!overwriteConfirmed)

@@ -3,18 +3,21 @@ using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
 {
     GameObject AOESpellObject { get; set; }
+    protected HashSet<IHitable> Targets { get; set; } = new();
+
     private ElementType _elementType;
-    HashSet<IHitable> Targets { get; set; } = new();
     public ElementType ElementType { get => _elementType; set => _elementType = value; }
 
     string AOESpellPath;
-    string ExplosionPath;
+    protected string ExplosionPath;
 
     public float AttackDamage { get; set; }
+    public float SpellDuration { get; set; }
 
     public void Init(IData data)
     {
@@ -32,7 +35,8 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
         AttackDamage = spellData.SpellDamage;
         ElementType = spellData.ElementType;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
-        sphCol.radius = spellData.BaseSpellSize;
+        sphCol.radius = 1;
+        SpellDuration = spellData.FloatParam1;
 
         StartCoroutine(CoImpact());
     }
@@ -45,25 +49,40 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
         }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (Targets.TryGetValue(other.gameObject.GetComponent<IHitable>(), out IHitable hitable))
+        {
+            Targets.Remove(hitable);
+        }
+    }
+
     IEnumerator CoImpact()
     {
         yield return YieldCache.WaitForSeconds(0.05f);
-        foreach (IHitable target in Targets)
+        float curDuration = 0f;
+        while (true)
         {
-            if(target.IsDead) 
-                continue;
-            target.TakeDamage(this);
+            curDuration += 1f;
+            foreach (IHitable target in Targets)
+            {
+                if (target.IsDead)
+                    continue;
+                target.TakeDamage(this);
 
-            GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
-            Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
-            hitEffect.Init();
-
+                GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
+                Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
+                hitEffect.Init();
+            }
+            yield return YieldCache.WaitForSeconds(1f);
+            if (curDuration >= SpellDuration)
+            {
+                DestroyAOE();
+            }
         }
-        yield return YieldCache.WaitForSeconds(1f);
-        DestroyAOE();
     }
 
-    protected void DestroyAOE()
+    void DestroyAOE()
     {
         Targets.Clear();
         Managers.Resource.Destroy(AOESpellObject);

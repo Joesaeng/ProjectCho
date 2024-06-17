@@ -73,5 +73,11 @@ public class SpellCharge : AttackableCreature, ISpellUseable
         Target = null;
     }
 
-    
+    public void OnUpdate()
+    {
+        if (Target == null)
+            return;
+        _targetPos = Target.Tf.position;
+    }
+
 }

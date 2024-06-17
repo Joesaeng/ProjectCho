@@ -30,6 +30,8 @@ public class UI_MagiciansSpell : UI_Base
     Dictionary<Texts,TextMeshProUGUI> _textDict = new();
 
     Sprite[] _spellEdgeSprites = new Sprite[2];
+
+    Transform _iconsTf;
     public override void Init()
     {
         Bind<GameObject>(typeof(Objects));
@@ -54,21 +56,36 @@ public class UI_MagiciansSpell : UI_Base
                 _spellEdgeSprites[1] = sprite;
         }
 
-        Transform iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
+        _iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
 
-        while (iconsTf.childCount < Managers.Data.BaseSpellDataDict.Count)
+        SetSpellIcons();
+        SetSpellDesc(0);
+    }
+
+    void SetSpellIcons()
+    {
+        while (_iconsTf.childCount < Managers.Data.BaseSpellDataDict.Count)
         {
-            Managers.UI.MakeSubItem<UI_SpellIcon>(iconsTf);
+            GameObject newObj = Managers.UI.MakeSubItem<UI_SpellIcon>(_iconsTf).gameObject;
+            newObj.transform.localScale = Vector3.one;
+            newObj.transform.localPosition = Vector3.zero;
         }
 
         for (int spellId = 0; spellId < Managers.Data.BaseSpellDataDict.Count; ++spellId)
         {
-            _spellIconDict.Add(spellId, iconsTf.GetChild(spellId).GetComponent<UI_SpellIcon>());
+            _spellIconDict.Add(spellId, _iconsTf.GetChild(spellId).GetComponent<UI_SpellIcon>());
             _spellIconDict[spellId].Init();
             _spellIconDict[spellId].SetImages(_spellIconSpriteDict[spellId], _spellEdgeSprites[0]);
             _spellIconDict[spellId].gameObject.AddUIEvent(ClickedSpellIcon, spellId);
         }
-        SetSpellDesc(0);
+
+        foreach(KeyValuePair<int,UI_SpellIcon> kvp in _spellIconDict)
+        {
+            if (Managers.Player.SpellDataBase.SpellDataDict.ContainsKey(kvp.Key))
+                kvp.Value.SetUnlock();
+            else
+                kvp.Value.SetLock();
+        }
     }
 
     void ClickedSpellIcon(int spellId, PointerEventData data)
@@ -84,9 +101,10 @@ public class UI_MagiciansSpell : UI_Base
     void SetSpellDesc(int spellId)
     {
         _spellIconDict[spellId].SetEdge(_spellEdgeSprites[1]);
-        BaseSpellData spellData = Managers.Data.BaseSpellDataDict[spellId];
+        SpellDataByPlayerOwnedSpell spellData = Managers.Player.SpellDataBase.SpellDataDict[spellId];
         _textDict[Texts.Text_Name].text = spellData.spellName;
         _textDict[Texts.Text_Name].color = ConstantData.TextColorsByElementTypes[(int)spellData.elementType];
+
         _textDict[Texts.Text_Attributes].text =
         $"{Language.GetLanguage("ElementType")}\n" +
         $"{Language.GetLanguage("DamageCoefficient")}\n" +
@@ -96,8 +114,11 @@ public class UI_MagiciansSpell : UI_Base
         _textDict[Texts.Text_AttributesValue].text =
         $"{Language.GetLanguage($"{spellData.elementType}")}\n" +
         $"{spellData.spellDamageCoefficient * 100}%\n" +
-        $"{spellData.spellDelay}\n" +
-        $"{spellData.spellRange}";
+        $"{spellData.spellDelay}s\n" +
+        $"{spellData.spellRange}m";
+
+        SetTextForSpecialOptionSpell(spellData);
+
         _textDict[Texts.Text_Mechanics].text = Language.GetLanguage($"{spellData.spellName}_Desc");
         _textDict[Texts.Text_AvailableUpgradesTitle].text = Language.GetLanguage("AvailableUpgrades");
 
@@ -110,6 +131,26 @@ public class UI_MagiciansSpell : UI_Base
         foreach (SpellUpgradeType upgradeType in upgrades)
         {
             _textDict[Texts.Text_AvailableUpgrades].text += Language.GetLanguage($"{upgradeType}")+", ";
+        }
+    }
+
+    void SetTextForSpecialOptionSpell(SpellDataByPlayerOwnedSpell spellData)
+    {
+        switch (spellData.id)
+        {
+            case 2: // ExplosionRange
+                _textDict[Texts.Text_Attributes].text +=
+                    $"\n{Language.GetLanguage("ExplosionRange")}";
+                _textDict[Texts.Text_AttributesValue].text +=
+                    $"\n{spellData.floatParam2}";
+                    
+                break;
+            case 5: // SpellDuration
+                _textDict[Texts.Text_Attributes].text +=
+                    $"\n{Language.GetLanguage("SpellDuration")}";
+                _textDict[Texts.Text_AttributesValue].text +=
+                    $"\n{spellData.floatParam1}";
+                break;
         }
     }
 }

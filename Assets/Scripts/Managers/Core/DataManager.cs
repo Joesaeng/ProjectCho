@@ -28,22 +28,20 @@ public class DataManager
     public Dictionary<int, AchievementData> AchievementDataDict { get; private set; } = new Dictionary<int, AchievementData>();
     public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
 
-    private const string spreadsheetId = "13FxaHFa2dqualC039L4zP9r4CmmMfoGEL4gQHZLw2iw";
-    private const string range = "Sheet1!A1:Z1000";
-
     public void Init()
     {
-        // BaseEnemyDataDict = LoadJson<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
-        // BaseSpellDataDict = LoadJson<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
-        // ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
-        // AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
-        // UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
-        // StageDataDict = LoadJson<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
-        // EquipmentOptionDataDict = LoadJson<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
-        // AchievementDataDict = LoadJson<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
-        // 
-        // LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData> ("LanguageData").MakeDict();
+#if UNITY_EDITOR
+        BaseEnemyDataDict = LoadJson<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
+        BaseSpellDataDict = LoadJson<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
+        ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
+        AOEEffectDataDict = LoadJson<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
+        UpgradeDataDict = LoadJson<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
+        StageDataDict = LoadJson<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
+        EquipmentOptionDataDict = LoadJson<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
+        AchievementDataDict = LoadJson<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
 
+        LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
+#else
         BaseEnemyDataDict = LoadGoogleSheetData<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
         BaseSpellDataDict = LoadGoogleSheetData<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
         ProjectileDataDict = LoadGoogleSheetData<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
@@ -54,6 +52,7 @@ public class DataManager
         AchievementDataDict = LoadGoogleSheetData<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
 
         LanguageDataDict = LoadGoogleSheetData<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
+#endif
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

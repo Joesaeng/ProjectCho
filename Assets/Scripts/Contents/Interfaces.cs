@@ -18,6 +18,7 @@ namespace Interfaces
     {
         MagicianSpell Spell { get; set; }
         void InitSpellUseable(IData data);
+        void OnUpdate();
     }
 
     public interface IAttackable

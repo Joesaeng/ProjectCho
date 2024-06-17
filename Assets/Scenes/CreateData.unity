@@ -290,8 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35969fde759ac3047bf494e16a9decf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aOEEffectPrefab: {fileID: 118354, guid: 0cabd55ad80deeb42bb94695f26e9677, type: 3}
-  explosionPrefab: {fileID: 387594403099771044, guid: f1cf241e54685c044ab239e08d9972e5,
+  aOEEffectPrefab: {fileID: 4813175331714475279, guid: 0e0bc338d9f993e47a5075edccee4788,
+    type: 3}
+  explosionPrefab: {fileID: 51306415303862986, guid: 9f0cf7edc7895ec47acd1dfc8bc86773,
     type: 3}
 --- !u!4 &549359299
 Transform:
@@ -441,18 +442,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ae7a21417957e4a92135150ce4c26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectId: 5
-  spellType: 0
-  animType: 0
-  elementType: 4
-  spellName: Earth Orv
-  spellDamageCoefficient: 0
-  spellDelay: 3
-  spellRange: 35
-  spellSpeed: 15
-  spellDuration: 0
-  spellSize: 1.4
+  effectId: 2
+  spellType: 3
+  spellRarity: 0
+  animType: 1
+  elementType: 5
+  spellName: Tornado
+  spellDataByLevel:
+  - spellLevel: 0
+    requireSpellCountToLevelup: 0
+    spellDamageCoefficient: 1
+    spellDelay: 3
+  spellRange: 40
+  spellSpeed: 0
+  spellSize: 2
   pierceCount: -1
+  integerParam1: 0
+  integerParam2: 0
+  floatParam1: 2
+  floatParam2: 0
 --- !u!4 &2094037433
 Transform:
   m_ObjectHideFlags: 0

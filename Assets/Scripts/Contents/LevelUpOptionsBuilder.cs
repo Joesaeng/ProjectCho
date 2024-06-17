@@ -10,12 +10,12 @@ public static class LevelUpOptionsBuilder
     public static List<LevelUpOptions> CreateLevelUpOptions(List<ISpellUseable> spells)
     {
         var ownSpells = spells.Select(m => m.Spell.id).ToHashSet();
-        var tempOptions = new List<LevelUpOptions>();
+        var levelupOptions = new List<LevelUpOptions>();
 
         if(ownSpells.Count < 5)
         {
-            tempOptions.AddRange(
-            Managers.Data.BaseSpellDataDict.Values
+            levelupOptions.AddRange(
+            Managers.Player.SpellDataBase.SpellDataDict.Values
                 .Where(data => !ownSpells.Contains(data.id))
                 .Select(data => new LevelUpOptions(true, data)));
         }
@@ -23,10 +23,10 @@ public static class LevelUpOptionsBuilder
         foreach(var data in DefenseSceneManager.Instance._SpellUpgradeDatas)
         {
             if (ownSpells.Contains(data.spellId))
-                tempOptions.Add(new LevelUpOptions(false, upgradeData: data));
+                levelupOptions.Add(new LevelUpOptions(false, upgradeData: data));
         }
 
-        return GetRandomOptions(tempOptions, 3);
+        return GetRandomOptions(levelupOptions, 3);
     }
 
     private static List<LevelUpOptions> GetRandomOptions(List<LevelUpOptions> options, int count)

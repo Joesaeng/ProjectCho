@@ -24,7 +24,15 @@ public class PlayerDataManager
 
         // TempCode
 
-        
+        List<PlayerOwnedSpellData> tOwnSpellData = new List<PlayerOwnedSpellData>()
+        {
+            new PlayerOwnedSpellData(){spellId = 0,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 1,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 2,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 3,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 4,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 5,isEquip = true},
+        };
 
         EquipmentData startingWeaponData = new();
         startingWeaponData.itemName = "Staff";
@@ -39,7 +47,7 @@ public class PlayerDataManager
             new EquipmentOptionData
             {
                 optionType = StatusType.Spell,
-                intParam1 = 0
+                intParam1 = 5
             },
             new EquipmentOptionData
             {
@@ -59,6 +67,7 @@ public class PlayerDataManager
         inventoryData.equipmentDatas = tempEquipmentData;
         inventoryData.inventoryItemsDatas = tempInventoryData;
 
+        _playerData.ownedSpellDatas = tOwnSpellData;
         _playerData.inventoryData = inventoryData;
         _playerData.achievementDatas = new List<AchievementData>();
     }

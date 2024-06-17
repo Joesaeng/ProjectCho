@@ -3,33 +3,46 @@
     {
       "id": 0,
       "effectId": 1,
-      "spellType": "TargetedProjectile",
+      "spellBehaviorType": "TargetedProjectile",
+      "spellRarity": "Normal",
       "animType": "ProjectileAttack",
       "elementType": "Energy",
       "spellName": "EnergyBall",
-      "spellDamageCoefficient": 1,
-      "spellDelay": 1,
-      "spellRange": 40,
-      "spellSpeed": 45,
-      "spellSize": 1,
       "pierceCount": 1,
+      "spellSpeed": 45.0,
+      "spellRange": 40.0,
+      "spellSize": 1.0,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 2.0
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
-      "floatParam1": 0,
-      "floatParam2": 0
+      "floatParam1": 0.0,
+      "floatParam2": 0.0
     },
     {
       "id": 1,
       "effectId": 2,
-      "spellType": "StraightProjectile",
+      "spellBehaviorType": "StraightProjectile",
       "animType": "StraightProjectileAttack",
       "elementType": "Water",
       "spellName": "Tsunami",
-      "spellDamageCoefficient": 2,
-      "spellDelay": 5,
       "spellRange": 20,
       "spellSpeed": 15,
       "spellSize": 2,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 4.0
+        }
+      ],
       "pierceCount": -1,
       "integerParam1": 0,
       "integerParam2": 0,
@@ -39,7 +52,7 @@
     {
       "id": 2,
       "effectId": 3,
-      "spellType": "TargetedProjectileOfExplosion",
+      "spellBehaviorType": "TargetedProjectileOfExplosion",
       "animType": "ProjectileAttack",
       "elementType": "Fire",
       "spellName": "FireBall",
@@ -48,6 +61,14 @@
       "spellRange": 35,
       "spellSpeed": 40,
       "spellSize": 1,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 3.0
+        }
+      ],
       "pierceCount": 1,
       "integerParam1": 0,
       "integerParam2": 0,
@@ -57,15 +78,21 @@
     {
       "id": 3,
       "effectId": 0,
-      "spellType": "TargetedAOE",
+      "spellBehaviorType": "TargetedAOE",
       "animType": "AOEAttack",
       "elementType": "Lightning",
       "spellName": "LightningStrike",
-      "spellDamageCoefficient": 2.5,
-      "spellDelay": 2,
       "spellRange": 40,
       "spellSpeed": 0,
-      "spellSize": 1,
+      "spellSize": 2.5,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 2.5
+        }
+      ],
       "pierceCount": -1,
       "integerParam1": 0,
       "integerParam2": 0,
@@ -75,20 +102,51 @@
     {
       "id": 4,
       "effectId": 4,
-      "spellType": "TargetedProjectile",
+      "spellBehaviorType": "TargetedProjectile",
       "animType": "ProjectileAttack",
       "elementType": "Earth",
       "spellName": "EarthOrv",
-      "spellDamageCoefficient": 1.5,
-      "spellDelay": 3,
       "spellRange": 25,
       "spellSpeed": 15,
       "spellSize": 1,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 3.0
+        }
+      ],
       "pierceCount": -1,
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
       "floatParam2": 0
+    },
+    {
+      "id": 5,
+      "effectId": 2,
+      "spellBehaviorType": "TargetedAOE",
+      "spellRarity": "Normal",
+      "animType": "AOEAttack",
+      "elementType": "Air",
+      "spellName": "Tornado",
+      "pierceCount": -1,
+      "spellSpeed": 0.0,
+      "spellRange": 40.0,
+      "spellSize": 2.5,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 3.0
+        }
+      ],
+      "integerParam1": 0,
+      "integerParam2": 0,
+      "floatParam1": 3.0,
+      "floatParam2": 0.0
     }
   ]
 }

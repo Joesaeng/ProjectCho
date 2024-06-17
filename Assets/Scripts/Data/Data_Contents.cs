@@ -13,16 +13,6 @@ public interface IData
 }
 
 [Serializable]
-public enum SpellType
-{
-    TargetedProjectile,
-    TargetedProjectileOfExplosion,
-    StraightProjectile,
-    TargetedAOE,
-    Summon,
-}
-
-[Serializable]
 public enum ElementType
 {
                 // 상성이 아닌 속성에는 75%의 데미지
@@ -36,6 +26,25 @@ public enum ElementType
     Air,        // Earth 속성 적에게 200% 데미지, Fire 속성 적에게 50% 데미지
     Light,      // Dark속성 적에게 300% 데미지, Light 속성 적에게 0% 데미지
     Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
+}
+
+[Serializable]
+public enum SpellBehaviorType
+{
+    TargetedProjectile,
+    TargetedProjectileOfExplosion,
+    StraightProjectile,
+    TargetedAOE,
+    Summon,
+}
+
+[Serializable]
+public enum SpellRarity
+{
+    Normal,
+    Rare,
+    Epic,
+    Legend,
 }
 
 [Serializable]
@@ -124,6 +133,16 @@ namespace Data
         public List<ItemData> equipmentDatas;
 
     }
+
+    [Serializable]
+    public class PlayerOwnedSpellData
+    {
+        public int spellId;
+        public int spellLevel;
+        public int ownCount;
+        public bool isEquip;
+    }
+
     [Serializable]
     public class PlayerData 
     {
@@ -133,6 +152,7 @@ namespace Data
         public float sfxVolume = 1f;
         public bool bgmOn = true;
         public bool sfxOn = true;
+        public List<PlayerOwnedSpellData> ownedSpellDatas;
         public InventoryData inventoryData;
         public List<int> stageClearList;
         public List<AchievementData> achievementDatas;
@@ -185,22 +205,32 @@ namespace Data
         int IData.Id => id;
         public int id;
         public int effectId;
-        public SpellType spellType;
+        public SpellBehaviorType spellBehaviorType;
+        public SpellRarity spellRarity;
         public MagicianAnim animType;
         public ElementType elementType;
         public string spellName;
-        public float spellDamageCoefficient;
-        public float spellDelay;
-        public float spellRange;
-        public float spellSpeed;
-        public float spellSize;
         public int pierceCount;
+        public float spellSpeed;
+        public float spellRange;
+        public float spellSize;
+
+        public List<BaseSpellDataByLevel> spellDataByLevel;
 
         // Optional fields
         public int integerParam1;
         public int integerParam2;
         public float floatParam1;
         public float floatParam2;
+    }
+
+    [Serializable]
+    public class BaseSpellDataByLevel
+    {
+        public int spellLevel;
+        public int requireSpellCountToLevelup;
+        public float spellDamageCoefficient;
+        public float spellDelay;
     }
 
     [Serializable]

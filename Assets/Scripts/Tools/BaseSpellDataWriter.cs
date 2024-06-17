@@ -10,33 +10,41 @@ public class BaseSpellDataWriter : MonoBehaviour
     string jsonpath = "Resources/Data/BaseSpellData.json";
 
     public int effectId;
-    public SpellType spellType;
+    public SpellBehaviorType spellType;
+    public SpellRarity spellRarity;
     public MagicianAnim animType;
     public ElementType elementType;
     public string spellName;
-    public float spellDamageCoefficient;
-    public float spellDelay;
+    public List<BaseSpellDataByLevel> spellDataByLevel;
     public float spellRange;
     public float spellSpeed;
-    public float spellDuration;
     public float spellSize;
     public int pierceCount;
+
+    public int integerParam1;
+    public int integerParam2;
+    public float floatParam1;
+    public float floatParam2;
 
     public void WriteData()
     {
         BaseSpellData newData = new BaseSpellData()
         {
             effectId = effectId,
-            spellType = spellType,
+            spellBehaviorType = spellType,
+            spellRarity = spellRarity,
             animType = animType,
             elementType = elementType,
             spellName = spellName,
-            spellDamageCoefficient = spellDamageCoefficient,
-            spellDelay = spellDelay,
+            spellDataByLevel = spellDataByLevel,
             spellRange = spellRange, 
             spellSpeed = spellSpeed, 
             spellSize = spellSize,
-            pierceCount = pierceCount
+            pierceCount = pierceCount,
+            integerParam1 = integerParam1,
+            integerParam2 = integerParam2,
+            floatParam1 = floatParam1,
+            floatParam2 = floatParam2,
 };
         JsonDataWriter.WriteData(jsonpath, newData);
     }

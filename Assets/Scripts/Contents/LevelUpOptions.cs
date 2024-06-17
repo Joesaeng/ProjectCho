@@ -8,10 +8,10 @@ public class LevelUpOptions
 {
     public int SpellId { get; private set; }
     public bool IsNewSpell { get; private set; }
-    public BaseSpellData BaseSpellData {  get; private set; }
+    public SpellDataByPlayerOwnedSpell SpellData {  get; private set; }
     public SpellUpgradeData SpellUpgradeData { get; private set; }
 
-    public LevelUpOptions(bool newSpell, BaseSpellData spellData = null, SpellUpgradeData upgradeData = null)
+    public LevelUpOptions(bool newSpell, SpellDataByPlayerOwnedSpell spellData = null, SpellUpgradeData upgradeData = null)
     {
         IsNewSpell = newSpell;
         if(IsNewSpell)
@@ -21,7 +21,7 @@ public class LevelUpOptions
                 Debug.Log("Is new spell level up option but spellData is null");
                 return;
             }
-            BaseSpellData = spellData;
+            SpellData = spellData;
             SpellId = spellData.id;
         }
         else
@@ -32,7 +32,6 @@ public class LevelUpOptions
                 return;
             }
             SpellUpgradeData = upgradeData;
-            BaseSpellData = Managers.Data.BaseSpellDataDict[upgradeData.spellId];
             SpellId = upgradeData.spellId;
         }
     }

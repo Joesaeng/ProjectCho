@@ -31,6 +31,11 @@
       "kr": "땅의 오브"
     },
     {
+      "key": "Tornado",
+      "eng": "Tornado",
+      "kr": "태풍"
+    },
+    {
       "key": "EnergyBall_Desc",
       "eng": "Fire the skill of energy attributes to the nearest enemy",
       "kr": "가장 가까운 적에게 에너지 속성의 스킬 발사합니다"
@@ -54,6 +59,11 @@
       "key": "EarthOrv_Desc",
       "eng": "Fires a EarthOrv that damages all enemies in its path",
       "kr": "경로에 있는 모든 적에게 피해를 주는 땅의 오브를 발사합니다"
+    },
+    {
+      "key": "Tornado_Desc",
+      "eng": "Summons a typhoon that deals damage at regular intervals to random enemy positions",
+      "kr": "무작위 적의 위치에 일정 시간마다 데미지를 주는 태풍을 소환합니다"
     },
     {
       "key": "Energy",
@@ -174,6 +184,16 @@
       "key": "AttackRange",
       "eng": "Attack Range",
       "kr": "공격 사정거리"
+    },
+    {
+      "key": "SpellDuration",
+      "eng": "Spell Duration",
+      "kr": "스펠 지속시간"
+    },
+    {
+      "key": "ExplosionRange",
+      "eng": "Explosion Range",
+      "kr": "폭발 범위"
     },
     {
       "key": "Reroll",

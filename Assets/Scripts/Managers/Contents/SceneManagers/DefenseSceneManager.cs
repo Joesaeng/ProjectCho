@@ -89,7 +89,8 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = new();
         SpellUseables = new();
         SpellUseableCount = 0;
-        _SpellDataBase = new();
+        _SpellDataBase = Managers.Player.SpellDataBase;
+        _SpellDataBase.BuildSpellDict();
         _EnemyDataBase = new();
         _SpellUpgradeDatas = new();
 
@@ -99,7 +100,6 @@ public class DefenseSceneManager : MonoBehaviour
             SpellUseablePoints.Add(magicianPointParent.GetChild(i));
         }
 
-        _SpellDataBase.Init();
         _EnemyDataBase.Init();
 
         foreach (SpellUpgradeDatas datas in Managers.Data.UpgradeDataDict.Values)
@@ -126,7 +126,6 @@ public class DefenseSceneManager : MonoBehaviour
 
         CreateMagician(Managers.Player.PlayerStatus.startingSpellId);
         StartStage(CurWave);
-        Managers.Time.ChangeTimeScale();
     }
 
     void StartStage(int curWave)
@@ -271,7 +270,10 @@ public class DefenseSceneManager : MonoBehaviour
             CurWaveTime = 0;
         }
 
-        Magician.OnUpdate();
+        foreach (ISpellUseable spellUseable in SpellUseables)
+        {
+            spellUseable.OnUpdate();
+        }
     }
 
     private void UpdatePlayerHpListner(int curHp)
@@ -292,10 +294,10 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = null;
         SpellUseables = null;
         SpellUseableCount = 0;
-        _SpellDataBase = null;
         _EnemyDataBase = null;
         _SpellUpgradeDatas = null;
 
+        _SpellDataBase.ClearSpellDict();
         // StageData 초기화
         CurStage = 0;
         CurWave = 0;

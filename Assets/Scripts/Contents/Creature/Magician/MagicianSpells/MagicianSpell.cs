@@ -51,8 +51,7 @@ public class StraightDirectionBehavior : ISpellBehavior
         Vector3 dir = Vector3.forward;
         playerBullet.SetDir(dir);
 
-        float newSize = spell.SpellSize;
-        SetParticleSystemSize(obj, newSize);
+        SetParticleSystemSize(obj, spell.SpellSize);
     }
 
     private void SetParticleSystemSize(GameObject obj, float newSize)
@@ -84,7 +83,7 @@ public class TargetPositionBehavior : ISpellBehavior
 
 public abstract class MagicianSpell : ISetData
 {
-    protected BaseSpellData BaseSpellData { get; set; }
+    protected SpellDataByPlayerOwnedSpell SpellData { get; set; }
     int IData.Id => id;
     public int id;
 
@@ -120,7 +119,7 @@ public abstract class MagicianSpell : ISetData
     public List<ISpellUpgrade> Upgrades { get; set; } = new();
     public ExplosionOnImpact Impact = null;
 
-    protected void Init(BaseSpellData data)
+    protected void Init(SpellDataByPlayerOwnedSpell data)
     {
         id = data.id;
         EffectId = data.effectId;
@@ -229,9 +228,9 @@ public abstract class MagicianSpell : ISetData
 
 public class TargetedProjectile : MagicianSpell
 {
-    public TargetedProjectile(BaseSpellData data)
+    public TargetedProjectile(SpellDataByPlayerOwnedSpell data)
     {
-        BaseSpellData = data;
+        SpellData = data;
         Init(data);
         EffectData = Managers.Data.ProjectileDataDict[data.effectId];
         SpellBehavior = new TargetedDirectionBehavior();
@@ -245,9 +244,9 @@ public class TargetedProjectile : MagicianSpell
 
 public class TargetedProjectileOfExplosion : MagicianSpell
 {
-    public TargetedProjectileOfExplosion(BaseSpellData data)
+    public TargetedProjectileOfExplosion(SpellDataByPlayerOwnedSpell data)
     {
-        BaseSpellData = data;
+        SpellData = data;
         Init(data);
         
         EffectData = Managers.Data.ProjectileDataDict[data.effectId];
@@ -285,9 +284,9 @@ public class ExplosionOnImpact
 
 public class StraightProjectile : MagicianSpell
 {
-    public StraightProjectile(BaseSpellData data)
+    public StraightProjectile(SpellDataByPlayerOwnedSpell data)
     {
-        BaseSpellData = data;
+        SpellData = data;
         Init(data);
         EffectData = Managers.Data.ProjectileDataDict[data.effectId];
         SpellBehavior = new StraightDirectionBehavior();
@@ -301,9 +300,9 @@ public class StraightProjectile : MagicianSpell
 
 public class TargetedAOE : MagicianSpell
 {
-    public TargetedAOE(BaseSpellData data)
+    public TargetedAOE(SpellDataByPlayerOwnedSpell data)
     {
-        BaseSpellData = data;
+        SpellData = data;
         Init(data);
         EffectData = Managers.Data.AOEEffectDataDict[data.effectId];
         SpellBehavior = new TargetPositionBehavior();
