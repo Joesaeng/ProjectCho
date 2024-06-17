@@ -122,11 +122,10 @@ public abstract class MagicianSpell : ISetData
 
     protected void Init(BaseSpellData data)
     {
-        PlayerStatus playerStatus = Managers.Player.PlayerStatus;
         id = data.id;
         EffectId = data.effectId;
         ElementType = data.elementType;
-        SpellDamage = data.spellDamageCoefficient * playerStatus.damage;
+        SpellDamage = data.spellDamageCoefficient;
         SpellDelay = data.spellDelay;
         SpellRange = data.spellRange;
         SpellSpeed = data.spellSpeed;
@@ -138,12 +137,25 @@ public abstract class MagicianSpell : ISetData
         FloatParam1 = data.floatParam1;
         FloatParam2 = data.floatParam2;
 
+        ApplyPlayerStatusToSpell();
+    }
+
+    private void ApplyPlayerStatusToSpell()
+    {
+        PlayerStatus playerStatus = Managers.Player.PlayerStatus;
+        SpellDamage *= playerStatus.damage;
+
         if (playerStatus.floatOptions.TryGetValue(StatusType.DecreaseSpellDelay, out float decreaseSpellDelay))
-            SpellDelay *= (1 - decreaseSpellDelay);
-        if (playerStatus.integerOptions.TryGetValue(StatusType.IncreasePierce, out int IncreasePierce))
-            PierceCount += IncreasePierce;
-        if(playerStatus.integerOptions.TryGetValue(StatusType.AddProjectile, out int addProjectile))
+            SpellDelay *= (float)(1 - decreaseSpellDelay);
+        if (playerStatus.integerOptions.TryGetValue(StatusType.IncreasePierce, out int increasePierce))
+            PierceCount += increasePierce;
+        if (playerStatus.integerOptions.TryGetValue(StatusType.AddProjectile, out int addProjectile))
             AddProjectileCount += addProjectile;
+
+        StatusType increaseElementDamage = Util.Parse<StatusType>($"Increase{ElementType}SpellDamage");
+
+        if(playerStatus.floatOptions.TryGetValue(increaseElementDamage, out float value))
+            SpellDamage *= (float)(1 + value);
     }
 
     public void AddUpgrade(ISpellUpgrade upgrade)

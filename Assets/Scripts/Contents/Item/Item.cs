@@ -45,7 +45,7 @@ public class EquipmentOption
         if (data.floatParam2 != 0)
         {
             if (data.floatParam1 >= 1)
-                floatParam1 = Mathf.RoundToInt(Random.Range(data.floatParam1, data.floatParam2));
+                floatParam1 = Mathf.CeilToInt(Random.Range(data.floatParam1, data.floatParam2));
             else
                 floatParam1 = (float)System.Math.Round(Random.Range(data.floatParam1, data.floatParam2),3);
         }

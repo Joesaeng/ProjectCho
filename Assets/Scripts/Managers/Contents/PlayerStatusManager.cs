@@ -47,6 +47,8 @@ public class PlayerStatusManager
 
     public void UnEquip(Equipment equipment) => EquipmentInventory.UnEquip(equipment);
 
+    public bool HasEmptyRingSlots() => EquipmentInventory.HasEmptyRingSlots();
+
     public void AddItem(Item item) => Inventory.AddItem(item);
 
     public void AddItems(List<Item> items) => Inventory.AddItems(items);

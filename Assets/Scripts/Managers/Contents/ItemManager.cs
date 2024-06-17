@@ -1,9 +1,18 @@
 using Data;
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+
+public class RarityWeight : IRandomWeighted
+{
+    public EquipmentRarity rarity;
+    public int weight;
+
+    public int Weight => weight;
+}
 
 public class ItemManager
 {
@@ -13,6 +22,14 @@ public class ItemManager
     public List<EquipmentOptionData> equipmentOptionDatas = new();
 
     public Dictionary<EquipmentRarity, List<EquipmentOptionData>> equipmentOptionsByRarity = new();
+
+    private List<RarityWeight> rarityWeights = new List<RarityWeight>
+    {
+        new RarityWeight { rarity = EquipmentRarity.Normal, weight = 650 },
+        new RarityWeight { rarity = EquipmentRarity.Rare, weight = 250 },
+        new RarityWeight { rarity = EquipmentRarity.Epic, weight = 68 },
+        new RarityWeight { rarity = EquipmentRarity.Legend, weight = 32 }
+    };
 
     public void Init()
     {
@@ -86,16 +103,8 @@ public class ItemManager
         equipmentData.itemType = ItemType.Equipment;
         equipmentData.equipmentType = equipmentType;
         equipmentData.equipmentOptions = new();
-        // normal : 65, Rare : 25,Epic : 7, Legend : 3
-        int rarityInt = Random.Range(0,101);
-        EquipmentRarity rarity = EquipmentRarity.Normal;
-        if (rarityInt <= 3)
-            rarity = EquipmentRarity.Legend;
-        else if (rarityInt <= 10)
-            rarity = EquipmentRarity.Epic;
-        else if (rarityInt <= 32)
-            rarity = EquipmentRarity.Rare;
 
+        EquipmentRarity rarity = Util.GetRandomWeightedSelect<RarityWeight>(rarityWeights).rarity;
         equipmentData.rarity = rarity;
 
         List<EquipmentOptionData> validOptions = GetValidOptions(equipmentType, rarity);
@@ -136,7 +145,7 @@ public class ItemManager
 
         for (int i = 0; i < optionCount; ++i)
         {
-            EquipmentOptionData option = GetRandomWeightedOption(validOptions);
+            EquipmentOptionData option = Util.GetRandomWeightedSelect(validOptions);
             equipmentData.equipmentOptions.Add(option);
         }
 
@@ -182,32 +191,6 @@ public class ItemManager
         }
 
         return validOptions;
-    }
-
-    private EquipmentOptionData GetRandomWeightedOption(List<EquipmentOptionData> options)
-    {
-        int totalWeight = 0;
-        foreach (var option in options)
-        {
-            totalWeight += option.weight;
-        }
-
-        int randomWeight = Random.Range(0, totalWeight);
-        int currentWeight = 0;
-
-        foreach (var option in options)
-        {
-            if (option.weight == 0)
-                continue;
-
-            currentWeight += option.weight;
-            if (randomWeight < currentWeight)
-            {
-                return option;
-            }
-        }
-
-        return null; // 이론적으로는 여기 도달하지 않아야 함
     }
 
     private string GenerateItemName(EquipmentType type, EquipmentOptionData lowestWeightOption)

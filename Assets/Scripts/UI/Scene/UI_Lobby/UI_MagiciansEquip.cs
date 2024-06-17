@@ -1,4 +1,5 @@
 using Data;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -98,7 +99,7 @@ public class UI_MagiciansEquip : UI_Base
         #region Equip슬롯 초기화
         UI_EquipSlot[] equipSlots = GetComponentsInChildren<UI_EquipSlot>();
         _ringSlots = new UI_EquipSlot[ConstantData.MaxRingSlots];
-        foreach(var slot in equipSlots)
+        foreach (var slot in equipSlots)
         {
             slot.Init();
             slot.OnClickedEquipSlot += ClickedEquipSlotListner;
@@ -124,7 +125,7 @@ public class UI_MagiciansEquip : UI_Base
         GetButton((int)Buttons.Button_RingSlot3).gameObject.AddUIEvent(ClickedEquipRingSlot, 3);
 
         GetButton((int)Buttons.Button_WeaponTab).gameObject.AddUIEvent(ClickedInventoryTab, EquipmentType.Weapon);
-        _buttons.Add(EquipmentType.Weapon,GetButton((int)Buttons.Button_WeaponTab));
+        _buttons.Add(EquipmentType.Weapon, GetButton((int)Buttons.Button_WeaponTab));
         GetButton((int)Buttons.Button_RingTab).gameObject.AddUIEvent(ClickedInventoryTab, EquipmentType.Ring);
         _buttons.Add(EquipmentType.Ring, GetButton((int)Buttons.Button_RingTab));
         #endregion
@@ -205,8 +206,15 @@ public class UI_MagiciansEquip : UI_Base
     Equipment selectedRing;
     void EquipRingListner(Equipment ring)
     {
-        GetObject((int)Objects.Panel_EquipRingSlotButton).SetActive(true);
-        selectedRing = ring;
+        if (Managers.Player.HasEmptyRingSlots())
+        {
+            Managers.Player.Equip(ring);
+        }
+        else
+        {
+            GetObject((int)Objects.Panel_EquipRingSlotButton).SetActive(true);
+            selectedRing = ring;
+        }
     }
 
     void ClickedEquipRingOutside(PointerEventData data)
@@ -228,11 +236,11 @@ public class UI_MagiciansEquip : UI_Base
     {
         Dictionary<EquipmentType,Equipment> equipments = Managers.Player.EquipmentInventory.Equipments;
         List<RingSlot> ringslots = Managers.Player.EquipmentInventory.RingSlots;
-        foreach(var equip in equipments.Values)
+        foreach (var equip in equipments.Values)
         {
             _weaponSlot.SetEquipSlot(equip);
         }
-        for(int i = 0; i < ringslots.Count; ++i)
+        for (int i = 0; i < ringslots.Count; ++i)
         {
             _ringSlots[i].SetEquipSlot(ringslots[i].Ring);
         }
@@ -252,7 +260,7 @@ public class UI_MagiciansEquip : UI_Base
 
     void ClickedEquipSlotListner(Item item, ItemSlotUIType slotType)
     {
-        if(item == null)
+        if (item == null)
         {
             return;
         }
@@ -260,13 +268,13 @@ public class UI_MagiciansEquip : UI_Base
         _itemDescUi.OnItemDesc(item, slotType);
     }
 
-    void ClickedItemListner(Item item,ItemSlotUIType slotType)
+    void ClickedItemListner(Item item, ItemSlotUIType slotType)
     {
         _itemDescUi.gameObject.SetActive(true);
-        _itemDescUi.OnItemDesc(item,slotType);
+        _itemDescUi.OnItemDesc(item, slotType);
     }
 
-    void ClickedInventoryTab(EquipmentType type,PointerEventData data)
+    void ClickedInventoryTab(EquipmentType type, PointerEventData data)
     {
         _showItemType = type;
         SetInventoryTab();

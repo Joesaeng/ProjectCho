@@ -152,7 +152,7 @@ public class UI_ItemDesc : UI_Base
                     GameObject newText = GameObject.Instantiate(_attributeTexts[index - 1],_attributes).gameObject;
                     _attributeTexts.Add(newText.GetComponent<TextMeshProUGUI>());
                 }
-                _attributeTexts[index].text = $"{Language.GetLanguage($"{option.OptionType}")} : ";
+                _attributeTexts[index].text = $"{Language.GetLanguage($"{option.OptionType}")} ";
                 string attributeValue = "";
                 switch (option.OptionType)
                 {
@@ -165,17 +165,25 @@ public class UI_ItemDesc : UI_Base
                         break;
                     case StatusType.IncreaseDamage:
                     case StatusType.DecreaseSpellDelay:
-                        attributeValue = (option.FloatParam1 * 100f).ToString() + "%";
+                    case StatusType.IncreaseEnergySpellDamage:
+                    case StatusType.IncreaseFireSpellDamage:
+                    case StatusType.IncreaseWaterSpellDamage:
+                    case StatusType.IncreaseLightningSpellDamage:
+                    case StatusType.IncreaseEarthSpellDamage:
+                    case StatusType.IncreaseAirSpellDamage:
+                    case StatusType.IncreaseLightSpellDamage:
+                    case StatusType.IncreaseDarkSpellDamage:
+                        attributeValue = (option.FloatParam1 * 100f).ToString("0.0") + "%";
                         break;
                     default:
                         throw new System.ArgumentException($"Unknown OptionType: {option.OptionType}");
                 }
-                _attributeTexts[index].text += attributeValue;
+                _attributeTexts[index].text += $"[<color=#FF0000>{attributeValue}</color>]";
 
                 index++;
             }
         }
-        for(int i = 0; i < index; ++i)
+        for (int i = 0; i < index; ++i)
         {
             _attributeTexts[i].gameObject.SetActive(true);
         }

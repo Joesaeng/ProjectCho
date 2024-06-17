@@ -86,6 +86,18 @@ public class EquipmentInventory
         ApplyEquipmentStatus();
     }
 
+    public bool HasEmptyRingSlots()
+    {
+        foreach (var slot in ringSlots)
+        {
+            if (slot.IsEmpty)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void EquipRing(Equipment ring, int slotIndex)
     {
         if (slotIndex >= 0 && slotIndex < ConstantData.MaxRingSlots)
@@ -161,6 +173,14 @@ public class EquipmentInventory
                 case StatusType.BaseDamage:
                 case StatusType.IncreaseDamage:
                 case StatusType.DecreaseSpellDelay:
+                case StatusType.IncreaseEnergySpellDamage:
+                case StatusType.IncreaseFireSpellDamage:
+                case StatusType.IncreaseWaterSpellDamage:
+                case StatusType.IncreaseLightningSpellDamage:
+                case StatusType.IncreaseEarthSpellDamage:
+                case StatusType.IncreaseAirSpellDamage:
+                case StatusType.IncreaseLightSpellDamage:
+                case StatusType.IncreaseDarkSpellDamage:
                     if (playerStatus.floatOptions.ContainsKey(option.OptionType))
                     {
                         playerStatus.floatOptions[option.OptionType] += option.FloatParam1;

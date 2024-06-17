@@ -1,3 +1,4 @@
+using Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,5 +114,32 @@ public static class Util
         {
             return number;
         }
+    }
+
+    public static T GetRandomWeightedSelect<T>(List<T> options) where T : IRandomWeighted
+    {
+        int totalWeight = 0;
+        foreach (var option in options)
+        {
+            totalWeight += option.Weight;
+        }
+
+        int randomWeight = UnityEngine.Random.Range(0, totalWeight);
+        int currentWeight = 0;
+
+        foreach (var option in options)
+        {
+            if (option.Weight == 0)
+                continue;
+
+            currentWeight += option.Weight;
+            if (randomWeight < currentWeight)
+            {
+                return option;
+            }
+        }
+
+        Debug.LogWarning($"Failed Random Weighte Select : {typeof(T)}");
+        return default; // 이론적으로는 여기 도달하지 않아야 함
     }
 }

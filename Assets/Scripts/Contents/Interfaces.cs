@@ -52,4 +52,9 @@ namespace Interfaces
 
         void InitDamageDealer(IData data);
     }
+
+    public interface IRandomWeighted
+    {
+        public int Weight { get;}
+    }
 }

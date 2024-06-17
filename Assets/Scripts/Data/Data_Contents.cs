@@ -1,4 +1,5 @@
 using Define;
+using Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -249,9 +250,10 @@ namespace Data
     }
 
     [Serializable]
-    public class EquipmentOptionData : IData
+    public class EquipmentOptionData : IData ,IRandomWeighted
     {
         int IData.Id => id;
+        public int Weight { get => weight; }
         public int id;
         public List<EquipmentType> capableOfEquipmentType;
         public EquipmentRarity requireRarity;

@@ -237,15 +237,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383b079f4141cce47bc59dcaab12e7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capableOfEquipmentType: 00000000
+  capableOfEquipmentType: 0000000001000000
   requireRarity: 0
-  optionType: 3
-  prefix: 
+  optionType: 6
+  prefix: Luminous
   weight: 10
   intParam1: 0
   intParam2: 0
-  floatParam1: 0.05
-  floatParam2: 0
+  floatParam1: 0.2
+  floatParam2: 0.25
 --- !u!4 &215293030
 Transform:
   m_ObjectHideFlags: 0
@@ -384,13 +384,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf491046e7240b4f8a18ebe19f50962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achieveName: StageClear
+  achievementName: 
   type: 3
   target:
     type: 2
     elementType: 0
     summonType: 1
     targetValue: 100
+    progressValue: 0
   rewards:
   - type: 0
     statusType: 0
@@ -445,7 +446,7 @@ MonoBehaviour:
   animType: 0
   elementType: 4
   spellName: Earth Orv
-  spellDamage: 10
+  spellDamageCoefficient: 0
   spellDelay: 3
   spellRange: 35
   spellSpeed: 15

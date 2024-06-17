@@ -108,6 +108,9 @@ public class AchievementManager
         {
             if (!Managers.PlayerData.Data.achievementDatas.Any(d => d.id == data.id))
             {
+                // Light, Dark 속성 배제
+                if (data.target.elementType == ElementType.Light || data.target.elementType == ElementType.Dark)
+                    continue;
                 Managers.PlayerData.Data.achievementDatas.Add(data);
             }
         }
