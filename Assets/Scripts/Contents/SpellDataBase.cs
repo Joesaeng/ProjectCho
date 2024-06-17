@@ -3,11 +3,36 @@ using Define;
 using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using UnityEngine;
 
-public class SpellDataByPlayerOwnedSpell
+public interface ISpellData
+{
+    int SpellId { get; }
+    int EffectId { get; }
+    SpellBehaviorType SpellBehaviorType { get; }
+    MagicianAnim AnimType { get; }
+    ElementType ElementType { get; }
+    string SpellName { get; }
+    int PierceCount { get; }
+    float SpellSpeed { get; }
+    float SpellRange { get; }
+    float SpellSize { get; }
+
+    float SpellDamageCoefficient { get; }
+    float SpellDelay { get; }
+
+    int IntegerParam1 { get; }
+    int IntegerParam2 { get; }
+    float FloatParam1 { get; }
+    float FloatParam2 { get; }
+}
+
+public class SpellDataByPlayerOwnedSpell : ISpellData
 {
     public int id;
+    public int spellLevel;
     public int effectId;
     public SpellBehaviorType spellBehaviorType;
     public MagicianAnim animType;
@@ -26,9 +51,34 @@ public class SpellDataByPlayerOwnedSpell
     public float floatParam1;
     public float floatParam2;
 
+    public int ownedSpellCount;
+    public int requireSpellCountToLevelup;
+
+    public bool isEquip;
+
+    #region ISpellData
+    public int SpellId => id;
+    public int EffectId => effectId;
+    public SpellBehaviorType SpellBehaviorType => spellBehaviorType;
+    public MagicianAnim AnimType => animType;
+    public ElementType ElementType => elementType;
+    public string SpellName => spellName;
+    public int PierceCount => pierceCount;
+    public float SpellSpeed => spellSpeed;
+    public float SpellRange => spellRange;
+    public float SpellSize => spellSize;
+    public float SpellDamageCoefficient => spellDamageCoefficient;
+    public float SpellDelay => spellDelay;
+    public int IntegerParam1 => integerParam1;
+    public int IntegerParam2 => integerParam2;
+    public float FloatParam1 => floatParam1;
+    public float FloatParam2 => floatParam2;
+    #endregion
+
     public SpellDataByPlayerOwnedSpell(BaseSpellData baseSpellData, int spellLevel)
     {
         id = baseSpellData.id;
+        this.spellLevel = spellLevel;
         effectId = baseSpellData.effectId;
         spellBehaviorType = baseSpellData.spellBehaviorType;
         animType = baseSpellData.animType;
@@ -45,6 +95,19 @@ public class SpellDataByPlayerOwnedSpell
 
         spellDamageCoefficient = baseSpellData.spellDataByLevel[spellLevel].spellDamageCoefficient;
         spellDelay = baseSpellData.spellDataByLevel[spellLevel].spellDelay;
+        requireSpellCountToLevelup = baseSpellData.spellDataByLevel[spellLevel].requireSpellCountToLevelup;
+    }
+
+    public PlayerOwnedSpellData ToData()
+    {
+        PlayerOwnedSpellData toData = new PlayerOwnedSpellData()
+        {
+            spellId = id,
+            spellLevel = spellLevel,
+            ownCount = ownedSpellCount,
+            isEquip = isEquip,
+        };
+        return toData;
     }
 }
 
@@ -57,12 +120,10 @@ public class SpellDataBase
     {
         foreach (var ownedSpellData in Managers.PlayerData.Data.ownedSpellDatas)
         {
-            if (ownedSpellData.isEquip)
-            {
-                SpellDataByPlayerOwnedSpell data = new SpellDataByPlayerOwnedSpell(
+            SpellDataByPlayerOwnedSpell data = new SpellDataByPlayerOwnedSpell(
                     Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel);
-                SpellDataDict.Add(data.id, data);
-            }
+            data.ownedSpellCount = ownedSpellData.ownCount;
+            SpellDataDict[data.id] = data;
         }
     }
 
@@ -71,20 +132,12 @@ public class SpellDataBase
         var builder = new DataBuilder<int, SpellDataByPlayerOwnedSpell, MagicianSpell>(NewMagicianSpell);
         List<SpellDataByPlayerOwnedSpell> list = new List<SpellDataByPlayerOwnedSpell>();
 
-        foreach (var ownedSpellData in Managers.PlayerData.Data.ownedSpellDatas)
+        foreach (var spellData in SpellDataDict.Values)
         {
-            if (ownedSpellData.isEquip)
-            {
-                SpellDataByPlayerOwnedSpell data = new SpellDataByPlayerOwnedSpell(
-                    Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel);
-                list.Add(data);
-            }
+            if(spellData.isEquip)
+                builder.AddData(spellData.id, spellData);
         }
-
-        foreach (var spellData in list)
-        {
-            builder.AddData(spellData.id, spellData);
-        }
+        
         SpellDict = builder.Build();
     }
 
@@ -109,5 +162,28 @@ public class SpellDataBase
     public void UpgradeSkill(int id, ISpellUpgrade upgrade)
     {
         SpellDict[id].AddUpgrade(upgrade);
+    }
+
+    public bool AvailableLevelUp(int spellId)
+    {
+        return SpellDataDict[spellId].ownedSpellCount >= SpellDataDict[spellId].requireSpellCountToLevelup;
+    }
+
+    public void SpellLevelUp(int spellId)
+    {
+        if (!AvailableLevelUp(spellId))
+            return;
+        int remainCount = SpellDataDict[spellId].ownedSpellCount - SpellDataDict[spellId].requireSpellCountToLevelup;
+        int upLevel = SpellDataDict[spellId].spellLevel + 1;
+        SpellDataDict[spellId].ownedSpellCount -= SpellDataDict[spellId].requireSpellCountToLevelup;
+        SpellDataDict.Remove(spellId);
+        SpellDataDict[spellId] = new SpellDataByPlayerOwnedSpell(
+                    Managers.Data.BaseSpellDataDict[spellId], upLevel);
+        SpellDataDict[spellId].ownedSpellCount = remainCount;
+    }
+
+    public List<PlayerOwnedSpellData> SpellDataDictToData()
+    {
+        return SpellDataDict.Select(spellData => spellData.Value.ToData()).ToList();
     }
 }

@@ -1,12 +1,15 @@
 using Data;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerDataManager
 {
-    Data.PlayerData _playerData;
-    public Data.PlayerData Data
+    PlayerData _playerData;
+    public PlayerData Data
     {
         get
         {
@@ -19,12 +22,18 @@ public class PlayerDataManager
 
     public void Init()
     {
-        // _path = Application.persistentDataPath + "/PlayerData";
-        // LoadFromJson();
+        _path = Application.persistentDataPath + "/PlayerData";
+        LoadFromJson();
+    }
 
-        // TempCode
+    public BaseSpellData GetWeaponSpellData()
+    {
+        return Managers.Data.BaseSpellDataDict[Data.weaponSpellId];
+    }
 
-        List<PlayerOwnedSpellData> tOwnSpellData = new List<PlayerOwnedSpellData>()
+    public PlayerData NewPlayerData() // 게임 최초 실행시의 데이터 설정
+    {
+        List<PlayerOwnedSpellData> startingSpellDatas = new List<PlayerOwnedSpellData>()
         {
             new PlayerOwnedSpellData(){spellId = 0,isEquip = true},
             new PlayerOwnedSpellData(){spellId = 1,isEquip = true},
@@ -56,20 +65,29 @@ public class PlayerDataManager
             }
         };
 
-        _playerData = new Data.PlayerData();
+        PlayerData newPlayerData = new();
 
-        List<ItemData> tempEquipmentData = new();
-        List<ItemData> tempInventoryData = new();
-        tempEquipmentData.Add(startingWeaponData);
+        List<ItemData> newEquipmentData = new();
+        List<ItemData> newInventoryData = new();
+        newEquipmentData.Add(startingWeaponData);
 
         InventoryData inventoryData = new();
 
-        inventoryData.equipmentDatas = tempEquipmentData;
-        inventoryData.inventoryItemsDatas = tempInventoryData;
+        inventoryData.equipmentDatas = newEquipmentData;
+        inventoryData.inventoryItemsDatas = newInventoryData;
 
-        _playerData.ownedSpellDatas = tOwnSpellData;
-        _playerData.inventoryData = inventoryData;
-        _playerData.achievementDatas = new List<AchievementData>();
+        int weaponSpellId = startingWeaponData.equipmentOptions
+            .Where(data => data.optionType == StatusType.Spell)
+            .Select(data => data.intParam1)
+            .FirstOrDefault();
+
+        newPlayerData.weaponSpellId = weaponSpellId;
+        newPlayerData.ownedSpellDatas = startingSpellDatas;
+        newPlayerData.inventoryData = inventoryData;
+        newPlayerData.achievementDatas = new List<AchievementData>();
+        newPlayerData.stageClearList = new();
+
+        return newPlayerData;
     }
 
     // 플레이어 데이터를 UTF-8로 인코딩하여 저장합니다
@@ -79,14 +97,20 @@ public class PlayerDataManager
             File.Delete(_path);
 
         _playerData.inventoryData = Managers.Player.InventoryToData();
+        _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
 
-        string json = JsonUtility.ToJson(_playerData);
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All
+        };
 
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        string json = JsonConvert.SerializeObject(_playerData, settings);
 
-        string encodedJson = System.Convert.ToBase64String(bytes);
+        // byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        // 
+        // string encodedJson = System.Convert.ToBase64String(bytes);
 
-        File.WriteAllText(_path, encodedJson);
+        File.WriteAllText(_path, json);
 
     }
 
@@ -95,17 +119,22 @@ public class PlayerDataManager
     {
         if (!File.Exists(_path))
         {
-            _playerData = new Data.PlayerData();
-
+            _playerData = NewPlayerData();
+            Managers.Player.Init();
             SaveToJson();
         }
 
         string jsonData = File.ReadAllText(_path);
 
-        byte[] bytes = System.Convert.FromBase64String(jsonData);
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All
+        };
 
-        string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
+        // byte[] bytes = System.Convert.FromBase64String(jsonData);
+        // 
+        // string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
 
-        _playerData = JsonUtility.FromJson<Data.PlayerData>(decodedJson);
+        _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData, settings);
     }
 }

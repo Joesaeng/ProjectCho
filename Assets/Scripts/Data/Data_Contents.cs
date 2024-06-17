@@ -131,7 +131,6 @@ namespace Data
     {
         public List<ItemData> inventoryItemsDatas;
         public List<ItemData> equipmentDatas;
-
     }
 
     [Serializable]
@@ -152,6 +151,7 @@ namespace Data
         public float sfxVolume = 1f;
         public bool bgmOn = true;
         public bool sfxOn = true;
+        public int weaponSpellId;
         public List<PlayerOwnedSpellData> ownedSpellDatas;
         public InventoryData inventoryData;
         public List<int> stageClearList;
@@ -200,7 +200,7 @@ namespace Data
     }
 
     [Serializable]
-    public class BaseSpellData : IData
+    public class BaseSpellData : IData, ISpellData
     {
         int IData.Id => id;
         public int id;
@@ -214,6 +214,25 @@ namespace Data
         public float spellSpeed;
         public float spellRange;
         public float spellSize;
+
+        #region ISpellData
+        public int SpellId => id;
+        public int EffectId => effectId;
+        public SpellBehaviorType SpellBehaviorType => spellBehaviorType;
+        public MagicianAnim AnimType => animType;
+        public ElementType ElementType => elementType;
+        public string SpellName => spellName;
+        public int PierceCount => pierceCount;
+        public float SpellSpeed => spellSpeed;
+        public float SpellRange => spellRange;
+        public float SpellSize => spellSize;
+        public float SpellDamageCoefficient => spellDataByLevel[0].spellDamageCoefficient;
+        public float SpellDelay => spellDataByLevel[0].spellDelay;
+        public int IntegerParam1 => integerParam1;
+        public int IntegerParam2 => integerParam2;
+        public float FloatParam1 => floatParam1;
+        public float FloatParam2 => floatParam2;
+        #endregion
 
         public List<BaseSpellDataByLevel> spellDataByLevel;
 

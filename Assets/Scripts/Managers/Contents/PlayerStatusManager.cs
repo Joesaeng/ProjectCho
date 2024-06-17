@@ -68,4 +68,9 @@ public class PlayerStatusManager
             equipmentDatas = EquipmentInventory.Equipments.Select(item => item.Value.ToData()).ToList()
         };
     }
+
+    public List<PlayerOwnedSpellData> SpellDataBaseToData()
+    {
+        return SpellDataBase.SpellDataDictToData();
+    }
 }
