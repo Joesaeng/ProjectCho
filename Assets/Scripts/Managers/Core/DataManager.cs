@@ -61,10 +61,10 @@ public class DataManager
         if (textAsset == null)
         {
             Debug.LogError($"Failed to load JSON file at path: Data/{path}");
-            return default(Loader);
+            return default;
         }
 
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        JsonSerializerSettings settings = new()
         {
             Converters = new List<JsonConverter> { new StringEnumConverter() }
         };
@@ -75,7 +75,7 @@ public class DataManager
     Loader LoadGoogleSheetData<Loader, Key, Value>(string sheetName) where Loader : ILoader<Key, Value>
     {
         string json = ConvertData.ConvertSheetDataToJson(sheetName);
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        JsonSerializerSettings settings = new()
         {
             Converters = new List<JsonConverter> { new StringEnumConverter() }
         };

@@ -23,7 +23,7 @@ public class ItemManager
 
     public Dictionary<EquipmentRarity, List<EquipmentOptionData>> equipmentOptionsByRarity = new();
 
-    private List<RarityWeight> rarityWeights = new List<RarityWeight>
+    private List<RarityWeight> rarityWeights = new()
     {
         new RarityWeight { rarity = EquipmentRarity.Normal, weight = 650 },
         new RarityWeight { rarity = EquipmentRarity.Rare, weight = 250 },
@@ -54,7 +54,7 @@ public class ItemManager
     public List<Item> SummonItems(EquipmentType type,int count = 10)
     {
         // Player의 Coin, Dia 보유량 확인
-        List<Item> summonItems = new List<Item>();
+        List<Item> summonItems = new();
         for(int i = 0; i < count; i++)
         {
             Item newItem = GenerateRandomItem(type);
@@ -99,10 +99,12 @@ public class ItemManager
     public Equipment GenerateRandomItem(EquipmentType equipmentType)
     {
         // 장비의 희귀도를 정한다.
-        EquipmentData equipmentData = new EquipmentData();
-        equipmentData.itemType = ItemType.Equipment;
-        equipmentData.equipmentType = equipmentType;
-        equipmentData.equipmentOptions = new();
+        EquipmentData equipmentData = new()
+        {
+            itemType = ItemType.Equipment,
+            equipmentType = equipmentType,
+            equipmentOptions = new()
+        };
 
         EquipmentRarity rarity = Util.GetRandomWeightedSelect<RarityWeight>(rarityWeights).rarity;
         equipmentData.rarity = rarity;
@@ -174,7 +176,7 @@ public class ItemManager
 
     List<EquipmentOptionData> GetValidOptions(EquipmentType equipmentType, EquipmentRarity rarity)
     {
-        List<EquipmentOptionData> validOptions = new List<EquipmentOptionData>();
+        List<EquipmentOptionData> validOptions = new();
 
         foreach (var kvp in equipmentOptionsByRarity)
         {

@@ -8,7 +8,7 @@ using System.Linq;
 
 public abstract class UI_Base : MonoBehaviour
 {
-    protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
+    protected Dictionary<Type, UnityEngine.Object[]> _objects = new();
 
     public abstract void Init();
 
@@ -38,8 +38,7 @@ public abstract class UI_Base : MonoBehaviour
 
     protected T Get<T>(int index) where T : UnityEngine.Object
     {
-        UnityEngine.Object[] objects = null;
-        if (_objects.TryGetValue(typeof(T), out objects) == false)
+        if (_objects.TryGetValue(typeof(T), out UnityEngine.Object[] objects) == false)
             return null;
 
         return objects[index] as T;
@@ -47,8 +46,7 @@ public abstract class UI_Base : MonoBehaviour
 
     protected T[] Gets<T>() where T : UnityEngine.Object
     {
-        UnityEngine.Object[] objects = null;
-        if (_objects.TryGetValue(typeof(T), out objects) == false)
+        if (_objects.TryGetValue(typeof(T), out UnityEngine.Object[] objects) == false)
             return null;
         T[] rets = objects.Cast<T>().ToArray();
         return rets;

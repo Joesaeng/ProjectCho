@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class IconLayout : MonoBehaviour
 {
     public bool set;
-    public List<Sprite> _spriteList = new List<Sprite>();
+    public List<Sprite> _spriteList = new();
 
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class IconLayout : MonoBehaviour
             set = false;
 
             //삭제 구문
-            List<GameObject> tList = new List<GameObject>();
+            List<GameObject> tList = new();
             for(var i = 0 ; i <  transform.childCount; i++)
             {
                 GameObject tObj = transform.GetChild(i).gameObject;
@@ -35,7 +35,7 @@ public class IconLayout : MonoBehaviour
 
             for(var i = 0 ; i < _spriteList.Count;i++)
             {
-                GameObject tObj2 = new GameObject(_spriteList[i].name);
+                GameObject tObj2 = new(_spriteList[i].name);
                 Image tImg = tObj2.AddComponent<Image>();
                 tImg.sprite = _spriteList[i];
                 tObj2.transform.SetParent(this.transform);

@@ -25,7 +25,7 @@ public class SpellCharge : AttackableCreature, ISpellUseable
     public void InitSpellUseable(IData data)
     {
         BaseSpellData spelldata = data as BaseSpellData;
-        Spell = DefenseSceneManager.Instance._SpellDataBase.SpellDict[spelldata.id];
+        Spell = DefenseSceneManager.Instance.SpellDataBase.SpellDict[spelldata.id];
         Spell.OnUpdateSpellDelay += UpdateSpellDelay;
         Spell.OwnTransform = transform;
         _enchantPath = $"Effects/ChargeUseSpell/{_spell.ElementType}Enchant";
@@ -41,7 +41,7 @@ public class SpellCharge : AttackableCreature, ISpellUseable
 
     public override IEnumerator CoAttack()
     {
-        GameObject enchant = Managers.Resource.Instantiate($"Effects/ChargeUseSpell/{_spell.ElementType}Enchant", transform);
+        GameObject enchant = Managers.Resource.Instantiate($"{_enchantPath}", transform);
         enchant.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
         Managers.CompCache.GetOrAddComponentCache(enchant, out HitEffect effect);
         effect.Init();

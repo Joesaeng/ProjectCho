@@ -51,7 +51,7 @@ public static class GoogleSheetsService
         {
             Requests = new List<Request>
             {
-                new Request
+                new()
                 {
                     AddSheet = addSheetRequest
                 }

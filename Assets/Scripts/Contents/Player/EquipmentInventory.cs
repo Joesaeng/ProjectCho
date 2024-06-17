@@ -118,7 +118,7 @@ public class EquipmentInventory
 
     public void ApplyEquipmentStatus()
     {
-        PlayerStatus playerStatus = new PlayerStatus();
+        PlayerStatus playerStatus = new();
         float baseDamage = 0;
 
         foreach (var equipment in equipments.Values)

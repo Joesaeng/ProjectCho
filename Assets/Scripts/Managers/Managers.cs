@@ -19,16 +19,15 @@ public class Managers : MonoBehaviour
     public static ItemManager Item { get { return Instance._item; } }
     public static AchievementManager Achieve { get { return Instance._achieve; } }
     #region Core
-    PlayerDataManager _playerData = new PlayerDataManager();
-    DataManager _data = new DataManager();
-    InputManager _input = new InputManager();
-    PoolManager _pool = new PoolManager();
-    ResourceManager _resource = new ResourceManager();
-    SoundManager _sound = new SoundManager();
-    UIManager _UI = new UIManager();
-    ComponentCacheManager _compCache = new ComponentCacheManager();
+    PlayerDataManager _playerData = new();
+    DataManager _data = new();
+    InputManager _input = new();
+    PoolManager _pool = new();
+    ResourceManager _resource = new();
+    SoundManager _sound = new();
+    UIManager _UI = new();
+    ComponentCacheManager _compCache = new();
 
-    // MonoBehaviour ��� �Ŵ���
     SceneManagerEx _scene;
 
     public static DataManager Data { get { return Instance._data; } }
@@ -40,14 +39,9 @@ public class Managers : MonoBehaviour
     public static ComponentCacheManager CompCache { get {  return Instance._compCache; } }
     public static PlayerDataManager PlayerData { get {  return Instance._playerData; } }
 
-    // MonoBehaviour ��� �Ŵ���
+
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     #endregion
-
-    void Start()
-    {
-        // Init();
-    }
 
     void Update()
     {
@@ -73,7 +67,6 @@ public class Managers : MonoBehaviour
 
             // MonoBehaviour를 상속받은 매니저들
             {
-                // s_instance._game = go.GetOrAddComponent<DefenseSceneManager>();
                 s_instance._timer = go.GetOrAddComponent<TimerManager>();
                 s_instance._scene = go.GetOrAddComponent<SceneManagerEx>();
             }

@@ -28,7 +28,7 @@ public class BaseSpellDataWriter : MonoBehaviour
 
     public void WriteData()
     {
-        BaseSpellData newData = new BaseSpellData()
+        BaseSpellData newData = new()
         {
             effectId = effectId,
             spellBehaviorType = spellType,

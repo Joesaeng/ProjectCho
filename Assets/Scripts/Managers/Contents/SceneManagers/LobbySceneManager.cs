@@ -14,7 +14,7 @@ public class LobbySceneManager : MonoBehaviour
                 instance = (LobbySceneManager)FindObjectOfType(typeof(LobbySceneManager));
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject(typeof(LobbySceneManager).Name, typeof(LobbySceneManager));
+                    GameObject obj = new(typeof(LobbySceneManager).Name, typeof(LobbySceneManager));
                     instance = obj.GetComponent<LobbySceneManager>();
                 }
             }

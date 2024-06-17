@@ -358,11 +358,11 @@ namespace Data
     [Serializable]
     public class Datas<T> : ILoader<int, T> where T : IData
     {
-        public List<T> datas = new List<T>();
+        public List<T> datas = new();
 
         public Dictionary<int, T> MakeDict()
         {
-            Dictionary<int, T> dict = new Dictionary<int, T>();
+            Dictionary<int, T> dict = new();
             foreach (T data in datas)
             {
                 dict.Add(data.Id, data);
@@ -382,11 +382,11 @@ namespace Data
     [Serializable]
     public class LanguageDatas : ILoader<string, LanguageData>
     {
-        public List<LanguageData> datas = new List<LanguageData>();
+        public List<LanguageData> datas = new();
 
         public Dictionary<string, LanguageData> MakeDict()
         {
-            Dictionary<string, LanguageData> dict = new Dictionary<string, LanguageData>();
+            Dictionary<string, LanguageData> dict = new();
             foreach (LanguageData data in datas)
             {
                 dict.Add(data.key, data);

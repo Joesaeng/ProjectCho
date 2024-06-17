@@ -26,14 +26,9 @@ public class PlayerDataManager
         LoadFromJson();
     }
 
-    public BaseSpellData GetWeaponSpellData()
-    {
-        return Managers.Data.BaseSpellDataDict[Data.weaponSpellId];
-    }
-
     public PlayerData NewPlayerData() // 게임 최초 실행시의 데이터 설정
     {
-        List<PlayerOwnedSpellData> startingSpellDatas = new List<PlayerOwnedSpellData>()
+        List<PlayerOwnedSpellData> startingSpellDatas = new()
         {
             new PlayerOwnedSpellData(){spellId = 0,isEquip = true},
             new PlayerOwnedSpellData(){spellId = 1,isEquip = true},
@@ -43,15 +38,16 @@ public class PlayerDataManager
             new PlayerOwnedSpellData(){spellId = 5,isEquip = true},
         };
 
-        EquipmentData startingWeaponData = new();
-        startingWeaponData.itemName = "Staff";
-        startingWeaponData.itemSpriteName = "Normal_Staff_0";
-        startingWeaponData.isEquip = true;
-        startingWeaponData.equipSlotIndex = 0;
-        startingWeaponData.itemType = ItemType.Equipment;
-        startingWeaponData.equipmentType = EquipmentType.Weapon;
-        startingWeaponData.rarity = EquipmentRarity.Normal;
-        startingWeaponData.equipmentOptions = new()
+        EquipmentData startingWeaponData = new()
+        {
+            itemName = "Staff",
+            itemSpriteName = "Normal_Staff_0",
+            isEquip = true,
+            equipSlotIndex = 0,
+            itemType = ItemType.Equipment,
+            equipmentType = EquipmentType.Weapon,
+            rarity = EquipmentRarity.Normal,
+            equipmentOptions = new()
         {
             new EquipmentOptionData
             {
@@ -63,6 +59,7 @@ public class PlayerDataManager
                 optionType = StatusType.BaseDamage,
                 floatParam1 = 10
             }
+        }
         };
 
         PlayerData newPlayerData = new();
@@ -71,10 +68,11 @@ public class PlayerDataManager
         List<ItemData> newInventoryData = new();
         newEquipmentData.Add(startingWeaponData);
 
-        InventoryData inventoryData = new();
-
-        inventoryData.equipmentDatas = newEquipmentData;
-        inventoryData.inventoryItemsDatas = newInventoryData;
+        InventoryData inventoryData = new()
+        {
+            equipmentDatas = newEquipmentData,
+            inventoryItemsDatas = newInventoryData
+        };
 
         int weaponSpellId = startingWeaponData.equipmentOptions
             .Where(data => data.optionType == StatusType.Spell)
@@ -99,7 +97,7 @@ public class PlayerDataManager
         _playerData.inventoryData = Managers.Player.InventoryToData();
         _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
 
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        JsonSerializerSettings settings = new()
         {
             TypeNameHandling = TypeNameHandling.All
         };
@@ -126,7 +124,7 @@ public class PlayerDataManager
 
         string jsonData = File.ReadAllText(_path);
 
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        JsonSerializerSettings settings = new()
         {
             TypeNameHandling = TypeNameHandling.All
         };

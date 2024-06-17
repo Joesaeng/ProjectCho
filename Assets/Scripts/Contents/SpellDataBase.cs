@@ -100,7 +100,7 @@ public class SpellDataByPlayerOwnedSpell : ISpellData
 
     public PlayerOwnedSpellData ToData()
     {
-        PlayerOwnedSpellData toData = new PlayerOwnedSpellData()
+        PlayerOwnedSpellData toData = new()
         {
             spellId = id,
             spellLevel = spellLevel,
@@ -120,9 +120,10 @@ public class SpellDataBase
     {
         foreach (var ownedSpellData in Managers.PlayerData.Data.ownedSpellDatas)
         {
-            SpellDataByPlayerOwnedSpell data = new SpellDataByPlayerOwnedSpell(
-                    Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel);
-            data.ownedSpellCount = ownedSpellData.ownCount;
+            SpellDataByPlayerOwnedSpell data = new(Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel)
+            {
+                ownedSpellCount = ownedSpellData.ownCount
+            };
             SpellDataDict[data.id] = data;
         }
     }
@@ -130,7 +131,7 @@ public class SpellDataBase
     public void BuildSpellDict()
     {
         var builder = new DataBuilder<int, SpellDataByPlayerOwnedSpell, MagicianSpell>(NewMagicianSpell);
-        List<SpellDataByPlayerOwnedSpell> list = new List<SpellDataByPlayerOwnedSpell>();
+        List<SpellDataByPlayerOwnedSpell> list = new();
 
         foreach (var spellData in SpellDataDict.Values)
         {
@@ -178,8 +179,10 @@ public class SpellDataBase
         SpellDataDict[spellId].ownedSpellCount -= SpellDataDict[spellId].requireSpellCountToLevelup;
         SpellDataDict.Remove(spellId);
         SpellDataDict[spellId] = new SpellDataByPlayerOwnedSpell(
-                    Managers.Data.BaseSpellDataDict[spellId], upLevel);
-        SpellDataDict[spellId].ownedSpellCount = remainCount;
+                    Managers.Data.BaseSpellDataDict[spellId], upLevel)
+        {
+            ownedSpellCount = remainCount
+        };
     }
 
     public List<PlayerOwnedSpellData> SpellDataDictToData()

@@ -42,7 +42,7 @@ public class StraightDirectionBehavior : ISpellBehavior
 {
     public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
-        Vector3 pos = new Vector3(targetPos.x, 0,0);
+        Vector3 pos = new(targetPos.x, 0,0);
         GameObject obj = Managers.Resource.Instantiate("StarightTypePlayerBullet",pos);
         Managers.CompCache.GetOrAddComponentCache(obj, out StarightTypePlayerBullet playerBullet);
         playerBullet.Init(spell.EffectData as ProjectileData);
@@ -69,8 +69,8 @@ public class TargetPositionBehavior : ISpellBehavior
 {
     public void Execute(MagicianSpell spell, Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
-        Vector3 pos = new Vector3(targetPos.x, 0,targetPos.z);
-        Vector3 rot = new Vector3(-90,0,0);
+        Vector3 pos = new(targetPos.x, 0,targetPos.z);
+        Vector3 rot = new(-90,0,0);
         GameObject obj = Managers.Resource.Instantiate("AOETypePlayerSpell",pos);
         obj.transform.rotation = Quaternion.Euler(rot);
         obj.transform.localScale = Vector3.one * spell.SpellSize;
@@ -269,7 +269,7 @@ public class ExplosionOnImpact
 
     public void OnImpact(IDamageDealer dealer,Transform tf)
     {
-        List<IHitable> hits = new List<IHitable>();
+        List<IHitable> hits = new();
         foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
             float distance = Vector3.Distance(tf.position, enemy.transform.position);

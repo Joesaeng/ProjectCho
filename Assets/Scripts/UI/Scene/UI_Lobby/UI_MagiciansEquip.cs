@@ -2,6 +2,7 @@ using Data;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -64,8 +65,7 @@ public class UI_MagiciansEquip : UI_Base
         _statusValueContentTf = GetObject((int)Objects.Content_StatusValue).transform;
         for (int i = 0; i < _statusValueContentTf.childCount; ++i)
         {
-            TextMeshProUGUI text = _statusValueContentTf.GetChild(i).GetComponent<TextMeshProUGUI>();
-            if (text != null)
+            if (_statusValueContentTf.GetChild(i).TryGetComponent<TextMeshProUGUI>(out var text))
             {
                 _statusValueTexts.Add(text);
                 text.gameObject.SetActive(false); // 초기에는 비활성화
@@ -86,8 +86,7 @@ public class UI_MagiciansEquip : UI_Base
         _inventory = GetObject((int)Objects.Content_Inventory).transform;
         for (int i = 0; i < _inventory.childCount; ++i)
         {
-            UI_InventorySlot slot = _inventory.GetChild(i).GetComponent<UI_InventorySlot>();
-            if (slot != null)
+            if (_inventory.GetChild(i).TryGetComponent<UI_InventorySlot>(out var slot))
             {
                 _inventorySlots.Add(slot);
                 slot.Init();
@@ -195,8 +194,7 @@ public class UI_MagiciansEquip : UI_Base
     void AddStatusValueTextObject()
     {
         GameObject textObject = Instantiate(_statusValueTexts[0].gameObject, _statusValueContentTf);
-        TextMeshProUGUI text = textObject.GetComponent<TextMeshProUGUI>();
-        if (text != null)
+        if (textObject.TryGetComponent<TextMeshProUGUI>(out var text))
         {
             _statusValueTexts.Add(text);
             text.gameObject.SetActive(false); // 초기에는 비활성화
@@ -298,7 +296,7 @@ public class UI_MagiciansEquip : UI_Base
         HashSet<Item> inventoryItems = Managers.Player.Inventory.Items;
         int slotIndex = 0;
 
-        foreach (Equipment item in inventoryItems)
+        foreach (Equipment item in inventoryItems.Cast<Equipment>())
         {
             if (item.equipmentType == _showItemType)
             {

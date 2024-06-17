@@ -18,7 +18,7 @@ public class DefenseSceneManager : MonoBehaviour
                 instance = (DefenseSceneManager)FindObjectOfType(typeof(DefenseSceneManager));
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject(typeof(DefenseSceneManager).Name, typeof(DefenseSceneManager));
+                    GameObject obj = new(typeof(DefenseSceneManager).Name, typeof(DefenseSceneManager));
                     instance = obj.GetComponent<DefenseSceneManager>();
                 }
             }
@@ -30,13 +30,12 @@ public class DefenseSceneManager : MonoBehaviour
     public HashSet<Enemy> Enemies { get; set; }
 
     List<Transform> SpellUseablePoints { get; set; }
-    Magician Magician { get; set; }
     List<ISpellUseable> SpellUseables { get; set; }
     int SpellUseableCount { get; set; }
 
-    public SpellDataBase _SpellDataBase { get; set; }
-    public EnemyDataBase _EnemyDataBase { get; set; }
-    public HashSet<SpellUpgradeData> _SpellUpgradeDatas { get; set; }
+    public SpellDataBase SpellDataBase { get; set; }
+    public EnemyDataBase EnemyDataBase { get; set; }
+    public HashSet<SpellUpgradeData> SpellUpgradeDatas { get; set; }
 
     GameObject SpawnArea;
     public float LeftX { get; set; }
@@ -89,10 +88,10 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = new();
         SpellUseables = new();
         SpellUseableCount = 0;
-        _SpellDataBase = Managers.Player.SpellDataBase;
-        _SpellDataBase.BuildSpellDict();
-        _EnemyDataBase = new();
-        _SpellUpgradeDatas = new();
+        SpellDataBase = Managers.Player.SpellDataBase;
+        SpellDataBase.BuildSpellDict();
+        EnemyDataBase = new();
+        SpellUpgradeDatas = new();
 
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
@@ -100,13 +99,13 @@ public class DefenseSceneManager : MonoBehaviour
             SpellUseablePoints.Add(magicianPointParent.GetChild(i));
         }
 
-        _EnemyDataBase.Init();
+        EnemyDataBase.Init();
 
         foreach (SpellUpgradeDatas datas in Managers.Data.UpgradeDataDict.Values)
         {
             foreach (SpellUpgradeData data in datas.spellUpgradeDatas)
             {
-                _SpellUpgradeDatas.Add(data);
+                SpellUpgradeDatas.Add(data);
             }
         }
 
@@ -132,7 +131,7 @@ public class DefenseSceneManager : MonoBehaviour
     {
         StageData stageData = Managers.Data.StageDataDict[CurStage];
         WaveData waveData = stageData.stageDatas[curWave];
-        _EnemyDataBase.SetEnemyStatusByStageData(curWave, stageData);
+        EnemyDataBase.SetEnemyStatusByStageData(curWave, stageData);
         EnemiesToSpawn = waveData.spawnEnemyCount;
         EnemiesSpwaned = 0;
         SpawnInterval = OneWaveTime / EnemiesToSpawn;
@@ -169,9 +168,9 @@ public class DefenseSceneManager : MonoBehaviour
             CreateCharge(option.SpellId);
         else
         {
-            _SpellUpgradeDatas.Remove(option.SpellUpgradeData);
+            SpellUpgradeDatas.Remove(option.SpellUpgradeData);
             SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
-            _SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
+            SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
         }
         Managers.Time.GameResume();
     }
@@ -190,7 +189,6 @@ public class DefenseSceneManager : MonoBehaviour
             SpellUseableCount++;
             magician.Init(data);
             SpellUseables.Add(magician);
-            Magician = magician;
         }
     }
 
@@ -215,13 +213,13 @@ public class DefenseSceneManager : MonoBehaviour
     void CreateEnemy()
     {
         float posX = Random.Range(LeftX, RightX);
-        Vector3 spawnPos = new Vector3(posX, PosY, PosZ);
+        Vector3 spawnPos = new(posX, PosY, PosZ);
         GameObject obj;
 
         int randIndex = Random.Range(0,Managers.Data.StageDataDict[CurStage].stageDatas[CurWave].waveEnemyIds.Count);
         int monsterId = Managers.Data.StageDataDict[CurStage].stageDatas[CurWave].waveEnemyIds[randIndex];
 
-        SetEnemyData setData = _EnemyDataBase.EnemyDataDict[monsterId];
+        SetEnemyData setData = EnemyDataBase.EnemyDataDict[monsterId];
         obj = Managers.Resource.Instantiate($"Enemys/{setData.prefabName}", spawnPos);
         if (setData.IsRange)
         {
@@ -294,10 +292,10 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = null;
         SpellUseables = null;
         SpellUseableCount = 0;
-        _EnemyDataBase = null;
-        _SpellUpgradeDatas = null;
+        EnemyDataBase = null;
+        SpellUpgradeDatas = null;
 
-        _SpellDataBase.ClearSpellDict();
+        SpellDataBase.ClearSpellDict();
         // StageData 초기화
         CurStage = 0;
         CurWave = 0;
