@@ -1,8 +1,8 @@
 {
   "datas": [
     {
-      "id": "0",
-      "spellId": "0",
+      "id": 0,
+      "spellId": 0,
       "spellUpgradeDatas": [
         {
           "spellId": 0,
@@ -67,8 +67,8 @@
       ]
     },
     {
-      "id": "1",
-      "spellId": "1",
+      "id": 1,
+      "spellId": 1,
       "spellUpgradeDatas": [
         {
           "spellId": 1,
@@ -133,8 +133,8 @@
       ]
     },
     {
-      "id": "2",
-      "spellId": "2",
+      "id": 2,
+      "spellId": 2,
       "spellUpgradeDatas": [
         {
           "spellId": 2,
@@ -187,8 +187,8 @@
       ]
     },
     {
-      "id": "3",
-      "spellId": "3",
+      "id": 3,
+      "spellId": 3,
       "spellUpgradeDatas": [
         {
           "spellId": 3,
@@ -253,8 +253,8 @@
       ]
     },
     {
-      "id": "4",
-      "spellId": "4",
+      "id": 4,
+      "spellId": 4,
       "spellUpgradeDatas": [
         {
           "spellId": 4,

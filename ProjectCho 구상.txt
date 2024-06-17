@@ -19,7 +19,6 @@
 	DrawCall, UpscaleRendering, Script 등등 할거 많음
 
 - 4주차
-	EquipmentOptionData에 각 속성별 데미지 증가 추가
 	Enemies 사망 이벤트에 업적에 값 추가하는 것 구현
 	PlayerData에 Coin, Dia, StageClear 등 구현
 	업적 보상 구현

@@ -1,189 +1,189 @@
 {
   "datas": [
     {
-      "id": "0",
+      "id": 0,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "Spell",
       "prefix": "",
-      "weight": "0",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "1",
+      "id": 1,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "BaseDamage",
       "prefix": "",
-      "weight": "0",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "10",
-      "floatParam2": "15"
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 10,
+      "floatParam2": 15
     },
     {
-      "id": "2",
+      "id": 2,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Rare",
       "optionType": "BaseDamage",
       "prefix": "",
-      "weight": "0",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "18",
-      "floatParam2": "25"
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 18,
+      "floatParam2": 25
     },
     {
-      "id": "3",
+      "id": 3,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Epic",
       "optionType": "BaseDamage",
       "prefix": "",
-      "weight": "0",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "30",
-      "floatParam2": "40"
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 30,
+      "floatParam2": 40
     },
     {
-      "id": "4",
+      "id": 4,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Legend",
       "optionType": "BaseDamage",
       "prefix": "",
-      "weight": "0",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "50",
-      "floatParam2": "70"
+      "weight": 0,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 50,
+      "floatParam2": 70
     },
     {
-      "id": "5",
+      "id": 5,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Increase",
-      "weight": "100",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.02",
-      "floatParam2": "0.04"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.04
     },
     {
-      "id": "6",
+      "id": 6,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Moderate",
-      "weight": "50",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.06",
-      "floatParam2": "0.08"
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.06,
+      "floatParam2": 0.08
     },
     {
-      "id": "7",
+      "id": 7,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Strong",
-      "weight": "25",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.1",
-      "floatParam2": "0.12"
+      "weight": 25,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.1,
+      "floatParam2": 0.12
     },
     {
-      "id": "8",
+      "id": 8,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Mighty",
-      "weight": "15",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.15",
-      "floatParam2": "0.18"
+      "weight": 15,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.15,
+      "floatParam2": 0.18
     },
     {
-      "id": "9",
+      "id": 9,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Decrease",
-      "weight": "100",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.01",
-      "floatParam2": "0.015"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.01,
+      "floatParam2": 0.015
     },
     {
-      "id": "10",
+      "id": 10,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Bunnys",
-      "weight": "50",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.02",
-      "floatParam2": "0.025"
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.025
     },
     {
-      "id": "11",
+      "id": 11,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Quick",
-      "weight": "25",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.035"
+      "weight": 25,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.035
     },
     {
-      "id": "12",
+      "id": 12,
       "capableOfEquipmentType": [
         "Ring"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Rapid",
-      "weight": "10",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.05",
-      "floatParam2": "0.06"
+      "weight": 10,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.06
     },
     {
-      "id": "13",
+      "id": 13,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -191,14 +191,14 @@
       "requireRarity": "Epic",
       "optionType": "IncreasePierce",
       "prefix": "Piercing",
-      "weight": "30",
-      "intParam1": "1",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 30,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "14",
+      "id": 14,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -206,14 +206,14 @@
       "requireRarity": "Rare",
       "optionType": "IncreasePierce",
       "prefix": "Piercing",
-      "weight": "15",
-      "intParam1": "1",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 15,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "15",
+      "id": 15,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -221,154 +221,154 @@
       "requireRarity": "Legend",
       "optionType": "IncreasePierce",
       "prefix": "Piercing",
-      "weight": "50",
-      "intParam1": "1",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 50,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "16",
+      "id": 16,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Legend",
       "optionType": "AddProjectile",
       "prefix": "Double",
-      "weight": "25",
-      "intParam1": "1",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 25,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "17",
+      "id": 17,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Legend",
       "optionType": "AddProjectile",
       "prefix": "Triple",
-      "weight": "5",
-      "intParam1": "2",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 5,
+      "intParam1": 2,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "18",
+      "id": 18,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Epic",
       "optionType": "AddProjectile",
       "prefix": "Double",
-      "weight": "5",
-      "intParam1": "1",
-      "intParam2": "0",
-      "floatParam1": "0",
-      "floatParam2": "0"
+      "weight": 5,
+      "intParam1": 1,
+      "intParam2": 0,
+      "floatParam1": 0,
+      "floatParam2": 0
     },
     {
-      "id": "19",
+      "id": 19,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Fun",
-      "weight": "100",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.05",
-      "floatParam2": "0.08"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.08
     },
     {
-      "id": "20",
+      "id": 20,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Honor",
-      "weight": "50",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.1",
-      "floatParam2": "0.15"
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.1,
+      "floatParam2": 0.15
     },
     {
-      "id": "21",
+      "id": 21,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Cruel",
-      "weight": "30",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.15",
-      "floatParam2": "0.2"
+      "weight": 30,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.15,
+      "floatParam2": 0.2
     },
     {
-      "id": "22",
+      "id": 22,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "IncreaseDamage",
       "prefix": "Wizard's",
-      "weight": "15",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.2",
-      "floatParam2": "0.24"
+      "weight": 15,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.2,
+      "floatParam2": 0.24
     },
     {
-      "id": "23",
+      "id": 23,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Rabbit's",
-      "weight": "50",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.02",
-      "floatParam2": "0.03"
+      "weight": 50,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.02,
+      "floatParam2": 0.03
     },
     {
-      "id": "24",
+      "id": 24,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Quick",
-      "weight": "20",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 20,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "25",
+      "id": 25,
       "capableOfEquipmentType": [
         "Weapon"
       ],
       "requireRarity": "Normal",
       "optionType": "DecreaseSpellDelay",
       "prefix": "Rapid",
-      "weight": "10",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.05",
-      "floatParam2": "0.09"
+      "weight": 10,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.05,
+      "floatParam2": 0.09
     },
     {
-      "id": "26",
+      "id": 26,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -376,11 +376,11 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEnergySpellDamage",
       "prefix": "Sparking",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
       "id": 27,
@@ -391,7 +391,7 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEnergySpellDamage",
       "prefix": "Radiant",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
@@ -406,7 +406,7 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEnergySpellDamage",
       "prefix": "Glowing",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
@@ -428,7 +428,7 @@
       "floatParam2": 0.25
     },
     {
-      "id": "30",
+      "id": 30,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -436,14 +436,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseFireSpellDamage",
       "prefix": "Sizzling",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "31",
+      "id": 31,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -451,14 +451,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseFireSpellDamage",
       "prefix": "Blazing",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
       "floatParam2": 0.1
     },
     {
-      "id": "32",
+      "id": 32,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -466,14 +466,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseFireSpellDamage",
       "prefix": "Fiery",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
       "floatParam2": 0.17
     },
     {
-      "id": "33",
+      "id": 33,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -488,7 +488,7 @@
       "floatParam2": 0.25
     },
     {
-      "id": "34",
+      "id": 34,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -496,14 +496,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseWaterSpellDamage",
       "prefix": "Splashing",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "35",
+      "id": 35,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -511,14 +511,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseWaterSpellDamage",
       "prefix": "Flowing",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
       "floatParam2": 0.1
     },
     {
-      "id": "36",
+      "id": 36,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -526,14 +526,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseWaterSpellDamage",
       "prefix": "Tidal",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
       "floatParam2": 0.17
     },
     {
-      "id": "37",
+      "id": 37,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -548,7 +548,7 @@
       "floatParam2": 0.25
     },
     {
-      "id": "38",
+      "id": 38,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -556,14 +556,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseLightningSpellDamage",
       "prefix": "Shocking",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "39",
+      "id": 39,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -571,14 +571,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseLightningSpellDamage",
       "prefix": "Thundering",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
       "floatParam2": 0.1
     },
     {
-      "id": "40",
+      "id": 40,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -586,14 +586,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseLightningSpellDamage",
       "prefix": "Stormy",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
       "floatParam2": 0.17
     },
     {
-      "id": "41",
+      "id": 41,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -608,7 +608,7 @@
       "floatParam2": 0.25
     },
     {
-      "id": "42",
+      "id": 42,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -616,14 +616,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEarthSpellDamage",
       "prefix": "Stony",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "43",
+      "id": 43,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -631,14 +631,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEarthSpellDamage",
       "prefix": "Rocky",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
       "floatParam2": 0.1
     },
     {
-      "id": "44",
+      "id": 44,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -646,14 +646,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseEarthSpellDamage",
       "prefix": "Mountainous",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
       "floatParam2": 0.17
     },
     {
-      "id": "45",
+      "id": 45,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -668,7 +668,7 @@
       "floatParam2": 0.25
     },
     {
-      "id": "46",
+      "id": 46,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -676,14 +676,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseAirSpellDamage",
       "prefix": "Breezy",
-      "weight": "150",
-      "intParam1": "0",
-      "intParam2": "0",
-      "floatParam1": "0.03",
-      "floatParam2": "0.05"
+      "weight": 100,
+      "intParam1": 0,
+      "intParam2": 0,
+      "floatParam1": 0.03,
+      "floatParam2": 0.05
     },
     {
-      "id": "47",
+      "id": 47,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -691,14 +691,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseAirSpellDamage",
       "prefix": "Windy",
-      "weight": 80,
+      "weight": 50,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.06,
       "floatParam2": 0.1
     },
     {
-      "id": "48",
+      "id": 48,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
@@ -706,14 +706,14 @@
       "requireRarity": "Normal",
       "optionType": "IncreaseAirSpellDamage",
       "prefix": "Gusty",
-      "weight": 30,
+      "weight": 25,
       "intParam1": 0,
       "intParam2": 0,
       "floatParam1": 0.12,
       "floatParam2": 0.17
     },
     {
-      "id": "49",
+      "id": 49,
       "capableOfEquipmentType": [
         "Weapon",
         "Ring"
