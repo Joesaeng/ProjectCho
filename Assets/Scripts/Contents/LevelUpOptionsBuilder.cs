@@ -15,7 +15,7 @@ public static class LevelUpOptionsBuilder
         if(ownSpells.Count < 5)
         {
             levelupOptions.AddRange(
-            Managers.Player.SpellDataBase.SpellDataDict.Values
+            Managers.Player.PlayerSpells.SpellDataDict.Values
                 .Where(data => !ownSpells.Contains(data.id))
                 .Select(data => new LevelUpOptions(true, data)));
         }

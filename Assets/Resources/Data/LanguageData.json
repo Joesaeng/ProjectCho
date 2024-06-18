@@ -91,9 +91,9 @@
       "kr": "땅"
     },
     {
-      "key": "Air",
-      "eng": "Air",
-      "kr": "공기"
+      "key": "Wind",
+      "eng": "Wind",
+      "kr": "바람"
     },
     {
       "key": "Light",
@@ -241,9 +241,9 @@
       "kr": "대지 피해 + "
     },
     {
-      "key": "IncreaseAirSpellDamage",
-      "eng": "Air Damage + ",
-      "kr": "공기 피해 + "
+      "key": "IncreaseWindSpellDamage",
+      "eng": "Wind Damage + ",
+      "kr": "바람 피해 + "
     },
     {
       "key": "IncreaseLightSpellDamage",

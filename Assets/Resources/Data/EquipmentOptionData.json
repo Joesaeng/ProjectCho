@@ -674,7 +674,7 @@
         "Ring"
       ],
       "requireRarity": "Normal",
-      "optionType": "IncreaseAirSpellDamage",
+      "optionType": "IncreaseWindSpellDamage",
       "prefix": "Breezy",
       "weight": 100,
       "intParam1": 0,
@@ -689,7 +689,7 @@
         "Ring"
       ],
       "requireRarity": "Normal",
-      "optionType": "IncreaseAirSpellDamage",
+      "optionType": "IncreaseWindSpellDamage",
       "prefix": "Windy",
       "weight": 50,
       "intParam1": 0,
@@ -704,7 +704,7 @@
         "Ring"
       ],
       "requireRarity": "Normal",
-      "optionType": "IncreaseAirSpellDamage",
+      "optionType": "IncreaseWindSpellDamage",
       "prefix": "Gusty",
       "weight": 25,
       "intParam1": 0,
@@ -719,7 +719,7 @@
         "Ring"
       ],
       "requireRarity": "Normal",
-      "optionType": "IncreaseAirSpellDamage",
+      "optionType": "IncreaseWindSpellDamage",
       "prefix": "Tempestuous",
       "weight": 10,
       "intParam1": 0,

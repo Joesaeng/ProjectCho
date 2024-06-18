@@ -5,10 +5,6 @@ using UnityEngine;
 
 public static class ItemGenerator
 {
-    public static Sprite[] RingIcons;
-    public static Sprite[] WeaponIcons;
-
-    
     public static Item GenerateItem(ItemData data)
     {
         Item item = NewItem(data);

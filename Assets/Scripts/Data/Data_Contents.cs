@@ -19,11 +19,11 @@ public enum ElementType
                 // 동일 속성 적(Light,Dark 제외)에게는 50%의 데미지.
                 // Light,Dark 속성은 다른 속성에게 50%의 데미지만 받음
     Energy,     // 모든 속성의 적(어둠,빛 제외) 100% 데미지
-    Fire,       // Air 속성의 적에게 200% 데미지, Water 속성 적에게 50% 데미지
+    Fire,       // Wind 속성의 적에게 200% 데미지, Water 속성 적에게 50% 데미지
     Water,      // Fire 속성 적에게 200% 데미지, Lightning 속성 적에게 50% 데미지
     Lightning,  // Water 속성 적에게 200% 데미지, Earth 속성 적에게 50% 데미지
-    Earth,      // Lightning 속성 적에게 200% 데미지, Air 속성 적에게 50% 데미지
-    Air,        // Earth 속성 적에게 200% 데미지, Fire 속성 적에게 50% 데미지
+    Earth,      // Lightning 속성 적에게 200% 데미지, Wind 속성 적에게 50% 데미지
+    Wind,       // Earth 속성 적에게 200% 데미지, Fire 속성 적에게 50% 데미지
     Light,      // Dark속성 적에게 300% 데미지, Light 속성 적에게 0% 데미지
     Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
 }
@@ -94,7 +94,7 @@ public enum StatusType
     IncreaseWaterSpellDamage,
     IncreaseLightningSpellDamage,
     IncreaseEarthSpellDamage,
-    IncreaseAirSpellDamage,
+    IncreaseWindSpellDamage,
     IncreaseLightSpellDamage,
     IncreaseDarkSpellDamage,
 

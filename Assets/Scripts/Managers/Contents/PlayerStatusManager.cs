@@ -17,14 +17,14 @@ public class PlayerStatus
 public class PlayerStatusManager
 {
     PlayerStatus playerStatus;
-    SpellDataBase spellDataBase;
+    PlayerSpells playerSpells;
     Inventory inventory;
     EquipmentInventory equipmentInventory;
 
     public Inventory Inventory { get => inventory; set => inventory = value; }
     public EquipmentInventory EquipmentInventory { get => equipmentInventory; set => equipmentInventory = value; }
     public PlayerStatus PlayerStatus { get => playerStatus; set => playerStatus = value; }
-    public SpellDataBase SpellDataBase { get => spellDataBase; set => spellDataBase = value; }
+    public PlayerSpells PlayerSpells { get => playerSpells; set => playerSpells = value; }
 
     public Action OnChangeEquipment;
     public Action OnChangeInventory;
@@ -34,8 +34,8 @@ public class PlayerStatusManager
         Data.InventoryData data = Managers.PlayerData.Data.inventoryData;
         inventory = new Inventory(data);
         equipmentInventory = new EquipmentInventory(data);
-        SpellDataBase = new SpellDataBase();
-        SpellDataBase.Init();
+        PlayerSpells = new PlayerSpells();
+        PlayerSpells.Init();
     }
 
     public void ChangeEquipments()
@@ -60,6 +60,8 @@ public class PlayerStatusManager
 
     public void RemoveItem(Item item) => Inventory.RemoveItem(item);
 
+    public void AddSpells(int spellId, int count) => PlayerSpells.AddSpell(spellId, count);
+
     public InventoryData InventoryToData()
     {
         return new InventoryData
@@ -71,6 +73,6 @@ public class PlayerStatusManager
 
     public List<PlayerOwnedSpellData> SpellDataBaseToData()
     {
-        return SpellDataBase.SpellDataDictToData();
+        return PlayerSpells.SpellDataDictToData();
     }
 }

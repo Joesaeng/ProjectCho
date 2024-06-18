@@ -12,19 +12,33 @@ public class UI_Summon : UI_Base
         Particle_Click,
         Particle_Aura,
         Obj_SummonedEquips,
+        Obj_SummonedSpells,
         Button_Summon
     }
 
-    enum SummonState
+    enum SummonEquipmentState
     {
+        Off,
+        Idle,
+        OnSummon,
+        QuitSummon
+    }
+
+    enum SummonSpellState
+    {
+        Off,
         Idle,
         OnSummon,
         QuitSummon
     }
 
     List<Image> _summonItemIcons = new();
+    List<UI_SummonedSpellIcon> _summonSpellIcons = new();
     List<Sprite> _summonItemsSprites = new();
-    SummonState _summonState = SummonState.Idle;
+    Dictionary<int,int> _summonSpellDict = new();
+
+    SummonEquipmentState _summonEquipmentState = SummonEquipmentState.Off;
+    SummonSpellState _summonSpellState = SummonSpellState.Off;
 
     public override void Init()
     {
@@ -32,16 +46,58 @@ public class UI_Summon : UI_Base
 
         GetObject((int)Objects.Button_Summon).AddUIEvent(Clicked);
 
-        _summonState = SummonState.Idle;
+        _summonEquipmentState = SummonEquipmentState.Off;
+        _summonSpellState = SummonSpellState.Off;
         gameObject.SetActive(false);
     }
 
-    public void OnSummonUI(List<Item> summonItems)
+    public void OnSummonSpells(Dictionary<int, int> summonSpells)
     {
-        _summonState = SummonState.Idle;
-        Transform summonItemsTf;
-        summonItemsTf = GetObject((int)Objects.Obj_SummonedEquips).transform;
-        GetObject((int)Objects.Button_Summon).GetComponent<Button>().interactable = false;
+        _summonEquipmentState = SummonEquipmentState.Off;
+        GetObject((int)Objects.Obj_SummonedEquips).gameObject.SetActive(false);
+
+        _summonSpellState = SummonSpellState.Idle;
+        _summonSpellDict = summonSpells;
+
+        Transform summonSpellsTf = GetObject((int)Objects.Obj_SummonedSpells).transform;
+        summonSpellsTf.gameObject.SetActive(true);
+
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = false;
+
+        GetObject((int)Objects.Particle_Button).gameObject.SetActive(false);
+        GetObject((int)Objects.Particle_Click).gameObject.SetActive(false);
+        GetObject((int)Objects.Particle_Aura).gameObject.SetActive(false);
+
+        while(summonSpells.Count > summonSpellsTf.childCount)
+        {
+            UI_SummonedSpellIcon newIcon = Managers.UI.MakeSubItem<UI_SummonedSpellIcon>(summonSpellsTf);
+            newIcon.transform.localPosition = Vector3.zero;
+            newIcon.transform.localScale = Vector3.one;
+            _summonSpellIcons.Add(newIcon);
+        }
+        
+        for(int i = 0; i < _summonSpellIcons.Count; i++)
+        {
+            _summonSpellIcons[i].Init();
+            _summonSpellIcons[i].gameObject.SetActive(false);
+        }
+
+        gameObject.SetActive(true);
+        GetObject((int)Objects.Particle_Button).gameObject.SetActive(true);
+        StartCoroutine(CoSummonSpellState_Idle());
+    }
+
+    public void OnSummonEquips(List<Item> summonItems)
+    {
+        _summonSpellState = SummonSpellState.Off;
+        GetObject((int)Objects.Obj_SummonedSpells).SetActive(false);
+
+        _summonEquipmentState = SummonEquipmentState.Idle;
+
+        Transform summonItemsTf = GetObject((int)Objects.Obj_SummonedEquips).transform;
+        summonItemsTf.gameObject.SetActive(true);
+
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = false;
 
         GetObject((int)Objects.Particle_Button).gameObject.SetActive(false);
         GetObject((int)Objects.Particle_Click).gameObject.SetActive(false);
@@ -58,33 +114,77 @@ public class UI_Summon : UI_Base
         }
         gameObject.SetActive(true);
         GetObject((int)Objects.Particle_Button).gameObject.SetActive(true);
-        StartCoroutine(CoSummonState_Idle());
+        StartCoroutine(CoSummonEquipmentState_Idle());
     }
 
     void Clicked(PointerEventData data)
     {
-        switch (_summonState)
+        if(_summonEquipmentState == SummonEquipmentState.Off)
         {
-            case SummonState.Idle:
-                GetObject((int)Objects.Button_Summon).GetComponent<Button>().interactable = false;
-                _summonState = SummonState.OnSummon;
-                StartCoroutine(ConSummonState_OnSummon());
-                break;
-            case SummonState.OnSummon:
-                break;
-            case SummonState.QuitSummon:
-                gameObject.SetActive(false);
-                break;
+            switch (_summonSpellState)
+            {
+                case SummonSpellState.Idle:
+                    GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = false;
+                    _summonSpellState = SummonSpellState.OnSummon;
+                    StartCoroutine(CoSummonSpellState_OnSummon());
+                    break;
+                case SummonSpellState.OnSummon:
+                    break;
+                case SummonSpellState.QuitSummon:
+                    gameObject.SetActive(false);
+                    break;
+            }
+        }
+        else
+        {
+            switch (_summonEquipmentState)
+            {
+                case SummonEquipmentState.Idle:
+                    GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = false;
+                    _summonEquipmentState = SummonEquipmentState.OnSummon;
+                    StartCoroutine(CoSummonEquipmentState_OnSummon());
+                    break;
+                case SummonEquipmentState.OnSummon:
+                    break;
+                case SummonEquipmentState.QuitSummon:
+                    gameObject.SetActive(false);
+                    break;
+            }
         }
     }
 
-    IEnumerator CoSummonState_Idle()
+    IEnumerator CoSummonSpellState_Idle()
     {
         yield return YieldCache.WaitForSeconds(0.1f);
-        GetObject((int)Objects.Button_Summon).GetComponent<Button>().interactable = true;
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = true;
     }
 
-    IEnumerator ConSummonState_OnSummon()
+    IEnumerator CoSummonSpellState_OnSummon()
+    {
+        GetObject((int)Objects.Particle_Button).gameObject.SetActive(false);
+        GetObject((int)Objects.Particle_Click).gameObject.SetActive(true);
+        int spellIconIndex = 0;
+        yield return YieldCache.WaitForSeconds(0.1f);
+
+        foreach(var spellKvp in _summonSpellDict)
+        {
+            _summonSpellIcons[spellIconIndex].gameObject.SetActive(true);
+            _summonSpellIcons[spellIconIndex].SetSummonSpellIcon(spellKvp.Key,spellKvp.Value);
+            spellIconIndex++;
+            yield return YieldCache.WaitForSeconds(0.15f);
+        }
+
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = true;
+        _summonEquipmentState = SummonEquipmentState.QuitSummon;
+    }
+
+    IEnumerator CoSummonEquipmentState_Idle()
+    {
+        yield return YieldCache.WaitForSeconds(0.1f);
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = true;
+    }
+
+    IEnumerator CoSummonEquipmentState_OnSummon()
     {
         GetObject((int)Objects.Particle_Button).gameObject.SetActive(false);
         GetObject((int)Objects.Particle_Click).gameObject.SetActive(true);
@@ -101,7 +201,9 @@ public class UI_Summon : UI_Base
             _summonItemsSprites.RemoveAt(randSpriteIndex);
             yield return YieldCache.WaitForSeconds(0.08f);
         }
-        GetObject((int)Objects.Button_Summon).GetComponent<Button>().interactable = true;
-        _summonState = SummonState.QuitSummon;
+        GetObject((int)Objects.Button_Summon).GetComponent<Image>().raycastTarget = true;
+        _summonEquipmentState = SummonEquipmentState.QuitSummon;
     }
+
+
 }

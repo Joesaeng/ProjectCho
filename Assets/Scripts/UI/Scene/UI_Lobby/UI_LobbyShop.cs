@@ -10,6 +10,7 @@ public class UI_LobbyShop : UI_Base
     {
         Button_Weapon,
         Button_Ring,
+        Button_Spell,
         Button_Shop
     }
 
@@ -17,10 +18,12 @@ public class UI_LobbyShop : UI_Base
     {
         UI_ShopWeapon,
         UI_ShopRing,
+        UI_ShopSpell,
         UI_ShopShop,
         UI_Summon,
     }
 
+    const int ShopUICount = 4;
     Button[] _tabButtons;
     Image[] _tabImages;
     UI_Base[] _shopUis;
@@ -41,21 +44,24 @@ public class UI_LobbyShop : UI_Base
         {
             GetButton((int)Buttons.Button_Weapon),
             GetButton((int)Buttons.Button_Ring),
+            GetButton((int)Buttons.Button_Spell),
             GetButton((int)Buttons.Button_Shop),
         };
         _tabImages = new Image[]
         {
             GetButton((int)Buttons.Button_Weapon).GetComponent<Image>(),
             GetButton((int)Buttons.Button_Ring).GetComponent<Image>(),
+            GetButton((int)Buttons.Button_Spell).GetComponent<Image>(),
             GetButton((int)Buttons.Button_Shop).GetComponent<Image>(),
         };
         _shopUis = new UI_Base[]
         {
             GetObject((int)Objects.UI_ShopWeapon).GetComponent<UI_ShopWeapon>(),
             GetObject((int)Objects.UI_ShopRing).GetComponent<UI_ShopRing>(),
+            GetObject((int)Objects.UI_ShopSpell).GetComponent<UI_ShopSpell>(),
             GetObject((int)Objects.UI_ShopShop).GetComponent<UI_ShopShop>(),
         };
-        for (int i = 0; i < _tabButtons.Length; i++)
+        for (int i = 0; i < ShopUICount; i++)
         {
             _tabButtons[i].gameObject.AddUIEvent(ClickedTabButton, i);
             _shopUis[i].Init();
@@ -63,6 +69,7 @@ public class UI_LobbyShop : UI_Base
 
         _shopUis[0].GetComponent<UI_ShopWeapon>().OnClickedSummon += ClickedSummonListner;
         _shopUis[1].GetComponent<UI_ShopRing>().OnClickedSummon += ClickedSummonListner;
+        _shopUis[2].GetComponent<UI_ShopSpell>().OnClickedSummon += ClickedSummonListner;
         _originalPos = _shopUis[0].GetComponent<RectTransform>().anchoredPosition;
         SetTab(0);
     }
@@ -76,14 +83,15 @@ public class UI_LobbyShop : UI_Base
                 _tabImages[i].color = Color.white;
                 _shopUis[i].gameObject.SetActive(true);
                 RectTransform uiRect = _shopUis[i].GetComponent<RectTransform>();
-                RectTransform canvasRect = gameObject.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
-                // float canvasHeight = canvasRect.rect.height;
-                // uiRect.anchoredPosition = new Vector2(uiRect.anchoredPosition.x, canvasHeight * 0.5f);
-                // 
-                // LeanTween.move(uiRect, _originalPos, 0.5f).setEase(LeanTweenType.easeOutBounce);
 
-                uiRect.localScale = Vector3.one * 1.5f;
+                //RectTransform canvasRect = gameObject.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+                //float canvasHeight = canvasRect.rect.height;
+                //uiRect.anchoredPosition = new Vector2(uiRect.anchoredPosition.x, canvasHeight * 0.5f);
+                //
+                //LeanTween.move(uiRect, _originalPos, 0.5f).setEase(LeanTweenType.easeOutBounce);
 
+                uiRect.localScale = Vector3.one * 1.2f;
+                
                 LeanTween.scale(uiRect, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutBounce);
             }
             else
@@ -107,6 +115,11 @@ public class UI_LobbyShop : UI_Base
 
     void ClickedSummonListner(List<Item> summonItems)
     {
-        _summonUi.OnSummonUI(summonItems);
+        _summonUi.OnSummonEquips(summonItems);
+    }
+
+    void ClickedSummonListner(Dictionary<int,int> summonSpells)
+    {
+        _summonUi.OnSummonSpells(summonSpells);
     }
 }

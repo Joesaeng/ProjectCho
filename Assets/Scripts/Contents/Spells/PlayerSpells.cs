@@ -1,11 +1,13 @@
 using Data;
 using Define;
 using MagicianSpellUpgrade;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public interface ISpellData
 {
@@ -111,10 +113,12 @@ public class SpellDataByPlayerOwnedSpell : ISpellData
     }
 }
 
-public class SpellDataBase
+public class PlayerSpells
 {
     public Dictionary<int, MagicianSpell> SpellDict { get; private set; } = new();
     public Dictionary<int, SpellDataByPlayerOwnedSpell> SpellDataDict { get; private set; } = new();
+
+    public Action OnChangedSpellData;
 
     public void Init()
     {
@@ -122,7 +126,8 @@ public class SpellDataBase
         {
             SpellDataByPlayerOwnedSpell data = new(Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel)
             {
-                ownedSpellCount = ownedSpellData.ownCount
+                ownedSpellCount = ownedSpellData.ownCount,
+                isEquip = ownedSpellData.isEquip,
             };
             SpellDataDict[data.id] = data;
         }
@@ -167,6 +172,7 @@ public class SpellDataBase
 
     public bool AvailableLevelUp(int spellId)
     {
+        if (SpellDataDict[spellId].requireSpellCountToLevelup == 0) return false;
         return SpellDataDict[spellId].ownedSpellCount >= SpellDataDict[spellId].requireSpellCountToLevelup;
     }
 
@@ -176,13 +182,36 @@ public class SpellDataBase
             return;
         int remainCount = SpellDataDict[spellId].ownedSpellCount - SpellDataDict[spellId].requireSpellCountToLevelup;
         int upLevel = SpellDataDict[spellId].spellLevel + 1;
-        SpellDataDict[spellId].ownedSpellCount -= SpellDataDict[spellId].requireSpellCountToLevelup;
+        ModifiySpellCount(spellId, -SpellDataDict[spellId].requireSpellCountToLevelup);
+        NewOwnedSpellData(spellId, upLevel, remainCount);
+    }
+
+    public void AddSpell(int spellId,int count)
+    {
+        if (SpellDataDict.ContainsKey(spellId))
+            ModifiySpellCount(spellId, count);
+        else
+            NewOwnedSpellData(spellId,0, count);
+    }
+
+    void NewOwnedSpellData(int spellId, int spellLevel, int spellcount)
+    {
+        bool isEquip = false;
+        if (SpellDataDict.ContainsKey(spellId))
+            isEquip = SpellDataDict[spellId].isEquip;
         SpellDataDict.Remove(spellId);
         SpellDataDict[spellId] = new SpellDataByPlayerOwnedSpell(
-                    Managers.Data.BaseSpellDataDict[spellId], upLevel)
+                    Managers.Data.BaseSpellDataDict[spellId], spellLevel)
         {
-            ownedSpellCount = remainCount
+            ownedSpellCount = spellcount,
+            isEquip = isEquip
         };
+    }
+
+    void ModifiySpellCount(int spellId, int count)
+    {
+        SpellDataDict[spellId].ownedSpellCount += count;
+        OnChangedSpellData?.Invoke();
     }
 
     public List<PlayerOwnedSpellData> SpellDataDictToData()

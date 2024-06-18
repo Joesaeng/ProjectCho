@@ -33,7 +33,7 @@ public class DefenseSceneManager : MonoBehaviour
     List<ISpellUseable> SpellUseables { get; set; }
     int SpellUseableCount { get; set; }
 
-    public SpellDataBase SpellDataBase { get; set; }
+    public PlayerSpells PlayerSpells { get; set; }
     public EnemyDataBase EnemyDataBase { get; set; }
     public HashSet<SpellUpgradeData> SpellUpgradeDatas { get; set; }
 
@@ -88,8 +88,8 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = new();
         SpellUseables = new();
         SpellUseableCount = 0;
-        SpellDataBase = Managers.Player.SpellDataBase;
-        SpellDataBase.BuildSpellDict();
+        PlayerSpells = Managers.Player.PlayerSpells;
+        PlayerSpells.BuildSpellDict();
         EnemyDataBase = new();
         SpellUpgradeDatas = new();
 
@@ -170,7 +170,7 @@ public class DefenseSceneManager : MonoBehaviour
         {
             SpellUpgradeDatas.Remove(option.SpellUpgradeData);
             SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
-            SpellDataBase.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
+            PlayerSpells.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
         }
         Managers.Time.GameResume();
     }
@@ -295,7 +295,7 @@ public class DefenseSceneManager : MonoBehaviour
         EnemyDataBase = null;
         SpellUpgradeDatas = null;
 
-        SpellDataBase.ClearSpellDict();
+        PlayerSpells.ClearSpellDict();
         // StageData 초기화
         CurStage = 0;
         CurWave = 0;

@@ -178,7 +178,7 @@ public class EquipmentInventory
                 case StatusType.IncreaseWaterSpellDamage:
                 case StatusType.IncreaseLightningSpellDamage:
                 case StatusType.IncreaseEarthSpellDamage:
-                case StatusType.IncreaseAirSpellDamage:
+                case StatusType.IncreaseWindSpellDamage:
                 case StatusType.IncreaseLightSpellDamage:
                 case StatusType.IncreaseDarkSpellDamage:
                     if (playerStatus.floatOptions.ContainsKey(option.OptionType))

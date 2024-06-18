@@ -59,7 +59,7 @@ public class UI_LevelUpOptions : UI_Base
         }
         else
         {
-            SpellDataByPlayerOwnedSpell data = Managers.Player.SpellDataBase.SpellDataDict[options.SpellId];
+            SpellDataByPlayerOwnedSpell data = Managers.Player.PlayerSpells.SpellDataDict[options.SpellId];
             SpellUpgradeData upgradeData = options.SpellUpgradeData;
             GetText((int)Texts.Text_NewSpell).gameObject.SetActive(false);
             GetText((int)Texts.Text_SpellName).text = Language.GetLanguage($"{data.spellName}");

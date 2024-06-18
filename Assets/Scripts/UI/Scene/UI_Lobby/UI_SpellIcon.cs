@@ -46,23 +46,34 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
         _spellId = spellId;
     }
 
-    public void SetOwnedCount(int ownedCount, int requireCount)
+    public void SetOwnedCount(int spellId)
     {
+        var spellData = Managers.Player.PlayerSpells.SpellDataDict[spellId];
+        int ownedCount, requireCount;
+        ownedCount = spellData.ownedSpellCount;
+        requireCount = spellData.requireSpellCountToLevelup;
+
         if (requireCount == 0)
         {
             _slider.value = 0;
-            _ownedCountText.text = "";
+            _ownedCountText.text = $"{ownedCount} / 00";
         }
         else
         {
             _slider.value = (float)ownedCount / requireCount;
             _ownedCountText.text = $"{ownedCount} / {requireCount}";
-        }    
+        }
     }
 
-    public void SetImages(Sprite spellImage, Sprite edgeImage)
+    public void SetOwnedCount()
     {
-        _spellImage.sprite = spellImage;
+        _slider.value = 0;
+        _ownedCountText.text = "";
+    }
+
+    public void SetImages(int spellId, Sprite edgeImage)
+    {
+        _spellImage.sprite = SpellManager.Instance.SpellSpriteDict[spellId];
         _spellEdge.sprite = edgeImage;
     }
 

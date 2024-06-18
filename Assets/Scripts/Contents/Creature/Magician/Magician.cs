@@ -29,7 +29,7 @@ public class Magician : AttackableCreature, ISpellUseable
     public void InitSpellUseable(IData data)
     {
         BaseSpellData spelldata = data as BaseSpellData;
-        Spell = DefenseSceneManager.Instance.SpellDataBase.SpellDict[spelldata.id];
+        Spell = DefenseSceneManager.Instance.PlayerSpells.SpellDict[spelldata.id];
         Spell.OnUpdateSpellDelay += UpdateSpellDelay;
         Spell.OwnTransform = transform;
         _animName = spelldata.animType.ToString();

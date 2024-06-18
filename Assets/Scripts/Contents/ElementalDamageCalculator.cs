@@ -17,13 +17,13 @@ public static class ElementalDamageCalculator
     // };
 
     private static readonly float[,] damageMultiplier = {
-        //         En     Fi     Wa     Li     Ea     Ai    
+        //         En     Fi     Wa     Li     Ea     Wi    
         /* En */ { 1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f, },
         /* Fi */ { 0.75f, 0.75f, 0.5f,  0.75f, 0.75f, 2.0f, },
         /* Wa */ { 0.75f, 2.0f,  0.75f, 0.5f,  0.75f, 0.75f,},
         /* Li */ { 0.75f, 0.75f, 2.0f,  0.75f, 0.5f,  0.75f,},
         /* Ea */ { 0.75f, 0.75f, 0.75f, 2.0f,  0.75f, 0.5f, },
-        /* Ai */ { 0.75f, 0.5f,  0.75f, 0.75f, 2.0f,  0.75f,},
+        /* Wi */ { 0.75f, 0.5f,  0.75f, 0.75f, 2.0f,  0.75f,},
     };
 
     public static float CalculateDamage(ElementType attacker, ElementType defender, float baseDamage)

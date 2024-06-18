@@ -33,7 +33,6 @@ public class UI_MagiciansSpell : UI_Base
 
     Dictionary<int,UI_SpellIcon> _spellIconDict = new();
 
-    Dictionary<int,Sprite> _spellIconSpriteDict = new();
     Dictionary<Texts,TextMeshProUGUI> _textDict = new();
 
     Sprite[] _spellEdgeSprites = new Sprite[2];
@@ -57,11 +56,6 @@ public class UI_MagiciansSpell : UI_Base
             _textDict.Add(text, GetText((int)text));
         }
 
-        foreach (BaseSpellData data in Managers.Data.BaseSpellDataDict.Values)
-        {
-            _spellIconSpriteDict.Add(data.id, Managers.Resource.Load<Sprite>($"UI/SpellIcons/{data.elementType}"));
-        }
-
         Sprite[] sprites = Resources.LoadAll<Sprite>("UI/UI_atlas");
         foreach (Sprite sprite in sprites)
         {
@@ -73,6 +67,9 @@ public class UI_MagiciansSpell : UI_Base
 
         _iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
         GetButton((int)Buttons.Button_LevelUp).gameObject.AddUIEvent(ClickedSpellLevelUp);
+
+        Managers.Player.PlayerSpells.OnChangedSpellData -= SetSpellIcons;
+        Managers.Player.PlayerSpells.OnChangedSpellData += SetSpellIcons;
 
         SetSpellIcons();
     }
@@ -88,24 +85,29 @@ public class UI_MagiciansSpell : UI_Base
 
         for (int spellId = 0; spellId < Managers.Data.BaseSpellDataDict.Count; ++spellId)
         {
-            _spellIconDict.Add(spellId, _iconsTf.GetChild(spellId).GetComponent<UI_SpellIcon>());
-            _spellIconDict[spellId].Init();
-            _spellIconDict[spellId].SetId(spellId);
-            _spellIconDict[spellId].SetImages(_spellIconSpriteDict[spellId], _spellEdgeSprites[0]);
-            _spellIconDict[spellId].OnClickedSkillIcon += ClickedSpellIcon;
+            if (!_spellIconDict.ContainsKey(spellId))
+            {
+                _spellIconDict.Add(spellId, _iconsTf.GetChild(spellId).GetComponent<UI_SpellIcon>());
+                _spellIconDict[spellId].Init();
+                _spellIconDict[spellId].SetId(spellId);
+                _spellIconDict[spellId].SetImages(spellId, _spellEdgeSprites[0]);
+                _spellIconDict[spellId].OnClickedSkillIcon += ClickedSpellIcon;
+            }
+            else
+                _spellIconDict[spellId].SetOwnedCount(spellId);
         }
 
-        foreach(KeyValuePair<int,UI_SpellIcon> kvp in _spellIconDict)
+        foreach (KeyValuePair<int, UI_SpellIcon> kvp in _spellIconDict)
         {
-            if (Managers.Player.SpellDataBase.SpellDataDict.TryGetValue(kvp.Key, out SpellDataByPlayerOwnedSpell spellData))
+            if (Managers.Player.PlayerSpells.SpellDataDict.TryGetValue(kvp.Key, out SpellDataByPlayerOwnedSpell spellData))
             {
                 kvp.Value.SetUnlock();
-                kvp.Value.SetOwnedCount(spellData.ownedSpellCount,spellData.requireSpellCountToLevelup);
+                kvp.Value.SetOwnedCount(spellData.id);
             }
             else
             {
                 kvp.Value.SetLock();
-                kvp.Value.SetOwnedCount(0,0);
+                kvp.Value.SetOwnedCount();
             }
         }
     }
@@ -122,9 +124,9 @@ public class UI_MagiciansSpell : UI_Base
 
     void ClickedSpellLevelUp(PointerEventData data)
     {
-        Managers.Player.SpellDataBase.SpellLevelUp(_selectedSpellId);
-        var spellData = Managers.Player.SpellDataBase.SpellDataDict[_selectedSpellId];
-        _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.ownedSpellCount,spellData.requireSpellCountToLevelup);
+        Managers.Player.PlayerSpells.SpellLevelUp(_selectedSpellId);
+        var spellData = Managers.Player.PlayerSpells.SpellDataDict[_selectedSpellId];
+        _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.id);
         SetSpellDesc(_selectedSpellId, false);
     }
 
@@ -140,8 +142,8 @@ public class UI_MagiciansSpell : UI_Base
         }
         else
         {
-            spellData = Managers.Player.SpellDataBase.SpellDataDict[spellId];
-            GetButton((int)Buttons.Button_LevelUp).gameObject.SetActive(Managers.Player.SpellDataBase.AvailableLevelUp(spellId));
+            spellData = Managers.Player.PlayerSpells.SpellDataDict[spellId];
+            GetButton((int)Buttons.Button_LevelUp).gameObject.SetActive(Managers.Player.PlayerSpells.AvailableLevelUp(spellId));
         }
 
         _spellIconDict[spellId].SetEdge(_spellEdgeSprites[1]);
@@ -173,7 +175,7 @@ public class UI_MagiciansSpell : UI_Base
         _textDict[Texts.Text_AvailableUpgrades].text = "";
         foreach (SpellUpgradeType upgradeType in upgrades)
         {
-            _textDict[Texts.Text_AvailableUpgrades].text += Language.GetLanguage($"{upgradeType}")+", ";
+            _textDict[Texts.Text_AvailableUpgrades].text += Language.GetLanguage($"{upgradeType}") + ", ";
         }
     }
 
@@ -186,7 +188,7 @@ public class UI_MagiciansSpell : UI_Base
                     $"\n{Language.GetLanguage("ExplosionRange")}";
                 _textDict[Texts.Text_AttributesValue].text +=
                     $"\n{spellData.FloatParam2}";
-                    
+
                 break;
             case 5: // SpellDuration
                 _textDict[Texts.Text_Attributes].text +=

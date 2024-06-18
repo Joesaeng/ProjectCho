@@ -6,7 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RarityWeight : IRandomWeighted
+public class EquipmentRarityWeight : IRandomWeighted
 {
     public EquipmentRarity rarity;
     public int weight;
@@ -23,12 +23,12 @@ public class ItemManager
 
     public Dictionary<EquipmentRarity, List<EquipmentOptionData>> equipmentOptionsByRarity = new();
 
-    private List<RarityWeight> rarityWeights = new()
+    private List<EquipmentRarityWeight> rarityWeights = new()
     {
-        new RarityWeight { rarity = EquipmentRarity.Normal, weight = 650 },
-        new RarityWeight { rarity = EquipmentRarity.Rare, weight = 250 },
-        new RarityWeight { rarity = EquipmentRarity.Epic, weight = 68 },
-        new RarityWeight { rarity = EquipmentRarity.Legend, weight = 32 }
+        new EquipmentRarityWeight { rarity = EquipmentRarity.Normal, weight = 650 },
+        new EquipmentRarityWeight { rarity = EquipmentRarity.Rare, weight = 250 },
+        new EquipmentRarityWeight { rarity = EquipmentRarity.Epic, weight = 68 },
+        new EquipmentRarityWeight { rarity = EquipmentRarity.Legend, weight = 32 }
     };
 
     public void Init()
@@ -106,7 +106,7 @@ public class ItemManager
             equipmentOptions = new()
         };
 
-        EquipmentRarity rarity = Util.GetRandomWeightedSelect<RarityWeight>(rarityWeights).rarity;
+        EquipmentRarity rarity = Util.GetRandomWeightedSelect<EquipmentRarityWeight>(rarityWeights).rarity;
         equipmentData.rarity = rarity;
 
         List<EquipmentOptionData> validOptions = GetValidOptions(equipmentType, rarity);

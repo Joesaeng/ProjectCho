@@ -249,7 +249,7 @@
       "spellBehaviorType": "TargetedAOE",
       "spellRarity": "Normal",
       "animType": "AOEAttack",
-      "elementType": "Air",
+      "elementType": "Wind",
       "spellName": "Tornado",
       "pierceCount": -1,
       "spellSpeed": 0.0,

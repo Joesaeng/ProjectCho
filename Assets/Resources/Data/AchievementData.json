@@ -141,7 +141,7 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Air",
+        "elementType": "Wind",
         "summonType": "Weapon",
         "targetValue": 50,
         "progressValue": 0
@@ -149,7 +149,7 @@
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseAirSpellDamage",
+          "statusType": "IncreaseWindSpellDamage",
           "integerParam": 0,
           "floatParam": 0.05
         },
@@ -357,7 +357,7 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Air",
+        "elementType": "Wind",
         "summonType": "Weapon",
         "targetValue": 500,
         "progressValue": 0
@@ -365,7 +365,7 @@
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseAirSpellDamage",
+          "statusType": "IncreaseWindSpellDamage",
           "integerParam": 0,
           "floatParam": 0.1
         },
@@ -573,7 +573,7 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Air",
+        "elementType": "Wind",
         "summonType": "Weapon",
         "targetValue": 5000,
         "progressValue": 0
@@ -581,7 +581,7 @@
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseAirSpellDamage",
+          "statusType": "IncreaseWindSpellDamage",
           "integerParam": 0,
           "floatParam": 0.2
         },
