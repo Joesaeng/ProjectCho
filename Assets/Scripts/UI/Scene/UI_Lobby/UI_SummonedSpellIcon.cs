@@ -26,7 +26,7 @@ public class UI_SummonedSpellIcon : UI_Base
             Managers.Resource.Destroy(_particle.transform.GetChild(i).gameObject);
         }
         BaseSpellData spellData = Managers.Data.BaseSpellDataDict[spellId];
-        _spellIcon.sprite = SpellManager.Instance.SpellSpriteDict[spellId];
+        _spellIcon.sprite = Managers.Spell.SpellSpriteDict[spellId];
         _spellCountText.text = $"x {count}";
         GameObject effect = Managers.Resource.Instantiate(string.Format(_effectPathFormat,spellData.ElementType), _particle.transform);
         effect.transform.SetLocalPositionAndRotation(Vector3.zero,Quaternion.identity);

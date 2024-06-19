@@ -13,25 +13,8 @@ public class SpellRarityWeight : IRandomWeighted
     public int weight;
     public int Weight => weight;
 }
-public class SpellManager : MonoBehaviour
+public class SpellManager
 {
-    public static SpellManager _instance;
-    public static SpellManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = (SpellManager)FindObjectOfType(typeof(SpellManager));
-                if (_instance == null)
-                {
-                    GameObject obj = new(typeof(SpellManager).Name, typeof(SpellManager));
-                    _instance = obj.GetComponent<SpellManager>();
-                }
-            }
-            return _instance;
-        }
-    }
     private Dictionary<int,Sprite> _spellSpriteDict;
     public Dictionary<int, Sprite> SpellSpriteDict { get => _spellSpriteDict; set => _spellSpriteDict = value; }
 

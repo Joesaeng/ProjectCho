@@ -10,7 +10,7 @@
       "spellName": "EnergyBall",
       "pierceCount": 1,
       "spellSpeed": 45.0,
-      "spellRange": 40.0,
+      "spellRange": 50.0,
       "spellSize": 1.0,
       "spellDataByLevel": [
         {
@@ -56,38 +56,38 @@
       "animType": "StraightProjectileAttack",
       "elementType": "Water",
       "spellName": "Tsunami",
-      "spellRange": 20,
+      "spellRange": 40,
       "spellSpeed": 15,
       "spellSize": 2,
       "spellDataByLevel": [
         {
           "spellLevel": 0,
           "requireSpellCountToLevelup": 5,
-          "spellDamageCoefficient": 1.0,
+          "spellDamageCoefficient": 0.8,
           "spellDelay": 4.0
         },
         {
           "spellLevel": 1,
           "requireSpellCountToLevelup": 15,
-          "spellDamageCoefficient": 1.25,
+          "spellDamageCoefficient": 1,
           "spellDelay": 4.0
         },
         {
           "spellLevel": 2,
           "requireSpellCountToLevelup": 50,
-          "spellDamageCoefficient": 1.5,
+          "spellDamageCoefficient": 1.25,
           "spellDelay": 4.0
         },
         {
           "spellLevel": 3,
           "requireSpellCountToLevelup": 100,
-          "spellDamageCoefficient": 1.7,
+          "spellDamageCoefficient": 1.5,
           "spellDelay": 3.5
         },
         {
           "spellLevel": 4,
           "requireSpellCountToLevelup": 0,
-          "spellDamageCoefficient": 1.95,
+          "spellDamageCoefficient": 1.76,
           "spellDelay": 3.3
         }
       ],
@@ -107,7 +107,7 @@
       "spellDamageCoefficient": 2,
       "spellDelay": 1.5,
       "spellRange": 35,
-      "spellSpeed": 40,
+      "spellSpeed": 50,
       "spellSize": 1,
       "spellDataByLevel": [
         {
@@ -154,9 +154,9 @@
       "animType": "AOEAttack",
       "elementType": "Lightning",
       "spellName": "LightningStrike",
-      "spellRange": 40,
+      "spellRange": 45,
       "spellSpeed": 0,
-      "spellSize": 2.5,
+      "spellSize": 1.75,
       "spellDataByLevel": [
         {
           "spellLevel": 0,
@@ -202,7 +202,7 @@
       "animType": "ProjectileAttack",
       "elementType": "Earth",
       "spellName": "EarthOrv",
-      "spellRange": 25,
+      "spellRange": 35,
       "spellSpeed": 15,
       "spellSize": 1,
       "spellDataByLevel": [
@@ -253,31 +253,31 @@
       "spellName": "Tornado",
       "pierceCount": -1,
       "spellSpeed": 0.0,
-      "spellRange": 40.0,
-      "spellSize": 2.5,
+      "spellRange": 45.0,
+      "spellSize": 2,
       "spellDataByLevel": [
         {
           "spellLevel": 0,
           "requireSpellCountToLevelup": 5,
-          "spellDamageCoefficient": 1.0,
+          "spellDamageCoefficient": 0.5,
           "spellDelay": 3.0
         },
         {
           "spellLevel": 1,
           "requireSpellCountToLevelup": 15,
-          "spellDamageCoefficient": 1.2,
+          "spellDamageCoefficient": 0.6,
           "spellDelay": 3.0
         },
         {
           "spellLevel": 2,
           "requireSpellCountToLevelup": 50,
-          "spellDamageCoefficient": 1.5,
+          "spellDamageCoefficient": 0.8,
           "spellDelay": 3.0
         },
         {
           "spellLevel": 3,
           "requireSpellCountToLevelup": 100,
-          "spellDamageCoefficient": 2,
+          "spellDamageCoefficient": 1,
           "spellDelay": 3.0
         },
         {

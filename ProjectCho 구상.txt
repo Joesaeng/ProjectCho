@@ -20,7 +20,6 @@
 
 - 4주차
 	Enemies 사망 이벤트에 업적에 값 추가하는 것 구현
-	Spell 뽑기 및 UI
 	Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save
 	PlayerData에 Coin, Dia, StageClear 등 구현
 	업적 보상 구현

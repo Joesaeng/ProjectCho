@@ -7,6 +7,7 @@ public class Managers : MonoBehaviour
 
     GameManager _game = new();
     PlayerStatusManager _playerStatus = new();
+    SpellManager _spell = new();
     TimerManager _timer;
     TimeManager _time = new();
     ItemManager _item = new();
@@ -14,6 +15,7 @@ public class Managers : MonoBehaviour
 
     public static GameManager Game { get { return Instance._game; } }
     public static PlayerStatusManager Player { get { return Instance._playerStatus; } }
+    public static SpellManager Spell { get { return Instance._spell; } }
     public static TimerManager Timer { get { return Instance._timer; } }
     public static TimeManager Time { get { return Instance._time; } }
     public static ItemManager Item { get { return Instance._item; } }
@@ -77,6 +79,7 @@ public class Managers : MonoBehaviour
             s_instance._playerData.Init();
             s_instance._achieve.Init();
             s_instance._playerStatus.Init();
+            s_instance._spell.Init();
             // s_instance._sound.Init();
         }
     }

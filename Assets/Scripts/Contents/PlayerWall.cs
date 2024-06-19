@@ -32,7 +32,7 @@ public class PlayerWall : MonoBehaviour, IHitable
         Wall = GameObject.Find("LifeWall").transform;
     }
 
-    public void TakeDamage(IDamageDealer dealer)
+    public bool TakeDamage(IDamageDealer dealer)
     {
         CurHp -= dealer.AttackDamage;
         float scaleY = CurHp > 0 ? (CurHp / MaxHp) : 0;
@@ -41,7 +41,10 @@ public class PlayerWall : MonoBehaviour, IHitable
         {
             // 게임오버
             CurHp = 0;
+            OnUpdatePlayerHp?.Invoke(Mathf.FloorToInt(CurHp));
+            return true;
         }
         OnUpdatePlayerHp?.Invoke(Mathf.FloorToInt(CurHp));
+        return false;
     }
 }

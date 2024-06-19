@@ -147,7 +147,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         }
     }
 
-    public void TakeDamage(IDamageDealer dealer)
+    public bool TakeDamage(IDamageDealer dealer)
     {
         float damage = ElementalDamageCalculator.CalculateDamage(dealer.ElementType, ElementType, dealer.AttackDamage);
         _curHp -= damage;
@@ -160,9 +160,13 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         if (_curHp < 0)
         {
             Die();
+            return true;
         }
         else
+        {
             PlayAnimationOnTrigger("GetHit");
+            return false;
+        }
     }
 
     public override bool SearchTarget()

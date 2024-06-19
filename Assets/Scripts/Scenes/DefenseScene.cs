@@ -18,8 +18,6 @@ public class DefenseScene : BaseScene
 
         Managers.Init();
 
-        Managers.UI.ShowSceneUI<UI_DefenseScene>();
-
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
         // Managers.Game.Init();

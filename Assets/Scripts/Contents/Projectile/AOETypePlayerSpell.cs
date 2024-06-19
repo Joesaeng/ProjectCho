@@ -61,20 +61,28 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     {
         yield return YieldCache.WaitForSeconds(0.05f);
         float curDuration = 0f;
+        List<IHitable> deadTargets = new();
         while (true)
         {
-            curDuration += 1f;
+            curDuration += 0.5f;
             foreach (IHitable target in Targets)
             {
                 if (target.IsDead)
+                {
                     continue;
-                target.TakeDamage(this);
+                }
+                if(target.TakeDamage(this))
+                    deadTargets.Add(target);
 
                 GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
                 Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
                 hitEffect.Init();
             }
-            yield return YieldCache.WaitForSeconds(1f);
+            for(int i = 0; i < deadTargets.Count; i++)
+            {
+                Targets.Remove(deadTargets[i]);
+            }
+            yield return YieldCache.WaitForSeconds(0.5f);
             if (curDuration >= SpellDuration)
             {
                 DestroyAOE();

@@ -43,7 +43,7 @@ namespace Interfaces
         Transform Tf { get;}
         bool IsDead { get; set; }
         void InitHitable(IData data);
-        void TakeDamage(IDamageDealer dealer);
+        bool TakeDamage(IDamageDealer dealer);
     }
 
     public interface IDamageDealer

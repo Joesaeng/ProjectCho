@@ -165,12 +165,15 @@ public class DefenseSceneManager : MonoBehaviour
     void ClickedLevelUpOptionListner(LevelUpOptions option)
     {
         if (option.IsNewSpell)
+        {
             CreateCharge(option.SpellId);
+        }
         else
         {
             SpellUpgradeDatas.Remove(option.SpellUpgradeData);
             SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData);
             PlayerSpells.UpgradeSkill(option.SpellId, MagicianSpellUpgrade.SpellUpgradeFactory.CreateUpgrade(option.SpellUpgradeData));
+            UI_DefenseScene.LevelUpUsingSpell(option.SpellId);
         }
         Managers.Time.GameResume();
     }
@@ -186,8 +189,9 @@ public class DefenseSceneManager : MonoBehaviour
             GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
                 SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-            SpellUseableCount++;
             magician.Init(data);
+            UI_DefenseScene.SetUsingSpell(spellId, SpellUseableCount);
+            SpellUseableCount++;
             SpellUseables.Add(magician);
         }
     }
@@ -204,8 +208,9 @@ public class DefenseSceneManager : MonoBehaviour
             GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
                 SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
             aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-            SpellUseableCount++;
             spellCharge.Init(data);
+            UI_DefenseScene.SetUsingSpell(spellId, SpellUseableCount);
+            SpellUseableCount++;
             SpellUseables.Add(spellCharge);
         }
     }
@@ -240,12 +245,14 @@ public class DefenseSceneManager : MonoBehaviour
         Managers.Resource.Destroy(enemy.gameObject);
         Enemies.Remove(enemy);
         EnemiesDestroyed++;
-
-        if (EnemiesDestroyed >= Managers.Data.StageDataDict[CurStage].stageDatas[PlayerLevel].spawnEnemyCount)
+        int requireLevelUp = Managers.Data.StageDataDict[CurStage].stageDatas[PlayerLevel].spawnEnemyCount;
+        if (EnemiesDestroyed >= requireLevelUp)
         {
             LevelUp();
             EnemiesDestroyed = 0;
         }
+        float expGaugeFill = (float)EnemiesDestroyed / requireLevelUp;
+        UI_DefenseScene.SetExpGauge(expGaugeFill);
     }
 
     private void Update()

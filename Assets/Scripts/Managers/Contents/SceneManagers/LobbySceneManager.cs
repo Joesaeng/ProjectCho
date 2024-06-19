@@ -25,7 +25,6 @@ public class LobbySceneManager : MonoBehaviour
     UI_LobbyScene UI;
     public void Init()
     {
-        SpellManager.Instance.Init();
         UI = FindObjectOfType<UI_LobbyScene>();
         UI.Init();
     }

@@ -23,6 +23,6 @@ public class UI_ShopSpell : UI_Base
 
     void ClickedSummon(Buttons button, PointerEventData data)
     {
-        OnClickedSummon(SpellManager.Instance.SummonSpells());
+        OnClickedSummon(Managers.Spell.SummonSpells());
     }
 }

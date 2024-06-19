@@ -73,7 +73,7 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
 
     public void SetImages(int spellId, Sprite edgeImage)
     {
-        _spellImage.sprite = SpellManager.Instance.SpellSpriteDict[spellId];
+        _spellImage.sprite = Managers.Spell.SpellSpriteDict[spellId];
         _spellEdge.sprite = edgeImage;
     }
 
