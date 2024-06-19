@@ -232,4 +232,10 @@ public class AchievementManager
 
         return allAchievements.Select(achieve => achieve.ToData()).ToList();
     }
+
+    public void Clear()
+    {
+        OnAchievementCompletable = null;
+        OnAchievementComplete = null;
+    }
 }

@@ -73,6 +73,7 @@ public class UI_LobbyScene : UI_Scene
     public override void Init()
     {
         // base.Init();
+        GetComponent<Canvas>().worldCamera = GameObject.Find("UI_Camera").GetComponent<Camera>();
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));

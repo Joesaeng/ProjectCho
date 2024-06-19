@@ -79,5 +79,4 @@ public class SpellCharge : AttackableCreature, ISpellUseable
             return;
         _targetPos = Target.Tf.position;
     }
-
 }

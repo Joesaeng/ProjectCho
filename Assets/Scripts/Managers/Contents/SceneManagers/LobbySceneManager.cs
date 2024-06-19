@@ -25,7 +25,7 @@ public class LobbySceneManager : MonoBehaviour
     UI_LobbyScene UI;
     public void Init()
     {
-        UI = FindObjectOfType<UI_LobbyScene>();
+        UI = Managers.UI.ShowSceneUI<UI_LobbyScene>();
         UI.Init();
     }
 

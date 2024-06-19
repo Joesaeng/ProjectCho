@@ -44,7 +44,6 @@ public class DefenseSceneManager : MonoBehaviour
     float PosY { get; set; }
 
     private int PlayerLevel = 0;
-    public float PlayerAttackPower = 10;
 
     #region StageData
 
@@ -65,6 +64,7 @@ public class DefenseSceneManager : MonoBehaviour
     #region UI
     UI_LevelUpPopup UI_LevelUpPopup;
     UI_DefenseScene UI_DefenseScene;
+    UI_DefenseScenePause UI_DefenseScenePause;
 
     // 이벤트
     public System.Action<List<LevelUpOptions>> OnSetLevelUpPopup;
@@ -112,12 +112,20 @@ public class DefenseSceneManager : MonoBehaviour
         #region UI 초기화
         UI_DefenseScene = Managers.UI.ShowSceneUI<UI_DefenseScene>();
         UI_DefenseScene.Init();
+        UI_DefenseScene.OnClickedPause += PauseListner;
+        UI_DefenseScene.OnClickedFast += FastListner;
 
         UI_LevelUpPopup = Managers.UI.ShowPopupUI<UI_LevelUpPopup>();
         UI_LevelUpPopup.Init();
         UI_LevelUpPopup.OnClickedLevelUpOption += ClickedLevelUpOptionListner;
         UI_LevelUpPopup.OnClickedReroll += LevelUpOptionsReroll;
         UI_LevelUpPopup.gameObject.SetActive(false);
+
+        UI_DefenseScenePause = Managers.UI.ShowPopupUI<UI_DefenseScenePause>();
+        UI_DefenseScenePause.Init();
+        UI_DefenseScenePause.OnClickedResume += ResumeListner;
+        UI_DefenseScenePause.OnClickedLobby += LobbyListner;
+        UI_DefenseScenePause.gameObject.SetActive(false);
 
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
@@ -144,6 +152,7 @@ public class DefenseSceneManager : MonoBehaviour
         StartStage(CurWave);
     }
 
+    #region LevelUp
     void LevelUp()
     {
         PlayerLevel++;
@@ -177,7 +186,9 @@ public class DefenseSceneManager : MonoBehaviour
         }
         Managers.Time.GameResume();
     }
+    #endregion
 
+    #region SpellUseable
     void CreateMagician(int spellId)
     {
         if (SpellUseableCount < SpellUseablePoints.Count)
@@ -185,14 +196,7 @@ public class DefenseSceneManager : MonoBehaviour
             GameObject obj = Managers.Resource.Instantiate("Magician1", SpellUseablePoints[SpellUseableCount]);
 
             Magician magician = obj.GetOrAddComponent<Magician>();
-            BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
-            GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
-                SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
-            aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-            magician.Init(data);
-            UI_DefenseScene.SetUsingSpell(spellId, SpellUseableCount);
-            SpellUseableCount++;
-            SpellUseables.Add(magician);
+            CreateSpellUseable(spellId, magician);
         }
     }
 
@@ -204,17 +208,24 @@ public class DefenseSceneManager : MonoBehaviour
             obj.transform.localPosition += Vector3.up;
 
             SpellCharge spellCharge = obj.GetOrAddComponent<SpellCharge>();
-            BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
-            GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
-                SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
-            aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-            spellCharge.Init(data);
-            UI_DefenseScene.SetUsingSpell(spellId, SpellUseableCount);
-            SpellUseableCount++;
-            SpellUseables.Add(spellCharge);
+            CreateSpellUseable(spellId, spellCharge);
         }
     }
 
+    void CreateSpellUseable(int spellId, ISpellUseable spellUseable)
+    {
+        BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
+        GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
+                SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
+        aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+        spellUseable.Init(data);
+        UI_DefenseScene.SetUsingSpell(spellId, SpellUseableCount);
+        SpellUseableCount++;
+        SpellUseables.Add(spellUseable);
+    }
+    #endregion
+
+    #region Enemy
     void CreateEnemy()
     {
         float posX = Random.Range(LeftX, RightX);
@@ -254,7 +265,37 @@ public class DefenseSceneManager : MonoBehaviour
         float expGaugeFill = (float)EnemiesDestroyed / requireLevelUp;
         UI_DefenseScene.SetExpGauge(expGaugeFill);
     }
+    #endregion
 
+    #region UI
+
+    private void FastListner()
+    {
+        Managers.Time.ChangeTimeScale();
+    }
+
+    private void PauseListner()
+    {
+        Managers.Time.GamePause();
+        UI_DefenseScenePause.gameObject.SetActive(true);
+    }
+
+    private void ResumeListner()
+    {
+        Managers.Time.GameResume();
+        UI_DefenseScenePause.gameObject.SetActive(false);
+    }
+
+    private void LobbyListner()
+    {
+        Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
+    }
+
+    private void UpdatePlayerHpListner(int curHp)
+    {
+        OnUpdatePlayerHp.Invoke(curHp, Mathf.RoundToInt(PlayerWall.MaxHp));
+    }
+    #endregion
     private void Update()
     {
         if (Managers.Time.IsPause)
@@ -281,40 +322,10 @@ public class DefenseSceneManager : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerHpListner(int curHp)
-    {
-        OnUpdatePlayerHp.Invoke(curHp, Mathf.RoundToInt(PlayerWall.MaxHp));
-    }
+    
 
     public void Clear()
     {
-        // 이벤트 구독 해제
-        UI_LevelUpPopup.OnClickedLevelUpOption -= ClickedLevelUpOptionListner;
-        UI_LevelUpPopup.OnClickedReroll -= LevelUpOptionsReroll;
-
-        PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
-
-        // 객체 제거
-        Enemies = null;
-        SpellUseablePoints = null;
-        SpellUseables = null;
-        SpellUseableCount = 0;
-        EnemyDataBase = null;
-        SpellUpgradeDatas = null;
-
         PlayerSpells.ClearSpellDict();
-        // StageData 초기화
-        CurStage = 0;
-        CurWave = 0;
-        EnemiesToSpawn = 0;
-        EnemiesSpwaned = 0;
-        EnemiesDestroyed = 0;
-        SpawnInterval = 0;
-
-        CurWaveTime = 0;
-        CurSpawnTime = 0;
-
-        // UI 제거
-        UI_LevelUpPopup = null;
     }
 }

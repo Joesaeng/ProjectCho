@@ -11,6 +11,8 @@ public static class ConstantData
 
     public const int    LevelUpOptionsBasicCount = 3;
     public const int    MaxRingSlots = 4;
+
+    public const int    UsingSpellCount = 5;
     #endregion
 
     public static readonly Color[] TextColorsByElementTypes = new Color[]

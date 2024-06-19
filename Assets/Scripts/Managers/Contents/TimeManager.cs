@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TimeManager
 {
-    public bool IsPause { get; private set; } = true;
+    public bool IsPause { get; private set; }
     public int CurTimeScale { get; private set; } = 1;
     public void Init()
     {
@@ -15,14 +15,6 @@ public class TimeManager
 
         CurTimeScale = 1;
         Time.timeScale = CurTimeScale;
-    }
-
-
-    public void OnUpdate()
-    {
-        if (IsPause)
-            return;
-        float deltatime = Time.deltaTime;
     }
 
     public void GamePause()
@@ -55,7 +47,7 @@ public class TimeManager
 
     public void Clear()
     {
-        IsPause = true;
+        IsPause = false;
         CurTimeScale = 1;
         Time.timeScale = CurTimeScale;
     }

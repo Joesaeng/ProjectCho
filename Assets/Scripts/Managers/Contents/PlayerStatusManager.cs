@@ -75,4 +75,11 @@ public class PlayerStatusManager
     {
         return PlayerSpells.SpellDataDictToData();
     }
+
+    public void Clear()
+    {
+        OnChangeEquipment = null;
+        OnChangeInventory = null;
+        playerSpells.OnChangedSpellData = null;
+    }
 }

@@ -48,7 +48,6 @@ public class Managers : MonoBehaviour
     void Update()
     {
         _input.OnUpdate();
-        _time.OnUpdate();
     }
 
     public static void Init()
@@ -91,6 +90,8 @@ public class Managers : MonoBehaviour
         Scene.Clear();
         UI.Clear();
         Pool.Clear();
-        
+        Time.Clear();
+        Player.Clear();
+        Achieve.Clear();
     }
 }
