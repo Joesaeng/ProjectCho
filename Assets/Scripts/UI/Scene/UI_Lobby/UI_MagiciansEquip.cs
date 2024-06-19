@@ -39,6 +39,8 @@ public class UI_MagiciansEquip : UI_Base
     enum Texts
     {
         Text_WeaponSpell,
+        Text_RingTab,
+        Text_WeaponTab,
     }
 
     [SerializeField] Sprite[] _buttonTabSprites; // 0 : enabled, 1 : disenabled
@@ -128,6 +130,9 @@ public class UI_MagiciansEquip : UI_Base
         GetButton((int)Buttons.Button_RingTab).gameObject.AddUIEvent(ClickedInventoryTab, EquipmentType.Ring);
         _buttons.Add(EquipmentType.Ring, GetButton((int)Buttons.Button_RingTab));
         #endregion
+
+        GetText((int)Texts.Text_RingTab).text = Language.GetLanguage("Ring");
+        GetText((int)Texts.Text_WeaponTab).text = Language.GetLanguage("Weapon");
 
         SetEquipSlots();
         SetInventoryTab();

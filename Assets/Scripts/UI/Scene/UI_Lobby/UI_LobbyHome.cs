@@ -51,11 +51,12 @@ public class UI_LobbyHome : UI_Base
         _nextStageButton.gameObject.AddUIEvent(ClickedNextStageButton);
 
         GetObject((int)Objects.Button_Play).AddUIEvent(ClickedPlayButton);
+        GetObject((int)Objects.Text_Play).GetComponent<TextMeshProUGUI>().text
+            = Language.GetLanguage("Play");
 
         SetPrevAndNextStageButton();
         SetStarsItem();
         SetSpawnMonstersItem();
-
     }
     void ClickedPrevStageButton(PointerEventData data)
     {

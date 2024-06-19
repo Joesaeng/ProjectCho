@@ -9,8 +9,4 @@ public class UI_Popup : UI_Base
     {
         Managers.UI.ClosePopupUI(this);
     }
-
-    // public override void OnChangeLanguage()
-    // {
-    // }
 }

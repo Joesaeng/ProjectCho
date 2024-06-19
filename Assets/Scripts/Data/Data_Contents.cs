@@ -1,5 +1,6 @@
 using Define;
 using Interfaces;
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -69,6 +70,14 @@ public enum EquipmentType
 {
     Weapon,
     Ring
+}
+
+[Serializable]
+public enum SummonType
+{
+    Weapon,
+    Ring,
+    Spell,
 }
 
 [Serializable]
@@ -341,7 +350,7 @@ namespace Data
     {
         public AchievementTargetType type;
         public ElementType elementType;
-        public EquipmentType summonType;
+        public SummonType summonType;
         public int targetValue;
         public int progressValue;
     }

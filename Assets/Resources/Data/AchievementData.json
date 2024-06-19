@@ -836,6 +836,69 @@
         }
       ],
       "isCompleted": false
+    },
+    {
+      "id": 33,
+      "achievementName": "SummonSpells",
+      "type": "Repeat",
+      "target": {
+        "type": "Summon",
+        "elementType": "Energy",
+        "summonType": "Spell",
+        "targetValue": 50,
+        "progressValue": 0
+      },
+      "rewards": [
+        {
+          "type": "RewardDia",
+          "statusType": "Spell",
+          "integerParam": 50,
+          "floatParam": 0.0
+        }
+      ],
+      "isCompleted": false
+    },
+    {
+      "id": 34,
+      "achievementName": "SummonSpells",
+      "type": "Daily",
+      "target": {
+        "type": "Summon",
+        "elementType": "Energy",
+        "summonType": "Spell",
+        "targetValue": 10,
+        "progressValue": 0
+      },
+      "rewards": [
+        {
+          "type": "RewardDia",
+          "statusType": "Spell",
+          "integerParam": 5,
+          "floatParam": 0.0
+        }
+      ],
+      "isCompleted": false
+    },
+    {
+      "id": 35,
+      "achievementName": "SummonSpells",
+      "type": "Weekly",
+      "target": {
+        "type": "Summon",
+        "elementType": "Energy",
+        "summonType": "Spell",
+        "targetValue": 100,
+        "progressValue": 0
+      },
+      "rewards": [
+        {
+          "type": "RewardDia",
+          "statusType": "Spell",
+          "integerParam": 25,
+          "floatParam": 0.0
+        }
+      ],
+      "isCompleted": false
     }
   ]
 }

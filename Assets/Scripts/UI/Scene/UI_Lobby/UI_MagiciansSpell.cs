@@ -71,6 +71,8 @@ public class UI_MagiciansSpell : UI_Base
         Managers.Player.PlayerSpells.OnChangedSpellData -= SetSpellIcons;
         Managers.Player.PlayerSpells.OnChangedSpellData += SetSpellIcons;
 
+        GetText((int)Texts.Text_LevelUp).text = Language.GetLanguage("LevelUp");
+
         SetSpellIcons();
     }
 
@@ -147,7 +149,7 @@ public class UI_MagiciansSpell : UI_Base
         }
 
         _spellIconDict[spellId].SetEdge(_spellEdgeSprites[1]);
-        _textDict[Texts.Text_Name].text = spellData.SpellName;
+        _textDict[Texts.Text_Name].text = Language.GetLanguage(spellData.SpellName);
         _textDict[Texts.Text_Name].color = ConstantData.TextColorsByElementTypes[(int)spellData.ElementType];
 
         _textDict[Texts.Text_Attributes].text =
@@ -187,14 +189,14 @@ public class UI_MagiciansSpell : UI_Base
                 _textDict[Texts.Text_Attributes].text +=
                     $"\n{Language.GetLanguage("ExplosionRange")}";
                 _textDict[Texts.Text_AttributesValue].text +=
-                    $"\n{spellData.FloatParam2}";
+                    $"\n{spellData.FloatParam2}m";
 
                 break;
             case 5: // SpellDuration
                 _textDict[Texts.Text_Attributes].text +=
                     $"\n{Language.GetLanguage("SpellDuration")}";
                 _textDict[Texts.Text_AttributesValue].text +=
-                    $"\n{spellData.FloatParam1}";
+                    $"\n{spellData.FloatParam1}s";
                 break;
         }
     }

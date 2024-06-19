@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Language
 {
-    public static bool isEng = true;
+    public static bool isEng = false;
     public static string GetLanguage(string key)
     {
         if (isEng)

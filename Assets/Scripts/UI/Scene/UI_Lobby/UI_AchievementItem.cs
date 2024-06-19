@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class UI_AchievementItem : UI_Base
@@ -13,6 +15,7 @@ public class UI_AchievementItem : UI_Base
         Text_AchievementValue,
         Text_AchievementReward,
         Text_Claim,
+        Text_Completed,
     }
     enum Buttons
     {
@@ -33,6 +36,10 @@ public class UI_AchievementItem : UI_Base
         Bind<Image>(typeof(Images));
 
         GetButton((int)Buttons.Button_Claim).gameObject.AddUIEvent(ClickedCliamButton);
+
+        GetText((int)Texts.Text_Claim).text = Language.GetLanguage("Claim");
+        GetText((int)Texts.Text_Completed).text = Language.GetLanguage("Clear");
+
         if (_valueSlider == null)
             _valueSlider = GetComponentInChildren<Slider>();
     }
@@ -45,17 +52,18 @@ public class UI_AchievementItem : UI_Base
     public void SetAchievement(Achievement achievement)
     {
         _achievement = achievement;
-        if(_achievement.isCompleted)
+        if (_achievement.isCompleted)
         {
             SetCompletedAchievement();
             return;
         }
-        GetText((int)Texts.Text_AchievementName).text = GetAchievementName(achievement.target);
+
+        GetText((int)Texts.Text_AchievementName).text = GetAchievementName(_achievement.target);
+        GetText((int)Texts.Text_AchievementReward).text = GetAchievementRewardToString(_achievement.rewards);
         GetText((int)Texts.Text_AchievementValue).text =
-            $"[{achievement.target.progressValue} / {achievement.target.targetValue}]";
-        float completionRatio = (float)achievement.target.progressValue / achievement.target.targetValue;
+            $"[{_achievement.target.progressValue} / {_achievement.target.targetValue}]";
+        float completionRatio = (float)_achievement.target.progressValue / _achievement.target.targetValue;
         _valueSlider.value = completionRatio;
-        GetText((int)Texts.Text_AchievementReward).text = GetAchievementRewardToString(achievement.rewards);
 
         GetButton((int)Buttons.Button_Claim).interactable = completionRatio >= 1;
         GetImage((int)Images.Image_Completed).gameObject.SetActive(false);
@@ -107,7 +115,7 @@ public class UI_AchievementItem : UI_Base
 
             if (!isLast)
             {
-                ret += " And ";
+                ret += $" {Language.GetLanguage("And")} ";
             }
         }
 

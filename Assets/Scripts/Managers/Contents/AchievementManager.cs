@@ -41,7 +41,7 @@ public class AchievementTarget
 {
     public AchievementTargetType type;
     public ElementType elementType;
-    public EquipmentType summonType;
+    public SummonType summonType;
     public int targetValue;
     public int progressValue;
 
@@ -190,7 +190,7 @@ public class AchievementManager
     }
 
     public void SetAchievementValueByTargetType(AchievementTargetType targetType, int value,
-        ElementType elementType = ElementType.Energy, EquipmentType summonType = EquipmentType.Weapon)
+        ElementType elementType = ElementType.Energy, SummonType summonType = SummonType.Weapon)
     {
         var typeAchievements = _pendingAchievements.Values
         .SelectMany(list => list)

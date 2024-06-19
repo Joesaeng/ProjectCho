@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,14 @@ public class UI_LobbyShop : UI_Base
         Button_Ring,
         Button_Spell,
         Button_Shop
+    }
+
+    enum Texts
+    {
+        Text_Weapon,
+        Text_Ring,
+        Text_Spell,
+        Text_Shop
     }
 
     enum Objects
@@ -36,6 +45,7 @@ public class UI_LobbyShop : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(Objects));
+        Bind<TextMeshProUGUI>(typeof(Texts));
 
         _summonUi = GetObject((int)Objects.UI_Summon).GetComponent<UI_Summon>();
         _summonUi.Init();
@@ -71,6 +81,11 @@ public class UI_LobbyShop : UI_Base
         _shopUis[1].GetComponent<UI_ShopRing>().OnClickedSummon += ClickedSummonListner;
         _shopUis[2].GetComponent<UI_ShopSpell>().OnClickedSummon += ClickedSummonListner;
         _originalPos = _shopUis[0].GetComponent<RectTransform>().anchoredPosition;
+
+        GetText((int)Texts.Text_Weapon).text = Language.GetLanguage("Weapon");
+        GetText((int)Texts.Text_Ring).text = Language.GetLanguage("Ring");
+        GetText((int)Texts.Text_Spell).text = Language.GetLanguage("Spell");
+        GetText((int)Texts.Text_Shop).text = Language.GetLanguage("Shop");
         SetTab(0);
     }
 

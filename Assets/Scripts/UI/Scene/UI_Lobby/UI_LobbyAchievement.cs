@@ -38,7 +38,6 @@ public class UI_LobbyAchievement : UI_Base
 
     int _tabCount = 4;
     Button[] _tabButtons;
-    TextMeshProUGUI[] _tabTexts;
     Image[] _tabCompletables;
 
     Transform _achievementsTf;
@@ -53,14 +52,12 @@ public class UI_LobbyAchievement : UI_Base
         Bind<Image>(typeof(Images));
 
         _tabButtons = new Button[_tabCount];
-        _tabTexts = new TextMeshProUGUI[_tabCount];
         _tabCompletables = new Image[_tabCount];
 
         for (int i = 0; i < _tabCount; ++i)
         {
             _tabButtons[i] = GetButton(i);
             _tabButtons[i].gameObject.AddUIEvent(ClickedTabButton, i);
-            _tabTexts[i] = GetText(i);
             _tabCompletables[i] = GetImage(i);
             _tabCompletables[i].gameObject.SetActive(false);
         }
@@ -70,6 +67,11 @@ public class UI_LobbyAchievement : UI_Base
         {
             _achievementsTf.GetChild(i).GetComponent<UI_AchievementItem>().Init();
         }
+
+        GetText((int)Texts.Text_MainTab).text = Language.GetLanguage("Main");
+        GetText((int)Texts.Text_WeeklyTab).text = Language.GetLanguage("Weekly");
+        GetText((int)Texts.Text_DailyTab).text = Language.GetLanguage("Daily");
+        GetText((int)Texts.Text_RepeatTab).text = Language.GetLanguage("Repeat");
         SetTabs();
     }
 

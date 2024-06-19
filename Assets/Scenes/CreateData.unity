@@ -386,11 +386,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   achievementName: 
-  type: 3
+  type: 1
   target:
     type: 2
     elementType: 0
-    summonType: 1
+    summonType: 2
     targetValue: 100
     progressValue: 0
   rewards:

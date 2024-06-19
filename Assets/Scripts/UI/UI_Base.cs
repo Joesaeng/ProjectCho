@@ -12,11 +12,6 @@ public abstract class UI_Base : MonoBehaviour
 
     public abstract void Init();
 
-    // private void Start()
-    // {
-    //     Init();
-    // }
-
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
         string[] names = Enum.GetNames(type);
@@ -99,8 +94,6 @@ public abstract class UI_Base : MonoBehaviour
         go.GetOrAddComponent<UI_EventHandler>().OnClickHandler = null;
         go.GetOrAddComponent<UI_EventHandler>().OnDragHandler = null;
     }
-
-    // public abstract void OnChangeLanguage();
 
     /// <summary>
     /// to 까지 커지고 release로 돌아옵니다

@@ -268,7 +268,7 @@
     {
       "key": "Summon",
       "eng": "Summon {0}",
-      "kr": "{0} 소환"
+      "kr": "소환 {0}"
     },
     {
       "key": "RewardDia",
@@ -294,6 +294,98 @@
       "key": "Ring",
       "eng": "Ring",
       "kr": "반지"
+    },
+    {
+      "key": "Spell",
+      "eng": "Spell",
+      "kr": "스펠"
+    },
+    {
+      "key": "Equip",
+      "eng": "Equip",
+      "kr": "장착"
+    },
+    {
+      "key": "UnEquip",
+      "eng": "UnEquip",
+      "kr": "해제"
+    },
+    {
+      "key": "Equipment",
+      "eng": "Equipment",
+      "kr": "장비"
+    },
+    {
+      "key": "Shop",
+      "eng": "Shop",
+      "kr": "상점"
+    },
+    {
+      "key": "Repeat",
+      "eng": "Repeat",
+      "kr": "반복"
+    },
+    {
+      "key": "Daily",
+      "eng": "Daily",
+      "kr": "일일"
+    },
+    {
+      "key": "Weekly",
+      "eng": "Weekly",
+      "kr": "주간"
+    },
+    {
+      "key": "Main",
+      "eng": "Main",
+      "kr": "메인"
+    },
+    {
+      "key": "Claim",
+      "eng": "Claim",
+      "kr": "획득"
+    },
+    {
+      "key": "Clear",
+      "eng": "Clear",
+      "kr": "완료"
+    },
+    {
+      "key": "Normal",
+      "eng": "Normal",
+      "kr": "노멀"
+    },
+    {
+      "key": "Rare",
+      "eng": "Rare",
+      "kr": "레어"
+    },
+    {
+      "key": "Epic",
+      "eng": "Epic",
+      "kr": "에픽"
+    },
+    {
+      "key": "Legend",
+      "eng": "Legend",
+      "kr": "전설"
+    },
+    {
+      "key": "Play",
+      "eng": "Play",
+      "kr": "시작"
+    },
+    {
+      "key": "And",
+      "eng": "And",
+      "kr": "그리고"
+    },
+    {
+      "key": "LevelUp",
+      "eng": "LevelUp",
+      "kr": "레벨업"
     }
+
+
   ]
 }

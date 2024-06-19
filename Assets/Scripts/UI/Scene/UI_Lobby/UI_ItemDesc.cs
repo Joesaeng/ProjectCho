@@ -92,13 +92,13 @@ public class UI_ItemDesc : UI_Base
         _selectedItem = item;
         if (slotType == ItemSlotUIType.Inventory)
         {
-            _equipButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
+            _equipButton.GetComponentInChildren<TextMeshProUGUI>().text = Language.GetLanguage("Equip");
             _equipButton.gameObject.SetActive(true);
             _sellButton.gameObject.SetActive(true);
         }
         else if (slotType == ItemSlotUIType.Ring)
         {
-            _equipButton.GetComponentInChildren<TextMeshProUGUI>().text = "UnEquip";
+            _equipButton.GetComponentInChildren<TextMeshProUGUI>().text = Language.GetLanguage("UnEquip");
             _equipButton.gameObject.SetActive(true);
             _sellButton.gameObject.SetActive(false);
         }
@@ -116,7 +116,7 @@ public class UI_ItemDesc : UI_Base
         bool isWeapon = false;
         if (item is Equipment equipment)
         {
-            _attributeTexts[index].text = $"{equipment.ItemName}[{equipment.rarity}]";
+            _attributeTexts[index].text = $"{$"{equipment.ItemName}"}" + $"[{Language.GetLanguage($"{equipment.rarity}")}]";
             _attributeTexts[index].color = ConstantData.TextColorsByRarity[(int)equipment.rarity];
             index++;
             List<EquipmentOption> options = equipment.equipmentOptions;

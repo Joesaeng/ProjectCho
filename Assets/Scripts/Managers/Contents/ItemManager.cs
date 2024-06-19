@@ -60,8 +60,9 @@ public class ItemManager
             Item newItem = GenerateRandomItem(type);
             summonItems.Add(newItem);
         }
+        SummonType summonType = type == EquipmentType.Weapon ? SummonType.Weapon : SummonType.Ring;
         Managers.Player.AddItems(summonItems);
-        Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: type);
+        Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: summonType);
         return summonItems;
     }
 

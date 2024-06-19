@@ -56,7 +56,7 @@ public class SpellManager
         }
     }
 
-    public Dictionary<int,int> SummonSpells(int count = 100)
+    public Dictionary<int,int> SummonSpells(int count = 10)
     {
         // Player의 Coin, Dia 보유량 확인
         Dictionary<int,int> retSpellDict = new();
@@ -73,7 +73,7 @@ public class SpellManager
         {
             Managers.Player.AddSpells(spellKvp.Key,spellKvp.Value);
         }
-
+        Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: SummonType.Spell);
         return retSpellDict;
     }
 
