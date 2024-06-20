@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "325791271045",
+    "project_id": "elemental-magician-defense",
+    "firebase_url": "https://elemental-magician-defense-default-rtdb.firebaseio.com/",
+    "storage_bucket": "elemental-magician-defense.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325791271045:android:004833984dacc06369c1ec",
+        "android_client_info": {
+          "package_name": "com.SaengCho.ElementalMagicianDefense"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACU1ZMHtxYFyAIAdsQ0A7fGyst1BJH1f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

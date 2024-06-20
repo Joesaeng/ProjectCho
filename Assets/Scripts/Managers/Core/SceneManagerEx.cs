@@ -23,6 +23,7 @@ public class SceneManagerEx : MonoBehaviour
 
     public IEnumerator CoLoadGameAsync(Define.Scene type)
     {
+        Managers.PlayerData.SaveToFirebase();
         AsyncOperation ao = SceneManager.LoadSceneAsync(GetSceneName(type));
         ao.allowSceneActivation = false;
 

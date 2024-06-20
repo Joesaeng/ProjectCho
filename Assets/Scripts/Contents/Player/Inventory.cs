@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Inventory
 {
-    private HashSet<Item> items;
+    private HashSet<Item> items = new();
     public HashSet<Item> Items { get => items; set => items = value; }
-    public Inventory(InventoryData data)
+
+    public void Init(InventoryData data)
     {
-        items = new();
-        for(int i = 0; i < data.inventoryItemsDatas.Count; ++i)
+        for (int i = 0; i < data.inventoryItemsDatas.Count; ++i)
         {
             items.Add(ItemGenerator.GenerateItem(data.inventoryItemsDatas[i]));
         }

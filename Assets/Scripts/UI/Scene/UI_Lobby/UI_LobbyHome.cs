@@ -11,9 +11,7 @@ public class UI_LobbyHome : UI_Base
     {
         Button_NextStage,
         Button_PrevStage,
-        Image_Star0,
-        Image_Star1,
-        Image_Star2,
+        Image_PlayBlocker,
         Image_StageNum,
         Text_StageNum,
         Button_Play,
@@ -23,10 +21,6 @@ public class UI_LobbyHome : UI_Base
     int _curStage = 0;
 
     TextMeshProUGUI _stageNum;
-
-    Image[] _stars;
-    [SerializeField]
-    Sprite[] _starSprite; // 0 : 빈별, 1 : 채워진 별
 
     UI_SpawnMonsterItem[] _spawnMonsters;
 
@@ -39,12 +33,7 @@ public class UI_LobbyHome : UI_Base
 
         _stageNum = GetObject((int)Objects.Text_StageNum).GetComponent<TextMeshProUGUI>();
         _stageNum.text = $"Stage {_curStage + 1}";
-        _stars = new Image[]
-        {
-            GetObject((int)Objects.Image_Star0).GetComponent<Image>(),
-            GetObject((int)Objects.Image_Star1).GetComponent<Image>(),
-            GetObject((int)Objects.Image_Star2).GetComponent<Image>(),
-        };
+
         _prevStageButton = GetObject((int)Objects.Button_PrevStage).GetComponent<Button>();
         _nextStageButton = GetObject((int)Objects.Button_NextStage).GetComponent<Button>();
         _prevStageButton.gameObject.AddUIEvent(ClickedPrevStageButton);
@@ -54,9 +43,8 @@ public class UI_LobbyHome : UI_Base
         GetObject((int)Objects.Text_Play).GetComponent<TextMeshProUGUI>().text
             = Language.GetLanguage("Play");
 
-        SetPrevAndNextStageButton();
-        SetStarsItem();
         SetSpawnMonstersItem();
+        SetLobbyHome();
     }
     void ClickedPrevStageButton(PointerEventData data)
     {
@@ -84,8 +72,12 @@ public class UI_LobbyHome : UI_Base
     void SetLobbyHome()
     {
         _stageNum.text = $"Stage {_curStage + 1}";
+        bool availablePlay = !Managers.PlayerData.StageClearList.Contains(_curStage-1);
+        if(_curStage > 0)
+            GetObject((int)Objects.Image_PlayBlocker).SetActive(availablePlay);
+        else
+            GetObject((int)Objects.Image_PlayBlocker).SetActive(false);
         SetPrevAndNextStageButton();
-        SetStarsItem();
         SetSpawnMonsters();
     }
 
@@ -99,16 +91,6 @@ public class UI_LobbyHome : UI_Base
             _nextStageButton.gameObject.SetActive(true);
         else
             _nextStageButton.gameObject.SetActive(false);
-    }
-
-    void SetStarsItem()
-    {
-        for (int i = 0; i < _stars.Length; ++i)
-        {
-            // 플레이어 데이터의 ClearStage의 _curStage인덱스에서 
-            // 클리어 값을 받아와서 별을 채우거나 비운 상태로 둔다
-            _stars[i].sprite = _starSprite[0];
-        }
     }
 
     void SetSpawnMonstersItem()

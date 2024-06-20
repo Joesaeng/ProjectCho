@@ -1,11 +1,9 @@
 -DefenseScene
 	맵 깔아서 다리 밑에 강을 지나가게 하고 다리가 이어지는 부분에 땅 만들기
-	GameOver UI 및 재화 획득
 	특별한 적 구현(보스몬스터 따위의 것)
 	*Ads 연동
 -LobbyScene
 	*서버연동을 하려면 PlayerData가 필요함.
-	PlayerData에 beginner 속성을 넣어서 beginner가 true이면 LobbyScene으로 들어오지 않고 DefenseScene으로 가서 튜토리얼 진행
 
 -LoginScene
 	*게스트 / 구글계정 / 게임센터 계정을 연동할 수 있게 함
@@ -16,10 +14,8 @@
 
 - 4주차
 	Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save
-	PlayerData에 StageClear 구현
 	Spell 추가
 	설정
 	PlayerData 저장 및 로드 (서버)
-	Login -> Lobby -> Defense 씬 이동
-	GameOver 및 재화 획득
+	Login -> Lobby 씬 이동
 	

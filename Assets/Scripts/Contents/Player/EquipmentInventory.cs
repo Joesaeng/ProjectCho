@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class EquipmentInventory
 {
-    private Dictionary<EquipmentType, Equipment> equipments;
-    private List<RingSlot> ringSlots;
+    private Dictionary<EquipmentType, Equipment> equipments = new();
+    private List<RingSlot> ringSlots = new List<RingSlot>(ConstantData.MaxRingSlots);
 
     public Dictionary<EquipmentType, Equipment> Equipments { get => equipments; set => equipments = value; }
     public List<RingSlot> RingSlots { get => ringSlots; }
 
-    public EquipmentInventory(InventoryData data)
+    public EquipmentInventory()
     {
-        equipments = new Dictionary<EquipmentType, Equipment>();
-        ringSlots = new List<RingSlot>(ConstantData.MaxRingSlots);
         for (int i = 0; i < ConstantData.MaxRingSlots; i++)
         {
             ringSlots.Add(new RingSlot());
         }
-
+    }
+    
+    public void Init(InventoryData data)
+    {
         for (int i = 0; i < data.equipmentDatas.Count; ++i)
         {
             Equipment equipment = ItemGenerator.GenerateItem(data.equipmentDatas[i]) as Equipment;
@@ -118,41 +119,41 @@ public class EquipmentInventory
 
     public void ApplyEquipmentStatus()
     {
-        PlayerStatus playerStatus = new();
+        EquipmentStatus equipmentStatus = new();
         float baseDamage = 0;
 
         foreach (var equipment in equipments.Values)
         {
-            ApplyEquipmentOptions(equipment, playerStatus);
+            ApplyEquipmentOptions(equipment, equipmentStatus);
         }
 
         foreach (var slot in ringSlots)
         {
             if (!slot.IsEmpty)
             {
-                ApplyEquipmentOptions(slot.Ring, playerStatus);
+                ApplyEquipmentOptions(slot.Ring, equipmentStatus);
             }
         }
 
-        if (playerStatus.integerOptions.ContainsKey(StatusType.Spell))
+        if (equipmentStatus.integerOptions.ContainsKey(StatusType.Spell))
         {
-            playerStatus.startingSpellId = playerStatus.integerOptions[StatusType.Spell];
+            equipmentStatus.startingSpellId = equipmentStatus.integerOptions[StatusType.Spell];
         }
 
-        if (playerStatus.floatOptions.ContainsKey(StatusType.BaseDamage))
+        if (equipmentStatus.floatOptions.ContainsKey(StatusType.BaseDamage))
         {
-            baseDamage = playerStatus.floatOptions[StatusType.BaseDamage];
+            baseDamage = equipmentStatus.floatOptions[StatusType.BaseDamage];
         }
 
-        playerStatus.damage = baseDamage;
-        if (playerStatus.floatOptions.TryGetValue(StatusType.IncreaseDamage, out float increaseDamage))
-            playerStatus.damage *= (1 + increaseDamage);
+        equipmentStatus.damage = baseDamage;
+        if (equipmentStatus.floatOptions.TryGetValue(StatusType.IncreaseDamage, out float increaseDamage))
+            equipmentStatus.damage *= (1 + increaseDamage);
 
-        Managers.Player.PlayerStatus = playerStatus;
+        Managers.Player.ApplyEquipmentStatus(equipmentStatus);
         Managers.Player.ChangeEquipments();
     }
 
-    private void ApplyEquipmentOptions(Equipment equipment, PlayerStatus playerStatus)
+    private void ApplyEquipmentOptions(Equipment equipment, EquipmentStatus equipmentStatus)
     {
         foreach (var option in equipment.equipmentOptions)
         {
@@ -161,13 +162,13 @@ public class EquipmentInventory
                 case StatusType.Spell:
                 case StatusType.AddProjectile:
                 case StatusType.IncreasePierce:
-                    if (playerStatus.integerOptions.ContainsKey(option.OptionType))
+                    if (equipmentStatus.integerOptions.ContainsKey(option.OptionType))
                     {
-                        playerStatus.integerOptions[option.OptionType] += option.IntParam1;
+                        equipmentStatus.integerOptions[option.OptionType] += option.IntParam1;
                     }
                     else
                     {
-                        playerStatus.integerOptions[option.OptionType] = option.IntParam1;
+                        equipmentStatus.integerOptions[option.OptionType] = option.IntParam1;
                     }
                     break;
                 case StatusType.BaseDamage:
@@ -181,13 +182,13 @@ public class EquipmentInventory
                 case StatusType.IncreaseWindSpellDamage:
                 case StatusType.IncreaseLightSpellDamage:
                 case StatusType.IncreaseDarkSpellDamage:
-                    if (playerStatus.floatOptions.ContainsKey(option.OptionType))
+                    if (equipmentStatus.floatOptions.ContainsKey(option.OptionType))
                     {
-                        playerStatus.floatOptions[option.OptionType] += option.FloatParam1;
+                        equipmentStatus.floatOptions[option.OptionType] += option.FloatParam1;
                     }
                     else
                     {
-                        playerStatus.floatOptions[option.OptionType] = option.FloatParam1;
+                        equipmentStatus.floatOptions[option.OptionType] = option.FloatParam1;
                     }
                     break;
                 default:

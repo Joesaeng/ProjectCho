@@ -74,11 +74,8 @@ public class Managers : MonoBehaviour
 
             s_instance._time.Init();
             s_instance._data.Init();
-            s_instance._item.Init();
-            s_instance._playerData.Init();
-            s_instance._achieve.Init();
-            s_instance._playerStatus.Init();
             s_instance._spell.Init();
+            s_instance._item.Init();
             // s_instance._sound.Init();
         }
     }

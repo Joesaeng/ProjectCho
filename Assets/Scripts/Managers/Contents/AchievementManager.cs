@@ -122,6 +122,13 @@ public class AchievementManager
                     _completedAchievements[achievement.type].Add(achievement);
                 else
                     _completedAchievements[achievement.type] = new List<Achievement>() { achievement };
+
+                // 이미 클리어 한 업적 중 status를 상승시키는 업적이 있을 때 적용
+                List<AchievementReward> statusRewards = achievement.rewards.Where(data => data.type == RewardType.RewardStatus).ToList();
+                foreach(AchievementReward statusReward in statusRewards)
+                {
+                    RewardPlayerForAchievement(statusReward);
+                }
             }
             else
             {
@@ -182,6 +189,7 @@ public class AchievementManager
                 Managers.PlayerData.ChangeCoinAmount(Managers.PlayerData.CoinAmount + reward.integerParam);
                 break;
             case RewardType.RewardStatus:
+                Managers.Player.ApplyAchievementRewardStatus(reward);
                 break;
             default:
                 throw new System.ArgumentException($"Unknown AchievementRewardType {reward.type}");

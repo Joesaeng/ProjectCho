@@ -350,7 +350,6 @@ namespace Data
         public float floatParam;
     }
 
-
     [Serializable]
     public class Datas<T> : ILoader<int, T> where T : IData
     {

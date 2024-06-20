@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -57,13 +59,6 @@ public class PlayerDataManager
     public bool SfxOn => _playerData.sfxOn;
 
     #endregion
-    string _path;
-
-    public void Init()
-    {
-        _path = Application.persistentDataPath + "/PlayerData";
-        LoadFromJson();
-    }
 
     public Action<int> OnChangeCoinAmount;
     public Action<int> OnChangeDiaAmount;
@@ -126,67 +121,116 @@ public class PlayerDataManager
     public void AddClearStage(int stageNum)
     {
         _playerData.stageClearList.Add(stageNum);
+        SaveToFirebase();
     }
 
     public void ChangeCoinAmount(int value)
     {
         _playerData.coinAmount = value;
         OnChangeCoinAmount?.Invoke(_playerData.coinAmount);
+        SaveToFirebase();
     }
 
     public void ChangeDiaAmount(int value)
     {
         _playerData.diaAmount = value;
         OnChangeDiaAmount?.Invoke(_playerData.diaAmount);
+        SaveToFirebase();
     }
-    // 플레이어 데이터를 UTF-8로 인코딩하여 저장합니다
-    public void SaveToJson()
+
+    public void NewPlayerLogin()
     {
-        if (File.Exists(_path))
-            File.Delete(_path);
+        _playerData = NewPlayerData();
+        Managers.Achieve.Init();
+        Managers.Player.Init();
+        SaveToFirebase();
+        PlayerPrefs.SetString("guestId", FirebaseManager.Instance.CurrentUserId);
+    }
+
+    public void SaveToFirebase()
+    {
         _playerData.beginner = false;
 
         _playerData.inventoryData = Managers.Player.InventoryToData();
         _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
+        _playerData.achievementDatas = Managers.Achieve.ToData();
 
         JsonSerializerSettings settings = new()
         {
             TypeNameHandling = TypeNameHandling.All
         };
 
-        string json = JsonConvert.SerializeObject(_playerData, settings);
+        string jsonPlayerData = JsonConvert.SerializeObject(_playerData, settings);
 
-        // byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
-        // 
-        // string encodedJson = System.Convert.ToBase64String(bytes);
-
-        File.WriteAllText(_path, json);
-
+        FirebaseManager.Instance.SavePlayerData(jsonPlayerData);
     }
 
-    // UTF-8로 인코딩된 데이터를 디코딩하여 불러옵니다
-    public void LoadFromJson()
+    public void OnPlayerDataLoadedToFirebase(PlayerData playerData)
     {
-        if (!File.Exists(_path))
+        if (playerData != null)
         {
-            _playerData = NewPlayerData();
-            Managers.Player.Init();
-            SaveToJson();
+            // 플레이어 데이터를 성공적으로 로드한 경우 처리 로직을 추가합니다.
+            Debug.Log("Player data loaded successfully.");
+            _playerData = playerData;
         }
-
-        string jsonData = File.ReadAllText(_path);
-
-        JsonSerializerSettings settings = new()
+        else
         {
-            TypeNameHandling = TypeNameHandling.All
-        };
+            // 데이터가 없는 경우 기본 데이터로 초기화할 수 있습니다.
+            Debug.Log("No player data found, initializing with default data.");
+            _playerData = NewPlayerData();
+            Managers.Achieve.Init();
+            Managers.Player.Init();
 
-        // byte[] bytes = System.Convert.FromBase64String(jsonData);
-        // 
-        // string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
-
-        _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData, settings);
+            SaveToFirebase();
+        }
     }
+
+    //public void SaveToJson()
+    //{
+    //    if (File.Exists(_path))
+    //        File.Delete(_path);
+    //    _playerData.beginner = false;
+
+    //    _playerData.inventoryData = Managers.Player.InventoryToData();
+    //    _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
+    //    _playerData.achievementDatas = Managers.Achieve.ToData();
+
+    //    JsonSerializerSettings settings = new()
+    //    {
+    //        TypeNameHandling = TypeNameHandling.All
+    //    };
+
+    //    string json = JsonConvert.SerializeObject(_playerData, settings);
+
+    //    // byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+    //    // 
+    //    // string encodedJson = System.Convert.ToBase64String(bytes);
+
+    //    File.WriteAllText(_path, json);
+
+    //}
+
+    //public void LoadFromJson()
+    //{
+    //    if (!File.Exists(_path))
+    //    {
+    //        _playerData = NewPlayerData();
+    //        return;
+    //    }
+
+    //    string jsonData = File.ReadAllText(_path);
+
+    //    JsonSerializerSettings settings = new()
+    //    {
+    //        TypeNameHandling = TypeNameHandling.All
+    //    };
+
+    //    // byte[] bytes = System.Convert.FromBase64String(jsonData);
+    //    // 
+    //    // string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
+
+    //    _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData, settings);
+    //}
 
     public void Clear()
     {
