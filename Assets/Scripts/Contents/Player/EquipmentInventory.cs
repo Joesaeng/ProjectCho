@@ -10,7 +10,7 @@ public class EquipmentInventory
     public Dictionary<EquipmentType, Equipment> Equipments { get => equipments; set => equipments = value; }
     public List<RingSlot> RingSlots { get => ringSlots; }
 
-    public EquipmentInventory(Data.InventoryData data)
+    public EquipmentInventory(InventoryData data)
     {
         equipments = new Dictionary<EquipmentType, Equipment>();
         ringSlots = new List<RingSlot>(ConstantData.MaxRingSlots);

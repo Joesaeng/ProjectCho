@@ -52,14 +52,14 @@ public class UI_AchievementItem : UI_Base
     public void SetAchievement(Achievement achievement)
     {
         _achievement = achievement;
+
+        GetText((int)Texts.Text_AchievementName).text = GetAchievementName(_achievement.target);
+        GetText((int)Texts.Text_AchievementReward).text = GetAchievementRewardToString(_achievement.rewards);
         if (_achievement.isCompleted)
         {
             SetCompletedAchievement();
             return;
         }
-
-        GetText((int)Texts.Text_AchievementName).text = GetAchievementName(_achievement.target);
-        GetText((int)Texts.Text_AchievementReward).text = GetAchievementRewardToString(_achievement.rewards);
         GetText((int)Texts.Text_AchievementValue).text =
             $"[{_achievement.target.progressValue} / {_achievement.target.targetValue}]";
         float completionRatio = (float)_achievement.target.progressValue / _achievement.target.targetValue;
@@ -101,13 +101,17 @@ public class UI_AchievementItem : UI_Base
             var reward = rewards[i];
             bool isLast = (i == rewards.Count - 1);
 
+            string rewardDiaFormat = "[+{0} <sprite name=Dia>]";
+            string rewardCoinFormat = "[+{0} <sprite name=Coin>]";
             switch (reward.type)
             {
-                case AchievementRewardType.RewardDia:
-                case AchievementRewardType.RewardCoins:
-                    ret += string.Format(Language.GetLanguage(reward.type.ToString()), reward.integerParam);
+                case RewardType.RewardDia:
+                    ret += string.Format(rewardDiaFormat, reward.integerParam);
                     break;
-                case AchievementRewardType.RewardStatus:
+                case RewardType.RewardCoins:
+                    ret += string.Format(rewardCoinFormat, reward.integerParam);
+                    break;
+                case RewardType.RewardStatus:
                     ret += string.Format(Language.GetLanguage(reward.type.ToString()),
                         Language.GetLanguage(reward.statusType.ToString()), reward.floatParam * 100);
                     break;

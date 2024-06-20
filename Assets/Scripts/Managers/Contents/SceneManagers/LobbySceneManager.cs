@@ -27,6 +27,7 @@ public class LobbySceneManager : MonoBehaviour
     {
         UI = Managers.UI.ShowSceneUI<UI_LobbyScene>();
         UI.Init();
+        Managers.Achieve.SetAllAchievementTypeCompletable();
     }
 
     public void PlayGame(int stageNum)

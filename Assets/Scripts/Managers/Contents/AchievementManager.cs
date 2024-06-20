@@ -68,7 +68,7 @@ public class AchievementTarget
 
 public class AchievementReward
 {
-    public AchievementRewardType type;
+    public RewardType type;
     public StatusType statusType;
     public int integerParam;
     public float floatParam;
@@ -106,16 +106,13 @@ public class AchievementManager
         _pendingAchievements = new();
         foreach (var data in Managers.Data.AchievementDataDict.Values)
         {
-            if (!Managers.PlayerData.Data.achievementDatas.Any(d => d.id == data.id))
+            if (!Managers.PlayerData.AchievementDatas.Any(d => d.id == data.id))
             {
-                // Light, Dark 속성 배제
-                if (data.target.elementType == ElementType.Light || data.target.elementType == ElementType.Dark)
-                    continue;
-                Managers.PlayerData.Data.achievementDatas.Add(data);
+                Managers.PlayerData.AchievementDatas.Add(data);
             }
         }
 
-        List<Achievement> achievements = Managers.PlayerData.Data.achievementDatas.Select(data => new Achievement(data)).ToList();
+        List<Achievement> achievements = Managers.PlayerData.AchievementDatas.Select(data => new Achievement(data)).ToList();
 
         foreach (var achievement in achievements)
         {
@@ -178,11 +175,13 @@ public class AchievementManager
     {
         switch (reward.type)
         {
-            case AchievementRewardType.RewardDia:
+            case RewardType.RewardDia:
+                Managers.PlayerData.ChangeDiaAmount(Managers.PlayerData.DiaAmount + reward.integerParam);
                 break;
-            case AchievementRewardType.RewardCoins:
+            case RewardType.RewardCoins:
+                Managers.PlayerData.ChangeCoinAmount(Managers.PlayerData.CoinAmount + reward.integerParam);
                 break;
-            case AchievementRewardType.RewardStatus:
+            case RewardType.RewardStatus:
                 break;
             default:
                 throw new System.ArgumentException($"Unknown AchievementRewardType {reward.type}");
@@ -206,6 +205,19 @@ public class AchievementManager
             achievement.target.progressValue += value;
             if (achievement.target.progressValue >= achievement.target.targetValue)
                 OnAchievementCompletable?.Invoke(achievement.type);
+        }
+    }
+
+    public void SetAllAchievementTypeCompletable()
+    {
+        foreach(var pendingachievements in _pendingAchievements)
+        {
+            var typeAchievements = pendingachievements.Value.ToList();
+            foreach(var achievement in typeAchievements)
+            {
+                if (achievement.target.progressValue >= achievement.target.targetValue)
+                    OnAchievementCompletable?.Invoke(achievement.type);
+            }
         }
     }
 

@@ -31,7 +31,7 @@ public class PlayerStatusManager
 
     public void Init()
     {
-        Data.InventoryData data = Managers.PlayerData.Data.inventoryData;
+        InventoryData data = Managers.PlayerData.InventoryData;
         inventory = new Inventory(data);
         equipmentInventory = new EquipmentInventory(data);
         PlayerSpells = new PlayerSpells();

@@ -22,7 +22,7 @@ public static class ConstantData
         new Color(0f,0.3f,1f),      // Water
         new Color(0.4f,0,1f),       // Lightning
         new Color(0,0.2f,0),        // Earth
-        new Color(0.25f,1,0.55f),   // Air
+        new Color(0.25f,1,0.55f),   // Wind
         new Color(1f,0.76f,0.33f),  // Light
         new Color(0,0,0.22f),       // Dark
     };

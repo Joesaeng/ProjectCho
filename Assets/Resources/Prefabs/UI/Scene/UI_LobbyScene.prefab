@@ -4136,32 +4136,92 @@ PrefabInstance:
     - target: {fileID: 2033958238112641231, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647819207864881955, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647819207864881955, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
-      propertyPath: m_AnchorMax.x
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709933145755067885, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3647819207864881955, guid: d17a6e9ef15223c409b91083da876205,
+    - target: {fileID: 4859312579014220779, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859312579014220779, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932663036668952575, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561293410246708960, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561293410246708960, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561293410246708960, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561293410246708960, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561293410246708960, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7113455868061977860, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760357586827050260, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7858485266653901848, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7858485266653901848, guid: d17a6e9ef15223c409b91083da876205,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436462672677714594, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_text
+      value: '[Fire Damage +0.5%] and [50 <sprite name=Coin>]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436462672677714594, guid: d17a6e9ef15223c409b91083da876205,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 41.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

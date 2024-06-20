@@ -147,7 +147,10 @@ public abstract class MagicianSpell : ISetData
         if (playerStatus.floatOptions.TryGetValue(StatusType.DecreaseSpellDelay, out float decreaseSpellDelay))
             SpellDelay *= (float)(1 - decreaseSpellDelay);
         if (playerStatus.integerOptions.TryGetValue(StatusType.IncreasePierce, out int increasePierce))
-            PierceCount += increasePierce;
+        {
+            if(PierceCount > 0)
+                PierceCount += increasePierce;
+        }
         if (playerStatus.integerOptions.TryGetValue(StatusType.AddProjectile, out int addProjectile))
             AddProjectileCount += addProjectile;
 

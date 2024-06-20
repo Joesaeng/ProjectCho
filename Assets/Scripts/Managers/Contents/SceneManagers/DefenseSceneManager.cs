@@ -1,5 +1,7 @@
 using Data;
+using Define;
 using Interfaces;
+using JetBrains.Annotations;
 using MagicianSpellUpgrade;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +30,7 @@ public class DefenseSceneManager : MonoBehaviour
 
     public PlayerWall PlayerWall { get; set; }
     public HashSet<Enemy> Enemies { get; set; }
+    Dictionary<ElementType, int> DefeatEnemiesByElementType { get; set; }
 
     List<Transform> SpellUseablePoints { get; set; }
     List<ISpellUseable> SpellUseables { get; set; }
@@ -37,13 +40,16 @@ public class DefenseSceneManager : MonoBehaviour
     public EnemyDataBase EnemyDataBase { get; set; }
     public HashSet<SpellUpgradeData> SpellUpgradeDatas { get; set; }
 
+    Dictionary<RewardType, int> StageRewardDict { get; set; }
+    StageRewardData StageFirstClearReward { get; set; }
+
     GameObject SpawnArea;
-    public float LeftX { get; set; }
-    public float RightX { get; set; }
+    float LeftX { get; set; }
+    float RightX { get; set; }
     float PosZ { get; set; }
     float PosY { get; set; }
 
-    private int PlayerLevel = 0;
+    private int ClearWave = 0;
 
     #region StageData
 
@@ -59,12 +65,14 @@ public class DefenseSceneManager : MonoBehaviour
 
     private readonly float OneWaveTime = 10f;
 
+    private bool    LastWave = false;
     #endregion
 
     #region UI
     UI_LevelUpPopup UI_LevelUpPopup;
     UI_DefenseScene UI_DefenseScene;
     UI_DefenseScenePause UI_DefenseScenePause;
+    UI_GameOver UI_GameOver;
 
     // 이벤트
     public System.Action<List<LevelUpOptions>> OnSetLevelUpPopup;
@@ -78,6 +86,8 @@ public class DefenseSceneManager : MonoBehaviour
         SpawnArea = GameObject.Find("EnemySpawnArea");
         PlayerWall = GameObject.Find("EnemyTarget").GetComponent<PlayerWall>();
         PlayerWall.InitHitable(new PlayerWallData() { id = 0, maxHp = 3000 });
+        PlayerWall.OnGameOver -= GameOver;
+        PlayerWall.OnGameOver += GameOver;
 
         PosZ = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.z;
         PosY = Util.FindChild<Transform>(SpawnArea, "AreaLeftPos").position.y;
@@ -92,6 +102,16 @@ public class DefenseSceneManager : MonoBehaviour
         PlayerSpells.BuildSpellDict();
         EnemyDataBase = new();
         SpellUpgradeDatas = new();
+        DefeatEnemiesByElementType = new();
+        StageRewardDict = new();
+        StageFirstClearReward = null;
+
+        LastWave = false;
+
+        for (int i = 0; i < System.Enum.GetValues(typeof(ElementType)).Length; ++i)
+        {
+            DefeatEnemiesByElementType[(ElementType)i] = 0;
+        }
 
         Transform magicianPointParent = GameObject.Find("MagicianPoint").transform;
         for (int i = 0; i < magicianPointParent.childCount; ++i)
@@ -127,38 +147,59 @@ public class DefenseSceneManager : MonoBehaviour
         UI_DefenseScenePause.OnClickedLobby += LobbyListner;
         UI_DefenseScenePause.gameObject.SetActive(false);
 
+        UI_GameOver = Managers.UI.ShowPopupUI<UI_GameOver>();
+        UI_GameOver.Init();
+        UI_GameOver.OnClickedLobby += LobbyListner;
+        UI_GameOver.gameObject.SetActive(false);
+
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
         CreateMagician(Managers.Player.PlayerStatus.startingSpellId);
-        StartStage(CurWave);
+        StartWave(CurWave);
     }
 
-    void StartStage(int curWave)
+    void StartWave(int curWave)
     {
         StageData stageData = Managers.Data.StageDataDict[CurStage];
-        WaveData waveData = stageData.stageDatas[curWave];
+        WaveData waveData = stageData.waveDatas[curWave];
         EnemyDataBase.SetEnemyStatusByStageData(curWave, stageData);
         EnemiesToSpawn = waveData.spawnEnemyCount;
         EnemiesSpwaned = 0;
         SpawnInterval = OneWaveTime / EnemiesToSpawn;
     }
 
-    void NextStage()
+    void NextWave()
     {
         CurWave++;
+        int lastWave = Managers.Data.StageDataDict[CurStage].waveDatas.Count - 1;
 
-        StartStage(CurWave);
+        if(CurWave == lastWave)
+        {
+            LastWave = true;
+        }
+        StartWave(CurWave);
     }
 
     #region LevelUp
-    void LevelUp()
+    void WaveClear()
     {
-        PlayerLevel++;
+        WaveRewardData waveRewardData = Managers.Data.StageDataDict[CurStage].waveDatas[ClearWave].waveRewardData;
+        AddReward(waveRewardData.type, waveRewardData.value);
+
+        ClearWave++;
 
         OnSetLevelUpPopup.Invoke(CreateLevelUpOptions());
         Managers.Time.GamePause();
+    }
+
+    void AddReward(RewardType rewardType,int value)
+    {
+        if (StageRewardDict.ContainsKey(rewardType))
+            StageRewardDict[rewardType] += value;
+        else
+            StageRewardDict[rewardType] = value;
     }
 
     void LevelUpOptionsReroll()
@@ -232,8 +273,8 @@ public class DefenseSceneManager : MonoBehaviour
         Vector3 spawnPos = new(posX, PosY, PosZ);
         GameObject obj;
 
-        int randIndex = Random.Range(0,Managers.Data.StageDataDict[CurStage].stageDatas[CurWave].waveEnemyIds.Count);
-        int monsterId = Managers.Data.StageDataDict[CurStage].stageDatas[CurWave].waveEnemyIds[randIndex];
+        int randIndex = Random.Range(0,Managers.Data.StageDataDict[CurStage].waveDatas[CurWave].waveEnemyIds.Count);
+        int monsterId = Managers.Data.StageDataDict[CurStage].waveDatas[CurWave].waveEnemyIds[randIndex];
 
         SetEnemyData setData = EnemyDataBase.EnemyDataDict[monsterId];
         obj = Managers.Resource.Instantiate($"Enemys/{setData.prefabName}", spawnPos);
@@ -251,16 +292,28 @@ public class DefenseSceneManager : MonoBehaviour
         }
     }
 
-    public void KillEnemy(Enemy enemy)
+    public void DefeatEnemy(Enemy enemy)
     {
         Managers.Resource.Destroy(enemy.gameObject);
         Enemies.Remove(enemy);
+
+        DefeatEnemiesByElementType[enemy.ElementType]++;
+
         EnemiesDestroyed++;
-        int requireLevelUp = Managers.Data.StageDataDict[CurStage].stageDatas[PlayerLevel].spawnEnemyCount;
+        int requireLevelUp = Managers.Data.StageDataDict[CurStage].waveDatas[ClearWave].spawnEnemyCount;
         if (EnemiesDestroyed >= requireLevelUp)
         {
-            LevelUp();
+            WaveClear();
             EnemiesDestroyed = 0;
+        }
+        if(LastWave && Enemies.Count <= 0)
+        {
+            if(Managers.PlayerData.StageClearList.Contains(CurStage) == false)
+            {
+                Managers.PlayerData.AddClearStage(CurStage);
+                StageFirstClearReward = Managers.Data.StageDataDict[CurStage].firstClearRewardData;
+            }
+            GameOver(GameoverType.Clear);
         }
         float expGaugeFill = (float)EnemiesDestroyed / requireLevelUp;
         UI_DefenseScene.SetExpGauge(expGaugeFill);
@@ -278,6 +331,7 @@ public class DefenseSceneManager : MonoBehaviour
     {
         Managers.Time.GamePause();
         UI_DefenseScenePause.gameObject.SetActive(true);
+        UI_DefenseScenePause.SetDefeatEnemies(DefeatEnemiesByElementType);
     }
 
     private void ResumeListner()
@@ -310,9 +364,9 @@ public class DefenseSceneManager : MonoBehaviour
             CurSpawnTime = 0;
         }
 
-        if (CurWaveTime >= OneWaveTime)
+        if (LastWave == false && CurWaveTime >= OneWaveTime)
         {
-            NextStage();
+            NextWave();
             CurWaveTime = 0;
         }
 
@@ -322,7 +376,45 @@ public class DefenseSceneManager : MonoBehaviour
         }
     }
 
-    
+    void ApplyAchievementDefeatEnemies()
+    {
+        foreach (var elementTypeEnemyPair in DefeatEnemiesByElementType)
+        {
+            Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.DefeatEnemies,
+                elementTypeEnemyPair.Value, elementType: elementTypeEnemyPair.Key);
+        }
+    }
+
+    void GameOver(GameoverType type)
+    {
+        Managers.Time.GamePause();
+        UI_GameOver.gameObject.SetActive(true);
+        UI_GameOver.SetDefeatEnemies(DefeatEnemiesByElementType);
+        UI_GameOver.SetGameoverUI(type,StageRewardDict,StageFirstClearReward);
+
+        ApplyAchievementDefeatEnemies();
+        foreach(var reward in StageRewardDict)
+        {
+            GainReward(reward.Key,reward.Value);
+        }
+        if(StageFirstClearReward != null)
+        {
+            GainReward(StageFirstClearReward.type, StageFirstClearReward.value);
+        }
+    }
+
+    void GainReward(RewardType type, int value)
+    {
+        switch (type)
+        {
+            case RewardType.RewardDia:
+                Managers.PlayerData.ChangeDiaAmount(Managers.PlayerData.DiaAmount + value);
+                break;
+            case RewardType.RewardCoins:
+                Managers.PlayerData.ChangeCoinAmount(Managers.PlayerData.CoinAmount + value);
+                break;
+        }
+    }
 
     public void Clear()
     {

@@ -1,3 +1,4 @@
+using Define;
 using Interfaces;
 using System;
 using System.Collections;
@@ -19,6 +20,7 @@ public class PlayerWall : MonoBehaviour, IHitable
     private bool _isDead;
     private Transform Wall { get; set; }
     public Action<int> OnUpdatePlayerHp;
+    public Action<GameoverType> OnGameOver;
 
     public float MaxHp { get => _maxHp; set => _maxHp = value; }
     public float CurHp { get => _curHp; set => _curHp = value; }
@@ -29,11 +31,15 @@ public class PlayerWall : MonoBehaviour, IHitable
     {
         MaxHp = 3000;
         CurHp = MaxHp;
+        IsDead = false;
         Wall = GameObject.Find("LifeWall").transform;
     }
 
     public bool TakeDamage(IDamageDealer dealer)
     {
+        if (IsDead)
+            return true;
+
         CurHp -= dealer.AttackDamage;
         float scaleY = CurHp > 0 ? (CurHp / MaxHp) : 0;
         Wall.localScale = new Vector3(Wall.localScale.x, scaleY, Wall.localScale.z);
@@ -41,7 +47,11 @@ public class PlayerWall : MonoBehaviour, IHitable
         {
             // 게임오버
             CurHp = 0;
+            IsDead = true;
             OnUpdatePlayerHp?.Invoke(Mathf.FloorToInt(CurHp));
+            OnGameOver?.Invoke(GameoverType.Gameover);
+            OnGameOver = null;
+            OnUpdatePlayerHp = null;
             return true;
         }
         OnUpdatePlayerHp?.Invoke(Mathf.FloorToInt(CurHp));

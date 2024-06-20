@@ -198,7 +198,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
     IEnumerator CoDie()
     {
         yield return YieldCache.WaitForSeconds(1.5f);
-        DefenseSceneManager.Instance.KillEnemy(this);
+        DefenseSceneManager.Instance.DefeatEnemy(this);
     }
 
     public abstract void AttackAnimListner();

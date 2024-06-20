@@ -168,22 +168,22 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Light",
+        "elementType": "Energy",
         "summonType": "Weapon",
-        "targetValue": 50,
+        "targetValue": 500,
         "progressValue": 0
       },
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseLightSpellDamage",
+          "statusType": "IncreaseEnergySpellDamage",
           "integerParam": 0,
-          "floatParam": 0.05
+          "floatParam": 0.1
         },
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 10,
+          "integerParam": 20,
           "floatParam": 0.0
         }
       ],
@@ -195,22 +195,22 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Dark",
+        "elementType": "Fire",
         "summonType": "Weapon",
-        "targetValue": 50,
+        "targetValue": 500,
         "progressValue": 0
       },
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseDarkSpellDamage",
+          "statusType": "IncreaseFireSpellDamage",
           "integerParam": 0,
-          "floatParam": 0.05
+          "floatParam": 0.1
         },
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 10,
+          "integerParam": 20,
           "floatParam": 0.0
         }
       ],
@@ -222,7 +222,7 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Energy",
+        "elementType": "Water",
         "summonType": "Weapon",
         "targetValue": 500,
         "progressValue": 0
@@ -230,7 +230,7 @@
       "rewards": [
         {
           "type": "RewardStatus",
-          "statusType": "IncreaseEnergySpellDamage",
+          "statusType": "IncreaseWaterSpellDamage",
           "integerParam": 0,
           "floatParam": 0.1
         },
@@ -249,60 +249,6 @@
       "type": "Main",
       "target": {
         "type": "DefeatEnemies",
-        "elementType": "Fire",
-        "summonType": "Weapon",
-        "targetValue": 500,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseFireSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.1
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 20,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "10",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
-        "elementType": "Water",
-        "summonType": "Weapon",
-        "targetValue": 500,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseWaterSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.1
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 20,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "11",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
         "elementType": "Lightning",
         "summonType": "Weapon",
         "targetValue": 500,
@@ -325,7 +271,7 @@
       "isCompleted": false
     },
     {
-      "id": "12",
+      "id": "10",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -352,7 +298,7 @@
       "isCompleted": false
     },
     {
-      "id": "13",
+      "id": "11",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -379,61 +325,7 @@
       "isCompleted": false
     },
     {
-      "id": "14",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
-        "elementType": "Light",
-        "summonType": "Weapon",
-        "targetValue": 500,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseLightSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.1
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 20,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "15",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
-        "elementType": "Dark",
-        "summonType": "Weapon",
-        "targetValue": 500,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseDarkSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.1
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 20,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "16",
+      "id": "12",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -460,7 +352,7 @@
       "isCompleted": false
     },
     {
-      "id": "17",
+      "id": "13",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -487,7 +379,7 @@
       "isCompleted": false
     },
     {
-      "id": "18",
+      "id": "14",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -514,7 +406,7 @@
       "isCompleted": false
     },
     {
-      "id": "19",
+      "id": "15",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -541,7 +433,7 @@
       "isCompleted": false
     },
     {
-      "id": "20",
+      "id": "16",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -568,7 +460,7 @@
       "isCompleted": false
     },
     {
-      "id": "21",
+      "id": "17",
       "achievementName": "DefeatEnemies",
       "type": "Main",
       "target": {
@@ -595,61 +487,7 @@
       "isCompleted": false
     },
     {
-      "id": "22",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
-        "elementType": "Light",
-        "summonType": "Weapon",
-        "targetValue": 5000,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseLightSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.2
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 50,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "23",
-      "achievementName": "DefeatEnemies",
-      "type": "Main",
-      "target": {
-        "type": "DefeatEnemies",
-        "elementType": "Dark",
-        "summonType": "Weapon",
-        "targetValue": 5000,
-        "progressValue": 0
-      },
-      "rewards": [
-        {
-          "type": "RewardStatus",
-          "statusType": "IncreaseDarkSpellDamage",
-          "integerParam": 0,
-          "floatParam": 0.2
-        },
-        {
-          "type": "RewardDia",
-          "statusType": "Spell",
-          "integerParam": 50,
-          "floatParam": 0.0
-        }
-      ],
-      "isCompleted": false
-    },
-    {
-      "id": "24",
+      "id": "18",
       "achievementName": "StageClear",
       "type": "Repeat",
       "target": {
@@ -661,16 +499,16 @@
       },
       "rewards": [
         {
-          "type": "RewardCoins",
+          "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 1000,
+          "integerParam": 50,
           "floatParam": 0.0
         }
       ],
       "isCompleted": false
     },
     {
-      "id": "25",
+      "id": "19",
       "achievementName": "SummonWeapons",
       "type": "Repeat",
       "target": {
@@ -691,7 +529,7 @@
       "isCompleted": false
     },
     {
-      "id": "26",
+      "id": "20",
       "achievementName": "SummonRings",
       "type": "Repeat",
       "target": {
@@ -712,7 +550,7 @@
       "isCompleted": false
     },
     {
-      "id": "27",
+      "id": "21",
       "achievementName": "StageClear",
       "type": "Daily",
       "target": {
@@ -733,7 +571,7 @@
       "isCompleted": false
     },
     {
-      "id": "28",
+      "id": "22",
       "achievementName": "SummonWeapons",
       "type": "Daily",
       "target": {
@@ -754,7 +592,7 @@
       "isCompleted": false
     },
     {
-      "id": "29",
+      "id": "23",
       "achievementName": "SummonRings",
       "type": "Daily",
       "target": {
@@ -775,7 +613,7 @@
       "isCompleted": false
     },
     {
-      "id": "30",
+      "id": "24",
       "achievementName": "StageClear",
       "type": "Weekly",
       "target": {
@@ -789,14 +627,14 @@
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 50,
+          "integerParam": 100,
           "floatParam": 0.0
         }
       ],
       "isCompleted": false
     },
     {
-      "id": "31",
+      "id": "25",
       "achievementName": "SummonWeapons",
       "type": "Weekly",
       "target": {
@@ -810,14 +648,14 @@
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 50,
+          "integerParam": 200,
           "floatParam": 0.0
         }
       ],
       "isCompleted": false
     },
     {
-      "id": "32",
+      "id": "26",
       "achievementName": "SummonRings",
       "type": "Weekly",
       "target": {
@@ -831,14 +669,14 @@
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 25,
+          "integerParam": 100,
           "floatParam": 0.0
         }
       ],
       "isCompleted": false
     },
     {
-      "id": 33,
+      "id": 27,
       "achievementName": "SummonSpells",
       "type": "Repeat",
       "target": {
@@ -859,7 +697,7 @@
       "isCompleted": false
     },
     {
-      "id": 34,
+      "id": 28,
       "achievementName": "SummonSpells",
       "type": "Daily",
       "target": {
@@ -880,7 +718,7 @@
       "isCompleted": false
     },
     {
-      "id": 35,
+      "id": 29,
       "achievementName": "SummonSpells",
       "type": "Weekly",
       "target": {
@@ -894,7 +732,7 @@
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 25,
+          "integerParam": 100,
           "floatParam": 0.0
         }
       ],

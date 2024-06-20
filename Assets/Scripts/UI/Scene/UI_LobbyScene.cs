@@ -12,9 +12,6 @@ public class UI_LobbyScene : UI_Scene
     enum Buttons
     {
         Button_Setting,
-        Button_EnergyAdd,
-        Button_CoinAdd,
-        Button_DiaAdd,
 
         // ==== 메뉴 버튼 ====
         Button_Home,
@@ -25,9 +22,8 @@ public class UI_LobbyScene : UI_Scene
     }
     enum Texts
     {
-        Text_EnergyValue,
-        Text_CoinValue,
-        Text_DiaValue,
+        Text_CoinAmount,
+        Text_DiaAmount,
 
         // ==== 메뉴 텍스트 ====
         Text_Home,
@@ -69,6 +65,8 @@ public class UI_LobbyScene : UI_Scene
     // UI_LobbyHome ui_home;
     UI_Base[] _menuUis;
 
+    TextMeshProUGUI _coinAmountText;
+    TextMeshProUGUI _diaAmountText;
 
     public override void Init()
     {
@@ -119,6 +117,14 @@ public class UI_LobbyScene : UI_Scene
         _selectedIndex = 0;
         MoveMenuToIndex(_selectedIndex);
         #endregion
+
+        _coinAmountText = GetText((int)Texts.Text_CoinAmount);
+        _diaAmountText = GetText((int)Texts.Text_DiaAmount);
+        Managers.PlayerData.OnChangeCoinAmount += ChangeCoinAmount;
+        Managers.PlayerData.OnChangeDiaAmount += ChangeDiaAmount;
+
+        ChangeCoinAmount(Managers.PlayerData.CoinAmount);
+        ChangeDiaAmount(Managers.PlayerData.DiaAmount);
 
         Managers.Achieve.OnAchievementCompletable += AchievementCompletableListner;
         Managers.Achieve.OnAchievementComplete += AchievementCompleteListner;
@@ -188,5 +194,15 @@ public class UI_LobbyScene : UI_Scene
         achievement.AchievementCompleteListner(type);
 
         GetImage((int)Images.Image_AchieveCompletable).gameObject.SetActive(true);
+    }
+
+    void ChangeCoinAmount(int value)
+    {
+        _coinAmountText.text = value.ToString();
+    }
+
+    void ChangeDiaAmount(int value)
+    {
+        _diaAmountText.text = value.ToString();
     }
 }

@@ -1,23 +1,62 @@
 using Data;
+using Define;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
+
+[Serializable]
+public class InventoryData
+{
+    public List<ItemData> inventoryItemsDatas;
+    public List<ItemData> equipmentDatas;
+}
+
+[Serializable]
+public class PlayerOwnedSpellData
+{
+    public int spellId;
+    public int spellLevel;
+    public int ownCount;
+    public bool isEquip;
+}
+
+[Serializable]
+public class PlayerData
+{
+    public bool beginner = true;
+    public GameLanguage gameLanguage = GameLanguage.Korean;
+    public bool bgmOn = true;
+    public bool sfxOn = true;
+    public List<PlayerOwnedSpellData> ownedSpellDatas;
+    public InventoryData inventoryData;
+    public List<int> stageClearList;
+    public List<AchievementData> achievementDatas;
+    public int coinAmount = 0;
+    public int diaAmount = 0;
+}
 
 public class PlayerDataManager
 {
     PlayerData _playerData;
-    public PlayerData Data
-    {
-        get
-        {
-            return _playerData;
-        }
-        set { _playerData = value; }
-    }
 
+    #region GetProperty
+
+    public GameLanguage GameLanguage => _playerData.gameLanguage;
+
+    public int CoinAmount => _playerData.coinAmount;
+    public int DiaAmount => _playerData.diaAmount;
+    public List<int> StageClearList => _playerData.stageClearList;
+    public List<PlayerOwnedSpellData> OwnedSpellDatas => _playerData.ownedSpellDatas;
+    public List<AchievementData> AchievementDatas => _playerData.achievementDatas;
+    public InventoryData InventoryData => _playerData.inventoryData;
+
+    public bool BgmOn => _playerData.bgmOn;
+    public bool SfxOn => _playerData.sfxOn;
+
+    #endregion
     string _path;
 
     public void Init()
@@ -25,6 +64,9 @@ public class PlayerDataManager
         _path = Application.persistentDataPath + "/PlayerData";
         LoadFromJson();
     }
+
+    public Action<int> OnChangeCoinAmount;
+    public Action<int> OnChangeDiaAmount;
 
     public PlayerData NewPlayerData() // 게임 최초 실행시의 데이터 설정
     {
@@ -74,12 +116,6 @@ public class PlayerDataManager
             inventoryItemsDatas = newInventoryData
         };
 
-        int weaponSpellId = startingWeaponData.equipmentOptions
-            .Where(data => data.optionType == StatusType.Spell)
-            .Select(data => data.intParam1)
-            .FirstOrDefault();
-
-        newPlayerData.weaponSpellId = weaponSpellId;
         newPlayerData.ownedSpellDatas = startingSpellDatas;
         newPlayerData.inventoryData = inventoryData;
         newPlayerData.achievementDatas = new List<AchievementData>();
@@ -87,12 +123,28 @@ public class PlayerDataManager
 
         return newPlayerData;
     }
+    public void AddClearStage(int stageNum)
+    {
+        _playerData.stageClearList.Add(stageNum);
+    }
 
+    public void ChangeCoinAmount(int value)
+    {
+        _playerData.coinAmount = value;
+        OnChangeCoinAmount?.Invoke(_playerData.coinAmount);
+    }
+
+    public void ChangeDiaAmount(int value)
+    {
+        _playerData.diaAmount = value;
+        OnChangeDiaAmount?.Invoke(_playerData.diaAmount);
+    }
     // 플레이어 데이터를 UTF-8로 인코딩하여 저장합니다
     public void SaveToJson()
     {
         if (File.Exists(_path))
             File.Delete(_path);
+        _playerData.beginner = false;
 
         _playerData.inventoryData = Managers.Player.InventoryToData();
         _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
@@ -134,5 +186,11 @@ public class PlayerDataManager
         // string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
 
         _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData, settings);
+    }
+
+    public void Clear()
+    {
+        OnChangeCoinAmount = null;
+        OnChangeDiaAmount = null;
     }
 }

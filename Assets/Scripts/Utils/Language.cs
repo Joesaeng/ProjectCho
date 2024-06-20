@@ -7,9 +7,15 @@ public static class Language
     public static bool isEng = false;
     public static string GetLanguage(string key)
     {
-        if (isEng)
-            return Managers.Data.LanguageDataDict[key].eng;
-        else
-            return Managers.Data.LanguageDataDict[key].kr;
+        switch (Managers.PlayerData.GameLanguage)
+        {
+            case Define.GameLanguage.English:
+                return Managers.Data.LanguageDataDict[key].eng;
+            case Define.GameLanguage.Korean:
+                return Managers.Data.LanguageDataDict[key].kr;
+            default:
+                return Managers.Data.LanguageDataDict[key].kr;
+        }
+
     }
 }

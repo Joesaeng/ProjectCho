@@ -1,8 +1,6 @@
 -DefenseScene
 	맵 깔아서 다리 밑에 강을 지나가게 하고 다리가 이어지는 부분에 땅 만들기
 	GameOver UI 및 재화 획득
-	일시정지(옵션메뉴) UI
-	배속 UI
 	특별한 적 구현(보스몬스터 따위의 것)
 	*Ads 연동
 -LobbyScene
@@ -17,10 +15,8 @@
 	DrawCall, UpscaleRendering, Script 등등 할거 많음
 
 - 4주차
-	Enemies 사망 이벤트에 업적에 값 추가하는 것 구현
 	Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save
-	PlayerData에 Coin, Dia, StageClear 등 구현
-	업적 보상 구현
+	PlayerData에 StageClear 구현
 	Spell 추가
 	설정
 	PlayerData 저장 및 로드 (서버)

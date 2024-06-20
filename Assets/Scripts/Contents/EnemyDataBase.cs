@@ -19,7 +19,7 @@ public class EnemyDataBase
 
     public void SetEnemyStatusByStageData(int curStage, StageData data)
     {
-        WaveData stageData = data.stageDatas[curStage];
+        WaveData stageData = data.waveDatas[curStage];
         foreach (var enemyId in stageData.waveEnemyIds)
         {
             if (EnemyDataDict.TryGetValue(enemyId, out SetEnemyData setData))

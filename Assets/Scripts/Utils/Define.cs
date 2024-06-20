@@ -1,5 +1,12 @@
+using System;
+
 namespace Define
 {
+    public enum GameoverType
+    {
+        Gameover,
+        Clear,
+    }
     public enum MagicianAnim
     {
         ProjectileAttack,
@@ -20,6 +27,7 @@ namespace Define
 
     }
 
+    [Serializable]
     public enum GameLanguage
     {
         English,

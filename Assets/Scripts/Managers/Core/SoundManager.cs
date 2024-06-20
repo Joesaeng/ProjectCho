@@ -7,9 +7,6 @@ public class SoundManager
 
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
-    public float BGMVolume { get; set; } = 1f;
-    public float SFXVolume { get; set; } = 1f;
-
     public void Init()
     {
         GameObject root = GameObject.Find("@Sound");
@@ -30,9 +27,6 @@ public class SoundManager
 
             _audioSources[(int)Define.Sound.Bgm].loop = true;
         }
-        BGMVolume = Managers.PlayerData.Data.bgmVolume;
-        SFXVolume = Managers.PlayerData.Data.sfxVolume;
-
     }
 
     public void Clear()
@@ -67,23 +61,21 @@ public class SoundManager
 
         if (type == Define.Sound.Bgm)
         {
-            if (!Managers.PlayerData.Data.bgmOn)
+            if (!Managers.PlayerData.BgmOn)
                 return;
             AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
-            audioSource.volume = BGMVolume;
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
         }
         else
         {
-            if (!Managers.PlayerData.Data.sfxOn)
+            if (!Managers.PlayerData.SfxOn)
                 return;
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
-            audioSource.volume = SFXVolume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
@@ -92,7 +84,6 @@ public class SoundManager
     public void ChangeBGMVolume()
     {
         AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
-        audioSource.volume = BGMVolume;
     }
 
     AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)

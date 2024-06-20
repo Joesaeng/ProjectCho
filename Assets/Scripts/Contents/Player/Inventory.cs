@@ -7,7 +7,7 @@ public class Inventory
 {
     private HashSet<Item> items;
     public HashSet<Item> Items { get => items; set => items = value; }
-    public Inventory(Data.InventoryData data)
+    public Inventory(InventoryData data)
     {
         items = new();
         for(int i = 0; i < data.inventoryItemsDatas.Count; ++i)

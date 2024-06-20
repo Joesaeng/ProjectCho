@@ -122,7 +122,7 @@ public class PlayerSpells
 
     public void Init()
     {
-        foreach (var ownedSpellData in Managers.PlayerData.Data.ownedSpellDatas)
+        foreach (var ownedSpellData in Managers.PlayerData.OwnedSpellDatas)
         {
             SpellDataByPlayerOwnedSpell data = new(Managers.Data.BaseSpellDataDict[ownedSpellData.spellId], ownedSpellData.spellLevel)
             {

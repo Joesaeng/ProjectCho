@@ -25,14 +25,17 @@ public class UI_DefenseScenePause : UI_Popup
 
     enum Texts
     {
-        Text_Setting,
         Text_Lobby,
         Text_BGM,
         Text_SFX,
+        Text_LobbyCheck,
     }
 
     public Action OnClickedResume;
     public Action OnClickedLobby;
+
+    UI_DefeatEnemies _defeatEnemiesUI;
+
     public override void Init()
     {
         base.Init();
@@ -47,6 +50,14 @@ public class UI_DefenseScenePause : UI_Popup
         GetImage((int)Images.Image_LobbyCheck).gameObject.SetActive(false);
         GetButton((int)Buttons.Button_Agree).gameObject.AddUIEvent(ClickedAgree);
         GetButton((int)Buttons.Button_Cancel).gameObject.AddUIEvent(ClickedCancel);
+
+        GetText((int)Texts.Text_BGM).text = Language.GetLanguage("BGM");
+        GetText((int)Texts.Text_SFX).text = Language.GetLanguage("SFX");
+        GetText((int)Texts.Text_Lobby).text = Language.GetLanguage("Lobby");
+        GetText((int)Texts.Text_LobbyCheck).text = Language.GetLanguage("ReturnToLobby");
+
+        _defeatEnemiesUI = Util.FindChild<UI_DefeatEnemies>(gameObject,"UI_DefeatEnemies",true);
+        _defeatEnemiesUI.Init();
     }
 
     void ClickedLobby(PointerEventData data)
@@ -68,5 +79,10 @@ public class UI_DefenseScenePause : UI_Popup
     {
         GetImage((int)Images.Image_LobbyCheckBlur).gameObject.SetActive(false);
         GetImage((int)Images.Image_LobbyCheck).gameObject.SetActive(false);
+    }
+
+    public void SetDefeatEnemies(Dictionary<ElementType, int> defeatEnemies)
+    {
+        _defeatEnemiesUI.SetDefeatEnemies(defeatEnemies);
     }
 }

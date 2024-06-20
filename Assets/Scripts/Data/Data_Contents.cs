@@ -25,8 +25,8 @@ public enum ElementType
     Lightning,  // Water 속성 적에게 200% 데미지, Earth 속성 적에게 50% 데미지
     Earth,      // Lightning 속성 적에게 200% 데미지, Wind 속성 적에게 50% 데미지
     Wind,       // Earth 속성 적에게 200% 데미지, Fire 속성 적에게 50% 데미지
-    Light,      // Dark속성 적에게 300% 데미지, Light 속성 적에게 0% 데미지
-    Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
+    // Light,      // Dark속성 적에게 300% 데미지, Light 속성 적에게 0% 데미지
+    // Dark,       // Light속성 적에게 300% 데미지, Dark 속성 적에게 0% 데미지
 }
 
 [Serializable]
@@ -119,7 +119,7 @@ public enum AchievementType
     Repeat,
 }
 [Serializable]
-public enum AchievementRewardType
+public enum RewardType
 {
     RewardDia,
     RewardCoins,
@@ -133,40 +133,9 @@ public enum AchievementTargetType
     Summon,
 }
 
+
 namespace Data
 {
-    [Serializable]
-    public class InventoryData
-    {
-        public List<ItemData> inventoryItemsDatas;
-        public List<ItemData> equipmentDatas;
-    }
-
-    [Serializable]
-    public class PlayerOwnedSpellData
-    {
-        public int spellId;
-        public int spellLevel;
-        public int ownCount;
-        public bool isEquip;
-    }
-
-    [Serializable]
-    public class PlayerData 
-    {
-        public bool beginner = true;
-        public int gameLanguage = (int)Define.GameLanguage.English;
-        public float bgmVolume = 1f;
-        public float sfxVolume = 1f;
-        public bool bgmOn = true;
-        public bool sfxOn = true;
-        public int weaponSpellId;
-        public List<PlayerOwnedSpellData> ownedSpellDatas;
-        public InventoryData inventoryData;
-        public List<int> stageClearList;
-        public List<AchievementData> achievementDatas;
-    }
-
     [Serializable]
     public class BaseEnemyData : IData
     {
@@ -280,9 +249,24 @@ namespace Data
     }
 
     [Serializable]
+    public class WaveRewardData
+    {
+        public RewardType type;
+        public int value;
+    }
+
+    [Serializable]
+    public class StageRewardData
+    {
+        public RewardType type;
+        public int value;
+    }
+
+    [Serializable]
     public class WaveData
     {
         public List<int> waveEnemyIds;
+        public WaveRewardData waveRewardData;
         public int spawnEnemyCount;
         public float damageCoefficient;
         public float hpCoefficient;
@@ -293,8 +277,9 @@ namespace Data
     {
         int IData.Id => id;
         public int id;
+        public StageRewardData firstClearRewardData;
         public List<int> stageEnemysId;
-        public List<WaveData> stageDatas;
+        public List<WaveData> waveDatas;
     }
 
     [Serializable]
@@ -345,6 +330,7 @@ namespace Data
         public List<AchievementRewardData> rewards;
         public bool isCompleted;
     }
+
     [Serializable]
     public class AchievementTargetData
     {
@@ -354,10 +340,11 @@ namespace Data
         public int targetValue;
         public int progressValue;
     }
+
     [Serializable]
     public class AchievementRewardData
     {
-        public AchievementRewardType type;
+        public RewardType type;
         public StatusType statusType;
         public int integerParam;
         public float floatParam;

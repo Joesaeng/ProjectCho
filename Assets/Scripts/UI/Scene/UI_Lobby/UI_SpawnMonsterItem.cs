@@ -30,7 +30,8 @@ public class UI_SpawnMonsterItem : UI_Base
         _monsterElemental.text = Language.GetLanguage(Managers.Data.BaseEnemyDataDict[enemyId].elementType.ToString());
         _monsterElemental.color = ConstantData.TextColorsByElementTypes[(int)Managers.Data.BaseEnemyDataDict[enemyId].elementType];
 
-        GameObject obj = Managers.Resource.Instantiate("Enemys/" + Managers.Data.BaseEnemyDataDict[enemyId].prefabName, _tfEnemyPrefab);
+        GameObject obj = Resources.Load<GameObject>("Prefabs/Enemys/" + Managers.Data.BaseEnemyDataDict[enemyId].prefabName);
+        Instantiate(obj, _tfEnemyPrefab);
         obj.transform.localScale = Vector3.one;
     }
 }
