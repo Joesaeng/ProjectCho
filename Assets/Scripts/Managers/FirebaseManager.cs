@@ -8,6 +8,7 @@ using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
 using Newtonsoft.Json;
+using Data;
 
 public class FirebaseManager 
 {
@@ -44,7 +45,11 @@ public class FirebaseManager
             }
 
             FirebaseApp app = FirebaseApp.DefaultInstance;
-            databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+            // FirebaseDatabase 인스턴스를 가져와 URL 설정
+            FirebaseDatabase database = FirebaseDatabase.GetInstance(app);
+            database.SetPersistenceEnabled(false);  // 필요에 따라 설정
+            databaseReference = database.RootReference;
 
             auth = FirebaseAuth.DefaultInstance;
             auth.StateChanged += OnChanged;
@@ -113,36 +118,47 @@ public class FirebaseManager
 
     public void SavePlayerData(string playerData)
     {
-        //databaseReference.Child("users").Child(user.UserId).SetRawJsonValueAsync(playerData).ContinueWithOnMainThread(task =>
-        //{
-        //    if (task.IsCanceled)
-        //    {
-        //        Debug.LogError("SavePlayerData was canceled.");
-        //        return;
-        //    }
-        //    if (task.IsFaulted)
-        //    {
-        //        Debug.LogError("SavePlayerData encountered an error: " + task.Exception);
-        //        foreach (var e in task.Exception.Flatten().InnerExceptions)
-        //        {
-        //            FirebaseException firebaseEx = e as FirebaseException;
-        //            if (firebaseEx != null)
-        //            {
-        //                Debug.LogError("FirebaseException: " + firebaseEx.Message);
-        //            }
-        //            else
-        //            {
-        //                Debug.LogError("Exception: " + e.Message);
-        //            }
-        //        }
-        //        return;
-        //    }
+        Debug.Log("Starting SavePlayerData");
 
-        //    Debug.Log("PlayerData saved successfully.");
-        //});
-        databaseReference.Child("users").Child(CurrentUserId).SetRawJsonValueAsync(playerData);
+        if (databaseReference == null)
+        {
+            Debug.LogError("databaseReference is null");
+            return;
+        }
 
-        Debug.Log("PlayerData saved successfully.");
+        if (user == null)
+        {
+            Debug.LogError("user is null");
+            return;
+        }
+
+        databaseReference.Child("users").Child(user.UserId).SetRawJsonValueAsync(playerData).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCanceled)
+            {
+                Debug.LogError("SavePlayerData was canceled.");
+                return;
+            }
+            if (task.IsFaulted)
+            {
+                Debug.LogError("SavePlayerData encountered an error: " + task.Exception);
+                foreach (var e in task.Exception.Flatten().InnerExceptions)
+                {
+                    FirebaseException firebaseEx = e as FirebaseException;
+                    if (firebaseEx != null)
+                    {
+                        Debug.LogError("FirebaseException: " + firebaseEx.Message);
+                    }
+                    else
+                    {
+                        Debug.LogError("Exception: " + e.Message);
+                    }
+                }
+                return;
+            }
+        
+            Debug.Log("PlayerData saved successfully.");
+        });
     }
 
     public void LoadPlayerData(string userId, System.Action<PlayerData> onLoaded)
@@ -164,12 +180,11 @@ public class FirebaseManager
             if (snapshot.Exists)
             {
                 string json = snapshot.GetRawJsonValue();
-                JsonSerializerSettings settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-
-                PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json, settings);
+                //var settings = new JsonSerializerSettings
+                //{
+                //    Converters = { new ItemDataConverter()},
+                //};
+                PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
                 onLoaded?.Invoke(playerData);
             }
             else

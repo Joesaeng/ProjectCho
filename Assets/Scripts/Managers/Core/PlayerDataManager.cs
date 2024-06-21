@@ -12,8 +12,8 @@ using UnityEngine;
 [Serializable]
 public class InventoryData
 {
-    public List<ItemData> inventoryItemsDatas;
-    public List<ItemData> equipmentDatas;
+    public List<EquipmentData> inventoryItemsDatas;
+    public List<EquipmentData> equipmentDatas;
 }
 
 [Serializable]
@@ -67,12 +67,12 @@ public class PlayerDataManager
     {
         List<PlayerOwnedSpellData> startingSpellDatas = new()
         {
-            new PlayerOwnedSpellData(){spellId = 0,isEquip = true},
-            new PlayerOwnedSpellData(){spellId = 1,isEquip = true},
-            new PlayerOwnedSpellData(){spellId = 2,isEquip = true},
-            new PlayerOwnedSpellData(){spellId = 3,isEquip = true},
-            new PlayerOwnedSpellData(){spellId = 4,isEquip = true},
-            new PlayerOwnedSpellData(){spellId = 5,isEquip = true},
+            new PlayerOwnedSpellData(){spellId = 0,isEquip = true,ownCount = 0, spellLevel = 0},
+            new PlayerOwnedSpellData(){spellId = 1,isEquip = true,ownCount = 0, spellLevel = 0},
+            new PlayerOwnedSpellData(){spellId = 2,isEquip = true,ownCount = 0, spellLevel = 0},
+            new PlayerOwnedSpellData(){spellId = 3,isEquip = true,ownCount = 0, spellLevel = 0},
+            new PlayerOwnedSpellData(){spellId = 4,isEquip = true,ownCount = 0, spellLevel = 0},
+            new PlayerOwnedSpellData(){spellId = 5,isEquip = true,ownCount = 0, spellLevel = 0},
         };
 
         EquipmentData startingWeaponData = new()
@@ -101,8 +101,12 @@ public class PlayerDataManager
 
         PlayerData newPlayerData = new();
 
-        List<ItemData> newEquipmentData = new();
-        List<ItemData> newInventoryData = new();
+        //List<ItemData> newEquipmentData = new();
+        //List<ItemData> newInventoryData = new();
+
+        List<EquipmentData> newEquipmentData = new();
+        List<EquipmentData> newInventoryData = new();
+
         newEquipmentData.Add(startingWeaponData);
 
         InventoryData inventoryData = new()
@@ -155,14 +159,27 @@ public class PlayerDataManager
         _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
         _playerData.achievementDatas = Managers.Achieve.ToData();
 
-        JsonSerializerSettings settings = new()
+        string jsonData;
+        try
         {
-            TypeNameHandling = TypeNameHandling.All
-        };
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.Include,
+                Formatting = Formatting.Indented,
+                // Converters = { new ItemDataConverter()},
+            };
 
-        string jsonPlayerData = JsonConvert.SerializeObject(_playerData, settings);
+            jsonData = JsonConvert.SerializeObject(_playerData, settings);
+            Debug.Log("Serialized PlayerData: " + jsonData);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Failed to serialize PlayerData: " + ex.Message);
+            return;
+        }
 
-        FirebaseManager.Instance.SavePlayerData(jsonPlayerData);
+        FirebaseManager.Instance.SavePlayerData(jsonData);
     }
 
     public void OnPlayerDataLoadedToFirebase(PlayerData playerData)
@@ -172,6 +189,10 @@ public class PlayerDataManager
             // 플레이어 데이터를 성공적으로 로드한 경우 처리 로직을 추가합니다.
             Debug.Log("Player data loaded successfully.");
             _playerData = playerData;
+            Managers.Achieve.Init();
+            Managers.Player.Init();
+            LoadedPlayerDataCollectionNullCheck();
+            Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
         else
         {
@@ -180,9 +201,32 @@ public class PlayerDataManager
             _playerData = NewPlayerData();
             Managers.Achieve.Init();
             Managers.Player.Init();
-
             SaveToFirebase();
+            Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
+    }
+
+    void LoadedPlayerDataCollectionNullCheck()
+    {
+        if (_playerData.ownedSpellDatas == null)
+            _playerData.ownedSpellDatas = new();
+        if(_playerData.inventoryData == null)
+        {
+            _playerData.inventoryData = new();
+            _playerData.inventoryData.inventoryItemsDatas = new();
+            _playerData.inventoryData.equipmentDatas = new();
+        }
+        else
+        {
+            if(_playerData.inventoryData.inventoryItemsDatas == null)
+                _playerData.inventoryData.inventoryItemsDatas = new();
+            if (_playerData.inventoryData.equipmentDatas == null)
+                _playerData.inventoryData.equipmentDatas = new();
+        }
+        if(_playerData.stageClearList == null)
+            _playerData.stageClearList = new();
+        if(_playerData.achievementDatas == null)
+            _playerData.achievementDatas = new();
     }
 
     //public void SaveToJson()

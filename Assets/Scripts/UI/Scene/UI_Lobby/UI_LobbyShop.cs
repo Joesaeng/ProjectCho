@@ -128,7 +128,11 @@ public class UI_LobbyShop : UI_Base
         }
     }
 
-    void ClickedSummonListner(List<Item> summonItems)
+    //void ClickedSummonListner(List<Item> summonItems)
+    //{
+    //    _summonUi.OnSummonEquips(summonItems);
+    //}
+    void ClickedSummonListner(List<Equipment> summonItems)
     {
         _summonUi.OnSummonEquips(summonItems);
     }

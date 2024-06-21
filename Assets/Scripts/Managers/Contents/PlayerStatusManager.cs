@@ -116,7 +116,6 @@ public class PlayerStatusManager
         playerStatus = new PlayerStatus();
         achievementStatus = new AchievementStatus();
         equipmentStatus = new EquipmentStatus();
-
         InventoryData data = Managers.PlayerData.InventoryData;
         inventory = new Inventory();
         equipmentInventory = new EquipmentInventory();
@@ -138,71 +137,80 @@ public class PlayerStatusManager
 
     void SavePlayerData()
     {
-        Managers.PlayerData.SaveToFirebase();
+        
     }
 
     public void Equip(Equipment equipment, int slotIndex = -1)
     {
         EquipmentInventory.Equip(equipment, slotIndex);
-        SavePlayerData();
     }
 
     public void UnEquip(Equipment equipment)
     {
         EquipmentInventory.UnEquip(equipment);
-        SavePlayerData();
     }
 
     public bool HasEmptyRingSlots() => EquipmentInventory.HasEmptyRingSlots();
 
-    public void AddItem(Item item)
+    //public void AddItem(Item item)
+    //{
+    //    Inventory.AddItem(item);
+    //}
+
+    //public void AddItems(List<Item> items)
+    //{
+    //    Inventory.AddItems(items);
+    //}
+
+    //public void RemoveItem(Item item)
+    //{
+    //    Inventory.RemoveItem(item);
+    //}
+
+    public void AddItem(Equipment item)
     {
         Inventory.AddItem(item);
-        SavePlayerData();
     }
 
-    public void AddItems(List<Item> items)
+    public void AddItems(List<Equipment> items)
     {
         Inventory.AddItems(items);
-        SavePlayerData();
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Equipment item)
     {
         Inventory.RemoveItem(item);
-        SavePlayerData();
     }
 
     public void AddSpells(int spellId, int count)
     {
         PlayerSpells.AddSpell(spellId, count);
-        SavePlayerData();
     }
 
     public void ApplyAchievementRewardStatus(AchievementReward achievementReward)
     {
         AchievementStatus.ApplyAchievementRewardStatus(achievementReward);
-        SavePlayerData();
     }
 
     public void ApplyEquipmentStatus(EquipmentStatus equipmentStatus)
     {
         EquipmentStatus.ApplyEquipmentStatus(equipmentStatus);
-        SavePlayerData();
     }
 
     public void ApplyPlayerStatus()
     {
         PlayerStatus.ApplyPlayerStatus(AchievementStatus, EquipmentStatus);
-        SavePlayerData();
     }
 
     public InventoryData InventoryToData()
     {
         return new InventoryData
         {
-            inventoryItemsDatas = Inventory.Items.Select(item => item.ToData()).ToList(),
-            equipmentDatas = EquipmentInventory.Equipments.Select(item => item.Value.ToData()).ToList()
+            // Inventory.Items가 null일 경우 빈 리스트를 반환
+            inventoryItemsDatas = Inventory.Items?.Select(item => item.ToData()).ToList() ?? new List<EquipmentData>(),
+
+            // EquipmentInventory.Equipments가 null일 경우 빈 리스트를 반환
+            equipmentDatas = EquipmentInventory.Equipments?.Select(item => item.Value.ToData()).ToList() ?? new List<EquipmentData>()
         };
     }
 

@@ -15,7 +15,7 @@ public abstract class Item
     public Sprite ItemIcon { get => itemIcon; set => itemIcon = value; }
 
     public abstract void ApplyItem();
-    public abstract ItemData ToData();
+    // public abstract ItemData ToData();
 }
 
 public class EquipmentOption
@@ -91,7 +91,7 @@ public class Equipment : Item
         Managers.Player.Equip(this);
     }
 
-    public override ItemData ToData()
+    public EquipmentData ToData()
     {
         return new EquipmentData
         {

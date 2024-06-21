@@ -5,23 +5,40 @@ using UnityEngine;
 
 public static class ItemGenerator
 {
-    public static Item GenerateItem(ItemData data)
+    //public static Item GenerateItem(ItemData data)
+    //{
+    //    Item item = NewItem(data);
+
+    //    return item;
+    //}
+
+    //static Item NewItem(ItemData data)
+    //{
+    //    return data.itemType switch
+    //    {
+    //        ItemType.Equipment => new Equipment(data as EquipmentData),
+    //        _ => throw new System.ArgumentException($"Unknown ItemType: {data.itemType}")
+    //    };
+    //}
+
+    //public static ItemData ToData(Item item)
+    //{
+    //    return item.ToData();
+    //}
+
+    public static Equipment GenerateItem(EquipmentData data)
     {
-        Item item = NewItem(data);
+        Equipment item = NewItem(data);
 
         return item;
     }
 
-    static Item NewItem(ItemData data)
+    static Equipment NewItem(EquipmentData data)
     {
-        return data.itemType switch
-        {
-            ItemType.Equipment => new Equipment(data as EquipmentData),
-            _ => throw new System.ArgumentException($"Unknown ItemType: {data.itemType}")
-        };
+        return new Equipment(data);
     }
 
-    public static ItemData ToData(Item item)
+    public static EquipmentData ToData(Equipment item)
     {
         return item.ToData();
     }

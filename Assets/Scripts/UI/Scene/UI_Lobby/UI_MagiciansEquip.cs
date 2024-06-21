@@ -298,7 +298,8 @@ public class UI_MagiciansEquip : UI_Base
     void SetInventory()
     {
         // List<ItemData> inventoryItems = Managers.PlayerData.Data.inventoryData.inventoryItemsDatas;
-        HashSet<Item> inventoryItems = Managers.Player.Inventory.Items;
+        // HashSet<Item> inventoryItems = Managers.Player.Inventory.Items;
+        HashSet<Equipment> inventoryItems = Managers.Player.Inventory.Items;
         int slotIndex = 0;
 
         foreach (Equipment item in inventoryItems.Cast<Equipment>())

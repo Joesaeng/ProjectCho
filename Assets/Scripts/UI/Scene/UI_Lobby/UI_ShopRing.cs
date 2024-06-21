@@ -14,7 +14,8 @@ public class UI_ShopRing : UI_Base
         Button_SummonDia
     }
 
-    public Action<List<Item>> OnClickedSummon;
+    public Action<List<Equipment>> OnClickedSummon;
+    // public Action<List<Item>> OnClickedSummon;
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));

@@ -51,13 +51,28 @@ public class ItemManager
         LoadIcons(weaponPath, WeaponIcons);
     }
 
-    public List<Item> SummonItems(EquipmentType type,int count = 10)
+    //public List<Item> SummonItems(EquipmentType type,int count = 10)
+    //{
+    //    // Player의 Coin, Dia 보유량 확인
+    //    List<Item> summonItems = new();
+    //    for(int i = 0; i < count; i++)
+    //    {
+    //        Item newItem = GenerateRandomItem(type);
+    //        summonItems.Add(newItem);
+    //    }
+    //    SummonType summonType = type == EquipmentType.Weapon ? SummonType.Weapon : SummonType.Ring;
+    //    Managers.Player.AddItems(summonItems);
+    //    Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: summonType);
+    //    return summonItems;
+    //}
+
+    public List<Equipment> SummonItems(EquipmentType type, int count = 10)
     {
         // Player의 Coin, Dia 보유량 확인
-        List<Item> summonItems = new();
-        for(int i = 0; i < count; i++)
+        List<Equipment> summonItems = new();
+        for (int i = 0; i < count; i++)
         {
-            Item newItem = GenerateRandomItem(type);
+            Equipment newItem = GenerateRandomItem(type);
             summonItems.Add(newItem);
         }
         SummonType summonType = type == EquipmentType.Weapon ? SummonType.Weapon : SummonType.Ring;
