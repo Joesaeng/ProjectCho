@@ -9,6 +9,11 @@
       "id": 1,
       "effectName": "FireBallImpact",
       "explosionName": "FireSlashHit"
+    },
+    {
+      "id": 2,
+      "effectName": "Tornado",
+      "explosionName": "WindSlashHit"
     }
   ]
 }

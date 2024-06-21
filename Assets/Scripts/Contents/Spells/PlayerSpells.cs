@@ -176,14 +176,15 @@ public class PlayerSpells
         return SpellDataDict[spellId].ownedSpellCount >= SpellDataDict[spellId].requireSpellCountToLevelup;
     }
 
-    public void SpellLevelUp(int spellId)
+    public bool SpellLevelUp(int spellId)
     {
         if (!AvailableLevelUp(spellId))
-            return;
+            return false;
         int remainCount = SpellDataDict[spellId].ownedSpellCount - SpellDataDict[spellId].requireSpellCountToLevelup;
         int upLevel = SpellDataDict[spellId].spellLevel + 1;
         ModifiySpellCount(spellId, -SpellDataDict[spellId].requireSpellCountToLevelup);
         NewOwnedSpellData(spellId, upLevel, remainCount);
+        return true;
     }
 
     public void AddSpell(int spellId,int count)

@@ -2,124 +2,265 @@
   "datas": [
     {
       "id": 0,
-      "stageEnemysId": [ 0, 1, 2 ],
-      "stageDatas": [
+      "firstClearRewardData": {
+        "type": "RewardDia",
+        "value": 50
+      },
+      "stageEnemysId": [
+        0,
+        1,
+        2
+      ],
+      "waveDatas": [
         {
-          "waveEnemyIds": [ 0, 1 ],
+          "waveEnemyIds": [
+            0,
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 3
+          },
           "spawnEnemyCount": 5,
           "damageCoefficient": 1,
           "hpCoefficient": 1
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 5
+          },
           "spawnEnemyCount": 10,
           "damageCoefficient": 1.1,
           "hpCoefficient": 1.2
         },
         {
-          "waveEnemyIds": [ 2, 1 ],
+          "waveEnemyIds": [
+            2,
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 8
+          },
           "spawnEnemyCount": 15,
           "damageCoefficient": 1.2,
           "hpCoefficient": 1.4
         },
         {
-          "waveEnemyIds": [ 0, 2 ],
+          "waveEnemyIds": [
+            0,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 10
+          },
           "spawnEnemyCount": 20,
           "damageCoefficient": 1.3,
           "hpCoefficient": 1.6
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 13
+          },
           "spawnEnemyCount": 25,
           "damageCoefficient": 1.4,
           "hpCoefficient": 1.8
         },
         {
-          "waveEnemyIds": [ 0, 2 ],
+          "waveEnemyIds": [
+            0,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 15
+          },
           "spawnEnemyCount": 30,
           "damageCoefficient": 1.5,
           "hpCoefficient": 2
         },
         {
-          "waveEnemyIds": [ 2, 0 ],
+          "waveEnemyIds": [
+            2,
+            0
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 18
+          },
           "spawnEnemyCount": 35,
           "damageCoefficient": 1.6,
           "hpCoefficient": 2.2
         },
         {
-          "waveEnemyIds": [ 0, 1 ],
+          "waveEnemyIds": [
+            0,
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 20
+          },
           "spawnEnemyCount": 40,
           "damageCoefficient": 1.7,
           "hpCoefficient": 2.4
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 23
+          },
           "spawnEnemyCount": 45,
           "damageCoefficient": 1.8,
           "hpCoefficient": 2.6
         },
         {
-          "waveEnemyIds": [ 0 ],
+          "waveEnemyIds": [
+            0
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 25
+          },
           "spawnEnemyCount": 50,
           "damageCoefficient": 1.9,
           "hpCoefficient": 2.8
         },
         {
-          "waveEnemyIds": [ 2 ],
+          "waveEnemyIds": [
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 28
+          },
           "spawnEnemyCount": 55,
           "damageCoefficient": 2,
           "hpCoefficient": 3
         },
         {
-          "waveEnemyIds": [ 0, 1 ],
+          "waveEnemyIds": [
+            0,
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 30
+          },
           "spawnEnemyCount": 60,
           "damageCoefficient": 2.1,
           "hpCoefficient": 3.2
         },
         {
-          "waveEnemyIds": [ 1 ],
+          "waveEnemyIds": [
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 33
+          },
           "spawnEnemyCount": 65,
           "damageCoefficient": 2.2,
           "hpCoefficient": 3.4
         },
         {
-          "waveEnemyIds": [ 0, 2 ],
+          "waveEnemyIds": [
+            0,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 35
+          },
           "spawnEnemyCount": 70,
           "damageCoefficient": 2.3,
           "hpCoefficient": 3.6
         },
         {
-          "waveEnemyIds": [ 2 ],
+          "waveEnemyIds": [
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 38
+          },
           "spawnEnemyCount": 75,
           "damageCoefficient": 2.4,
           "hpCoefficient": 3.8
         },
         {
-          "waveEnemyIds": [ 1 ],
+          "waveEnemyIds": [
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 40
+          },
           "spawnEnemyCount": 80,
           "damageCoefficient": 2.5,
           "hpCoefficient": 4
         },
         {
-          "waveEnemyIds": [ 0 ],
+          "waveEnemyIds": [
+            0
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 43
+          },
           "spawnEnemyCount": 85,
           "damageCoefficient": 2.6,
           "hpCoefficient": 4.2
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 45
+          },
           "spawnEnemyCount": 90,
           "damageCoefficient": 2.7,
           "hpCoefficient": 4.4
         },
         {
-          "waveEnemyIds": [ 0, 1 ],
+          "waveEnemyIds": [
+            0,
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 48
+          },
           "spawnEnemyCount": 95,
           "damageCoefficient": 2.8,
           "hpCoefficient": 4.6
         },
         {
-          "waveEnemyIds": [ 2 ],
+          "waveEnemyIds": [
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 50
+          },
           "spawnEnemyCount": 100,
           "damageCoefficient": 2.9,
           "hpCoefficient": 4.8
@@ -128,127 +269,269 @@
     },
     {
       "id": 1,
-      "stageEnemysId": [ 1, 2, 3 ],
-      "stageDatas": [
+      "firstClearRewardData": {
+        "type": "RewardDia",
+        "value": 50
+      },
+      "stageEnemysId": [
+        1,
+        2,
+        3
+      ],
+      "waveDatas": [
         {
-          "waveEnemyIds": [ 1, 2 ],
-          "spawnEnemyCount": 6,
-          "damageCoefficient": 1.1,
-          "hpCoefficient": 1.1
-        },
-        {
-          "waveEnemyIds": [ 2, 3 ],
-          "spawnEnemyCount": 11,
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 4
+          },
+          "spawnEnemyCount": 7,
           "damageCoefficient": 1.2,
-          "hpCoefficient": 1.3
+          "hpCoefficient": 1.2
         },
         {
-          "waveEnemyIds": [ 1, 3 ],
-          "spawnEnemyCount": 17,
+          "waveEnemyIds": [
+            2,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 6
+          },
+          "spawnEnemyCount": 12,
           "damageCoefficient": 1.3,
-          "hpCoefficient": 1.5
+          "hpCoefficient": 1.4
         },
         {
-          "waveEnemyIds": [ 2, 3 ],
-          "spawnEnemyCount": 22,
+          "waveEnemyIds": [
+            1,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 10
+          },
+          "spawnEnemyCount": 19,
           "damageCoefficient": 1.4,
           "hpCoefficient": 1.7
         },
         {
-          "waveEnemyIds": [ 1, 3 ],
-          "spawnEnemyCount": 28,
+          "waveEnemyIds": [
+            2,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 12
+          },
+          "spawnEnemyCount": 24,
           "damageCoefficient": 1.5,
-          "hpCoefficient": 2.0
+          "hpCoefficient": 1.9
         },
         {
-          "waveEnemyIds": [ 2, 3 ],
-          "spawnEnemyCount": 33,
-          "damageCoefficient": 1.6,
-          "hpCoefficient": 2.1
-        },
-        {
-          "waveEnemyIds": [ 1, 3 ],
-          "spawnEnemyCount": 39,
+          "waveEnemyIds": [
+            1,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 16
+          },
+          "spawnEnemyCount": 31,
           "damageCoefficient": 1.7,
+          "hpCoefficient": 2.2
+        },
+        {
+          "waveEnemyIds": [
+            2,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 18
+          },
+          "spawnEnemyCount": 36,
+          "damageCoefficient": 1.8,
           "hpCoefficient": 2.3
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
-          "spawnEnemyCount": 44,
-          "damageCoefficient": 1.8,
+          "waveEnemyIds": [
+            1,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 22
+          },
+          "spawnEnemyCount": 43,
+          "damageCoefficient": 1.9,
           "hpCoefficient": 2.5
         },
         {
-          "waveEnemyIds": [ 2, 3 ],
-          "spawnEnemyCount": 50,
-          "damageCoefficient": 1.9,
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 24
+          },
+          "spawnEnemyCount": 48,
+          "damageCoefficient": 2,
           "hpCoefficient": 2.8
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
+          "waveEnemyIds": [
+            2,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 28
+          },
           "spawnEnemyCount": 55,
           "damageCoefficient": 2.1,
-          "hpCoefficient": 3.0
+          "hpCoefficient": 3.1
         },
         {
-          "waveEnemyIds": [ 3 ],
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 31
+          },
           "spawnEnemyCount": 61,
-          "damageCoefficient": 2.2,
-          "hpCoefficient": 3.2
+          "damageCoefficient": 2.3,
+          "hpCoefficient": 3.3
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
-          "spawnEnemyCount": 66,
-          "damageCoefficient": 2.3,
+          "waveEnemyIds": [
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 34
+          },
+          "spawnEnemyCount": 67,
+          "damageCoefficient": 2.4,
           "hpCoefficient": 3.5
         },
         {
-          "waveEnemyIds": [ 1 ],
-          "spawnEnemyCount": 71,
-          "damageCoefficient": 2.4,
-          "hpCoefficient": 3.7
-        },
-        {
-          "waveEnemyIds": [ 2, 3 ],
-          "spawnEnemyCount": 77,
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 37
+          },
+          "spawnEnemyCount": 73,
           "damageCoefficient": 2.5,
-          "hpCoefficient": 4.0
+          "hpCoefficient": 3.9
         },
         {
-          "waveEnemyIds": [ 3 ],
-          "spawnEnemyCount": 83,
+          "waveEnemyIds": [
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 39
+          },
+          "spawnEnemyCount": 78,
           "damageCoefficient": 2.6,
-          "hpCoefficient": 4.2
+          "hpCoefficient": 4
         },
         {
-          "waveEnemyIds": [ 1 ],
-          "spawnEnemyCount": 88,
+          "waveEnemyIds": [
+            2,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 43
+          },
+          "spawnEnemyCount": 85,
           "damageCoefficient": 2.8,
           "hpCoefficient": 4.4
         },
         {
-          "waveEnemyIds": [ 3 ],
-          "spawnEnemyCount": 94,
+          "waveEnemyIds": [
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 46
+          },
+          "spawnEnemyCount": 91,
           "damageCoefficient": 2.9,
           "hpCoefficient": 4.6
         },
         {
-          "waveEnemyIds": [ 1, 2 ],
-          "spawnEnemyCount": 99,
-          "damageCoefficient": 3.0,
-          "hpCoefficient": 4.9
+          "waveEnemyIds": [
+            1
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 49
+          },
+          "spawnEnemyCount": 97,
+          "damageCoefficient": 3.1,
+          "hpCoefficient": 4.8
         },
         {
-          "waveEnemyIds": [ 1, 3 ],
-          "spawnEnemyCount": 105,
-          "damageCoefficient": 3.1,
+          "waveEnemyIds": [
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 52
+          },
+          "spawnEnemyCount": 103,
+          "damageCoefficient": 3.2,
           "hpCoefficient": 5.1
         },
         {
-          "waveEnemyIds": [ 3 ],
-          "spawnEnemyCount": 110,
-          "damageCoefficient": 3.2,
-          "hpCoefficient": 5.3
+          "waveEnemyIds": [
+            1,
+            2
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 55
+          },
+          "spawnEnemyCount": 109,
+          "damageCoefficient": 3.3,
+          "hpCoefficient": 5.4
+        },
+        {
+          "waveEnemyIds": [
+            1,
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 58
+          },
+          "spawnEnemyCount": 116,
+          "damageCoefficient": 3.4,
+          "hpCoefficient": 5.6
+        },
+        {
+          "waveEnemyIds": [
+            3
+          ],
+          "waveRewardData": {
+            "type": "RewardCoins",
+            "value": 61
+          },
+          "spawnEnemyCount": 121,
+          "damageCoefficient": 3.5,
+          "hpCoefficient": 5.8
         }
       ]
     }

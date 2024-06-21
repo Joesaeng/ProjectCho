@@ -28,7 +28,8 @@ public class UI_ItemDesc : UI_Base
     Button _equipButton;
     Button _sellButton;
 
-    Item _selectedItem;
+    // Item _selectedItem;
+    Equipment _selectedItem;
 
     public Action<Equipment> OnRingEquip;
 
@@ -63,7 +64,10 @@ public class UI_ItemDesc : UI_Base
             if(_selectedItem is Equipment equipment)
             {
                 if (equipment.equipmentType == EquipmentType.Weapon)
+                {
                     Managers.Player.Equip(equipment);
+                    LobbySceneManager.Instance.SaveDataOnLobbyScene();
+                }
                 else
                     OnRingEquip.Invoke(equipment);
             }
@@ -71,7 +75,10 @@ public class UI_ItemDesc : UI_Base
         else if(_selectSlotType == ItemSlotUIType.Ring)
         {
             if (_selectedItem is Equipment equipment)
+            {
                 Managers.Player.UnEquip(equipment);
+                LobbySceneManager.Instance.SaveDataOnLobbyScene();
+            }
         }
         OffItemDesc();
     }
@@ -86,7 +93,7 @@ public class UI_ItemDesc : UI_Base
         gameObject.SetActive(false);
     }
 
-    public void OnItemDesc(Item item,ItemSlotUIType slotType)
+    public void OnItemDesc(Equipment item,ItemSlotUIType slotType)
     {
         _selectSlotType = slotType;
         _selectedItem = item;

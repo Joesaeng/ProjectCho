@@ -31,5 +31,6 @@ public class UI_ShopWeapon : UI_Base
     void ClickedSummon(Buttons button,PointerEventData data)
     {
         OnClickedSummon(Managers.Item.SummonItems(EquipmentType.Weapon));
+        LobbySceneManager.Instance.SaveDataOnLobbyScene();
     }
 }

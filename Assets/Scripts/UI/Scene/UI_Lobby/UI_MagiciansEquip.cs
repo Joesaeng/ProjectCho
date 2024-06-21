@@ -75,6 +75,7 @@ public class UI_MagiciansEquip : UI_Base
         }
         _weaponSpellText = GetText((int)Texts.Text_WeaponSpell);
 
+        Managers.Player.OnApplyPlayerStatus += SetStatusValues;
         SetStatusValues();
         #endregion
 
@@ -212,6 +213,7 @@ public class UI_MagiciansEquip : UI_Base
         if (Managers.Player.HasEmptyRingSlots())
         {
             Managers.Player.Equip(ring);
+            LobbySceneManager.Instance.SaveDataOnLobbyScene();
         }
         else
         {
@@ -231,6 +233,7 @@ public class UI_MagiciansEquip : UI_Base
         if (selectedRing == null)
             return;
         Managers.Player.Equip(selectedRing, slotIndex);
+        LobbySceneManager.Instance.SaveDataOnLobbyScene();
         GetObject((int)Objects.Panel_EquipRingSlotButton).SetActive(false);
         selectedRing = null;
     }
@@ -261,7 +264,7 @@ public class UI_MagiciansEquip : UI_Base
         SetInventory();
     }
 
-    void ClickedEquipSlotListner(Item item, ItemSlotUIType slotType)
+    void ClickedEquipSlotListner(Equipment item, ItemSlotUIType slotType)
     {
         if (item == null)
         {
@@ -271,7 +274,7 @@ public class UI_MagiciansEquip : UI_Base
         _itemDescUi.OnItemDesc(item, slotType);
     }
 
-    void ClickedItemListner(Item item, ItemSlotUIType slotType)
+    void ClickedItemListner(Equipment item, ItemSlotUIType slotType)
     {
         _itemDescUi.gameObject.SetActive(true);
         _itemDescUi.OnItemDesc(item, slotType);

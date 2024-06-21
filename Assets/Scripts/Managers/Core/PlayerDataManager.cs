@@ -145,8 +145,8 @@ public class PlayerDataManager
     public void NewPlayerLogin()
     {
         _playerData = NewPlayerData();
-        Managers.Achieve.Init();
         Managers.Player.Init();
+        Managers.Achieve.Init();
         SaveToFirebase();
         PlayerPrefs.SetString("guestId", FirebaseManager.Instance.CurrentUserId);
     }
@@ -189,8 +189,8 @@ public class PlayerDataManager
             // 플레이어 데이터를 성공적으로 로드한 경우 처리 로직을 추가합니다.
             Debug.Log("Player data loaded successfully.");
             _playerData = playerData;
-            Managers.Achieve.Init();
             Managers.Player.Init();
+            Managers.Achieve.Init();
             LoadedPlayerDataCollectionNullCheck();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
@@ -199,8 +199,8 @@ public class PlayerDataManager
             // 데이터가 없는 경우 기본 데이터로 초기화할 수 있습니다.
             Debug.Log("No player data found, initializing with default data.");
             _playerData = NewPlayerData();
-            Managers.Achieve.Init();
             Managers.Player.Init();
+            Managers.Achieve.Init();
             SaveToFirebase();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }

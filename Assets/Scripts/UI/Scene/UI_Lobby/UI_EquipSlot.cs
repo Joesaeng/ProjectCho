@@ -17,7 +17,7 @@ public class UI_EquipSlot : UI_Base
     [SerializeField] Sprite _nullSprite;
     string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}";
 
-    public Action<Item,ItemSlotUIType> OnClickedEquipSlot;
+    public Action<Equipment,ItemSlotUIType> OnClickedEquipSlot;
 
     public override void Init()
     {

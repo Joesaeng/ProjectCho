@@ -4,15 +4,46 @@
       "id": 0,
       "effectId": 1,
       "spellBehaviorType": "TargetedProjectile",
+      "spellRarity": "Normal",
       "animType": "ProjectileAttack",
       "elementType": "Energy",
       "spellName": "EnergyBall",
-      "spellDamageCoefficient": 1,
-      "spellDelay": 1,
-      "spellRange": 40,
-      "spellSpeed": 45,
-      "spellSize": 1,
       "pierceCount": 1,
+      "spellSpeed": 45,
+      "spellRange": 50,
+      "spellSize": 1,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 2.0
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 1.1,
+          "spellDelay": 2.0
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 1.25,
+          "spellDelay": 1.8
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 1.4,
+          "spellDelay": 1.7
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.7,
+          "spellDelay": 1.7
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
@@ -22,15 +53,46 @@
       "id": 1,
       "effectId": 2,
       "spellBehaviorType": "StraightProjectile",
+      "spellRarity": "Normal",
       "animType": "StraightProjectileAttack",
       "elementType": "Water",
       "spellName": "Tsunami",
-      "spellDamageCoefficient": 2,
-      "spellDelay": 5,
-      "spellRange": 20,
-      "spellSpeed": 15,
-      "spellSize": 2,
       "pierceCount": -1,
+      "spellSpeed": 15,
+      "spellRange": 40,
+      "spellSize": 2,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 0.8,
+          "spellDelay": 4.0
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 1,
+          "spellDelay": 4.0
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 1.25,
+          "spellDelay": 4.0
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 3.5
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.76,
+          "spellDelay": 3.3
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
@@ -40,15 +102,46 @@
       "id": 2,
       "effectId": 3,
       "spellBehaviorType": "TargetedProjectileOfExplosion",
+      "spellRarity": "Normal",
       "animType": "ProjectileAttack",
       "elementType": "Fire",
       "spellName": "FireBall",
-      "spellDamageCoefficient": 2,
-      "spellDelay": 1.5,
-      "spellRange": 35,
-      "spellSpeed": 40,
-      "spellSize": 1,
       "pierceCount": 1,
+      "spellSpeed": 50,
+      "spellRange": 35,
+      "spellSize": 1,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 1.8,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 2,
+          "spellDelay": 2.5
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 2.2,
+          "spellDelay": 2.25
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 2.5,
+          "spellDelay": 1.8
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
@@ -58,15 +151,46 @@
       "id": 3,
       "effectId": 0,
       "spellBehaviorType": "TargetedAOE",
+      "spellRarity": "Normal",
       "animType": "AOEAttack",
       "elementType": "Lightning",
       "spellName": "LightningStrike",
-      "spellDamageCoefficient": 2.5,
-      "spellDelay": 2,
-      "spellRange": 40,
-      "spellSpeed": 0,
-      "spellSize": 1,
       "pierceCount": -1,
+      "spellSpeed": 0,
+      "spellRange": 45,
+      "spellSize": 1.75,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 2.5
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 1.75,
+          "spellDelay": 2.5
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 2,
+          "spellDelay": 2.2
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 2.2,
+          "spellDelay": 1.8
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 2.5,
+          "spellDelay": 1.6
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
@@ -76,18 +200,98 @@
       "id": 4,
       "effectId": 4,
       "spellBehaviorType": "TargetedProjectile",
+      "spellRarity": "Normal",
       "animType": "ProjectileAttack",
       "elementType": "Earth",
       "spellName": "EarthOrv",
-      "spellDamageCoefficient": 1.5,
-      "spellDelay": 3,
-      "spellRange": 25,
-      "spellSpeed": 15,
-      "spellSize": 1,
       "pierceCount": -1,
+      "spellSpeed": 15,
+      "spellRange": 35,
+      "spellSize": 1,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 1.0,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 1.1,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 1.25,
+          "spellDelay": 2.5
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 1.5,
+          "spellDelay": 2.25
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 1.8,
+          "spellDelay": 2
+        }
+      ],
       "integerParam1": 0,
       "integerParam2": 0,
       "floatParam1": 0,
+      "floatParam2": 0
+    },
+    {
+      "id": 5,
+      "effectId": 2,
+      "spellBehaviorType": "TargetedAOE",
+      "spellRarity": "Normal",
+      "animType": "AOEAttack",
+      "elementType": "Wind",
+      "spellName": "Tornado",
+      "pierceCount": -1,
+      "spellSpeed": 0,
+      "spellRange": 45,
+      "spellSize": 2,
+      "spellDataByLevel": [
+        {
+          "spellLevel": 0,
+          "requireSpellCountToLevelup": 5,
+          "spellDamageCoefficient": 0.5,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 1,
+          "requireSpellCountToLevelup": 15,
+          "spellDamageCoefficient": 0.6,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 2,
+          "requireSpellCountToLevelup": 50,
+          "spellDamageCoefficient": 0.8,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 3,
+          "requireSpellCountToLevelup": 100,
+          "spellDamageCoefficient": 1,
+          "spellDelay": 3.0
+        },
+        {
+          "spellLevel": 4,
+          "requireSpellCountToLevelup": 0,
+          "spellDamageCoefficient": 2.5,
+          "spellDelay": 2.5
+        }
+      ],
+      "integerParam1": 0,
+      "integerParam2": 0,
+      "floatParam1": 3,
       "floatParam2": 0
     }
   ]

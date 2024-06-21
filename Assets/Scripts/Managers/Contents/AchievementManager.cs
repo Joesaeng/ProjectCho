@@ -19,6 +19,7 @@ public class Achievement
     {
         id = data.id;
         achievementName = data.achievementName;
+        isCompleted = data.isCompleted;
         type = data.type;
         target = new AchievementTarget(data.target);
         rewards = data.rewards.Select(rewardData => new AchievementReward(rewardData)).ToList();
@@ -51,6 +52,7 @@ public class AchievementTarget
         elementType = data.elementType;
         summonType = data.summonType;
         targetValue = data.targetValue;
+        progressValue = data.progressValue;
     }
 
     public AchievementTargetData ToData()
@@ -247,6 +249,7 @@ public class AchievementManager
 
     public List<AchievementData> ToData()
     {
+        Debug.Log($"Completed : {_completedAchievements.Count},Pendings : {_pendingAchievements.Count}");
         List<Achievement> allAchievements = _completedAchievements.Values.SelectMany(list => list)
             .Concat(_pendingAchievements.Values.SelectMany(list => list)).ToList();
 

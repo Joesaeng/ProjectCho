@@ -28,7 +28,12 @@
     {
       "key": "EarthOrv",
       "eng": "EarthOrv",
-      "kr": "땅의 오브"
+      "kr": "대지의 오브"
+    },
+    {
+      "key": "Tornado",
+      "eng": "Tornado",
+      "kr": "태풍"
     },
     {
       "key": "EnergyBall_Desc",
@@ -53,7 +58,12 @@
     {
       "key": "EarthOrv_Desc",
       "eng": "Fires a EarthOrv that damages all enemies in its path",
-      "kr": "경로에 있는 모든 적에게 피해를 주는 땅의 오브를 발사합니다"
+      "kr": "경로에 있는 모든 적에게 피해를 주는 대지의 오브를 발사합니다"
+    },
+    {
+      "key": "Tornado_Desc",
+      "eng": "Summons a typhoon that deals damage at regular intervals to random enemy positions",
+      "kr": "무작위 적의 위치에 일정 시간마다 데미지를 주는 태풍을 소환합니다"
     },
     {
       "key": "Energy",
@@ -78,12 +88,12 @@
     {
       "key": "Earth",
       "eng": "Earth",
-      "kr": "땅"
+      "kr": "대지"
     },
     {
-      "key": "Air",
-      "eng": "Air",
-      "kr": "공기"
+      "key": "Wind",
+      "eng": "Wind",
+      "kr": "바람"
     },
     {
       "key": "Light",
@@ -176,6 +186,16 @@
       "kr": "공격 사정거리"
     },
     {
+      "key": "SpellDuration",
+      "eng": "Spell Duration",
+      "kr": "스펠 지속시간"
+    },
+    {
+      "key": "ExplosionRange",
+      "eng": "Explosion Range",
+      "kr": "폭발 범위"
+    },
+    {
       "key": "Reroll",
       "eng": "Reroll",
       "kr": "다시뽑기"
@@ -221,9 +241,9 @@
       "kr": "대지 피해 + "
     },
     {
-      "key": "IncreaseAirSpellDamage",
-      "eng": "Air Damage + ",
-      "kr": "공기 피해 + "
+      "key": "IncreaseWindSpellDamage",
+      "eng": "Wind Damage + ",
+      "kr": "바람 피해 + "
     },
     {
       "key": "IncreaseLightSpellDamage",
@@ -248,7 +268,7 @@
     {
       "key": "Summon",
       "eng": "Summon {0}",
-      "kr": "{0} 소환"
+      "kr": "소환 {0}"
     },
     {
       "key": "RewardDia",
@@ -274,6 +294,141 @@
       "key": "Ring",
       "eng": "Ring",
       "kr": "반지"
+    },
+    {
+      "key": "Spell",
+      "eng": "Spell",
+      "kr": "스펠"
+    },
+    {
+      "key": "Equip",
+      "eng": "Equip",
+      "kr": "장착"
+    },
+    {
+      "key": "UnEquip",
+      "eng": "UnEquip",
+      "kr": "해제"
+    },
+    {
+      "key": "Equipment",
+      "eng": "Equipment",
+      "kr": "장비"
+    },
+    {
+      "key": "Shop",
+      "eng": "Shop",
+      "kr": "상점"
+    },
+    {
+      "key": "Repeat",
+      "eng": "Repeat",
+      "kr": "반복"
+    },
+    {
+      "key": "Daily",
+      "eng": "Daily",
+      "kr": "일일"
+    },
+    {
+      "key": "Weekly",
+      "eng": "Weekly",
+      "kr": "주간"
+    },
+    {
+      "key": "Main",
+      "eng": "Main",
+      "kr": "메인"
+    },
+    {
+      "key": "Claim",
+      "eng": "Claim",
+      "kr": "획득"
+    },
+    {
+      "key": "Clear",
+      "eng": "Clear",
+      "kr": "완료"
+    },
+    {
+      "key": "Normal",
+      "eng": "Normal",
+      "kr": "노멀"
+    },
+    {
+      "key": "Rare",
+      "eng": "Rare",
+      "kr": "레어"
+    },
+    {
+      "key": "Epic",
+      "eng": "Epic",
+      "kr": "에픽"
+    },
+    {
+      "key": "Legend",
+      "eng": "Legend",
+      "kr": "전설"
+    },
+    {
+      "key": "Play",
+      "eng": "Play",
+      "kr": "시작"
+    },
+    {
+      "key": "And",
+      "eng": "And",
+      "kr": "그리고"
+    },
+    {
+      "key": "LevelUp",
+      "eng": "LevelUp",
+      "kr": "레벨업"
+    },
+    {
+      "key": "CountOfDefeatEnemies",
+      "eng": "Count Of Defeat Enemies",
+      "kr": "제거된 적의 수"
+    },
+    {
+      "key": "BGM",
+      "eng": "BGM",
+      "kr": "배경음"
+    },
+    {
+      "key": "SFX",
+      "eng": "SFX",
+      "kr": "효과음"
+    },
+    {
+      "key": "Lobby",
+      "eng": "Lobby",
+      "kr": "로비"
+    },
+    {
+      "key": "ReturnToLobby",
+      "eng": "Return To Lobby",
+      "kr": "로비로 돌아갑니다."
+    },
+    {
+      "key": "Lose",
+      "eng": "<color=#FF0000>Lose!</color>",
+      "kr": "<color=#FF0000>패배!</color>"
+    },
+    {
+      "key": "Win",
+      "eng": "<color=#00FF00>Win!</color>",
+      "kr": "<color=#00FF00>승리!</color>"
+    },
+    {
+      "key": "FirstClear",
+      "eng": "First Clear!",
+      "kr": "최초 클리어!"
+    },
+    {
+      "key": "AdsRewardx2",
+      "eng": "Ads Reward x2",
+      "kr": "광고 보상 x2"
     }
   ]
 }

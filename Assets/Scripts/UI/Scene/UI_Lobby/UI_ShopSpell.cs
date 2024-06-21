@@ -30,5 +30,6 @@ public class UI_ShopSpell : UI_Base
     void ClickedSummon(Buttons button, PointerEventData data)
     {
         OnClickedSummon(Managers.Spell.SummonSpells());
+        LobbySceneManager.Instance.SaveDataOnLobbyScene();
     }
 }

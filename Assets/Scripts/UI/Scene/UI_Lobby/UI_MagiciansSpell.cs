@@ -31,9 +31,9 @@ public class UI_MagiciansSpell : UI_Base
         Button_LevelUp
     }
 
-    Dictionary<int,UI_SpellIcon> _spellIconDict = new();
+    Dictionary<int, UI_SpellIcon> _spellIconDict = new();
 
-    Dictionary<Texts,TextMeshProUGUI> _textDict = new();
+    Dictionary<Texts, TextMeshProUGUI> _textDict = new();
 
     Sprite[] _spellEdgeSprites = new Sprite[2];
 
@@ -126,10 +126,13 @@ public class UI_MagiciansSpell : UI_Base
 
     void ClickedSpellLevelUp(PointerEventData data)
     {
-        Managers.Player.PlayerSpells.SpellLevelUp(_selectedSpellId);
-        var spellData = Managers.Player.PlayerSpells.SpellDataDict[_selectedSpellId];
-        _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.id);
-        SetSpellDesc(_selectedSpellId, false);
+        if (Managers.Player.PlayerSpells.SpellLevelUp(_selectedSpellId))
+        {
+            var spellData = Managers.Player.PlayerSpells.SpellDataDict[_selectedSpellId];
+            _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.id);
+            SetSpellDesc(_selectedSpellId, false);
+            LobbySceneManager.Instance.SaveDataOnLobbyScene();
+        }
     }
 
     void SetSpellDesc(int spellId, bool isLock)

@@ -31,5 +31,6 @@ public class UI_ShopRing : UI_Base
     void ClickedSummon(Buttons button, PointerEventData data)
     {
         OnClickedSummon(Managers.Item.SummonItems(EquipmentType.Ring));
+        LobbySceneManager.Instance.SaveDataOnLobbyScene();
     }
 }

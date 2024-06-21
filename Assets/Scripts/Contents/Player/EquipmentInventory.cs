@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EquipmentInventory
@@ -12,19 +13,27 @@ public class EquipmentInventory
 
     public EquipmentInventory()
     {
-        for (int i = 0; i < ConstantData.MaxRingSlots; i++)
+        for (int slotIndex = 0; slotIndex < ConstantData.MaxRingSlots; slotIndex++)
         {
-            ringSlots.Add(new RingSlot());
+            ringSlots.Add(new RingSlot(slotIndex));
         }
     }
     
     public void Init(InventoryData data)
     {
-        for (int i = 0; i < data.equipmentDatas.Count; ++i)
+        foreach(var equipmentData in data.equipmentDatas)
         {
-            Equipment equipment = ItemGenerator.GenerateItem(data.equipmentDatas[i]) as Equipment;
+            if (equipmentData == null)
+                continue;
+
+            Equipment equipment = ItemGenerator.GenerateItem(equipmentData);
             Equip(equipment, equipment.equipSlotIndex);
         }
+        //for (int i = 0; i < data.equipmentDatas.Count; ++i)
+        //{
+        //    Equipment equipment = ItemGenerator.GenerateItem(data.equipmentDatas[i]);
+        //    Equip(equipment, equipment.equipSlotIndex);
+        //}
     }
 
     public void Equip(Equipment equipment, int slotIndex = -1)
@@ -70,6 +79,7 @@ public class EquipmentInventory
             if (equipments.ContainsKey(equipment.equipmentType))
             {
                 Managers.Player.AddItem(equipments[equipment.equipmentType]);
+                equipment.equipSlotIndex = -1;
                 equipments.Remove(equipment.equipmentType);
             }
         }
@@ -109,7 +119,6 @@ public class EquipmentInventory
                 UnEquip(ringSlots[slotIndex].Ring);
             }
             ringSlots[slotIndex].EquipRing(ring);
-            ring.equipSlotIndex = slotIndex;
         }
         else
         {
@@ -196,12 +205,23 @@ public class EquipmentInventory
             }
         }
     }
+
+    public List<Data.EquipmentData> ToData()
+    {
+        List<Data.EquipmentData> equipmentDatas = equipmentDatas = Equipments?
+            .Select(item => item.Value.ToData()).ToList() ?? new List<Data.EquipmentData>();
+        equipmentDatas.AddRange(RingSlots.Select(data => data.Ring?.ToData()).ToList());
+
+        return equipmentDatas;
+    }
 }
 
 public class RingSlot
 {
     public Equipment Ring { get; private set; }
 
+    public int slotIndex;
+    public RingSlot(int slotIndex) => this.slotIndex = slotIndex;
     public bool IsEmpty => Ring == null;
 
     public void EquipRing(Equipment ring)
@@ -210,12 +230,14 @@ public class RingSlot
         {
             throw new System.ArgumentException("Only rings can be equipped in a RingSlot.");
         }
+        ring.equipSlotIndex = slotIndex;
         Ring = ring;
     }
 
     public Equipment UnEquipRing()
     {
         Equipment unequippedRing = Ring;
+        Ring.equipSlotIndex = -1;
         Ring = null;
         return unequippedRing;
     }

@@ -1,21 +1,27 @@
 -DefenseScene
 	맵 깔아서 다리 밑에 강을 지나가게 하고 다리가 이어지는 부분에 땅 만들기
 	특별한 적 구현(보스몬스터 따위의 것)
-	*Ads 연동
+	광고 넣기
+	플레이어가 업그레이드 한 스펠 업그레이드 표시 UI
+	
 -LobbyScene
-	*서버연동을 하려면 PlayerData가 필요함.
+	// 서버연동을 하려면 PlayerData가 필요함.(완)
 
 -LoginScene
-	*게스트 / 구글계정 / 게임센터 계정을 연동할 수 있게 함
-	Json으로 저장되어있는 Data들을 구글시트로 이동하여 LoginScene에서 로딩하여 쓸 수 있게 함.
+	*게스트 (완)  / 구글계정 / 게임센터 계정을 연동할 수 있게 함
+	// Json으로 저장되어있는 Data들을 구글시트로 이동하여 LoginScene에서 로딩하여 쓸 수 있게 함. (완)
 
 - 최적화
 	DrawCall, UpscaleRendering, Script 등등 할거 많음
 
-- 4주차
-	Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save
+----------	
+	아이템,스펠 뽑기 등 재화 소모
+	로딩UI	
+	인벤토리 정렬
 	Spell 추가
-	설정
-	PlayerData 저장 및 로드 (서버)
-	Login -> Lobby 씬 이동
+	설정UI
+	
+	// Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 SaveI
+	// PlayerData 저장 및 로드 (서버)(완)
+	// Login -> Lobby 씬 이동(완)
 	

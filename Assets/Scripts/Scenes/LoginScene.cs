@@ -7,6 +7,7 @@ public class LoginScene : BaseScene
     protected override void Init()
     {
         base.Init();
+        
         UI_LoginScene uI_LoginScene = FindObjectOfType<UI_LoginScene>();
         uI_LoginScene.Init();
 

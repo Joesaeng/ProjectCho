@@ -110,6 +110,7 @@ public class PlayerStatusManager
 
     public Action OnChangeEquipment;
     public Action OnChangeInventory;
+    public Action OnApplyPlayerStatus;
 
     public void Init()
     {
@@ -133,11 +134,6 @@ public class PlayerStatusManager
     public void ChangeInventory()
     {
         OnChangeInventory?.Invoke();
-    }
-
-    void SavePlayerData()
-    {
-        
     }
 
     public void Equip(Equipment equipment, int slotIndex = -1)
@@ -200,6 +196,7 @@ public class PlayerStatusManager
     public void ApplyPlayerStatus()
     {
         PlayerStatus.ApplyPlayerStatus(AchievementStatus, EquipmentStatus);
+        OnApplyPlayerStatus?.Invoke();
     }
 
     public InventoryData InventoryToData()
@@ -210,7 +207,7 @@ public class PlayerStatusManager
             inventoryItemsDatas = Inventory.Items?.Select(item => item.ToData()).ToList() ?? new List<EquipmentData>(),
 
             // EquipmentInventory.Equipments가 null일 경우 빈 리스트를 반환
-            equipmentDatas = EquipmentInventory.Equipments?.Select(item => item.Value.ToData()).ToList() ?? new List<EquipmentData>()
+            equipmentDatas = EquipmentInventory.ToData()
         };
     }
 
@@ -223,6 +220,7 @@ public class PlayerStatusManager
     {
         OnChangeEquipment = null;
         OnChangeInventory = null;
+        OnApplyPlayerStatus = null;
         playerSpells.OnChangedSpellData = null;
     }
 }

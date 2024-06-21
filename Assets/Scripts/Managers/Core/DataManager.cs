@@ -79,7 +79,7 @@ public class DataManager
         {
             Converters = new List<JsonConverter> { new StringEnumConverter() }
         };
-
+        Debug.Log($"{sheetName}.loaded");
         return JsonConvert.DeserializeObject<Loader>(json, settings);
     }
 }

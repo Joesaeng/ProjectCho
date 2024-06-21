@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    public Action<Item,ItemSlotUIType> OnClickedItem;
+    public Action<Equipment,ItemSlotUIType> OnClickedItem;
 
     ItemSlotUIType _slotType = ItemSlotUIType.Inventory;
     private bool _isDragging;
@@ -16,7 +16,7 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
     string _itemSpriteFormat = "Textures/ItemIcons/{0}Icon/{1}";
 
     Image _itemImage;
-    Item _item;
+    Equipment _item;
 
     public override void Init()
     {
@@ -26,7 +26,7 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
         _itemImage = Util.FindChild<Image>(gameObject, "Image_Item");
     }
 
-    public void SetItem(Item item)
+    public void SetItem(Equipment item)
     {
         _item = item;
         if (_item is Equipment equipment)

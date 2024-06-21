@@ -30,6 +30,11 @@ public class LobbySceneManager : MonoBehaviour
         Managers.Achieve.SetAllAchievementTypeCompletable();
     }
 
+    public void SaveDataOnLobbyScene()
+    {
+        Managers.PlayerData.SaveToFirebase();
+    }
+
     public void PlayGame(int stageNum)
     {
         Managers.Game.SelectedStage = stageNum;
