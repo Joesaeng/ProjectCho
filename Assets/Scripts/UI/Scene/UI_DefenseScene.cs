@@ -21,10 +21,11 @@ public class UI_DefenseScene : UI_Scene
     }
 
     TextMeshProUGUI _playerHpText;
-    Transform _usingSpellsTf;
 
     UI_UsingSpell[] _usingSpells = new UI_UsingSpell[ConstantData.UsingSpellCount];
     Dictionary<int, UI_UsingSpell> _usingSpellDict = new();
+
+    UI_SpellDescOnDefense _spellDesc;
 
     Image _expGuage;
 
@@ -40,6 +41,9 @@ public class UI_DefenseScene : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
+        _spellDesc = Util.FindChild<UI_SpellDescOnDefense>(gameObject);
+        _spellDesc.Init();
+
         GetButton((int)Buttons.Button_Pause).gameObject.AddUIEvent(ClickedPause);
         GetButton((int)Buttons.Button_Fast).gameObject.AddUIEvent(ClickedFast);
         GetButton((int)Buttons.Button_Fast).GetComponent<Image>().sprite =
@@ -47,13 +51,12 @@ public class UI_DefenseScene : UI_Scene
 
         // 캐싱
         _playerHpText = GetText((int)Texts.Text_PlayerHp);
-        _usingSpellsTf = Util.FindChild<Transform>(gameObject, "Image_Bottom");
+        Transform usingSpellsTf = Util.FindChild<Transform>(gameObject, "Tf_UsingSpells");
         _expGuage = Util.FindChild<Image>(gameObject, "Image_ExpGauge", true);
 
         for (int i = 0; i < _usingSpells.Length; i++)
         {
-            _usingSpells[i] = _usingSpellsTf.GetChild(i).GetComponent<UI_UsingSpell>();
-            _usingSpells[i].gameObject.SetActive(false);
+            _usingSpells[i] = usingSpellsTf.GetChild(i).GetComponent<UI_UsingSpell>();
         }
 
         #region 이벤트 바인드
@@ -80,6 +83,12 @@ public class UI_DefenseScene : UI_Scene
         _usingSpells[spellNum].Init();
         _usingSpells[spellNum].SetUsingSpell(spellId);
         _usingSpellDict[spellId] = _usingSpells[spellNum];
+        _usingSpells[spellNum].gameObject.AddUIEvent(ClickedUsingSpell, spellId);
+    }
+
+    void ClickedUsingSpell(int spellId, PointerEventData data)
+    {
+        _spellDesc.SetSpellDesc(spellId);
     }
 
     public void LevelUpUsingSpell(int spellId)

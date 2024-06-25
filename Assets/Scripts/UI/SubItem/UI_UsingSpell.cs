@@ -8,24 +8,26 @@ public class UI_UsingSpell : UI_Base
 {
     Image _spellIcon;
     TextMeshProUGUI _spellLevelText;
-    int _spellLevel;
+    int _spellUpgradeCount;
     public override void Init()
     {
-        _spellIcon = Util.FindChild<Image>(gameObject, "Image_SpellIcon");
+        _spellIcon      = Util.FindChild<Image>(gameObject, "Image_SpellIcon");
         _spellLevelText = Util.FindChild<TextMeshProUGUI>(gameObject, "Text_SpellLevel");
-        _spellLevel = 1;
+        _spellIcon.enabled      = false;
+        _spellLevelText.enabled = false;
+        _spellUpgradeCount = 0;
     }
 
     public void SetUsingSpell(int spellId)
     {
-        gameObject.SetActive(true);
         _spellIcon.sprite = Managers.Spell.SpellSpriteDict[spellId];
-        _spellLevelText.text = $"Lv {_spellLevel}";
+        _spellIcon.enabled = true;
     }
 
     public void SpellTextLevelUp()
     {
-        _spellLevel++;
-        _spellLevelText.text = $"Lv {_spellLevel}";
+        _spellUpgradeCount++;
+        _spellLevelText.enabled = true;
+        _spellLevelText.text = $"+ {_spellUpgradeCount}";
     }
 }

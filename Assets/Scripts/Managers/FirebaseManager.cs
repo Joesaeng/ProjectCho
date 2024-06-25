@@ -118,8 +118,6 @@ public class FirebaseManager
 
     public void SavePlayerData(string playerData)
     {
-        Debug.Log("Starting SavePlayerData");
-
         if (databaseReference == null)
         {
             Debug.LogError("databaseReference is null");

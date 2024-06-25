@@ -249,7 +249,6 @@ public class AchievementManager
 
     public List<AchievementData> ToData()
     {
-        Debug.Log($"Completed : {_completedAchievements.Count},Pendings : {_pendingAchievements.Count}");
         List<Achievement> allAchievements = _completedAchievements.Values.SelectMany(list => list)
             .Concat(_pendingAchievements.Values.SelectMany(list => list)).ToList();
 

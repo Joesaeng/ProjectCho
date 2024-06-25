@@ -11,16 +11,22 @@ namespace MagicianSpellUpgrade
     public interface ISpellUpgrade
     {
         void ApplyUpgrade(MagicianSpell spell);
+        SpellUpgradeType UpgradeType { get; set; }
+        float UpgradeValue { get; }
     }
 
     public class IncreaseDamageUpgrade : ISpellUpgrade
     {
+        public SpellUpgradeType UpgradeType { get; set; }
+        public float UpgradeValue => _damageIncrease;
         private float _damageIncrease;
 
         public IncreaseDamageUpgrade(float damageIncrease)
         {
+            UpgradeType = SpellUpgradeType.IncreaseDamage;
             _damageIncrease = damageIncrease;
         }
+
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
@@ -30,10 +36,13 @@ namespace MagicianSpellUpgrade
 
     public class DecreaseDelayUpgrade : ISpellUpgrade
     {
+        public SpellUpgradeType UpgradeType { get; set; }
+        public float UpgradeValue => _delayDecrease;
         private float _delayDecrease;
 
         public DecreaseDelayUpgrade(float delayDecrease)
         {
+            UpgradeType = SpellUpgradeType.DecreaseSpellDelay;
             _delayDecrease = delayDecrease;
         }
 
@@ -46,10 +55,13 @@ namespace MagicianSpellUpgrade
 
     public class IncreaseSizeUpgrade : ISpellUpgrade
     {
+        public SpellUpgradeType UpgradeType { get; set; }
+        public float UpgradeValue => _sizeIncrease;
         private float _sizeIncrease;
 
         public IncreaseSizeUpgrade(float sizeIncrease)
         {
+            UpgradeType = SpellUpgradeType.IncreaseSize;
             _sizeIncrease = sizeIncrease;
         }
 
@@ -61,10 +73,13 @@ namespace MagicianSpellUpgrade
 
     public class IncreasePierceUpgrade : ISpellUpgrade
     {
+        public SpellUpgradeType UpgradeType { get; set; }
+        public float UpgradeValue => _pierceIncrease;
         private int _pierceIncrease;
 
         public IncreasePierceUpgrade(int pierceIncrease)
         {
+            UpgradeType = SpellUpgradeType.IncreasePierce;
             _pierceIncrease = pierceIncrease;
         }
 
@@ -76,12 +91,15 @@ namespace MagicianSpellUpgrade
 
     public class AddProjectileUpgrade : ISpellUpgrade
     {
+        public SpellUpgradeType UpgradeType { get; set; }
+        public float UpgradeValue => _addProjectileCount;
         private int _addProjectileCount;
         private MagicianSpell _spell;
         private float _delayBetweenShots = 0.15f;
 
         public AddProjectileUpgrade(int addProjectileCount)
         {
+            UpgradeType = SpellUpgradeType.AddProjectile;
             _addProjectileCount = addProjectileCount;
         }
 

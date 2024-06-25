@@ -89,7 +89,7 @@ public class PlayerDataManager
             new EquipmentOptionData
             {
                 optionType = StatusType.Spell,
-                intParam1 = 5
+                intParam1 = 0
             },
             new EquipmentOptionData
             {
@@ -147,7 +147,7 @@ public class PlayerDataManager
         _playerData = NewPlayerData();
         Managers.Player.Init();
         Managers.Achieve.Init();
-        SaveToFirebase();
+        // SaveToFirebase();
         PlayerPrefs.SetString("guestId", FirebaseManager.Instance.CurrentUserId);
     }
 
@@ -171,7 +171,6 @@ public class PlayerDataManager
             };
 
             jsonData = JsonConvert.SerializeObject(_playerData, settings);
-            Debug.Log("Serialized PlayerData: " + jsonData);
         }
         catch (Exception ex)
         {

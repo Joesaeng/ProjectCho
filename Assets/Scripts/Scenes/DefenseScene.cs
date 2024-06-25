@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class DefenseScene : BaseScene
 {
@@ -12,6 +13,11 @@ public class DefenseScene : BaseScene
     protected override void Init()
     {
         base.Init();
+
+        // TEST
+#if UNITY_EDITOR
+        Managers.PlayerData.NewPlayerLogin();
+#endif
 
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
