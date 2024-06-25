@@ -60,12 +60,11 @@ public class DefenseSceneManager : MonoBehaviour
     private int     EnemiesDestroyed = 0;
     private float   SpawnInterval;
 
-    private float   CurWaveTime = 0;
     private float   CurSpawnTime = 0;
 
     private readonly float OneWaveTime = 10f;
 
-    private bool    LastWave = false;
+    private bool    IsLastWave = false;
     #endregion
 
     #region UI
@@ -106,7 +105,7 @@ public class DefenseSceneManager : MonoBehaviour
         StageRewardDict = new();
         StageFirstClearReward = null;
 
-        LastWave = false;
+        IsLastWave = false;
 
         for (int i = 0; i < System.Enum.GetValues(typeof(ElementType)).Length; ++i)
         {
@@ -177,7 +176,7 @@ public class DefenseSceneManager : MonoBehaviour
 
         if(CurWave == lastWave)
         {
-            LastWave = true;
+            IsLastWave = true;
         }
         StartWave(CurWave);
     }
@@ -188,8 +187,11 @@ public class DefenseSceneManager : MonoBehaviour
         WaveRewardData waveRewardData = Managers.Data.StageDataDict[CurStage].waveDatas[ClearWave].waveRewardData;
         AddReward(waveRewardData.type, waveRewardData.value);
 
-        ClearWave++;
+        int lastWave = Managers.Data.StageDataDict[CurStage].waveDatas.Count - 1;
+        if (ClearWave == lastWave)
+            return;
 
+        ClearWave++;
         OnSetLevelUpPopup.Invoke(CreateLevelUpOptions());
         Managers.Time.GamePause();
     }
@@ -306,7 +308,7 @@ public class DefenseSceneManager : MonoBehaviour
             WaveClear();
             EnemiesDestroyed = 0;
         }
-        if(LastWave && Enemies.Count <= 0)
+        if(IsLastWave && Enemies.Count <= 0)
         {
             if(Managers.PlayerData.StageClearList.Contains(CurStage) == false)
             {
@@ -354,7 +356,6 @@ public class DefenseSceneManager : MonoBehaviour
     {
         if (Managers.Time.IsPause)
             return;
-        CurWaveTime += Time.deltaTime;
         CurSpawnTime += Time.deltaTime;
 
         if (CurSpawnTime >= SpawnInterval && EnemiesSpwaned < EnemiesToSpawn)
@@ -364,10 +365,9 @@ public class DefenseSceneManager : MonoBehaviour
             CurSpawnTime = 0;
         }
 
-        if (LastWave == false && CurWaveTime >= OneWaveTime)
+        if (IsLastWave == false && EnemiesSpwaned >= EnemiesToSpawn)
         {
             NextWave();
-            CurWaveTime = 0;
         }
 
         foreach (ISpellUseable spellUseable in SpellUseables)
@@ -388,7 +388,7 @@ public class DefenseSceneManager : MonoBehaviour
     void GameOver(GameoverType type)
     {
         Managers.Time.GamePause();
-        UI_GameOver.gameObject.SetActive(true);
+        UI_GameOver.ShowGameOverUI();
         UI_GameOver.SetDefeatEnemies(DefeatEnemiesByElementType);
         UI_GameOver.SetGameoverUI(type,StageRewardDict,StageFirstClearReward);
 

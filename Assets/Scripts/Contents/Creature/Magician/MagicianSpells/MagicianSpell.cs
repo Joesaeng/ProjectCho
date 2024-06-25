@@ -101,7 +101,9 @@ public abstract class MagicianSpell : ISetData
     #region 데이터
     public int EffectId { get; set; }
     public ElementType ElementType { get; set; }
+    public float BaseSpellDamage { get; set; }
     public float SpellDamage { get; set; }
+    public float BaseSpellDelay { get; set; }
     public float SpellDelay { get; set; }
     public float SpellRange { get; set; }
     public float SpellSpeed { get; set; }
@@ -158,6 +160,9 @@ public abstract class MagicianSpell : ISetData
 
         if(playerStatus.floatOptions.TryGetValue(increaseElementDamage, out float value))
             SpellDamage *= (float)(1 + value);
+
+        BaseSpellDamage = SpellDamage;
+        BaseSpellDelay = SpellDelay;
     }
 
     public void AddUpgrade(ISpellUpgrade upgrade)

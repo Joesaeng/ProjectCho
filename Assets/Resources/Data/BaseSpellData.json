@@ -17,31 +17,31 @@
           "spellLevel": 0,
           "requireSpellCountToLevelup": 5,
           "spellDamageCoefficient": 1.0,
-          "spellDelay": 2.0
+          "spellDelay": 1.25
         },
         {
           "spellLevel": 1,
           "requireSpellCountToLevelup": 15,
           "spellDamageCoefficient": 1.1,
-          "spellDelay": 2.0
+          "spellDelay": 1.25
         },
         {
           "spellLevel": 2,
           "requireSpellCountToLevelup": 50,
           "spellDamageCoefficient": 1.25,
-          "spellDelay": 1.8
+          "spellDelay": 1
         },
         {
           "spellLevel": 3,
           "requireSpellCountToLevelup": 100,
           "spellDamageCoefficient": 1.4,
-          "spellDelay": 1.7
+          "spellDelay": 1
         },
         {
           "spellLevel": 4,
           "requireSpellCountToLevelup": 0,
           "spellDamageCoefficient": 1.7,
-          "spellDelay": 1.7
+          "spellDelay": 0.8
         }
       ],
       "integerParam1": 0,
@@ -116,31 +116,31 @@
           "spellLevel": 0,
           "requireSpellCountToLevelup": 5,
           "spellDamageCoefficient": 1.5,
-          "spellDelay": 3.0
+          "spellDelay": 1.5
         },
         {
           "spellLevel": 1,
           "requireSpellCountToLevelup": 15,
           "spellDamageCoefficient": 1.8,
-          "spellDelay": 3.0
+          "spellDelay": 1.5
         },
         {
           "spellLevel": 2,
           "requireSpellCountToLevelup": 50,
           "spellDamageCoefficient": 2,
-          "spellDelay": 2.5
+          "spellDelay": 1.25
         },
         {
           "spellLevel": 3,
           "requireSpellCountToLevelup": 100,
           "spellDamageCoefficient": 2.2,
-          "spellDelay": 2.25
+          "spellDelay": 1
         },
         {
           "spellLevel": 4,
           "requireSpellCountToLevelup": 0,
           "spellDamageCoefficient": 2.5,
-          "spellDelay": 1.8
+          "spellDelay": 1
         }
       ],
       "pierceCount": 1,

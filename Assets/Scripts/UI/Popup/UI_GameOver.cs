@@ -23,6 +23,7 @@ public class UI_GameOver : UI_Popup
     {
         Obj_Rewards,
         UI_DefeatEnemies,
+        Image_BackGround
     }
 
     enum Buttons
@@ -31,6 +32,7 @@ public class UI_GameOver : UI_Popup
         Button_AdsReward,
     }
 
+    RectTransform _backTf;
     Transform _rewardsTf;
     public Action OnClickedLobby;
     public override void Init()
@@ -44,6 +46,8 @@ public class UI_GameOver : UI_Popup
         _defeatEnemiesUI = GetObject((int)Objects.UI_DefeatEnemies).GetComponent<UI_DefeatEnemies>();
         _defeatEnemiesUI.Init();
 
+        _backTf = GetObject((int)Objects.Image_BackGround).GetComponent<RectTransform>();
+
         GetText((int)Texts.Text_Lobby).text = Language.GetLanguage("Lobby");
         GetText((int)Texts.Text_AdsReward).text = Language.GetLanguage("AdsRewardx2");
 
@@ -53,7 +57,15 @@ public class UI_GameOver : UI_Popup
     void ClickedLobby(PointerEventData data)
     {
         OnClickedLobby?.Invoke();
-    }    
+    }
+
+    public void ShowGameOverUI()
+    {
+        gameObject.SetActive(true);
+        _backTf.localScale = Vector3.one * 0.5f;
+
+        LeanTween.scale(_backTf, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutCirc).setIgnoreTimeScale(true);
+    }
 
     public void SetGameoverUI(GameoverType type,Dictionary<RewardType,int> stageRewards, StageRewardData stageClearReward)
     {

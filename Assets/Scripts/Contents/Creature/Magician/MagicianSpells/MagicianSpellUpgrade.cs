@@ -30,7 +30,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellDamage += spell.SpellDamage * _damageIncrease;
+            spell.SpellDamage += spell.BaseSpellDamage * _damageIncrease;
         }
     }
 
@@ -48,7 +48,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellDelay -= spell.SpellDelay * _delayDecrease;
+            spell.SpellDelay -= spell.BaseSpellDelay * _delayDecrease;
             spell.OnUpdateSpellDelay?.Invoke();
         }
     }
@@ -67,7 +67,7 @@ namespace MagicianSpellUpgrade
 
         public void ApplyUpgrade(MagicianSpell spell)
         {
-            spell.SpellSize += spell.SpellSize * _sizeIncrease;
+            spell.SpellSize += spell.BaseSpellSize * _sizeIncrease;
         }
     }
 

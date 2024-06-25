@@ -82,12 +82,10 @@ public class UI_SpellDescOnDefense : UI_Base
 
                 if(upgrade.UpgradeType == SpellUpgradeType.IncreaseDamage)
                 {
-                    damage += damage * upgrade.UpgradeValue;
                     increaseDamageValue += upgrade.UpgradeValue;
                 }
                 if (upgrade.UpgradeType == SpellUpgradeType.DecreaseSpellDelay)
                 {
-                    coolDownTime -= coolDownTime * upgrade.UpgradeValue;
                     decreaseDelayValue += upgrade.UpgradeValue;
                 }
 
@@ -124,13 +122,13 @@ public class UI_SpellDescOnDefense : UI_Base
         {
             case SpellUpgradeType.IncreaseDamage:
             case SpellUpgradeType.IncreaseSize:
-                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} +{Mathf.CeilToInt(spellUpgrade.UpgradeValue * 100)}%";
+                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} <color=#00FF00>+{Mathf.RoundToInt(spellUpgrade.UpgradeValue * 100)}%</color>";
             case SpellUpgradeType.DecreaseSpellDelay:
-                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} -{Mathf.CeilToInt(spellUpgrade.UpgradeValue * 100)}%";
+                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} <color=#00FF00>-{Mathf.RoundToInt(spellUpgrade.UpgradeValue * 100)}%</color>";
 
             case SpellUpgradeType.IncreasePierce:
             case SpellUpgradeType.AddProjectile:
-                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} +{spellUpgrade.UpgradeValue}";
+                return $"{Language.GetLanguage(spellUpgrade.UpgradeType.ToString())} <color=#00FF00>+{spellUpgrade.UpgradeValue}</color>";
 
             default:
                 return "Invalid upgrade type";
