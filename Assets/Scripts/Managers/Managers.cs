@@ -91,5 +91,6 @@ public class Managers : MonoBehaviour
         PlayerData.Clear();
         Player.Clear();
         Achieve.Clear();
+        Timer.Clear();
     }
 }

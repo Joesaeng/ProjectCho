@@ -15,7 +15,8 @@ public class UIManager
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = GameObject.Find("UI_Camera").GetComponent<Camera>();
 
         // Canvas가 중첩으로 있을 때, 부모의 sortingorder를 따라가지 않고 자신의 sortingorder를 가지게 함
         canvas.overrideSorting = true;

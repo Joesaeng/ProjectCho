@@ -56,6 +56,7 @@ public class UI_LevelUpPopup : UI_Popup
         for (int i = 0; i < ConstantData.LevelUpOptionsBasicCount; i++)
         {
             UI_LevelUpOptions option = Managers.UI.MakeSubItem<UI_LevelUpOptions>(_panelLevelupTf);
+            
             _levelUpOptions.Add(option);
         }
     }
@@ -81,6 +82,8 @@ public class UI_LevelUpPopup : UI_Popup
             _levelUpOptions[i].Set(levelUpOptions[i]);
             obj.gameObject.RemoveEvent();
             obj.gameObject.AddUIEvent(ClickedLevelUpOption, levelUpOptions[i]);
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
             obj.gameObject.SetActive(true);
         }
     }

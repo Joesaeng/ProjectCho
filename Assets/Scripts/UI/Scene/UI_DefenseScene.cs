@@ -43,7 +43,7 @@ public class UI_DefenseScene : UI_Scene
 
     public override void Init()
     {
-        base.Init();
+        // base.Init();
         // UI 바인드
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));

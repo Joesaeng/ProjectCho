@@ -16,4 +16,9 @@ public class TimerManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         callback?.Invoke();
     }
+
+    public void Clear()
+    {
+        StopAllCoroutines();
+    }
 }

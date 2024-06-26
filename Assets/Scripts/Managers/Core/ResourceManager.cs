@@ -74,4 +74,18 @@ public class ResourceManager
 
         Object.Destroy(go);
     }
+
+    public void Destroy(GameObject go,float time)
+    {
+        if (go == null)
+            return;
+
+        if (go.TryGetComponent<Poolable>(out Poolable poolable))
+        {
+            Managers.Timer.StartTimer(1f, () => Managers.Pool.Push(poolable));
+            return;
+        }
+
+        Object.Destroy(go,time);
+    }
 }
