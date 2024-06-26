@@ -185,10 +185,10 @@ public class AchievementManager
         switch (reward.type)
         {
             case RewardType.RewardDia:
-                Managers.PlayerData.ChangeDiaAmount(Managers.PlayerData.DiaAmount + reward.integerParam);
+                Managers.PlayerData.IncreaseDia(reward.integerParam);
                 break;
             case RewardType.RewardCoins:
-                Managers.PlayerData.ChangeCoinAmount(Managers.PlayerData.CoinAmount + reward.integerParam);
+                Managers.PlayerData.IncreaseCoins(reward.integerParam);
                 break;
             case RewardType.RewardStatus:
                 Managers.Player.ApplyAchievementRewardStatus(reward);

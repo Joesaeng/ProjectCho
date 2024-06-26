@@ -120,6 +120,9 @@ public class PlayerDataManager
         newPlayerData.achievementDatas = new List<AchievementData>();
         newPlayerData.stageClearList = new();
 
+        newPlayerData.coinAmount = 1000;
+        newPlayerData.diaAmount = 1000;
+
         return newPlayerData;
     }
     public void AddClearStage(int stageNum)
@@ -128,18 +131,60 @@ public class PlayerDataManager
         SaveToFirebase();
     }
 
-    public void ChangeCoinAmount(int value)
+    private void ChangeCoins(int value)
     {
         _playerData.coinAmount = value;
-        OnChangeCoinAmount?.Invoke(_playerData.coinAmount);
+        OnChangeCoinAmount?.Invoke(CoinAmount);
         SaveToFirebase();
     }
 
-    public void ChangeDiaAmount(int value)
+    public void IncreaseCoins(int value)
+    {
+        int coinAmount = CoinAmount + value;
+
+        ChangeCoins(coinAmount);
+    }
+
+    public void DecreaseCoins(int value)
+    {
+        int coinAmount = CoinAmount - value;
+
+        if (coinAmount < 0)
+            Debug.LogWarning("Not enough Coins");
+        ChangeCoins(coinAmount);
+    }
+
+    private void ChangeDia(int value)
     {
         _playerData.diaAmount = value;
-        OnChangeDiaAmount?.Invoke(_playerData.diaAmount);
+        OnChangeDiaAmount?.Invoke(DiaAmount);
         SaveToFirebase();
+    }
+
+    public void IncreaseDia(int value)
+    {
+        int diaAmount = DiaAmount + value;
+
+        ChangeDia(diaAmount);
+    }
+
+    public void DecreaseDia(int value)
+    {
+        int diaAmount = DiaAmount - value;
+
+        if (diaAmount < 0)
+            Debug.LogWarning("Not enough Coins");
+        ChangeDia(diaAmount);
+    }
+
+    public bool HasEnoughCoins(int cost)
+    {
+        return CoinAmount >= cost;
+    }
+
+    public bool HasEnoughDia(int cost)
+    {
+        return DiaAmount >= cost;
     }
 
     public void NewPlayerLogin()

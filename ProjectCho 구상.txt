@@ -21,7 +21,7 @@
 	Spell 추가
 	설정UI
 	
-	// Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 SaveI
+	// Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save(완)
 	// PlayerData 저장 및 로드 (서버)(완)
 	// Login -> Lobby 씬 이동(완)
 	

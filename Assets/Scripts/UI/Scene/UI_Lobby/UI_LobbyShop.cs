@@ -97,7 +97,13 @@ public class UI_LobbyShop : UI_Base
             {
                 _tabImages[i].color = Color.white;
                 _shopUis[i].gameObject.SetActive(true);
-                RectTransform uiRect = _shopUis[i].GetComponent<RectTransform>();
+                _shopUis[i].TryGetComponent(out UI_ShopSummon ui);
+                if (ui != null)
+                {
+                    ui.ShowImage();
+                    ui.SetBlock();
+                }
+                //RectTransform uiRect = _shopUis[i].GetComponent<RectTransform>();
 
                 //RectTransform canvasRect = gameObject.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
                 //float canvasHeight = canvasRect.rect.height;
@@ -105,9 +111,9 @@ public class UI_LobbyShop : UI_Base
                 //
                 //LeanTween.move(uiRect, _originalPos, 0.5f).setEase(LeanTweenType.easeOutBounce);
 
-                uiRect.localScale = Vector3.one * 1.2f;
+                //uiRect.localScale = Vector3.one * 1.2f;
                 
-                LeanTween.scale(uiRect, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutBounce);
+                //LeanTween.scale(uiRect, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutBounce);
             }
             else
             {

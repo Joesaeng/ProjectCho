@@ -6,30 +6,39 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_ShopRing : UI_Base
+public class UI_ShopRing : UI_ShopSummon
 {
-    enum Buttons
-    {
-        Button_SummonCoin,
-        Button_SummonDia
-    }
-
     public Action<List<Equipment>> OnClickedSummon;
     // public Action<List<Item>> OnClickedSummon;
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        GetButton((int)Buttons.Button_SummonCoin).gameObject.AddUIEvent(ClickedSummon, Buttons.Button_SummonCoin);
-        GetButton((int)Buttons.Button_SummonDia).gameObject.AddUIEvent(ClickedSummon, Buttons.Button_SummonDia);
-
-        Util.FindChild<TextMeshProUGUI>(gameObject, "Text_Summonx10ByCoin", true).text
-            = string.Format(Language.GetLanguage("Summon"), "x 10");
-        Util.FindChild<TextMeshProUGUI>(gameObject, "Text_Summonx10ByDia", true).text
-            = string.Format(Language.GetLanguage("Summon"), "x 10");
+        base.Init();
+        GetText((int)Texts.Text_CoinAmount).text = ConstantData.CoinCostForSummonRing.ToString();
+        GetText((int)Texts.Text_DiaAmount).text = ConstantData.DiaCostForSummonRing.ToString();
     }
 
-    void ClickedSummon(Buttons button, PointerEventData data)
+    public override void SetBlock()
     {
+        _summonCoinBlocker.gameObject.SetActive(!Managers.PlayerData.HasEnoughCoins(ConstantData.CoinCostForSummonRing));
+        _summonDiaBlocker.gameObject.SetActive(!Managers.PlayerData.HasEnoughDia(ConstantData.DiaCostForSummonRing));
+    }
+
+    protected override void ClickedSummon(Buttons button, PointerEventData data)
+    {
+        switch (button)
+        {
+            case Buttons.Button_SummonCoin:
+                if (!Managers.PlayerData.HasEnoughCoins(ConstantData.CoinCostForSummonRing))
+                    return;
+                Managers.PlayerData.DecreaseCoins(ConstantData.CoinCostForSummonRing);
+                break;
+            case Buttons.Button_SummonDia:
+                if (!Managers.PlayerData.HasEnoughDia(ConstantData.DiaCostForSummonRing))
+                    return;
+                Managers.PlayerData.DecreaseDia(ConstantData.DiaCostForSummonRing);
+                break;
+        }
+        SetBlock();
         OnClickedSummon(Managers.Item.SummonItems(EquipmentType.Ring));
         LobbySceneManager.Instance.SaveDataOnLobbyScene();
     }

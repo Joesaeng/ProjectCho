@@ -15,6 +15,14 @@ public static class ConstantData
     public const int    MaxRingSlots = 4;
 
     public const int    UsingSpellCount = 5;
+
+    public const int    CoinCostForSummonWeapon = 1000;
+    public const int    CoinCostForSummonRing = 500;
+    public const int    CoinCostForSummonSpell = 500;
+
+    public const int    DiaCostForSummonWeapon = 100;
+    public const int    DiaCostForSummonRing = 50;
+    public const int    DiaCostForSummonSpell = 50;
     #endregion
 
     public static readonly Color[] TextColorsByElementTypes = new Color[]

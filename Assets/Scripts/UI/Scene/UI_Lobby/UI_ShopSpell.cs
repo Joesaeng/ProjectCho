@@ -6,29 +6,38 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_ShopSpell : UI_Base
+public class UI_ShopSpell : UI_ShopSummon
 {
-    enum Buttons
-    {
-        Button_SummonCoin,
-        Button_SummonDia
-    }
-
     public Action<Dictionary<int,int>> OnClickedSummon;
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        GetButton((int)Buttons.Button_SummonCoin).gameObject.AddUIEvent(ClickedSummon, Buttons.Button_SummonCoin);
-        GetButton((int)Buttons.Button_SummonDia).gameObject.AddUIEvent(ClickedSummon, Buttons.Button_SummonDia);
-
-        Util.FindChild<TextMeshProUGUI>(gameObject, "Text_Summonx10ByCoin", true).text
-            = string.Format(Language.GetLanguage("Summon"), "x 10");
-        Util.FindChild<TextMeshProUGUI>(gameObject, "Text_Summonx10ByDia", true).text
-            = string.Format(Language.GetLanguage("Summon"), "x 10");
+        base.Init();
+        GetText((int)Texts.Text_CoinAmount).text = ConstantData.CoinCostForSummonSpell.ToString();
+        GetText((int)Texts.Text_DiaAmount).text = ConstantData.DiaCostForSummonSpell.ToString();
     }
 
-    void ClickedSummon(Buttons button, PointerEventData data)
+    public override void SetBlock()
     {
+        _summonCoinBlocker.gameObject.SetActive(!Managers.PlayerData.HasEnoughCoins(ConstantData.CoinCostForSummonSpell));
+        _summonDiaBlocker.gameObject.SetActive(!Managers.PlayerData.HasEnoughDia(ConstantData.DiaCostForSummonSpell));
+    }
+
+    protected override void ClickedSummon(Buttons button, PointerEventData data)
+    {
+        switch (button)
+        {
+            case Buttons.Button_SummonCoin:
+                if (!Managers.PlayerData.HasEnoughCoins(ConstantData.CoinCostForSummonSpell))
+                    return;
+                Managers.PlayerData.DecreaseCoins(ConstantData.CoinCostForSummonSpell);
+                break;
+            case Buttons.Button_SummonDia:
+                if (!Managers.PlayerData.HasEnoughDia(ConstantData.DiaCostForSummonSpell))
+                    return;
+                Managers.PlayerData.DecreaseDia(ConstantData.DiaCostForSummonSpell);
+                break;
+        }
+        SetBlock();
         OnClickedSummon(Managers.Spell.SummonSpells());
         LobbySceneManager.Instance.SaveDataOnLobbyScene();
     }

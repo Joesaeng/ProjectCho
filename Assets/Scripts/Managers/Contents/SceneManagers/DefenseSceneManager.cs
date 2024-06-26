@@ -414,10 +414,10 @@ public class DefenseSceneManager : MonoBehaviour
         switch (type)
         {
             case RewardType.RewardDia:
-                Managers.PlayerData.ChangeDiaAmount(Managers.PlayerData.DiaAmount + value);
+                Managers.PlayerData.IncreaseDia(value);
                 break;
             case RewardType.RewardCoins:
-                Managers.PlayerData.ChangeCoinAmount(Managers.PlayerData.CoinAmount + value);
+                Managers.PlayerData.IncreaseCoins(value);
                 break;
         }
     }
