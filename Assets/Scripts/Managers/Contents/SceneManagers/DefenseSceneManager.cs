@@ -58,13 +58,13 @@ public class DefenseSceneManager : MonoBehaviour
     private int     EnemiesToSpawn;
     private int     EnemiesSpwaned = 0;
     private int     EnemiesDestroyed = 0;
+
     private float   SpawnInterval;
 
     private float   CurSpawnTime = 0;
 
-    private readonly float OneWaveTime = 10f;
-
     private bool    IsLastWave = false;
+    private int     killCount = 0;
     #endregion
 
     #region UI
@@ -166,7 +166,9 @@ public class DefenseSceneManager : MonoBehaviour
         EnemyDataBase.SetEnemyStatusByStageData(curWave, stageData);
         EnemiesToSpawn = waveData.spawnEnemyCount;
         EnemiesSpwaned = 0;
-        SpawnInterval = OneWaveTime / EnemiesToSpawn;
+        SpawnInterval = ConstantData.OneWaveTime / EnemiesToSpawn;
+
+        UI_DefenseScene.SetWaveInfoText(curWave + 1, waveData.spawnEnemyCount);
     }
 
     void NextWave()
@@ -177,6 +179,7 @@ public class DefenseSceneManager : MonoBehaviour
         if(CurWave == lastWave)
         {
             IsLastWave = true;
+            UI_DefenseScene.ShowLastWaveText();
         }
         StartWave(CurWave);
     }
@@ -300,6 +303,8 @@ public class DefenseSceneManager : MonoBehaviour
         Enemies.Remove(enemy);
 
         DefeatEnemiesByElementType[enemy.ElementType]++;
+        killCount++;
+        UI_DefenseScene.SetKillCount(killCount);
 
         EnemiesDestroyed++;
         int requireLevelUp = Managers.Data.StageDataDict[CurStage].waveDatas[ClearWave].spawnEnemyCount;
@@ -352,6 +357,7 @@ public class DefenseSceneManager : MonoBehaviour
         OnUpdatePlayerHp.Invoke(curHp, Mathf.RoundToInt(PlayerWall.MaxHp));
     }
     #endregion
+
     private void Update()
     {
         if (Managers.Time.IsPause)

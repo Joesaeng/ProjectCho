@@ -12,6 +12,10 @@ public class UI_DefenseScene : UI_Scene
     enum Texts
     {
         Text_PlayerHp,
+        Text_LastWave,
+        Text_WaveInfo,
+        Text_KillCount,
+        Text_KillCountValue,
     }
 
     enum Buttons
@@ -21,6 +25,9 @@ public class UI_DefenseScene : UI_Scene
     }
 
     TextMeshProUGUI _playerHpText;
+    TextMeshProUGUI _waveInfo;
+    TextMeshProUGUI _killCountValue;
+    string _waveInfoFormat;
 
     UI_UsingSpell[] _usingSpells = new UI_UsingSpell[ConstantData.UsingSpellCount];
     Dictionary<int, UI_UsingSpell> _usingSpellDict = new();
@@ -41,6 +48,8 @@ public class UI_DefenseScene : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
+        GetText((int)Texts.Text_LastWave).gameObject.SetActive(false);
+
         _spellDesc = Util.FindChild<UI_SpellDescOnDefense>(gameObject);
         _spellDesc.Init();
 
@@ -58,6 +67,11 @@ public class UI_DefenseScene : UI_Scene
         {
             _usingSpells[i] = usingSpellsTf.GetChild(i).GetComponent<UI_UsingSpell>();
         }
+
+        _waveInfo = GetText((int)Texts.Text_WaveInfo);
+        _waveInfoFormat = Language.GetLanguage("WaveInfoFormat");
+        _killCountValue = GetText((int)Texts.Text_KillCountValue);
+        GetText((int)Texts.Text_KillCount).text = Language.GetLanguage("KillCount");
 
         #region 이벤트 바인드
         DefenseSceneManager.Instance.OnUpdatePlayerHp -= UpdatePlayerHpListner;
@@ -108,5 +122,20 @@ public class UI_DefenseScene : UI_Scene
             _playerHpText.gameObject.SetActive(true);
         }
         _playerHpText.text = $"{curHp} / {maxHp}";
+    }
+
+    public void ShowLastWaveText()
+    {
+        GetText((int)Texts.Text_LastWave).gameObject.SetActive(true);
+    }
+
+    public void SetWaveInfoText(int curWave, int monsterCount)
+    {
+        _waveInfo.text = string.Format(_waveInfoFormat, curWave, monsterCount);
+    }
+
+    public void SetKillCount(int count)
+    {
+        _killCountValue.text = $"<color=#FF0000>{count}</color>";
     }
 }

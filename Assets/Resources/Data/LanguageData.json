@@ -429,6 +429,21 @@
       "key": "AdsRewardx2",
       "eng": "Ads Reward x2",
       "kr": "광고 보상 x2"
+    },
+    {
+      "key": "WaveInfoFormat",
+      "eng": "Wave {0} : <color=#FF0000>{1}</color> Monsters",
+      "kr": "웨이브 {0} : <color=#FF0000>{1}</color> 몬스터"
+    },
+    {
+      "key": "NextWave",
+      "eng": "Next Wave",
+      "kr": "다음 웨이브"
+    },
+    {
+      "key": "KillCount",
+      "eng": "Kill Count",
+      "kr": "적 제거 수"
     }
 
 

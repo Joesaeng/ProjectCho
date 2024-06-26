@@ -9,6 +9,8 @@ public static class ConstantData
     public const int    SceneUISortOrder = 9;
     public const int    WorldSpaceUISortOrder = 8;
 
+    public const float  OneWaveTime = 10f;
+
     public const int    LevelUpOptionsBasicCount = 3;
     public const int    MaxRingSlots = 4;
 
