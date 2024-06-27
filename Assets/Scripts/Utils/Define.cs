@@ -22,7 +22,7 @@ namespace Define
         Idle,
     }
 
-    public enum SFXNames
+    public enum UISFX
     {
 
     }
@@ -71,10 +71,5 @@ namespace Define
         PointerDown,
         PointerUp,
         Click,
-    }
-
-    public enum CameraMode
-    {
-        QuaterView,
     }
 }

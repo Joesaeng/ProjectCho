@@ -27,24 +27,22 @@ public class UI_LoginScene : UI_Scene
         GetObject((int)Objects.Text_TouchToStart).SetActive(false);
         GetObject((int)Objects.Button_TouchToStart).SetActive(false);
 
-        // 로컬에 저장된 guestid를 확인합니다.
-        string guestId = PlayerPrefs.GetString("guestid", null);
-        if (!string.IsNullOrEmpty(guestId))
+        // Firebase Auth에서 캐싱된 사용자가 있는지 확인
+        if (FirebaseManager.Instance.CurrentUserId != null)
         {
-            // guestid가 있으면 데이터를 로드합니다.
-            FirebaseManager.Instance.LoadPlayerData(guestId, Managers.PlayerData.OnPlayerDataLoadedToFirebase);
+            Debug.Log("Using cached user from FirebaseAuth: " + FirebaseManager.Instance.CurrentUserId);
+            FirebaseManager.Instance.AvailableLoadPlayerData(FirebaseManager.Instance.CurrentUserId,(loadedPlayerData) =>
+            {
+                if (loadedPlayerData != null)
+                {
+                    FirebaseManager.Instance.LoadPlayerData(loadedPlayerData, Managers.PlayerData.OnPlayerDataLoadedToFirebase);
+                }
+                else
+                    GetObject((int)Objects.Panel_SelectLogin).SetActive(true);
+            });
         }
         else
-        {
-            // Firebase Auth에서 캐싱된 사용자가 있는지 확인
-            if (FirebaseManager.Instance.CurrentUserId != null)
-            {
-                Debug.Log("Using cached user from FirebaseAuth: " + FirebaseManager.Instance.CurrentUserId);
-                FirebaseManager.Instance.LoadPlayerData(FirebaseManager.Instance.CurrentUserId, Managers.PlayerData.OnPlayerDataLoadedToFirebase);
-            }
-            else
-                GetObject((int)Objects.Panel_SelectLogin).SetActive(true);
-        }
+            GetObject((int)Objects.Panel_SelectLogin).SetActive(true);
     }
 
     void ClickedGuestLogin(PointerEventData data)

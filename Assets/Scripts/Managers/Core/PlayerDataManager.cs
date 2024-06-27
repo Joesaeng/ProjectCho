@@ -29,9 +29,7 @@ public class PlayerOwnedSpellData
 public class PlayerData
 {
     public bool beginner = true;
-    public GameLanguage gameLanguage = GameLanguage.Korean;
-    public bool bgmOn = true;
-    public bool sfxOn = true;
+    public PlayerSettingData settingData;
     public List<PlayerOwnedSpellData> ownedSpellDatas;
     public InventoryData inventoryData;
     public List<int> stageClearList;
@@ -40,13 +38,22 @@ public class PlayerData
     public int diaAmount = 0;
 }
 
+[Serializable]
+public class PlayerSettingData
+{
+    public GameLanguage language = GameLanguage.Korean;
+    public bool bgmOn = true;
+    public bool sfxOn = true;
+    public int frameRate = ConstantData.FrameRate60;
+}
+
 public class PlayerDataManager
 {
     PlayerData _playerData;
 
     #region GetProperty
 
-    public GameLanguage GameLanguage => _playerData.gameLanguage;
+    public GameLanguage GameLanguage { get => _playerData.settingData.language; set => _playerData.settingData.language = value; }
 
     public int CoinAmount => _playerData.coinAmount;
     public int DiaAmount => _playerData.diaAmount;
@@ -55,8 +62,10 @@ public class PlayerDataManager
     public List<AchievementData> AchievementDatas => _playerData.achievementDatas;
     public InventoryData InventoryData => _playerData.inventoryData;
 
-    public bool BgmOn => _playerData.bgmOn;
-    public bool SfxOn => _playerData.sfxOn;
+    public bool BgmOn { get => _playerData.settingData.bgmOn; set => _playerData.settingData.bgmOn = value; }
+    public bool SfxOn { get => _playerData.settingData.sfxOn; set => _playerData.settingData.sfxOn = value; }
+
+    public int FrameRate { get => _playerData.settingData.frameRate; set => _playerData.settingData.frameRate = value; }
 
     #endregion
 
@@ -122,6 +131,7 @@ public class PlayerDataManager
 
         newPlayerData.coinAmount = 1000;
         newPlayerData.diaAmount = 1000;
+        newPlayerData.settingData = new PlayerSettingData();
 
         return newPlayerData;
     }
@@ -192,8 +202,9 @@ public class PlayerDataManager
         _playerData = NewPlayerData();
         Managers.Player.Init();
         Managers.Achieve.Init();
+        Managers.Game.Init();
         // SaveToFirebase();
-        PlayerPrefs.SetString("guestId", FirebaseManager.Instance.CurrentUserId);
+        // Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
     }
 
     public void SaveToFirebase()
@@ -235,6 +246,7 @@ public class PlayerDataManager
             _playerData = playerData;
             Managers.Player.Init();
             Managers.Achieve.Init();
+            Managers.Game.Init();
             LoadedPlayerDataCollectionNullCheck();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
@@ -245,6 +257,7 @@ public class PlayerDataManager
             _playerData = NewPlayerData();
             Managers.Player.Init();
             Managers.Achieve.Init();
+            Managers.Game.Init();
             SaveToFirebase();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
@@ -254,7 +267,7 @@ public class PlayerDataManager
     {
         if (_playerData.ownedSpellDatas == null)
             _playerData.ownedSpellDatas = new();
-        if(_playerData.inventoryData == null)
+        if (_playerData.inventoryData == null)
         {
             _playerData.inventoryData = new();
             _playerData.inventoryData.inventoryItemsDatas = new();
@@ -262,14 +275,14 @@ public class PlayerDataManager
         }
         else
         {
-            if(_playerData.inventoryData.inventoryItemsDatas == null)
+            if (_playerData.inventoryData.inventoryItemsDatas == null)
                 _playerData.inventoryData.inventoryItemsDatas = new();
             if (_playerData.inventoryData.equipmentDatas == null)
                 _playerData.inventoryData.equipmentDatas = new();
         }
-        if(_playerData.stageClearList == null)
+        if (_playerData.stageClearList == null)
             _playerData.stageClearList = new();
-        if(_playerData.achievementDatas == null)
+        if (_playerData.achievementDatas == null)
             _playerData.achievementDatas = new();
     }
 

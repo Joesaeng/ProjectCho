@@ -96,13 +96,13 @@ public abstract class UI_Base : MonoBehaviour
     }
 
     /// <summary>
-    /// to 까지 커지고 release로 돌아옵니다
+    /// to 까지 time동안 커지고 release로 time동안 돌아옵니다 
     /// </summary>
-    public void ButtonClickEffect(RectTransform rectTransform,float to = 1.4f,float release = 1f)
+    public void ButtonClickEffect(RectTransform rectTransform,float to = 1.4f,float release = 1f,float time = 0.2f)
     {
-        LeanTween.scale(rectTransform, Vector3.one * to, 0.2f).setEaseOutQuart().setOnComplete(() =>
+        LeanTween.scale(rectTransform, Vector3.one * to, time).setEaseOutQuart().setOnComplete(() =>
         {
-            LeanTween.scale(rectTransform, Vector3.one * release, 0.2f).setEaseOutQuart();
+            LeanTween.scale(rectTransform, Vector3.one * release, time).setEaseOutQuart();
         });
     }
 }

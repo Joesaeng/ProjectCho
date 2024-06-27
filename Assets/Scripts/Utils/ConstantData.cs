@@ -23,6 +23,9 @@ public static class ConstantData
     public const int    DiaCostForSummonWeapon = 100;
     public const int    DiaCostForSummonRing = 50;
     public const int    DiaCostForSummonSpell = 50;
+
+    public const int    FrameRate60 = 60;
+    public const int    FrameRate30 = 30;
     #endregion
 
     public static readonly Color[] TextColorsByElementTypes = new Color[]

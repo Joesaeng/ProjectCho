@@ -49,6 +49,7 @@ public class UI_LobbyScene : UI_Scene
         UI_LobbyShop,
         UI_LobbyAchievement,
 
+        UI_Setting,
         Slider_MenuTab,
     }
 
@@ -62,8 +63,8 @@ public class UI_LobbyScene : UI_Scene
     TextMeshProUGUI[] _menuTabTexts;
     Image[] _menuTabImages;
 
-    // UI_LobbyHome ui_home;
     UI_Base[] _menuUis;
+    UI_Setting _setting;
 
     TextMeshProUGUI _coinAmountText;
     TextMeshProUGUI _diaAmountText;
@@ -117,6 +118,11 @@ public class UI_LobbyScene : UI_Scene
         _selectedIndex = 0;
         MoveMenuToIndex(_selectedIndex);
         #endregion
+
+        _setting = GetObject((int)Objects.UI_Setting).GetComponent<UI_Setting>();
+        _setting.Init();
+        _setting.gameObject.SetActive(false);
+        GetButton((int)Buttons.Button_Setting).gameObject.AddUIEvent((PointerEventData data) =>_setting.ShowSetting());
 
         _coinAmountText = GetText((int)Texts.Text_CoinAmount);
         _diaAmountText = GetText((int)Texts.Text_DiaAmount);

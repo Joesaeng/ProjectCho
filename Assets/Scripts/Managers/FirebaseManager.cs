@@ -28,7 +28,7 @@ public class FirebaseManager
     private FirebaseAuth auth; // 로그인 / 회원가입 등에 사용
     private FirebaseUser user; // 인증이 완료된 유저 정보
 
-    public string CurrentUserId => user?.UserId;
+    public string CurrentUserId => user != null ? user.UserId : "Null";
 
     private bool isSignIn = false;
 
@@ -109,10 +109,6 @@ public class FirebaseManager
             user = task.Result.User;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 user.DisplayName, user.UserId);
-
-            // 게스트 ID를 PlayerPrefs에 저장합니다.
-            PlayerPrefs.SetString("guestid", user.UserId);
-            PlayerPrefs.Save(); // 변경 사항 저장
         });
     }
 
@@ -159,7 +155,7 @@ public class FirebaseManager
         });
     }
 
-    public void LoadPlayerData(string userId, System.Action<PlayerData> onLoaded)
+    public void AvailableLoadPlayerData(string userId, Action<PlayerData> onComplete)
     {
         databaseReference.Child("users").Child(userId).GetValueAsync().ContinueWithOnMainThread(task =>
         {
@@ -178,18 +174,19 @@ public class FirebaseManager
             if (snapshot.Exists)
             {
                 string json = snapshot.GetRawJsonValue();
-                //var settings = new JsonSerializerSettings
-                //{
-                //    Converters = { new ItemDataConverter()},
-                //};
                 PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
-                onLoaded?.Invoke(playerData);
+                onComplete(playerData);
             }
             else
             {
                 Debug.LogWarning($"No data found at path: users/{userId}");
-                onLoaded?.Invoke(null); // 또는 새로운 PlayerData 객체를 전달할 수 있습니다.
+                onComplete(null);
             }
         });
+    }
+
+    public void LoadPlayerData(PlayerData data, System.Action<PlayerData> onLoaded)
+    {
+        onLoaded?.Invoke(data);
     }
 }

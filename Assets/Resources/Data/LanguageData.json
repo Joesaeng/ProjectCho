@@ -391,16 +391,6 @@
       "kr": "제거된 적의 수"
     },
     {
-      "key": "BGM",
-      "eng": "BGM",
-      "kr": "배경음"
-    },
-    {
-      "key": "SFX",
-      "eng": "SFX",
-      "kr": "효과음"
-    },
-    {
       "key": "Lobby",
       "eng": "Lobby",
       "kr": "로비"
@@ -464,6 +454,46 @@
       "key": "Quit",
       "eng": "Quit",
       "kr": "닫기"
+    },
+    {
+      "key": "BGM",
+      "eng": "BGM",
+      "kr": "배경음"
+    },
+    {
+      "key": "SFX",
+      "eng": "SFX",
+      "kr": "효과음"
+    },
+    {
+      "key": "FrameSettingTitle",
+      "eng": "Game FrameRate Setting",
+      "kr": "프레임 설정"
+    },
+    {
+      "key": "LanguageSettingTitle",
+      "eng": "Language Setting",
+      "kr": "언어 설정"
+    },
+    {
+      "key": "AccountSettingTitle",
+      "eng": "Account",
+      "kr": "계정"
+    },
+    {
+      "key": "Copy",
+      "eng": "Copy",
+      "kr": "복사"
+    },
+    {
+      "key": "CopiedToClipBoard",
+      "eng": "Copied to clipboard",
+      "kr": "클립보드에 복사되었습니다"
+    },
+    {
+      "key": "LanguageSettingCheck",
+      "eng": "게임이 다시 로드됩니다",
+      "kr": "The game will reload"
     }
 
 
