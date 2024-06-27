@@ -444,6 +444,26 @@
       "key": "KillCount",
       "eng": "Kill Count",
       "kr": "적 제거 수"
+    },
+    {
+      "key": "ItemOptionFilter",
+      "eng": "Item Option Filter",
+      "kr": "아이템 옵션 필터"
+    },
+    {
+      "key": "Apply",
+      "eng": "Apply",
+      "kr": "적용"
+    },
+    {
+      "key": "Reset",
+      "eng": "Reset",
+      "kr": "초기화"
+    },
+    {
+      "key": "Quit",
+      "eng": "Quit",
+      "kr": "닫기"
     }
 
 

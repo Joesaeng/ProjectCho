@@ -15,12 +15,12 @@
 	DrawCall, UpscaleRendering, Script 등등 할거 많음
 
 ----------	
-	아이템,스펠 뽑기 등 재화 소모
 	로딩UI	
-	인벤토리 정렬
+	인벤토리 정렬 및 필터
 	Spell 추가
 	설정UI
-	
+
+	// 아이템,스펠 뽑기 등 재화 소모 (완)
 	// Spell뽑기,레벨업,아이템뽑기,장착,업적 등 PlayerData가 변화할 때 Save(완)
 	// PlayerData 저장 및 로드 (서버)(완)
 	// Login -> Lobby 씬 이동(완)

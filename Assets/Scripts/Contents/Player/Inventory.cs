@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ public class Inventory
     //private HashSet<Item> items = new();
     //public HashSet<Item> Items { get => items; set => items = value; }
 
-    private HashSet<Equipment> items = new();
-    public HashSet<Equipment> Items { get => items; set => items = value; }
+    private List<Equipment> items = new();
+    public List<Equipment> Items { get => items; set => items = value; }
 
     public void Init(InventoryData data)
     {
@@ -41,12 +42,14 @@ public class Inventory
     public void AddItem(Equipment item)
     {
         items.Add(item);
+        SortItemsByRarity();
         Managers.Player.ChangeInventory();
     }
 
     public void AddItems(List<Equipment> items)
     {
         Items.AddRange(items);
+        SortItemsByRarity();
         Managers.Player.ChangeInventory();
     }
 
@@ -54,5 +57,10 @@ public class Inventory
     {
         items.Remove(item);
         Managers.Player.ChangeInventory();
+    }
+
+    public void SortItemsByRarity()
+    {
+        items.Sort((item1, item2) => item2.rarity.CompareTo(item1.rarity));
     }
 }

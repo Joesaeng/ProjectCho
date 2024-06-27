@@ -1,5 +1,6 @@
 using Data;
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,14 @@ public class UI_MagiciansEquip : UI_Base
         Content_Inventory,
         Content_StatusValue,
         UI_ItemDesc,
-        Panel_EquipRingSlotButton
+        Panel_EquipRingSlotButton,
+        UI_ItemOptionFilter
     }
     enum Buttons
     {
         Button_WeaponTab,
         Button_RingTab,
+        Button_ShowFilter,
 
         // EquipRingSlots
         Button_Outside,
@@ -41,6 +44,7 @@ public class UI_MagiciansEquip : UI_Base
         Text_WeaponSpell,
         Text_RingTab,
         Text_WeaponTab,
+        Text_ShowFilter
     }
 
     [SerializeField] Sprite[] _buttonTabSprites; // 0 : enabled, 1 : disenabled
@@ -56,6 +60,12 @@ public class UI_MagiciansEquip : UI_Base
     List<UI_InventorySlot> _inventorySlots = new();
     UI_EquipSlot _weaponSlot;
     UI_EquipSlot[] _ringSlots;
+    Equipment selectedRing;
+
+
+    UI_ItemOptionFilter _ui_itemOptionFilter;
+    Dictionary<StatusType,bool> _itemOptionFilter = new();
+    bool _isItemOptionFiltering = false;
 
     public override void Init()
     {
@@ -63,7 +73,22 @@ public class UI_MagiciansEquip : UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        #region Status 초기화
+        InitStatus();
+        InitItemDesc();
+        InitInventorySlot();
+        InitEquipmentSlot();
+        InitEquipRing();
+        InitItemFilter();
+
+        GetText((int)Texts.Text_RingTab).text = Language.GetLanguage("Ring");
+        GetText((int)Texts.Text_WeaponTab).text = Language.GetLanguage("Weapon");
+
+        SetEquipSlots();
+        SetInventoryTab();
+    }
+    #region Init
+    void InitStatus()
+    {
         _statusValueContentTf = GetObject((int)Objects.Content_StatusValue).transform;
         for (int i = 0; i < _statusValueContentTf.childCount; ++i)
         {
@@ -77,15 +102,17 @@ public class UI_MagiciansEquip : UI_Base
 
         Managers.Player.OnApplyPlayerStatus += SetStatusValues;
         SetStatusValues();
-        #endregion
+    }
 
-        #region ItemDesc 초기화
+    void InitItemDesc()
+    {
         _itemDescUi = GetObject((int)Objects.UI_ItemDesc).GetComponent<UI_ItemDesc>();
         _itemDescUi.Init();
         _itemDescUi.gameObject.SetActive(false);
-        #endregion
+    }
 
-        #region Inventory슬롯 초기화
+    void InitInventorySlot()
+    {
         _inventory = GetObject((int)Objects.Content_Inventory).transform;
         for (int i = 0; i < _inventory.childCount; ++i)
         {
@@ -96,9 +123,10 @@ public class UI_MagiciansEquip : UI_Base
                 slot.gameObject.SetActive(false); // 초기에는 비활성화
             }
         }
-        #endregion
+    }
 
-        #region Equip슬롯 초기화
+    void InitEquipmentSlot()
+    {
         UI_EquipSlot[] equipSlots = GetComponentsInChildren<UI_EquipSlot>();
         _ringSlots = new UI_EquipSlot[ConstantData.MaxRingSlots];
         foreach (var slot in equipSlots)
@@ -112,9 +140,10 @@ public class UI_MagiciansEquip : UI_Base
         }
         Managers.Player.OnChangeEquipment += ChangeEquipmentsListner;
         Managers.Player.OnChangeInventory += ChangeInventoryListner;
-        #endregion
+    }
 
-        #region EquipRing 초기화
+    void InitEquipRing()
+    {
         _itemDescUi.OnRingEquip += EquipRingListner;
 
         GetObject((int)Objects.Panel_EquipRingSlotButton).SetActive(false);
@@ -130,14 +159,27 @@ public class UI_MagiciansEquip : UI_Base
         _buttons.Add(EquipmentType.Weapon, GetButton((int)Buttons.Button_WeaponTab));
         GetButton((int)Buttons.Button_RingTab).gameObject.AddUIEvent(ClickedInventoryTab, EquipmentType.Ring);
         _buttons.Add(EquipmentType.Ring, GetButton((int)Buttons.Button_RingTab));
-        #endregion
-
-        GetText((int)Texts.Text_RingTab).text = Language.GetLanguage("Ring");
-        GetText((int)Texts.Text_WeaponTab).text = Language.GetLanguage("Weapon");
-
-        SetEquipSlots();
-        SetInventoryTab();
     }
+
+    void InitItemFilter()
+    {
+        _ui_itemOptionFilter = GetObject((int)Objects.UI_ItemOptionFilter).GetComponent<UI_ItemOptionFilter>();
+        _ui_itemOptionFilter.Init();
+        _ui_itemOptionFilter.gameObject.SetActive(false);
+        _ui_itemOptionFilter.OnApplyItemOptionFilter += ApplyItemOptionFilter;
+        _ui_itemOptionFilter.OnResetFilter += ResetAndOffItemOptionFilter;
+
+        GetButton((int)Buttons.Button_ShowFilter).gameObject.AddUIEvent(ShowItemOptionFilter);
+        for (int i = 0; i < Enum.GetValues(typeof(StatusType)).Length; i++)
+        {
+            StatusType type = (StatusType)i;
+            _itemOptionFilter[type] = type != StatusType.Spell && type != StatusType.BaseDamage;
+        }
+
+    }
+    #endregion
+
+    #region Status
 
     void SetStatusValues()
     {
@@ -206,8 +248,10 @@ public class UI_MagiciansEquip : UI_Base
             text.gameObject.SetActive(false); // 초기에는 비활성화
         }
     }
+    #endregion
 
-    Equipment selectedRing;
+    #region Equip
+
     void EquipRingListner(Equipment ring)
     {
         if (Managers.Player.HasEmptyRingSlots())
@@ -259,11 +303,6 @@ public class UI_MagiciansEquip : UI_Base
         SetInventory();
     }
 
-    void ChangeInventoryListner()
-    {
-        SetInventory();
-    }
-
     void ClickedEquipSlotListner(Equipment item, ItemSlotUIType slotType)
     {
         if (item == null)
@@ -272,6 +311,15 @@ public class UI_MagiciansEquip : UI_Base
         }
         _itemDescUi.gameObject.SetActive(true);
         _itemDescUi.OnItemDesc(item, slotType);
+    }
+    #endregion
+
+    #region Inventory
+
+
+    void ChangeInventoryListner()
+    {
+        SetInventory();
     }
 
     void ClickedItemListner(Equipment item, ItemSlotUIType slotType)
@@ -300,21 +348,44 @@ public class UI_MagiciansEquip : UI_Base
 
     void SetInventory()
     {
-        // List<ItemData> inventoryItems = Managers.PlayerData.Data.inventoryData.inventoryItemsDatas;
-        // HashSet<Item> inventoryItems = Managers.Player.Inventory.Items;
-        HashSet<Equipment> inventoryItems = Managers.Player.Inventory.Items;
+        List<Equipment> inventoryItems = Managers.Player.Inventory.Items;
+
+        if (inventoryItems == null)
+        {
+            Debug.LogError("Inventory items are null");
+            return;
+        }
+
         int slotIndex = 0;
 
         foreach (Equipment item in inventoryItems.Cast<Equipment>())
         {
             if (item.equipmentType == _showItemType)
             {
+                // 아이템의 옵션 중 아이템 옵션 필터에 걸리는 옵션이 있는지 확인하여 표시
+                if (_isItemOptionFiltering)
+                {
+                    if (!item.equipmentOptions.Any(option =>
+                    _itemOptionFilter.ContainsKey(option.OptionType) &&
+                    _itemOptionFilter[option.OptionType]))
+                        continue;
+                }
+
+
                 if (slotIndex >= _inventorySlots.Count)
                 {
                     // 슬롯이 부족하면 추가 생성
                     UI_InventorySlot newSlot = Managers.UI.MakeSubItem<UI_InventorySlot>(_inventory);
-                    newSlot.Init();
-                    _inventorySlots.Add(newSlot);
+                    if (newSlot != null)
+                    {
+                        newSlot.Init();
+                        _inventorySlots.Add(newSlot);
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to create a new inventory slot.");
+                        continue;
+                    }
                 }
 
                 _inventorySlots[slotIndex].SetItem(item); // 아이템 설정
@@ -332,4 +403,31 @@ public class UI_MagiciansEquip : UI_Base
             _inventorySlots[i].gameObject.SetActive(false);
         }
     }
+    #endregion
+
+    #region Filter
+    void ShowItemOptionFilter(PointerEventData data)
+    {
+        _ui_itemOptionFilter.gameObject.SetActive(true);
+        RectTransform rect = _ui_itemOptionFilter.GetComponent<RectTransform>();
+        rect.localScale = Vector3.one * 0.5f;
+
+        LeanTween.scale(rect, Vector3.one, 0.5f).setEaseOutCubic();
+    }
+
+    void ApplyItemOptionFilter(Dictionary<StatusType, bool> filterDict)
+    {
+        _itemOptionFilter = filterDict;
+        _isItemOptionFiltering = true;
+
+        SetInventory();
+    }
+
+    void ResetAndOffItemOptionFilter()
+    {
+        _isItemOptionFiltering = false;
+
+        SetInventory();
+    }
+    #endregion
 }
