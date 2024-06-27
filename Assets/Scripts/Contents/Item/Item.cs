@@ -28,15 +28,9 @@ public class EquipmentOption
     public int IntParam1 { get => intParam1; set => intParam1 = value; }
     public float FloatParam1 { get => floatParam1; set => this.floatParam1 = value; }
 
-    // public EquipmentOption(EquipmentOptionData data)
-    // {
-    //     optionType = data.optionType;
-    //     intParam1 = data.intParam1;
-    //     floatParam1 = data.floatParam1;
-    // }
-
     public EquipmentOption(EquipmentOptionData data)
     {
+        // 새로운 옵션 생성 시 저장된 데이터의 param1 부터 param2까지 값 중 랜덤한 값을 선택한다.
         optionType = data.optionType;
         if (data.intParam2 != 0)
             intParam1 = Random.Range(data.intParam1, data.intParam2 + 1);
@@ -55,6 +49,7 @@ public class EquipmentOption
 
     public EquipmentOptionData ToData()
     {
+        // 이미 생성된 아이템을 저장할 때에는 param1만 저장함으로 데이터의 무결성을 보존한다.
         return new EquipmentOptionData
         {
             optionType = this.optionType,
