@@ -39,7 +39,7 @@ public class EquipmentOption
     {
         optionType = data.optionType;
         if (data.intParam2 != 0)
-            intParam1 = Random.Range(data.intParam1, data.intParam2);
+            intParam1 = Random.Range(data.intParam1, data.intParam2 + 1);
         else
             intParam1 = data.intParam1;
         if (data.floatParam2 != 0)

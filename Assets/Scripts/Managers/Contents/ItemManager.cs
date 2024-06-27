@@ -51,24 +51,8 @@ public class ItemManager
         LoadIcons(weaponPath, WeaponIcons);
     }
 
-    //public List<Item> SummonItems(EquipmentType type,int count = 10)
-    //{
-    //    // Player의 Coin, Dia 보유량 확인
-    //    List<Item> summonItems = new();
-    //    for(int i = 0; i < count; i++)
-    //    {
-    //        Item newItem = GenerateRandomItem(type);
-    //        summonItems.Add(newItem);
-    //    }
-    //    SummonType summonType = type == EquipmentType.Weapon ? SummonType.Weapon : SummonType.Ring;
-    //    Managers.Player.AddItems(summonItems);
-    //    Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: summonType);
-    //    return summonItems;
-    //}
-
     public List<Equipment> SummonItems(EquipmentType type, int count = 10)
     {
-        // Player의 Coin, Dia 보유량 확인
         List<Equipment> summonItems = new();
         for (int i = 0; i < count; i++)
         {
@@ -136,24 +120,24 @@ public class ItemManager
         // 무기의 기본 옵션을 정하는 부분(Spell, BaseDamage)
         if (equipmentType == EquipmentType.Weapon)
         {
-            List<EquipmentOptionData> possibleSpells = new();
+            EquipmentOptionData possibleSpell = null;
             EquipmentOptionData baseDamage = null;
             foreach (var option in validOptions)
             {
                 if (option.optionType == StatusType.Spell)
                 {
-                    possibleSpells.Add(option);
+                    possibleSpell = option;
                     continue;
                 }
                 if (option.optionType == StatusType.BaseDamage && option.requireRarity == rarity)
                     baseDamage = option;
             }
-            if (possibleSpells.Count == 0 || baseDamage == null)
+            if (possibleSpell == null || baseDamage == null)
             {
                 Debug.LogError("RandomGenerate Weapon Failed");
                 return null;
             }
-            equipmentData.equipmentOptions.Add(possibleSpells[Random.Range(0, possibleSpells.Count)]);
+            equipmentData.equipmentOptions.Add(possibleSpell);
             equipmentData.equipmentOptions.Add(baseDamage);
         }
 

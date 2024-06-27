@@ -123,4 +123,20 @@ public class UI_LobbyHome : UI_Base
             _spawnMonsters[i].SetSpawnMonster(Managers.Data.StageDataDict[_curStage].stageEnemysId[i]);
         }
     }
+
+    public void ShowSpawnMonsters()
+    {
+        for (int i = 0; i < _spawnMonsters.Length; ++i)
+        {
+            _spawnMonsters[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void HideSpawnMonsters()
+    {
+        for (int i = 0; i < _spawnMonsters.Length; ++i)
+        {
+            _spawnMonsters[i].gameObject.SetActive(false);
+        }
+    }
 }

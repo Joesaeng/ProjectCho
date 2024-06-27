@@ -122,6 +122,7 @@ public class UI_LobbyScene : UI_Scene
         _setting = GetObject((int)Objects.UI_Setting).GetComponent<UI_Setting>();
         _setting.Init();
         _setting.gameObject.SetActive(false);
+        _setting.OnSetting += ShowAndHideHomeSpawnMonsters;
         GetButton((int)Buttons.Button_Setting).gameObject.AddUIEvent((PointerEventData data) =>_setting.ShowSetting());
 
         _coinAmountText = GetText((int)Texts.Text_CoinAmount);
@@ -211,4 +212,12 @@ public class UI_LobbyScene : UI_Scene
     {
         _diaAmountText.text = value.ToString();
     }
+
+    void ShowAndHideHomeSpawnMonsters()
+    {
+        if (_setting.gameObject.activeSelf)
+            GetObject((int)Objects.UI_LobbyHome).GetComponent<UI_LobbyHome>().HideSpawnMonsters();
+        else
+            GetObject((int)Objects.UI_LobbyHome).GetComponent<UI_LobbyHome>().ShowSpawnMonsters();
+    }    
 }

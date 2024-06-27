@@ -32,6 +32,8 @@ public class UI_Setting : UI_Base
 
     RectTransform _uiRect;
 
+    public Action OnSetting;
+
     public override void Init()
     {
         Bind<GameObject>(typeof(Objects));
@@ -54,14 +56,21 @@ public class UI_Setting : UI_Base
         _account.Init();
 
         GetObject((int)Objects.Obj_LanguageSettingCheck).SetActive(false);
-        GetObject((int)Objects.Button_Quit).AddUIEvent((PointerEventData data) => gameObject.SetActive(false));
+        GetObject((int)Objects.Button_Quit).AddUIEvent((PointerEventData data) => HideSetting());
     }
 
     public void ShowSetting()
     {
         gameObject.SetActive(true);
         _uiRect.localScale = Vector3.one * 0.5f;
-        LeanTween.scale(_uiRect, Vector3.one, 0.2f);
+        LeanTween.scale(_uiRect, Vector3.one, 0.1f);
+        OnSetting?.Invoke();
+    }
+
+    public void HideSetting()
+    {
+        gameObject.SetActive(false);
+        OnSetting?.Invoke();
     }
 
     void ShowLanguageSettingCheck(GameLanguage language)
