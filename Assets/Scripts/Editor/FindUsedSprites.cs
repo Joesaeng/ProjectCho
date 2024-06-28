@@ -115,6 +115,16 @@ public class FindAndCopyUsedSprites : EditorWindow
             string fileName = Path.GetFileNameWithoutExtension(sprite.name) + ".png";
             string destPath = Path.Combine(targetPath, fileName);
 
+            Sprite newSprite = AssetDatabase.LoadAssetAtPath<Sprite>(destPath);
+
+            spritePathsBySprite[sprite] = destPath;
+
+            if (sprite == newSprite)
+            {
+                Debug.Log($"{sprite.name} : 복사 필요 없음");
+                continue;
+            }
+
             if (!Directory.Exists(targetPath))
             {
                 Directory.CreateDirectory(targetPath);
@@ -122,7 +132,6 @@ public class FindAndCopyUsedSprites : EditorWindow
 
             // Extract and save the individual sprite as PNG
             SaveSpriteAsPNG(sprite, destPath);
-            spritePathsBySprite[sprite] = destPath;
         }
 
         AssetDatabase.Refresh();
@@ -187,8 +196,14 @@ public class FindAndCopyUsedSprites : EditorWindow
                     {
                         if (spritePathsBySprite.ContainsKey(image.sprite))
                         {
+                            
                             string newSpritePath = spritePathsBySprite[image.sprite];
                             Sprite newSprite = AssetDatabase.LoadAssetAtPath<Sprite>(newSpritePath);
+                            if(image.sprite == newSprite)
+                            {
+                                Debug.Log($"{image.sprite.name} : 업데이트 필요 없음");
+                                continue;
+                            }    
                             image.sprite = newSprite;
                             EditorUtility.SetDirty(image);
                         }
@@ -219,6 +234,11 @@ public class FindAndCopyUsedSprites : EditorWindow
                         {
                             string newSpritePath = spritePathsBySprite[image.sprite];
                             Sprite newSprite = AssetDatabase.LoadAssetAtPath<Sprite>(newSpritePath);
+                            if (image.sprite == newSprite)
+                            {
+                                Debug.Log($"{image.sprite.name} : 업데이트 필요 없음");
+                                continue;
+                            }
                             image.sprite = newSprite;
                             EditorUtility.SetDirty(image);
                         }

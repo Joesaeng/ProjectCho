@@ -56,14 +56,8 @@ public class UI_MagiciansSpell : UI_Base
             _textDict.Add(text, GetText((int)text));
         }
 
-        Sprite[] sprites = Resources.LoadAll<Sprite>("UI/UI_atlas");
-        foreach (Sprite sprite in sprites)
-        {
-            if (sprite.name == "UnSelected")
-                _spellEdgeSprites[0] = sprite;
-            if (sprite.name == "Selected")
-                _spellEdgeSprites[1] = sprite;
-        }
+        _spellEdgeSprites[0] = Resources.Load<Sprite>("UI/Used/Selected");
+        _spellEdgeSprites[1] = Resources.Load<Sprite>("UI/Used/UnSelected");
 
         _iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
         GetButton((int)Buttons.Button_LevelUp).gameObject.AddUIEvent(ClickedSpellLevelUp);

@@ -44,8 +44,8 @@ public class ItemManager
             equipmentOptionsByRarity[data.requireRarity].Add(data);
         }
 
-        string ringPath = "Textures/ItemIcons/RingIcon";
-        string weaponPath = "Textures/ItemIcons/WeaponIcon";
+        string ringPath = "UI/ItemIcons/RingIcon";
+        string weaponPath = "UI/ItemIcons/WeaponIcon";
 
         LoadIcons(ringPath, RingIcons);
         LoadIcons(weaponPath, WeaponIcons);
