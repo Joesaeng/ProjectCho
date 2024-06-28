@@ -519,6 +519,11 @@
       "key": "SellCheckTitle",
       "eng": "Profit from sale",
       "kr": "판매 시 얻는 재화"
+    },
+    {
+      "key": "SettingTitle",
+      "eng": "Player Setting",
+      "kr": "사용자 설정"
     }
 
 

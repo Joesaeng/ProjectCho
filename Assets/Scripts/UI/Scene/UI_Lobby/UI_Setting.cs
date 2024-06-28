@@ -13,6 +13,7 @@ public class UI_Setting : UI_Base
     [SerializeField] Sprite[] _soundOnOff; // 0 : On, 1 : Off 
     enum Objects
     {
+        Text_SettingTitle,
         UI_SoundSetting,
         UI_FrameSetting,
         UI_LanguageSetting,
@@ -37,6 +38,8 @@ public class UI_Setting : UI_Base
     public override void Init()
     {
         Bind<GameObject>(typeof(Objects));
+        GetObject((int)Objects.Text_SettingTitle).GetComponent<TextMeshProUGUI>().text = Language.GetLanguage("SettingTitle");
+
         _uiRect = GetObject((int)Objects.Image_Back).GetComponent<RectTransform>();
 
         _sound = GetObject((int)Objects.UI_SoundSetting).GetOrAddComponent<UI_SoundSetting>();
