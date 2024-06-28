@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor.SceneManagement;
+using UnityEngine.UI;
 
 public class FindAndCopyUsedSprites : EditorWindow
 {
@@ -108,7 +108,7 @@ public class FindAndCopyUsedSprites : EditorWindow
         foreach (var sprite in uniqueSprites)
         {
             string spritePath = AssetDatabase.GetAssetPath(sprite);
-            string fileName = Path.GetFileName(spritePath);
+            string fileName = Path.GetFileNameWithoutExtension(spritePath) + "_" + sprite.name + ".png";
             string destPath = Path.Combine(targetPath, fileName);
 
             if (!Directory.Exists(targetPath))
@@ -116,20 +116,36 @@ public class FindAndCopyUsedSprites : EditorWindow
                 Directory.CreateDirectory(targetPath);
             }
 
-            // Copy each individual sprite
-            if (sprite != null)
-            {
-                string spriteName = sprite.name;
-                string spriteFileName = $"{spriteName}.png";
-                string spriteDestPath = Path.Combine(targetPath, spriteFileName);
-
-                if (!File.Exists(spriteDestPath))
-                {
-                    File.Copy(spritePath, spriteDestPath);
-                }
-            }
+            // Extract and save the individual sprite as PNG
+            SaveSpriteAsPNG(sprite, destPath);
         }
 
         AssetDatabase.Refresh();
+    }
+
+    private void SaveSpriteAsPNG(Sprite sprite, string path)
+    {
+        Texture2D sourceTexture = sprite.texture;
+
+        // Check if texture is readable
+        if (!sourceTexture.isReadable)
+        {
+            Debug.LogError($"Texture {sourceTexture.name} is not readable. Please enable 'Read/Write Enabled' in the import settings.");
+            return;
+        }
+
+        Rect rect = sprite.rect;
+        int width = (int)rect.width;
+        int height = (int)rect.height;
+        Texture2D newTex = new Texture2D(width, height, TextureFormat.ARGB32, false);
+
+        // Ensure we are not reading outside the bounds
+        Color[] pixels = sourceTexture.GetPixels((int)rect.x, (int)rect.y, width, height);
+        newTex.SetPixels(pixels);
+        newTex.Apply();
+
+        byte[] bytes = newTex.EncodeToPNG();
+        File.WriteAllBytes(path, bytes);
+        Object.DestroyImmediate(newTex);
     }
 }
