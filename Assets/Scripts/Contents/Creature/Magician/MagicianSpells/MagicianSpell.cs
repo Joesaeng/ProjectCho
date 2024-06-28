@@ -100,6 +100,7 @@ public abstract class MagicianSpell : ISetData
 
     #region 데이터
     public int EffectId { get; set; }
+    public string SpellName { get; set; }
     public ElementType ElementType { get; set; }
     public float BaseSpellDamage { get; set; }
     public float SpellDamage { get; set; }
@@ -124,6 +125,7 @@ public abstract class MagicianSpell : ISetData
     protected void Init(SpellDataByPlayerOwnedSpell data)
     {
         id = data.id;
+        SpellName = data.spellName;
         EffectId = data.effectId;
         ElementType = data.elementType;
         SpellDamage = data.spellDamageCoefficient;
@@ -261,7 +263,8 @@ public class TargetedProjectileOfExplosion : MagicianSpell
         SpellBehavior = new TargetedDirectionBehavior();
         Impact = new ExplosionOnImpact
         {
-            explosionRange = (float)data.floatParam2
+            explosionRange = (float)data.floatParam2,
+            spellName = SpellName
         };
     }
 
@@ -274,10 +277,12 @@ public class TargetedProjectileOfExplosion : MagicianSpell
 public class ExplosionOnImpact
 {
     public float explosionRange;
+    public string spellName;
 
     public void OnImpact(IDamageDealer dealer,Transform tf)
     {
         List<IHitable> hits = new();
+        PlaySFX(tf.position);
         foreach (Enemy enemy in DefenseSceneManager.Instance.Enemies)
         {
             float distance = Vector3.Distance(tf.position, enemy.transform.position);
@@ -287,6 +292,12 @@ public class ExplosionOnImpact
         }
         foreach (IHitable hit in hits)
             hit.TakeDamage(dealer);
+    }
+
+    void PlaySFX(Vector3 pos)
+    {
+        string sfxName = $"impact_{spellName}";
+        Managers.Sound.PlayOnObject(sfxName, pos);
     }
 }
 

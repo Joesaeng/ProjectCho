@@ -53,6 +53,7 @@ public class Magician : AttackableCreature, ISpellUseable
     public void AttackAnimListner()
     {
         Spell.UseSpell(_targetPos, ProjectileSpawnPoint);
+        PlayCastSFX();
     }
 
     
@@ -91,5 +92,9 @@ public class Magician : AttackableCreature, ISpellUseable
         Target = null;
     }
 
-    
+    public void PlayCastSFX()
+    {
+        string sfxname = $"cast_{Spell.SpellName}";
+        Managers.Sound.PlayOnObject(sfxname, transform.position);
+    }
 }
