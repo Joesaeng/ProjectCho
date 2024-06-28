@@ -9,6 +9,8 @@ public class FindAndCopyUsedSprites : EditorWindow
 {
     private List<string> usedSprites = new List<string>();
     private HashSet<Sprite> uniqueSprites = new HashSet<Sprite>();
+    private Dictionary<Sprite, string> spritePathsBySprite = new Dictionary<Sprite, string>();
+    private Dictionary<Sprite, Vector4> spriteBorders = new Dictionary<Sprite, Vector4>();
     private Vector2 scrollPos;
     private string targetPath = "Assets/Resources/UI/Useds";
 
@@ -24,6 +26,7 @@ public class FindAndCopyUsedSprites : EditorWindow
         {
             FindAllUsedSprites();
             CopyUsedSprites();
+            UpdateSpriteReferences();
         }
 
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
@@ -40,7 +43,6 @@ public class FindAndCopyUsedSprites : EditorWindow
     {
         usedSprites.Clear();
         uniqueSprites.Clear();
-        string[] allAssets = AssetDatabase.GetAllAssetPaths();
 
         // Find used sprites in all scenes
         string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);
@@ -59,6 +61,7 @@ public class FindAndCopyUsedSprites : EditorWindow
                         if (IsValidSpritePath(image.sprite) && !uniqueSprites.Contains(image.sprite))
                         {
                             uniqueSprites.Add(image.sprite);
+                            spriteBorders[image.sprite] = image.sprite.border;
                             usedSprites.Add($"{scenePath} - {obj.name} : {AssetDatabase.GetAssetPath(image.sprite)}");
                         }
                     }
@@ -68,27 +71,29 @@ public class FindAndCopyUsedSprites : EditorWindow
             EditorSceneManager.CloseScene(EditorSceneManager.GetSceneByPath(scenePath), true);
         }
 
-        // Find used sprites in all prefabs
-        foreach (string assetPath in allAssets)
+        string folderPath = "Assets/Resources/Prefabs/UI";
+        string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
+        for (int i = 0; i < prefabGUIDs.Length; i++)
         {
-            if (assetPath.EndsWith(".prefab"))
+            string prefabGUID = prefabGUIDs[i];
+            string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUID);
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab != null)
             {
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-                if (prefab != null)
+                Image[] images = prefab.GetComponentsInChildren<Image>(true);
+                foreach (Image image in images)
                 {
-                    Image[] images = prefab.GetComponentsInChildren<Image>(true);
-                    foreach (Image image in images)
+                    if (image.sprite != null)
                     {
-                        if (image.sprite != null)
+                        if (IsValidSpritePath(image.sprite) && !uniqueSprites.Contains(image.sprite))
                         {
-                            if (IsValidSpritePath(image.sprite) && !uniqueSprites.Contains(image.sprite))
-                            {
-                                uniqueSprites.Add(image.sprite);
-                                usedSprites.Add($"Prefab: {assetPath} - {prefab.name} : {AssetDatabase.GetAssetPath(image.sprite)}");
-                            }
+                            uniqueSprites.Add(image.sprite);
+                            spriteBorders[image.sprite] = image.sprite.border;
+                            usedSprites.Add($"Prefab: {prefabPath} - {prefab.name} : {AssetDatabase.GetAssetPath(image.sprite)}");
                         }
                     }
                 }
+
             }
         }
     }
@@ -107,8 +112,7 @@ public class FindAndCopyUsedSprites : EditorWindow
     {
         foreach (var sprite in uniqueSprites)
         {
-            string spritePath = AssetDatabase.GetAssetPath(sprite);
-            string fileName = Path.GetFileNameWithoutExtension(spritePath) + "_" + sprite.name + ".png";
+            string fileName = Path.GetFileNameWithoutExtension(sprite.name) + ".png";
             string destPath = Path.Combine(targetPath, fileName);
 
             if (!Directory.Exists(targetPath))
@@ -118,6 +122,7 @@ public class FindAndCopyUsedSprites : EditorWindow
 
             // Extract and save the individual sprite as PNG
             SaveSpriteAsPNG(sprite, destPath);
+            spritePathsBySprite[sprite] = destPath;
         }
 
         AssetDatabase.Refresh();
@@ -147,5 +152,82 @@ public class FindAndCopyUsedSprites : EditorWindow
         byte[] bytes = newTex.EncodeToPNG();
         File.WriteAllBytes(path, bytes);
         Object.DestroyImmediate(newTex);
+
+        // Set texture type to sprite after saving
+        SetTextureImporterSettings(sprite, path);
+    }
+
+    private void SetTextureImporterSettings(Sprite originalSprite, string path)
+    {
+        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+        TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+        if (textureImporter != null)
+        {
+            textureImporter.textureType = TextureImporterType.Sprite;
+            textureImporter.spriteBorder = spriteBorders[originalSprite];
+            textureImporter.SaveAndReimport();
+        }
+    }
+
+    private void UpdateSpriteReferences()
+    {
+        // Update sprite references in all scenes
+        string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);
+        foreach (string scenePath in scenes)
+        {
+            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+
+            foreach (GameObject obj in allObjects)
+            {
+                Image[] images = obj.GetComponentsInChildren<Image>(true);
+                foreach (Image image in images)
+                {
+                    if (image.sprite != null)
+                    {
+                        if (spritePathsBySprite.ContainsKey(image.sprite))
+                        {
+                            string newSpritePath = spritePathsBySprite[image.sprite];
+                            Sprite newSprite = AssetDatabase.LoadAssetAtPath<Sprite>(newSpritePath);
+                            image.sprite = newSprite;
+                            EditorUtility.SetDirty(image);
+                        }
+                    }
+                }
+            }
+
+            EditorSceneManager.SaveScene(EditorSceneManager.GetSceneByPath(scenePath));
+            EditorSceneManager.CloseScene(EditorSceneManager.GetSceneByPath(scenePath), true);
+        }
+
+        // Update sprite references in all prefabs
+        string folderPath = "Assets/Resources/Prefabs/UI";
+        string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
+        for (int i = 0; i < prefabGUIDs.Length; i++)
+        {
+            string prefabGUID = prefabGUIDs[i];
+            string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUID);
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab != null)
+            {
+                Image[] images = prefab.GetComponentsInChildren<Image>(true);
+                foreach (Image image in images)
+                {
+                    if (image.sprite != null)
+                    {
+                        if (spritePathsBySprite.ContainsKey(image.sprite))
+                        {
+                            string newSpritePath = spritePathsBySprite[image.sprite];
+                            Sprite newSprite = AssetDatabase.LoadAssetAtPath<Sprite>(newSpritePath);
+                            image.sprite = newSprite;
+                            EditorUtility.SetDirty(image);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        AssetDatabase.SaveAssets();
     }
 }
