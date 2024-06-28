@@ -47,4 +47,19 @@ public static class ConstantData
         new Color(0.70f,0f,1f),     // Epic
         new Color(1f,0.87f,0f),     // Legend
     };
+
+    public static readonly int[] SellWeaponCostByRarity = new int[]
+    {
+        10,
+        30,
+        100,
+        250,
+    };
+    public static readonly int[] SellRingCostByRarity = new int[]
+    {
+        5,
+        15,
+        50,
+        125,
+    };
 }

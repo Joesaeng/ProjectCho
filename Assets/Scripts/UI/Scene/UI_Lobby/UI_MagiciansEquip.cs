@@ -169,6 +169,7 @@ public class UI_MagiciansEquip : UI_Base
         _ui_itemOptionFilter.OnApplyItemOptionFilter += ApplyItemOptionFilter;
         _ui_itemOptionFilter.OnResetFilter += ResetAndOffItemOptionFilter;
 
+        GetText((int)Texts.Text_ShowFilter).text = Language.GetLanguage("Filter");
         GetButton((int)Buttons.Button_ShowFilter).gameObject.AddUIEvent(ShowItemOptionFilter);
         for (int i = 0; i < Enum.GetValues(typeof(StatusType)).Length; i++)
         {

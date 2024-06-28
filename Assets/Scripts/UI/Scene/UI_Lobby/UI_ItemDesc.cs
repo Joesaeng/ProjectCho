@@ -11,14 +11,21 @@ public class UI_ItemDesc : UI_Base
 {
     enum Objects
     {
-        Content_Attributes
+        Content_Attributes,
+        Obj_SellCheck
     }
 
     enum Buttons
     {
         Button_OffItemDesc,
         Button_Equip,
-        Button_Sell
+        Button_Sell,
+        Button_SellAgree,
+        Button_SellCancel
+    }
+    enum Texts
+    {
+        Text_SellCheck
     }
 
     ItemSlotUIType _selectSlotType;
@@ -37,11 +44,18 @@ public class UI_ItemDesc : UI_Base
     {
         Bind<GameObject>(typeof(Objects));
         Bind<Button>(typeof(Buttons));
+        Bind<TextMeshProUGUI>(typeof(Texts));
 
         GetButton((int)Buttons.Button_OffItemDesc).gameObject.AddUIEvent(ClickedOffItemDesc);
         _attributes = GetObject((int)Objects.Content_Attributes).transform;
         _equipButton = GetButton((int)Buttons.Button_Equip);
         _sellButton = GetButton((int)Buttons.Button_Sell);
+        _sellButton.GetComponentInChildren<TextMeshProUGUI>().text = Language.GetLanguage("Sell");
+        _sellButton.gameObject.AddUIEvent((PointerEventData data) => ShowAndSetSellCheck());
+
+        GetObject((int)Objects.Obj_SellCheck).SetActive(false);
+        GetButton((int)Buttons.Button_SellCancel).gameObject.AddUIEvent((PointerEventData data)
+            => GetObject((int)Objects.Obj_SellCheck).SetActive(false));
 
         _equipButton.gameObject.AddUIEvent(ClickedEquipButton);
 
@@ -83,6 +97,27 @@ public class UI_ItemDesc : UI_Base
         OffItemDesc();
     }
 
+    void ShowAndSetSellCheck()
+    {
+        GetObject((int)Objects.Obj_SellCheck).SetActive(true);
+        GetText((int)Texts.Text_SellCheck).text = Language.GetLanguage("SellCheckTitle");
+        int sellCost = _selectedItem.equipmentType == EquipmentType.Weapon ?
+            ConstantData.SellWeaponCostByRarity[(int)_selectedItem.rarity] :
+            ConstantData.SellRingCostByRarity[(int)_selectedItem.rarity];
+
+        GetText((int)Texts.Text_SellCheck).text += $"\n<sprite=0> {sellCost}";
+        GetButton((int)Buttons.Button_SellAgree).gameObject.RemoveEvent();
+        GetButton((int)Buttons.Button_SellAgree).gameObject.AddUIEvent((PointerEventData data)
+            => SellSelectedItem());
+        
+    }
+
+    void SellSelectedItem()
+    {
+        Managers.Status.SellItem(_selectedItem);
+        OffItemDesc();
+    }
+
     void ClickedOffItemDesc(PointerEventData data)
     {
         OffItemDesc();
@@ -90,6 +125,7 @@ public class UI_ItemDesc : UI_Base
 
     void OffItemDesc()
     {
+        GetObject((int)Objects.Obj_SellCheck).SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -101,6 +137,7 @@ public class UI_ItemDesc : UI_Base
         {
             _equipButton.GetComponentInChildren<TextMeshProUGUI>().text = Language.GetLanguage("Equip");
             _equipButton.gameObject.SetActive(true);
+            
             _sellButton.gameObject.SetActive(true);
         }
         else if (slotType == ItemSlotUIType.Ring)

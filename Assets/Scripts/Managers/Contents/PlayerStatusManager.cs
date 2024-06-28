@@ -178,6 +178,15 @@ public class PlayerStatusManager
         Inventory.RemoveItem(item);
     }
 
+    public void SellItem(Equipment item)
+    {
+        int sellCost = item.equipmentType == EquipmentType.Weapon ?
+            ConstantData.SellWeaponCostByRarity[(int)item.rarity] :
+            ConstantData.SellRingCostByRarity[(int)item.rarity];
+
+        RemoveItem(item);
+        Managers.PlayerData.IncreaseCoins(sellCost);
+    }
     public void AddSpells(int spellId, int count)
     {
         PlayerSpells.AddSpell(spellId, count);

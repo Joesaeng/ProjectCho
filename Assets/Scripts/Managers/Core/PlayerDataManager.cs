@@ -41,7 +41,7 @@ public class PlayerData
 [Serializable]
 public class PlayerSettingData
 {
-    public GameLanguage language = GameLanguage.Korean;
+    public GameLanguage language = GameLanguage.English;
     public bool bgmOn = true;
     public bool sfxOn = true;
     public int frameRate = ConstantData.FrameRate60;

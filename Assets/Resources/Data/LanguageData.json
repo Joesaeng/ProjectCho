@@ -504,6 +504,21 @@
       "key": "Monsters",
       "eng": "Monsters",
       "kr": "몬스터"
+    },
+    {
+      "key": "Sell",
+      "eng": "Sell",
+      "kr": "판매"
+    },
+    {
+      "key": "Filter",
+      "eng": "Filter",
+      "kr": "필터"
+    },
+    {
+      "key": "SellCheckTitle",
+      "eng": "Profit from sale",
+      "kr": "판매 시 얻는 재화"
     }
 
 
