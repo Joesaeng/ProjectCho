@@ -60,7 +60,7 @@ public class ItemManager
             summonItems.Add(newItem);
         }
         SummonType summonType = type == EquipmentType.Weapon ? SummonType.Weapon : SummonType.Ring;
-        Managers.Player.AddItems(summonItems);
+        Managers.Status.AddItems(summonItems);
         Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: summonType);
         return summonItems;
     }

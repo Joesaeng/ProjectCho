@@ -48,7 +48,7 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
 
     public void SetOwnedCount(int spellId)
     {
-        var spellData = Managers.Player.PlayerSpells.SpellDataDict[spellId];
+        var spellData = Managers.Status.PlayerSpells.SpellDataDict[spellId];
         int ownedCount, requireCount;
         ownedCount = spellData.ownedSpellCount;
         requireCount = spellData.requireSpellCountToLevelup;

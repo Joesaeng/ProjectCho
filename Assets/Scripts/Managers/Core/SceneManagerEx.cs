@@ -15,10 +15,20 @@ public class SceneManagerEx : MonoBehaviour
         SceneManager.LoadScene(GetSceneName(type));
     }
 
+    Define.Scene _loadSceneType;
     public void LoadSceneWithLoadingScene(Define.Scene type)
     {
         Managers.Clear();
-        StartCoroutine(CoLoadGameAsync(type));
+        UI_Loading loading = Managers.UI.ShowPopupUI<UI_Loading>();
+        _loadSceneType = type;
+        loading.Init();
+        loading.OnCompleteLoadingUI += CompleteShowLoadingListener;
+        loading.ShowLoadingUI();
+    }
+
+    void CompleteShowLoadingListener()
+    {
+        StartCoroutine(CoLoadGameAsync(_loadSceneType));
     }
 
     public IEnumerator CoLoadGameAsync(Define.Scene type)
@@ -38,8 +48,10 @@ public class SceneManagerEx : MonoBehaviour
             {
                 ao.allowSceneActivation = true;
             }
-
         }
+        // UI_Loading loading = Managers.UI.ShowPopupUI<UI_Loading>();
+        // loading.Init();
+        // loading.OnCompleteLoadingUI += () => Managers.UI.ClosePopupUI(loading);
     }
 
     string GetSceneName(Define.Scene type)

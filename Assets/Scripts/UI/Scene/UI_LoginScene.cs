@@ -50,5 +50,6 @@ public class UI_LoginScene : UI_Scene
         FirebaseManager.Instance.SignOut(); // 기존 로그인 정보 지우기
         FirebaseManager.Instance.TryGuestLogin();
         Managers.PlayerData.NewPlayerLogin();
+        Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
     }
 }

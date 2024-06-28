@@ -65,7 +65,7 @@ public class UI_ItemDesc : UI_Base
             {
                 if (equipment.equipmentType == EquipmentType.Weapon)
                 {
-                    Managers.Player.Equip(equipment);
+                    Managers.Status.Equip(equipment);
                     LobbySceneManager.Instance.SaveDataOnLobbyScene();
                 }
                 else
@@ -76,7 +76,7 @@ public class UI_ItemDesc : UI_Base
         {
             if (_selectedItem is Equipment equipment)
             {
-                Managers.Player.UnEquip(equipment);
+                Managers.Status.UnEquip(equipment);
                 LobbySceneManager.Instance.SaveDataOnLobbyScene();
             }
         }

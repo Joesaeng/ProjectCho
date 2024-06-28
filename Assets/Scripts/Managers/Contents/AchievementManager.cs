@@ -191,7 +191,7 @@ public class AchievementManager
                 Managers.PlayerData.IncreaseCoins(reward.integerParam);
                 break;
             case RewardType.RewardStatus:
-                Managers.Player.ApplyAchievementRewardStatus(reward);
+                Managers.Status.ApplyAchievementRewardStatus(reward);
                 break;
             default:
                 throw new System.ArgumentException($"Unknown AchievementRewardType {reward.type}");

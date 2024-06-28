@@ -83,7 +83,7 @@ public class Equipment : Item
     }
     public override void ApplyItem()
     {
-        Managers.Player.Equip(this);
+        Managers.Status.Equip(this);
     }
 
     public EquipmentData ToData()

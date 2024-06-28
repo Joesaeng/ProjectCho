@@ -143,7 +143,7 @@ public abstract class MagicianSpell : ISetData
 
     private void ApplyPlayerStatusToSpell()
     {
-        PlayerStatus playerStatus = Managers.Player.PlayerStatus;
+        PlayerStatus playerStatus = Managers.Status.PlayerStatus;
         SpellDamage *= playerStatus.damage;
 
         if (playerStatus.floatOptions.TryGetValue(StatusType.DecreaseSpellDelay, out float decreaseSpellDelay))

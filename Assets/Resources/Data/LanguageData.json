@@ -494,6 +494,16 @@
       "key": "LanguageSettingCheck",
       "eng": "게임이 다시 로드됩니다",
       "kr": "The game will reload"
+    },
+    {
+      "key": "Wave",
+      "eng": "Wave",
+      "kr": "웨이브"
+    },
+    {
+      "key": "Monsters",
+      "eng": "Monsters",
+      "kr": "몬스터"
     }
 
 

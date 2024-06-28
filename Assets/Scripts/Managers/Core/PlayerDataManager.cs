@@ -110,9 +110,6 @@ public class PlayerDataManager
 
         PlayerData newPlayerData = new();
 
-        //List<ItemData> newEquipmentData = new();
-        //List<ItemData> newInventoryData = new();
-
         List<EquipmentData> newEquipmentData = new();
         List<EquipmentData> newInventoryData = new();
 
@@ -200,19 +197,19 @@ public class PlayerDataManager
     public void NewPlayerLogin()
     {
         _playerData = NewPlayerData();
-        Managers.Player.Init();
-        Managers.Achieve.Init();
-        Managers.Game.Init();
+        Managers.InitManagersAfterLoadingPlayerData();
         // SaveToFirebase();
-        // Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
     }
 
     public void SaveToFirebase()
     {
-        _playerData.beginner = false;
+#if UNITY_EDITOR
 
-        _playerData.inventoryData = Managers.Player.InventoryToData();
-        _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
+#else
+_playerData.beginner = false;
+
+        _playerData.inventoryData = Managers.Status.InventoryToData();
+        _playerData.ownedSpellDatas = Managers.Status.SpellDataBaseToData();
         _playerData.achievementDatas = Managers.Achieve.ToData();
 
         string jsonData;
@@ -235,6 +232,7 @@ public class PlayerDataManager
         }
 
         FirebaseManager.Instance.SavePlayerData(jsonData);
+#endif
     }
 
     public void OnPlayerDataLoadedToFirebase(PlayerData playerData)
@@ -244,9 +242,7 @@ public class PlayerDataManager
             // 플레이어 데이터를 성공적으로 로드한 경우 처리 로직을 추가합니다.
             Debug.Log("Player data loaded successfully.");
             _playerData = playerData;
-            Managers.Player.Init();
-            Managers.Achieve.Init();
-            Managers.Game.Init();
+            Managers.InitManagersAfterLoadingPlayerData();
             LoadedPlayerDataCollectionNullCheck();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
@@ -255,9 +251,7 @@ public class PlayerDataManager
             // 데이터가 없는 경우 기본 데이터로 초기화할 수 있습니다.
             Debug.Log("No player data found, initializing with default data.");
             _playerData = NewPlayerData();
-            Managers.Player.Init();
-            Managers.Achieve.Init();
-            Managers.Game.Init();
+            Managers.InitManagersAfterLoadingPlayerData();
             SaveToFirebase();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
@@ -284,6 +278,8 @@ public class PlayerDataManager
             _playerData.stageClearList = new();
         if (_playerData.achievementDatas == null)
             _playerData.achievementDatas = new();
+        if (_playerData.settingData == null)
+            _playerData.settingData = new();
     }
 
     //public void SaveToJson()

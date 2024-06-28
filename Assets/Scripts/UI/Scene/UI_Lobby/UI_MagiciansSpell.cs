@@ -68,8 +68,8 @@ public class UI_MagiciansSpell : UI_Base
         _iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
         GetButton((int)Buttons.Button_LevelUp).gameObject.AddUIEvent(ClickedSpellLevelUp);
 
-        Managers.Player.PlayerSpells.OnChangedSpellData -= SetSpellIcons;
-        Managers.Player.PlayerSpells.OnChangedSpellData += SetSpellIcons;
+        Managers.Status.PlayerSpells.OnChangedSpellData -= SetSpellIcons;
+        Managers.Status.PlayerSpells.OnChangedSpellData += SetSpellIcons;
 
         GetText((int)Texts.Text_LevelUp).text = Language.GetLanguage("LevelUp");
 
@@ -101,7 +101,7 @@ public class UI_MagiciansSpell : UI_Base
 
         foreach (KeyValuePair<int, UI_SpellIcon> kvp in _spellIconDict)
         {
-            if (Managers.Player.PlayerSpells.SpellDataDict.TryGetValue(kvp.Key, out SpellDataByPlayerOwnedSpell spellData))
+            if (Managers.Status.PlayerSpells.SpellDataDict.TryGetValue(kvp.Key, out SpellDataByPlayerOwnedSpell spellData))
             {
                 kvp.Value.SetUnlock();
                 kvp.Value.SetOwnedCount(spellData.id);
@@ -126,9 +126,9 @@ public class UI_MagiciansSpell : UI_Base
 
     void ClickedSpellLevelUp(PointerEventData data)
     {
-        if (Managers.Player.PlayerSpells.SpellLevelUp(_selectedSpellId))
+        if (Managers.Status.PlayerSpells.SpellLevelUp(_selectedSpellId))
         {
-            var spellData = Managers.Player.PlayerSpells.SpellDataDict[_selectedSpellId];
+            var spellData = Managers.Status.PlayerSpells.SpellDataDict[_selectedSpellId];
             _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.id);
             SetSpellDesc(_selectedSpellId, false);
             LobbySceneManager.Instance.SaveDataOnLobbyScene();
@@ -147,8 +147,8 @@ public class UI_MagiciansSpell : UI_Base
         }
         else
         {
-            spellData = Managers.Player.PlayerSpells.SpellDataDict[spellId];
-            GetButton((int)Buttons.Button_LevelUp).gameObject.SetActive(Managers.Player.PlayerSpells.AvailableLevelUp(spellId));
+            spellData = Managers.Status.PlayerSpells.SpellDataDict[spellId];
+            GetButton((int)Buttons.Button_LevelUp).gameObject.SetActive(Managers.Status.PlayerSpells.AvailableLevelUp(spellId));
         }
 
         _spellIconDict[spellId].SetEdge(_spellEdgeSprites[1]);

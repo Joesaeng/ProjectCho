@@ -100,7 +100,7 @@ public class UI_MagiciansEquip : UI_Base
         }
         _weaponSpellText = GetText((int)Texts.Text_WeaponSpell);
 
-        Managers.Player.OnApplyPlayerStatus += SetStatusValues;
+        Managers.Status.OnApplyPlayerStatus += SetStatusValues;
         SetStatusValues();
     }
 
@@ -138,8 +138,8 @@ public class UI_MagiciansEquip : UI_Base
             else
                 _ringSlots[slot._slotIndex] = slot;
         }
-        Managers.Player.OnChangeEquipment += ChangeEquipmentsListner;
-        Managers.Player.OnChangeInventory += ChangeInventoryListner;
+        Managers.Status.OnChangeEquipment += ChangeEquipmentsListner;
+        Managers.Status.OnChangeInventory += ChangeInventoryListner;
     }
 
     void InitEquipRing()
@@ -183,7 +183,7 @@ public class UI_MagiciansEquip : UI_Base
 
     void SetStatusValues()
     {
-        PlayerStatus playerStatus = Managers.Player.PlayerStatus;
+        PlayerStatus playerStatus = Managers.Status.PlayerStatus;
 
         // 무기 주문 텍스트 설정
         _weaponSpellText.text = Language.GetLanguage(Managers.Data.BaseSpellDataDict[playerStatus.startingSpellId].spellName);
@@ -254,9 +254,9 @@ public class UI_MagiciansEquip : UI_Base
 
     void EquipRingListner(Equipment ring)
     {
-        if (Managers.Player.HasEmptyRingSlots())
+        if (Managers.Status.HasEmptyRingSlots())
         {
-            Managers.Player.Equip(ring);
+            Managers.Status.Equip(ring);
             LobbySceneManager.Instance.SaveDataOnLobbyScene();
         }
         else
@@ -276,7 +276,7 @@ public class UI_MagiciansEquip : UI_Base
     {
         if (selectedRing == null)
             return;
-        Managers.Player.Equip(selectedRing, slotIndex);
+        Managers.Status.Equip(selectedRing, slotIndex);
         LobbySceneManager.Instance.SaveDataOnLobbyScene();
         GetObject((int)Objects.Panel_EquipRingSlotButton).SetActive(false);
         selectedRing = null;
@@ -284,8 +284,8 @@ public class UI_MagiciansEquip : UI_Base
 
     void SetEquipSlots()
     {
-        Dictionary<EquipmentType,Equipment> equipments = Managers.Player.EquipmentInventory.Equipments;
-        List<RingSlot> ringslots = Managers.Player.EquipmentInventory.RingSlots;
+        Dictionary<EquipmentType,Equipment> equipments = Managers.Status.EquipmentInventory.Equipments;
+        List<RingSlot> ringslots = Managers.Status.EquipmentInventory.RingSlots;
         foreach (var equip in equipments.Values)
         {
             _weaponSlot.SetEquipSlot(equip);
@@ -348,7 +348,7 @@ public class UI_MagiciansEquip : UI_Base
 
     void SetInventory()
     {
-        List<Equipment> inventoryItems = Managers.Player.Inventory.Items;
+        List<Equipment> inventoryItems = Managers.Status.Inventory.Items;
 
         if (inventoryItems == null)
         {

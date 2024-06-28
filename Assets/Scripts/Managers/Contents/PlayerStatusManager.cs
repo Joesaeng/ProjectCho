@@ -70,7 +70,7 @@ public class AchievementStatus
                 break;
 
         }
-        Managers.Player.ApplyPlayerStatus();
+        Managers.Status.ApplyPlayerStatus();
     }
 }
 
@@ -88,7 +88,7 @@ public class EquipmentStatus
         floatOptions = equipmentStatus.floatOptions;
         integerOptions = equipmentStatus.integerOptions;
 
-        Managers.Player.ApplyPlayerStatus();
+        Managers.Status.ApplyPlayerStatus();
     }
 }
 

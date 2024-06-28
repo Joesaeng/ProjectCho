@@ -43,20 +43,20 @@ public class Inventory
     {
         items.Add(item);
         SortItemsByRarity();
-        Managers.Player.ChangeInventory();
+        Managers.Status.ChangeInventory();
     }
 
     public void AddItems(List<Equipment> items)
     {
         Items.AddRange(items);
         SortItemsByRarity();
-        Managers.Player.ChangeInventory();
+        Managers.Status.ChangeInventory();
     }
 
     public void RemoveItem(Equipment item)
     {
         items.Remove(item);
-        Managers.Player.ChangeInventory();
+        Managers.Status.ChangeInventory();
     }
 
     public void SortItemsByRarity()

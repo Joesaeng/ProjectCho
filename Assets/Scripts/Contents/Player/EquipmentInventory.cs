@@ -67,7 +67,7 @@ public class EquipmentInventory
                 }
             }
         }
-        Managers.Player.RemoveItem(equipment);
+        Managers.Status.RemoveItem(equipment);
         ApplyEquipmentStatus();
     }
 
@@ -78,7 +78,7 @@ public class EquipmentInventory
         {
             if (equipments.ContainsKey(equipment.equipmentType))
             {
-                Managers.Player.AddItem(equipments[equipment.equipmentType]);
+                Managers.Status.AddItem(equipments[equipment.equipmentType]);
                 equipment.equipSlotIndex = -1;
                 equipments.Remove(equipment.equipmentType);
             }
@@ -89,7 +89,7 @@ public class EquipmentInventory
             {
                 if (slot.Ring == equipment)
                 {
-                    Managers.Player.AddItem(slot.UnEquipRing());
+                    Managers.Status.AddItem(slot.UnEquipRing());
                     break;
                 }
             }
@@ -158,8 +158,8 @@ public class EquipmentInventory
         if (equipmentStatus.floatOptions.TryGetValue(StatusType.IncreaseDamage, out float increaseDamage))
             equipmentStatus.damage *= (1 + increaseDamage);
 
-        Managers.Player.ApplyEquipmentStatus(equipmentStatus);
-        Managers.Player.ChangeEquipments();
+        Managers.Status.ApplyEquipmentStatus(equipmentStatus);
+        Managers.Status.ChangeEquipments();
     }
 
     private void ApplyEquipmentOptions(Equipment equipment, EquipmentStatus equipmentStatus)

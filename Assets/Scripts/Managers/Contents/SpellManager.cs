@@ -71,7 +71,7 @@ public class SpellManager
 
         foreach(var spellKvp in retSpellDict)
         {
-            Managers.Player.AddSpells(spellKvp.Key,spellKvp.Value);
+            Managers.Status.AddSpells(spellKvp.Key,spellKvp.Value);
         }
         Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.Summon, count, summonType: SummonType.Spell);
         return retSpellDict;

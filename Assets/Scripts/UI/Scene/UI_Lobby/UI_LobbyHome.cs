@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,7 +17,8 @@ public class UI_LobbyHome : UI_Base
         Text_StageNum,
         Button_Play,
         Text_Play,
-        Panel_SpawnMonster
+        Panel_SpawnMonster,
+        Text_WaveInfo,
     }
     int _curStage = 0;
 
@@ -79,6 +81,17 @@ public class UI_LobbyHome : UI_Base
             GetObject((int)Objects.Image_PlayBlocker).SetActive(false);
         SetPrevAndNextStageButton();
         SetSpawnMonsters();
+        SetWaveInfo();
+    }
+
+    void SetWaveInfo()
+    {
+        TextMeshProUGUI waveInfoText = GetObject((int)Objects.Text_WaveInfo).GetComponent<TextMeshProUGUI>();
+        string waveNum = $"<color=#FF0000><b>{Managers.Data.StageDataDict[_curStage].waveDatas.Count}</color></b> {Language.GetLanguage("Wave")}";
+        int monstersCount = Managers.Data.StageDataDict[_curStage].waveDatas.Select(data => data.spawnEnemyCount).Sum();
+        string monsterCountString = $"<color=#FF0000><b>{monstersCount}</color></b> {Language.GetLanguage("Monsters")}";
+
+        waveInfoText.text = $"{waveNum} \n {monsterCountString}";
     }
 
     void SetPrevAndNextStageButton()

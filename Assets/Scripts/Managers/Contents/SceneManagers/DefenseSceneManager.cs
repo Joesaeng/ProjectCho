@@ -97,7 +97,7 @@ public class DefenseSceneManager : MonoBehaviour
         SpellUseablePoints = new();
         SpellUseables = new();
         SpellUseableCount = 0;
-        PlayerSpells = Managers.Player.PlayerSpells;
+        PlayerSpells = Managers.Status.PlayerSpells;
         PlayerSpells.BuildSpellDict();
         EnemyDataBase = new();
         SpellUpgradeDatas = new();
@@ -155,7 +155,7 @@ public class DefenseSceneManager : MonoBehaviour
         PlayerWall.OnUpdatePlayerHp += UpdatePlayerHpListner;
         #endregion
 
-        CreateMagician(Managers.Player.PlayerStatus.startingSpellId);
+        CreateMagician(Managers.Status.PlayerStatus.startingSpellId);
         StartWave(CurWave);
     }
 

@@ -57,8 +57,8 @@ public class UI_SpellDescOnDefense : UI_Base
 
         
 
-        MagicianSpell spell = Managers.Player.PlayerSpells.SpellDict[spellId];
-        SpellDataByPlayerOwnedSpell spellData = Managers.Player.PlayerSpells.SpellDataDict[spellId];
+        MagicianSpell spell = Managers.Status.PlayerSpells.SpellDict[spellId];
+        SpellDataByPlayerOwnedSpell spellData = Managers.Status.PlayerSpells.SpellDataDict[spellId];
         GetText((int)Texts.Text_SpellName).text = Language.GetLanguage(spellData.SpellName);
         GetText((int)Texts.Text_SpellName).color = ConstantData.TextColorsByElementTypes[(int)spellData.ElementType];
         List<ISpellUpgrade> upgrades = spell.Upgrades;
