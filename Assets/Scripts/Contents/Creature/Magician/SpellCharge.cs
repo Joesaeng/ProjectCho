@@ -46,6 +46,7 @@ public class SpellCharge : AttackableCreature, ISpellUseable
         Managers.CompCache.GetOrAddComponentCache(enchant, out HitEffect effect);
         effect.Init();
         Spell.UseSpell(_targetPos, transform);
+        PlayCastSFX();
         yield return YieldCache.WaitForSeconds(AttackDelay);
         AttackerState = AttackableState.Idle;
     }
@@ -78,5 +79,11 @@ public class SpellCharge : AttackableCreature, ISpellUseable
         if (Target == null)
             return;
         _targetPos = Target.Tf.position;
+    }
+
+    public void PlayCastSFX()
+    {
+        string sfxname = $"cast_{Spell.SpellName}";
+        Managers.Sound.PlayOnObject(sfxname, transform.position);
     }
 }

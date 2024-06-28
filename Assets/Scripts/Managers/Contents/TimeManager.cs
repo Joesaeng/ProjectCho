@@ -1,18 +1,18 @@
-using Data;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 public class TimeManager
 {
     public bool IsPause { get; private set; }
     public int CurTimeScale { get; private set; } = 1;
+
+    public event Action OnGamePause;
+    public event Action OnGameResume;
+    public Action OnChangeTimeScale;
+
     public void Init()
     {
         IsPause = false;
-
         CurTimeScale = 1;
         Time.timeScale = CurTimeScale;
     }
@@ -21,12 +21,14 @@ public class TimeManager
     {
         Time.timeScale = 0f;
         IsPause = true;
+        OnGamePause?.Invoke();
     }
 
     public void GameResume()
     {
         Time.timeScale = CurTimeScale;
         IsPause = false;
+        OnGameResume?.Invoke();
     }
 
     public int ChangeTimeScale()
@@ -42,6 +44,7 @@ public class TimeManager
                 CurTimeScale = 1;
                 break;
         }
+        OnChangeTimeScale?.Invoke();
         return CurTimeScale;
     }
 

@@ -3,7 +3,6 @@ using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
 {
@@ -15,6 +14,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
 
     string AOESpellPath;
     protected string ExplosionPath;
+    public string spellName;
 
     public float AttackDamage { get; set; }
     public float SpellDuration { get; set; }
@@ -32,6 +32,7 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
     public void InitDamageDealer(IData data)
     {
         MagicianSpell spellData = data as MagicianSpell;
+        spellName = spellData.SpellName;
         AttackDamage = spellData.SpellDamage;
         ElementType = spellData.ElementType;
         Managers.CompCache.GetOrAddComponentCache(gameObject, out SphereCollider sphCol);
@@ -57,9 +58,19 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
         }
     }
 
+    AudioSource PlaySFX()
+    {
+        string sfxName = SpellDuration == 0 ? $"impact_{spellName}" : $"loop_{spellName}";
+        if (SpellDuration == 0)
+            return Managers.Sound.PlayOnObject(sfxName, transform.position);
+        else
+            return Managers.Sound.PlayOnObjectLoop(sfxName, transform.position);
+    }
+
     IEnumerator CoImpact()
     {
         yield return YieldCache.WaitForSeconds(0.05f);
+        AudioSource audioSource = PlaySFX();
         float curDuration = 0f;
         List<IHitable> deadTargets = new();
         while (true)
@@ -71,20 +82,22 @@ public class AOETypePlayerSpell : MonoBehaviour, IDamageDealer
                 {
                     continue;
                 }
-                if(target.TakeDamage(this))
+                if (target.TakeDamage(this))
                     deadTargets.Add(target);
 
                 GameObject obj = Managers.Resource.Instantiate(ExplosionPath, target.Tf.position);
                 Managers.CompCache.GetOrAddComponentCache(obj, out HitEffect hitEffect);
                 hitEffect.Init();
             }
-            for(int i = 0; i < deadTargets.Count; i++)
+            for (int i = 0; i < deadTargets.Count; i++)
             {
                 Targets.Remove(deadTargets[i]);
             }
             yield return YieldCache.WaitForSeconds(0.5f);
             if (curDuration >= SpellDuration)
             {
+                if (SpellDuration != 0)
+                    Managers.Sound.StopAndReturnToPool(audioSource);
                 DestroyAOE();
             }
         }
