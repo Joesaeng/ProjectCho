@@ -8,9 +8,10 @@ using UnityEngine.UI;
 
 public class UI_LevelUpPopup : UI_Popup
 {
-    enum GameObjects
+    enum Objects
     {
-        Panel_LevelUpOptions
+        Panel_LevelUpOptions,
+        Blocker_ShowOptionWait
     }
     enum Buttons
     {
@@ -22,21 +23,27 @@ public class UI_LevelUpPopup : UI_Popup
     }
 
     Transform _panelLevelupTf;
-    List<UI_LevelUpOptions> _levelUpOptions;
+    List<UI_LevelUpOptions> _levelUpOptionsUI;
     public Action<LevelUpOptions> OnClickedLevelUpOption;
     public Action OnClickedReroll;
+
+    GameObject _rerollButtonObj;
+    GameObject _blockerOptionWait;
 
     public override void Init()
     {
         base.Init();
-        Bind<GameObject>(typeof(GameObjects));
+        Bind<GameObject>(typeof(Objects));
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         GetText((int)Texts.Text_Reroll).text = Language.GetLanguage("Reroll");
-        GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(true);
-        GetButton((int)Buttons.Button_Reroll).gameObject.AddUIEvent(ClickedReroll);
+        _rerollButtonObj = GetButton((int)Buttons.Button_Reroll).gameObject;
+        _rerollButtonObj.SetActive(true);
+        _rerollButtonObj.AddUIEvent(ClickedReroll);
 
-        _panelLevelupTf = GetObject((int)GameObjects.Panel_LevelUpOptions).transform;
+        _panelLevelupTf = GetObject((int)Objects.Panel_LevelUpOptions).transform;
+        _blockerOptionWait = GetObject((int)Objects.Blocker_ShowOptionWait);
+        _blockerOptionWait.SetActive(true);
 
         MakeLevelUpOptions();
         DefenseSceneManager.Instance.OnSetLevelUpPopup += LevelUpListner;
@@ -46,18 +53,20 @@ public class UI_LevelUpPopup : UI_Popup
     void LevelUpListner(List<LevelUpOptions> levelUpOptions)
     {
         gameObject.SetActive(true);
-        GetButton((int)Buttons.Button_Reroll).gameObject.SetActive(true);
+        _blockerOptionWait.SetActive(true);
+        _rerollButtonObj.SetActive(true);
         SetLevelUpOptions(levelUpOptions);
     }
 
     void MakeLevelUpOptions()
     {
-        _levelUpOptions = new();
+        _levelUpOptionsUI = new();
         for (int i = 0; i < ConstantData.LevelUpOptionsBasicCount; i++)
         {
-            UI_LevelUpOptions option = Managers.UI.MakeSubItem<UI_LevelUpOptions>(_panelLevelupTf);
-            
-            _levelUpOptions.Add(option);
+            if (!_panelLevelupTf.TryGetChild(i, out UI_LevelUpOptions option))
+                option = Managers.UI.MakeSubItem<UI_LevelUpOptions>(_panelLevelupTf);
+            option.Init();
+            _levelUpOptionsUI.Add(option);
         }
     }
 
@@ -77,14 +86,15 @@ public class UI_LevelUpPopup : UI_Popup
     {
         for (int i = 0; i < levelUpOptions.Count; i++)
         {
-            GameObject obj = _levelUpOptions[i].gameObject;
-            obj.gameObject.SetActive(false);
-            _levelUpOptions[i].Set(levelUpOptions[i]);
-            obj.gameObject.RemoveEvent();
-            obj.gameObject.AddUIEvent(ClickedLevelUpOption, levelUpOptions[i]);
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
-            obj.gameObject.SetActive(true);
+            _levelUpOptionsUI[i].Set(levelUpOptions[i]);
+            GameObject obj = _levelUpOptionsUI[i].gameObject;
+            obj.RemoveEvent();
+            obj.AddUIEvent(ClickedLevelUpOption, levelUpOptions[i]);
+            RectTransform rect = obj.GetComponent<RectTransform>();
+            // rect.localScale = Vector3.one * 0.5f;
+            rect.LeanScale(Vector3.one * 1.2f, 0.1f).setIgnoreTimeScale(true).setOnComplete(() =>
+                rect.LeanScale(Vector3.one, 0.1f).setIgnoreTimeScale(true).setOnComplete(() =>
+                _blockerOptionWait.SetActive(false)));
         }
     }
 }

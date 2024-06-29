@@ -97,8 +97,17 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
-        T popup = Util.GetOrAddComponent<T>(go);
+        T popup;
+        if (GameObject.FindAnyObjectByType<T>() != null)
+        {
+            popup = GameObject.FindAnyObjectByType<T>();
+        }
+        else
+        {
+            GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
+            popup = Util.GetOrAddComponent<T>(go);
+        }
+
         _popupStack.Push(popup);
 
         return popup;

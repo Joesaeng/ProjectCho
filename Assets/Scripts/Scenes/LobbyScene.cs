@@ -7,9 +7,8 @@ public class LobbyScene : BaseScene
     protected override void Init()
     {
         base.Init();
-#if UNITY_EDITOR
-        Managers.PlayerData.NewPlayerLogin();
-#endif
+        // Test
+        // Managers.PlayerData.NewPlayerLogin();
         LobbySceneManager.Instance.Init();
     }
     public override void Clear()

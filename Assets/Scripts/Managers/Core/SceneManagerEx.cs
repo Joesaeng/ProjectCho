@@ -49,9 +49,6 @@ public class SceneManagerEx : MonoBehaviour
                 ao.allowSceneActivation = true;
             }
         }
-        // UI_Loading loading = Managers.UI.ShowPopupUI<UI_Loading>();
-        // loading.Init();
-        // loading.OnCompleteLoadingUI += () => Managers.UI.ClosePopupUI(loading);
     }
 
     string GetSceneName(Define.Scene type)

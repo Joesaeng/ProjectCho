@@ -198,15 +198,12 @@ public class PlayerDataManager
     {
         _playerData = NewPlayerData();
         Managers.InitManagersAfterLoadingPlayerData();
-        // SaveToFirebase();
+        SaveToFirebase();
     }
 
     public void SaveToFirebase()
     {
-#if UNITY_EDITOR
-
-#else
-_playerData.beginner = false;
+        _playerData.beginner = false;
 
         _playerData.inventoryData = Managers.Status.InventoryToData();
         _playerData.ownedSpellDatas = Managers.Status.SpellDataBaseToData();
@@ -232,7 +229,6 @@ _playerData.beginner = false;
         }
 
         FirebaseManager.Instance.SavePlayerData(jsonData);
-#endif
     }
 
     public void OnPlayerDataLoadedToFirebase(PlayerData playerData)

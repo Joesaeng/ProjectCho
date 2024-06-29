@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7336279477663314868}
   - component: {fileID: 8918735601466990950}
   - component: {fileID: 3737022762384066107}
-  - component: {fileID: 5428650462841188872}
   - component: {fileID: 6496935755308045964}
+  - component: {fileID: 5729852393947732786}
   m_Layer: 5
   m_Name: UI_LevelUpOptions
   m_TagString: Untagged
@@ -81,27 +81,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &5428650462841188872
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281177424931093636}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0f3dc6f91d3e1814eb745b8748093cd9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6496935755308045964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +125,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5729852393947732786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281177424931093636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899f371c100da4d49b0c6c9620f3d95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &788477250407870629
 GameObject:
   m_ObjectHideFlags: 0
