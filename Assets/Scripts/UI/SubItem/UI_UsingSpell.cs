@@ -11,7 +11,7 @@ public class UI_UsingSpell : UI_Base
     int _spellUpgradeCount;
     public override void Init()
     {
-        _spellIcon      = Util.FindChild<Image>(gameObject, "Image_SpellIcon");
+        _spellIcon      = Util.FindChild<Image>(gameObject, "Image_SpellIcon",recursive:true);
         _spellLevelText = Util.FindChild<TextMeshProUGUI>(gameObject, "Text_SpellLevel");
         _spellIcon.enabled      = false;
         _spellLevelText.enabled = false;

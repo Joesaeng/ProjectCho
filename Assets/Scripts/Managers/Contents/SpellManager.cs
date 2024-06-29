@@ -52,7 +52,7 @@ public class SpellManager
         var list = Managers.Data.BaseSpellDataDict.Values.ToList();
         for(int i = 0; i < list.Count; i++)
         {
-            _spellSpriteDict[list[i].id] = Managers.Resource.Load<Sprite>($"UI/SpellIcons/{list[i].spellName}");
+            _spellSpriteDict[list[i].id] = Managers.Resource.Load<Sprite>($"Textures/SpellIcons/{list[i].spellName}");
         }
     }
 

@@ -66,6 +66,7 @@ public class UI_DefenseScene : UI_Scene
         for (int i = 0; i < _usingSpells.Length; i++)
         {
             _usingSpells[i] = usingSpellsTf.GetChild(i).GetComponent<UI_UsingSpell>();
+            _usingSpells[i].Init();
         }
 
         _waveInfo = GetText((int)Texts.Text_WaveInfo);
@@ -94,7 +95,6 @@ public class UI_DefenseScene : UI_Scene
 
     public void SetUsingSpell(int spellId, int spellNum)
     {
-        _usingSpells[spellNum].Init();
         _usingSpells[spellNum].SetUsingSpell(spellId);
         _usingSpellDict[spellId] = _usingSpells[spellNum];
         _usingSpells[spellNum].gameObject.AddUIEvent(ClickedUsingSpell, spellId);
@@ -102,6 +102,7 @@ public class UI_DefenseScene : UI_Scene
 
     void ClickedUsingSpell(int spellId, PointerEventData data)
     {
+        _spellDesc.gameObject.SetActive(true);
         _spellDesc.SetSpellDesc(spellId);
     }
 

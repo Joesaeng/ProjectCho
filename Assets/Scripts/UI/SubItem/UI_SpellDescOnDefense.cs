@@ -148,7 +148,8 @@ public class UI_SpellDescOnDefense : UI_Base
     void HideSpellDesc(PointerEventData data)
     {
         _isShowing = false;
-        LeanTween.move(_rectTf, _hidedPos, 0.5f).setEase(LeanTweenType.easeOutBack).setIgnoreTimeScale(true);
+        LeanTween.move(_rectTf, _hidedPos, 0.5f).setEase(LeanTweenType.easeOutBack).setIgnoreTimeScale(true).setOnComplete(()
+            => gameObject.SetActive(false));
     }
 
     void ShowSpellDesc()

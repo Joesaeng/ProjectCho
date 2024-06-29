@@ -20,7 +20,9 @@ public class UI_DefenseScenePause : UI_Popup
     enum Images
     {
         Image_LobbyCheckBlur,
-        Image_LobbyCheck
+        Image_LobbyCheck,
+        Image_BGM,
+        Image_SFX
     }
 
     enum Texts
@@ -35,6 +37,8 @@ public class UI_DefenseScenePause : UI_Popup
     public Action OnClickedLobby;
 
     UI_DefeatEnemies _defeatEnemiesUI;
+    Sprite _soundOn;
+    Sprite _soundOff;
 
     public override void Init()
     {
@@ -58,6 +62,32 @@ public class UI_DefenseScenePause : UI_Popup
 
         _defeatEnemiesUI = Util.FindChild<UI_DefeatEnemies>(gameObject,"UI_DefeatEnemies",true);
         _defeatEnemiesUI.Init();
+
+        _soundOn = Resources.Load<Sprite>("UI/Useds/SoundOn");
+        _soundOff = Resources.Load<Sprite>("UI/Useds/SoundOff");
+
+        GetButton((int)Buttons.Button_BGM).gameObject.AddUIEvent((PointerEventData data) => ClickedBGM());
+        GetButton((int)Buttons.Button_SFX).gameObject.AddUIEvent((PointerEventData data) => ClickedSFX());
+
+        SetSoundImage();
+    }
+
+    void ClickedBGM()
+    {
+        Managers.Game.SetBGMOnOff();
+        SetSoundImage();
+    }
+
+    void ClickedSFX()
+    {
+        Managers.Game.SetSFXOnOff();
+        SetSoundImage();
+    }
+
+    void SetSoundImage()
+    {
+        GetImage((int)Images.Image_BGM).sprite = Managers.PlayerData.BgmOn ? _soundOn : _soundOff;
+        GetImage((int)Images.Image_SFX).sprite = Managers.PlayerData.SfxOn ? _soundOn : _soundOff;
     }
 
     void ClickedLobby(PointerEventData data)

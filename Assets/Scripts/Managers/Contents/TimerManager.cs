@@ -11,9 +11,20 @@ public class TimerManager : MonoBehaviour
         StartCoroutine(TimerCoroutine(delay, callback));
     }
 
+    public void StartTimerUnscaled(float delay, Action callback)
+    {
+        StartCoroutine(TimerCoroutineUnscaled(delay, callback));
+    }
+
+    private IEnumerator TimerCoroutineUnscaled(float delay, Action callback)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        callback?.Invoke();
+    }
+
     private IEnumerator TimerCoroutine(float delay, Action callback)
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldCache.WaitForSeconds(delay);
         callback?.Invoke();
     }
 

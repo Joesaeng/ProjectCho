@@ -75,17 +75,31 @@ public class ResourceManager
         Object.Destroy(go);
     }
 
-    public void Destroy(GameObject go,float time)
+    public void DestroyDelay(GameObject go, float time)
     {
         if (go == null)
             return;
 
         if (go.TryGetComponent<Poolable>(out Poolable poolable))
         {
-            Managers.Timer.StartTimer(1f, () => Managers.Pool.Push(poolable));
+            Managers.Timer.StartTimer(time, () => Managers.Pool.Push(poolable));
             return;
         }
 
-        Object.Destroy(go,time);
+        Managers.Timer.StartTimer(time, () => Object.Destroy(go));
+    }
+
+    public void DestroyDelayUnscaled(GameObject go,float time)
+    {
+        if (go == null)
+            return;
+
+        if (go.TryGetComponent<Poolable>(out Poolable poolable))
+        {
+            Managers.Timer.StartTimerUnscaled(time, () => Managers.Pool.Push(poolable));
+            return;
+        }
+
+        Managers.Timer.StartTimerUnscaled(time, () => Object.Destroy(go));
     }
 }

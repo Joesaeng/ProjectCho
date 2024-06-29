@@ -33,6 +33,6 @@ public class ClickEffectManager : MonoBehaviour
 
         // 클릭 이펙트를 일정 시간 후 제거합니다.
         // Destroy(clickEffect, 1f); // 1초 후 이펙트 제거
-        Managers.Resource.Destroy(clickEffect,1f);
+        Managers.Resource.DestroyDelayUnscaled(clickEffect,1f);
     }
 }
