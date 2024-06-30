@@ -73,9 +73,11 @@ public class UI_GameOver : UI_Popup
         {
             case GameoverType.Gameover:
                 GetText((int)Texts.Text_Gameover).text = Language.GetLanguage("Lose");
+                Managers.Sound.Play("ui_lose");
                 break;
             case GameoverType.Clear:
                 GetText((int)Texts.Text_Gameover).text = Language.GetLanguage("Win");
+                Managers.Sound.Play("ui_win");
                 break;
         }
         foreach(var reward in stageRewards)

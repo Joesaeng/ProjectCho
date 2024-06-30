@@ -97,6 +97,7 @@ public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitab
         Managers.CompCache.GetOrAddComponentCache(gameObject, out _collider);
         Managers.CompCache.GetOrAddComponentCache(gameObject, out _animationController);
         Collider.enabled = true;
+        Agent.enabled = true;
         Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
         _animationController.Init();

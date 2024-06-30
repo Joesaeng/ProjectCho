@@ -1,0 +1,42 @@
+.unity-object-field > .unity-label {
+    font-size: 14px;
+    -unity-text-align: upper-center;
+    margin-top: 0;
+    margin-bottom: 5px;
+    -unity-font-style: bold;
+}
+
+.unity-toolbar > .unity-toolbar-button {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+}
+
+.unity-list-view .unity-object-field > .unity-label {
+    display: none;
+}
+
+.inspector-warning-icon_warning {
+    background-image: url("../Styles/Icons/Warning Icon.png");
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    opacity: 0.7;
+}
+
+.inspector-warning-icon_error {
+    background-image: url("../Styles/Icons/Error Icon.png");
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    opacity: 0.7;
+}

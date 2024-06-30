@@ -43,5 +43,6 @@ public class UI_EquipSlot : UI_Base
     void ClickedItem(PointerEventData data)
     {
         OnClickedEquipSlot.Invoke(_equipment, _slotType);
+        Managers.Sound.Play("ui_click");
     }
 }

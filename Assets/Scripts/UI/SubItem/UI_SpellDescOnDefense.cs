@@ -150,6 +150,7 @@ public class UI_SpellDescOnDefense : UI_Base
         _isShowing = false;
         LeanTween.move(_rectTf, _hidedPos, 0.5f).setEase(LeanTweenType.easeOutBack).setIgnoreTimeScale(true).setOnComplete(()
             => gameObject.SetActive(false));
+        Managers.Sound.Play("ui_toggle");
     }
 
     void ShowSpellDesc()

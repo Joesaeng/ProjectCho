@@ -77,6 +77,7 @@ public class UI_ItemDesc : UI_Base
         {
             if(_selectedItem is Equipment equipment)
             {
+                Managers.Sound.Play("ui_equip");
                 if (equipment.equipmentType == EquipmentType.Weapon)
                 {
                     Managers.Status.Equip(equipment);
@@ -90,10 +91,12 @@ public class UI_ItemDesc : UI_Base
         {
             if (_selectedItem is Equipment equipment)
             {
+                Managers.Sound.Play("ui_unequip");
                 Managers.Status.UnEquip(equipment);
                 LobbySceneManager.Instance.SaveDataOnLobbyScene();
             }
         }
+        
         OffItemDesc();
     }
 
@@ -115,11 +118,13 @@ public class UI_ItemDesc : UI_Base
     void SellSelectedItem()
     {
         Managers.Status.SellItem(_selectedItem);
+        Managers.Sound.Play("ui_unequip");
         OffItemDesc();
     }
 
     void ClickedOffItemDesc(PointerEventData data)
     {
+        Managers.Sound.Play("ui_click");
         OffItemDesc();
     }
 

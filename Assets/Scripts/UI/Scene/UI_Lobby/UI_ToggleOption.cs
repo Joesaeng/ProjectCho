@@ -31,6 +31,7 @@ public class UI_ToggleOption : UI_Base
 
     void ValueChanged(bool value)
     {
+        Managers.Sound.Play("ui_toggle");
         OnToggleChanged.Invoke(_statusType,value);
     }
 }

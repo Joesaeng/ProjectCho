@@ -10,7 +10,7 @@ public class LoginScene : BaseScene
         
         UI_LoginScene uI_LoginScene = FindObjectOfType<UI_LoginScene>();
         uI_LoginScene.Init();
-
+        
         FirebaseManager.Instance.Init();
     }
     public override void Clear()

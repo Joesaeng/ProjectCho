@@ -126,6 +126,7 @@ public class UI_LobbyShop : UI_Base
 
     void ClickedTabButton(int selectedIndex, PointerEventData data)
     {
+        Managers.Sound.Play("ui_click");
         ButtonClickEffect(_tabImages[selectedIndex].rectTransform, 1.2f, 1.1f);
         if (_selectedIndex != selectedIndex)
         {
@@ -134,10 +135,6 @@ public class UI_LobbyShop : UI_Base
         }
     }
 
-    //void ClickedSummonListner(List<Item> summonItems)
-    //{
-    //    _summonUi.OnSummonEquips(summonItems);
-    //}
     void ClickedSummonListner(List<Equipment> summonItems)
     {
         _summonUi.OnSummonEquips(summonItems);

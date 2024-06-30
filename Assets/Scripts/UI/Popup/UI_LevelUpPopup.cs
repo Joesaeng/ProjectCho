@@ -52,6 +52,7 @@ public class UI_LevelUpPopup : UI_Popup
 
     void LevelUpListner(List<LevelUpOptions> levelUpOptions)
     {
+        Managers.Sound.Play("ui_levelup");
         gameObject.SetActive(true);
         _blockerOptionWait.SetActive(true);
         _rerollButtonObj.SetActive(true);
@@ -73,6 +74,7 @@ public class UI_LevelUpPopup : UI_Popup
     public void ClickedLevelUpOption(LevelUpOptions option, PointerEventData data)
     {
         OnClickedLevelUpOption.Invoke(option);
+        Managers.Sound.Play("ui_spelllevelup");
         gameObject.SetActive(false);
     }
 

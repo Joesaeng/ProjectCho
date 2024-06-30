@@ -37,7 +37,10 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
     void ClickedItem(PointerEventData data)
     {
         if (_isDragging == false)
+        {
             OnClickedSkillIcon.Invoke(_spellId);
+            Managers.Sound.Play("ui_click");
+        }
     }
 
     public void SetId(int spellId)

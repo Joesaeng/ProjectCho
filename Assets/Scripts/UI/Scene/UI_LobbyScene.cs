@@ -181,6 +181,7 @@ public class UI_LobbyScene : UI_Scene
 
     void ClickedMenuButtons(int selectedIndex, PointerEventData data)
     {
+        Managers.Sound.Play("ui_maintabclick");
         MoveMenuToIndex(selectedIndex);
         // Index에 맞는 메뉴 표시
     }

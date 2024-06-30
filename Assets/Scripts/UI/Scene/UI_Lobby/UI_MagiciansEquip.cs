@@ -331,6 +331,7 @@ public class UI_MagiciansEquip : UI_Base
 
     void ClickedInventoryTab(EquipmentType type, PointerEventData data)
     {
+        Managers.Sound.Play("ui_click");
         _showItemType = type;
         SetInventoryTab();
     }

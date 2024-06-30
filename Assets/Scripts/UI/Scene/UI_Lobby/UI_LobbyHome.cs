@@ -53,6 +53,7 @@ public class UI_LobbyHome : UI_Base
         if (_curStage > 0)
         {
             _curStage -= 1;
+            Managers.Sound.Play("ui_click3");
             SetLobbyHome();
         }
     }
@@ -62,6 +63,7 @@ public class UI_LobbyHome : UI_Base
         if (_curStage + 1 < Managers.Data.StageDataDict.Count)
         {
             _curStage += 1;
+            Managers.Sound.Play("ui_click3");
             SetLobbyHome();
         }
     }
@@ -75,7 +77,7 @@ public class UI_LobbyHome : UI_Base
     {
         _stageNum.text = $"Stage {_curStage + 1}";
         bool availablePlay = !Managers.PlayerData.StageClearList.Contains(_curStage-1);
-        if(_curStage > 0)
+        if (_curStage > 0)
             GetObject((int)Objects.Image_PlayBlocker).SetActive(availablePlay);
         else
             GetObject((int)Objects.Image_PlayBlocker).SetActive(false);

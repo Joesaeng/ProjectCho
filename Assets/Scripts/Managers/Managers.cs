@@ -87,6 +87,7 @@ public class Managers : MonoBehaviour
         s_instance._status.Init();
         s_instance._achieve.Init();
         s_instance._game.Init();
+        s_instance._sound.InitAfterLoadingPlayerData();
     }
     public static void Clear()
     {

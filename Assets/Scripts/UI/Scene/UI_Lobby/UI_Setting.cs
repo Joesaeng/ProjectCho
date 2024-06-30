@@ -135,6 +135,7 @@ public class UI_SoundSetting : UI_Base
 
     void ClickedButton(Buttons buttonType, PointerEventData data)
     {
+        Managers.Sound.Play("ui_setting");
         switch (buttonType)
         {
             case Buttons.Button_BGM:
@@ -211,6 +212,7 @@ public class UI_FrameSetting : UI_Base
 
     void ClickedFrameButton(Buttons buttonType,PointerEventData data)
     {
+        Managers.Sound.Play("ui_setting");
         switch (buttonType)
         {
             case Buttons.Button_60Fps:
@@ -257,6 +259,7 @@ public class UI_LanguageSetting : UI_Base
         GetObject((int)Objects.Image_OffEng).SetActive(Managers.PlayerData.GameLanguage == GameLanguage.Korean);
         GetObject((int)Objects.Button_Kor).RemoveEvent();
         GetObject((int)Objects.Button_Eng).RemoveEvent();
+        Managers.Sound.Play("ui_setting");
         switch (Managers.PlayerData.GameLanguage)
         {
             case GameLanguage.English:
@@ -300,6 +303,7 @@ public class UI_AccountSetting : UI_Base
 
     void ClickedCopy(PointerEventData data)
     {
+        Managers.Sound.Play("ui_setting");
         TextEditor te = new TextEditor { text = GetText((int)Texts.Text_UserID).text };
         te.SelectAll();
         te.Copy();

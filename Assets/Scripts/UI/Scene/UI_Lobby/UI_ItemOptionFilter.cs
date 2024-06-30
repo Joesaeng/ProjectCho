@@ -103,6 +103,7 @@ public class UI_ItemOptionFilter : UI_Base
 
     void ResetToggleOptions()
     {
+        Managers.Sound.Play("ui_click3");
         foreach (var type in _filterDict.Keys.ToList())
         {
             _filterDict[type] = true;

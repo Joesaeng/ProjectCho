@@ -250,7 +250,7 @@ public class AchievementManager
 
                     foreach (var reward in ac.rewards)
                         RewardPlayerForAchievement(reward);
-
+                    Managers.Sound.Play("ui_completeachieve");
                     OnAchievementComplete?.Invoke(ac.type);
                     break;
                 }

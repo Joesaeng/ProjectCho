@@ -84,6 +84,7 @@ public class UI_DefenseScene : UI_Scene
     public void ClickedPause(PointerEventData data)
     {
         OnClickedPause.Invoke();
+        Managers.Sound.Play("ui_click");
     }
 
     public void ClickedFast(PointerEventData data)
@@ -91,6 +92,7 @@ public class UI_DefenseScene : UI_Scene
         OnClickedFast.Invoke();
         GetButton((int)Buttons.Button_Fast).GetComponent<Image>().sprite =
             _speedSprite[Managers.Time.CurTimeScale - 1];
+        Managers.Sound.Play("ui_click");
     }
 
     public void SetUsingSpell(int spellId, int spellNum)
@@ -102,6 +104,7 @@ public class UI_DefenseScene : UI_Scene
 
     void ClickedUsingSpell(int spellId, PointerEventData data)
     {
+        Managers.Sound.Play("ui_toggle");
         _spellDesc.gameObject.SetActive(true);
         _spellDesc.SetSpellDesc(spellId);
     }

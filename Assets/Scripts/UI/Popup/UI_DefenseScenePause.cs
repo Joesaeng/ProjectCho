@@ -75,12 +75,14 @@ public class UI_DefenseScenePause : UI_Popup
     void ClickedBGM()
     {
         Managers.Game.SetBGMOnOff();
+        Managers.Sound.Play("ui_setting");
         SetSoundImage();
     }
 
     void ClickedSFX()
     {
         Managers.Game.SetSFXOnOff();
+        Managers.Sound.Play("ui_setting");
         SetSoundImage();
     }
 
@@ -94,10 +96,12 @@ public class UI_DefenseScenePause : UI_Popup
     {
         GetImage((int)Images.Image_LobbyCheckBlur).gameObject.SetActive(true);
         GetImage((int)Images.Image_LobbyCheck).gameObject.SetActive(true);
+        Managers.Sound.Play("ui_click");
     }
     void ClickedResume(PointerEventData data)
     {
         OnClickedResume.Invoke();
+        Managers.Sound.Play("ui_click");
     }
 
     void ClickedAgree(PointerEventData data)

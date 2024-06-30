@@ -77,6 +77,7 @@ public class UI_LobbyAchievement : UI_Base
 
     void ClickedTabButton(int index, PointerEventData data)
     {
+        Managers.Sound.Play("ui_maintabclick");
         _selectedAchievementType = (AchievementType)index;
         SetTabs();
     }

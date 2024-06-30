@@ -10,6 +10,7 @@ public class LobbyScene : BaseScene
         // Test
         // Managers.PlayerData.NewPlayerLogin();
         LobbySceneManager.Instance.Init();
+        Managers.Sound.Play("bgm_lobby", Define.Sound.Bgm);
     }
     public override void Clear()
     {

@@ -20,5 +20,6 @@ public class DefenseScene : BaseScene
 #endif
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
+        Managers.Sound.Play("bgm_defense", Define.Sound.Bgm);
     }
 }

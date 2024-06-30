@@ -7,6 +7,7 @@ public class SoundManager
     AudioMixer _audioMixer;
     AudioMixerGroup _bgmGroup;
     AudioMixerGroup _sfxGroup;
+    AudioMixerGroup _uiGroup;
 
     AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
@@ -18,6 +19,7 @@ public class SoundManager
         _audioMixer = Resources.Load<AudioMixer>("AudioMixer");
         _bgmGroup = _audioMixer.FindMatchingGroups("BGM")[0];
         _sfxGroup = _audioMixer.FindMatchingGroups("SFX")[0];
+        _uiGroup = _audioMixer.FindMatchingGroups("UI")[0];
         if (root == null)
         {
             root = new GameObject { name = "@Sound" };
@@ -31,7 +33,7 @@ public class SoundManager
                 _audioSources[i].dopplerLevel = 0f;
                 _audioSources[i].reverbZoneMix = 0f;
                 _audioSources[i].outputAudioMixerGroup = _audioMixer.FindMatchingGroups("SFX")[0];
-                _audioSources[i].outputAudioMixerGroup = (i == (int)Define.Sound.Bgm) ? _bgmGroup : _sfxGroup;
+                _audioSources[i].outputAudioMixerGroup = (i == (int)Define.Sound.Bgm) ? _bgmGroup : _uiGroup;
                 go.transform.parent = root.transform;
             }
 
@@ -41,6 +43,11 @@ public class SoundManager
         Managers.Time.OnGamePause += PauseAllSFX;
         Managers.Time.OnGameResume += ResumeAllSFX;
         Managers.Time.OnChangeTimeScale += ChangeSFXFitch;
+    }
+    
+    public void InitAfterLoadingPlayerData()
+    {
+        Managers.Game.OnSetBgmOnOff += OnOffBGMListner;
     }
 
     public void Clear()
@@ -133,17 +140,23 @@ public class SoundManager
 
     void PauseAllSFX()
     {
-        _sfxGroup.audioMixer.SetFloat("Volume", -80);
+        _sfxGroup.audioMixer.SetFloat("SFXVolume", -80f);
     }
 
     void ResumeAllSFX()
     {
-        _sfxGroup.audioMixer.SetFloat("Volume", 0);
+        _sfxGroup.audioMixer.SetFloat("SFXVolume", -20f);
     }
 
     void ChangeSFXFitch()
     {
-        _sfxGroup.audioMixer.SetFloat("Pitch", Managers.Time.CurTimeScale);
+        _sfxGroup.audioMixer.SetFloat("SFXPitch", Managers.Time.CurTimeScale);
+    }
+
+    void OnOffBGMListner()
+    {
+        float bgmVolume = Managers.PlayerData.BgmOn ? -20f : -80f;
+        _bgmGroup.audioMixer.SetFloat("BGMVolume", bgmVolume);
     }
 
     AudioSource GetPooledAudioSource()
@@ -159,9 +172,8 @@ public class SoundManager
             GameObject audioObject = new GameObject("PooledAudioSource");
             AudioSource audioSource = audioObject.AddComponent<AudioSource>();
             audioSource.volume = 1f;
-            audioSource.spatialBlend = 1.0f;
-            audioSource.minDistance = 1.0f;
-            audioSource.maxDistance = 50.0f;
+            audioSource.dopplerLevel = 0f;
+            audioSource.reverbZoneMix = 0f;
             audioSource.outputAudioMixerGroup = _sfxGroup;
             return audioSource;
         }

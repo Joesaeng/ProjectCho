@@ -63,6 +63,7 @@ public class UI_LobbyMagician : UI_Base
 
     void ClickedTab(int menuIndex, PointerEventData data)
     {
+        Managers.Sound.Play("ui_click");
         EnableTabMenu(menuIndex);
     }
 }

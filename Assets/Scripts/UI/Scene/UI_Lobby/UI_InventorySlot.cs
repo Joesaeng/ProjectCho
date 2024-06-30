@@ -44,7 +44,10 @@ public class UI_InventorySlot : UI_Base, IDragHandler, IBeginDragHandler, IEndDr
     void ClickedItem(PointerEventData data)
     {
         if (_isDragging == false)
+        {
             OnClickedItem.Invoke(_item,_slotType);
+            Managers.Sound.Play("ui_click");
+        }
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)

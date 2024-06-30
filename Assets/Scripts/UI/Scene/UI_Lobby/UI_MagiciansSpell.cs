@@ -122,6 +122,7 @@ public class UI_MagiciansSpell : UI_Base
     {
         if (Managers.Status.PlayerSpells.SpellLevelUp(_selectedSpellId))
         {
+            Managers.Sound.Play("ui_spelllevelup");
             var spellData = Managers.Status.PlayerSpells.SpellDataDict[_selectedSpellId];
             _spellIconDict[_selectedSpellId].SetOwnedCount(spellData.id);
             SetSpellDesc(_selectedSpellId, false);
