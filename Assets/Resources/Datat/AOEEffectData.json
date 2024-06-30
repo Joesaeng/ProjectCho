@@ -1,12 +1,12 @@
 {
   "datas": [
     {
-      "id": 0,
+      "id": "0",
       "effectName": "LightningStrike",
       "explosionName": "LightningSlashHit"
     },
     {
-      "id": 1,
+      "id": "1",
       "effectName": "FireBallImpact",
       "explosionName": "FireSlashHit"
     },

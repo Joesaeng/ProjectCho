@@ -215,8 +215,6 @@ public class UI_ItemDesc : UI_Base
                     case StatusType.IncreaseLightningSpellDamage:
                     case StatusType.IncreaseEarthSpellDamage:
                     case StatusType.IncreaseWindSpellDamage:
-                    case StatusType.IncreaseLightSpellDamage:
-                    case StatusType.IncreaseDarkSpellDamage:
                         attributeValue = (option.FloatParam1 * 100f).ToString("0.0") + "%";
                         break;
                     default:

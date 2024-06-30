@@ -37,6 +37,12 @@ public class Achievement
             rewards = this.rewards.Select(reward => reward.ToData()).ToList()
         };
     }
+
+    public void ResetProgress()
+    {
+        isCompleted = false;
+        target.ResetProgress();
+    }
 }
 public class AchievementTarget
 {
@@ -65,6 +71,11 @@ public class AchievementTarget
             targetValue = this.targetValue,
             progressValue = this.progressValue
         };
+    }
+
+    public void ResetProgress()
+    {
+        progressValue = 0;
     }
 }
 
@@ -104,8 +115,13 @@ public class AchievementManager
 
     public void Init()
     {
-        _completedAchievements = new();
-        _pendingAchievements = new();
+        InitAllAchievementByAchievementData();
+        InitAchievementByPlayerData();
+        
+    }
+
+    void InitAllAchievementByAchievementData()
+    {
         foreach (var data in Managers.Data.AchievementDataDict.Values)
         {
             if (!Managers.PlayerData.AchievementDatas.Any(d => d.id == data.id))
@@ -113,32 +129,94 @@ public class AchievementManager
                 Managers.PlayerData.AchievementDatas.Add(data);
             }
         }
+    }
 
+    //void InitAchievementByPlayerData()
+    //{
+    //    _completedAchievements = new();
+    //    _pendingAchievements = new();
+    //    List<Achievement> achievements = Managers.PlayerData.AchievementDatas.Select(data => new Achievement(data)).ToList();
+
+    //    foreach (var achievement in achievements)
+    //    {
+    //        if (achievement.isCompleted)
+    //        {
+    //            if (_completedAchievements.ContainsKey(achievement.type))
+    //                _completedAchievements[achievement.type].Add(achievement);
+    //            else
+    //                _completedAchievements[achievement.type] = new List<Achievement>() { achievement };
+
+    //            // 이미 클리어 한 업적 중 status를 상승시키는 업적이 있을 때 적용
+    //            List<AchievementReward> statusRewards = achievement.rewards.Where(data => data.type == RewardType.RewardStatus).ToList();
+    //            foreach (AchievementReward statusReward in statusRewards)
+    //            {
+    //                RewardPlayerForAchievement(statusReward);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (_pendingAchievements.ContainsKey(achievement.type))
+    //                _pendingAchievements[achievement.type].Add(achievement);
+    //            else
+    //                _pendingAchievements[achievement.type] = new List<Achievement>() { achievement };
+    //        }
+    //    }
+    //}
+
+    void InitAchievementByPlayerData()
+    {
+        _completedAchievements = new();
+        _pendingAchievements = new();
         List<Achievement> achievements = Managers.PlayerData.AchievementDatas.Select(data => new Achievement(data)).ToList();
+
+        DateTime utcNow = DateTime.UtcNow; // 현재 UTC 시간
+        DateTime utcToday0000 = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, 0, 0, 0); // 오늘 00:00 UTC 시간
+        DateTime lastDailyReset = Managers.PlayerData.LastDailyReset; // 마지막 일일 업적 리셋 시간
+        DateTime lastWeeklyReset = Managers.PlayerData.LastWeeklyReset; // 마지막 주간 업적 리셋 시간
+
+        bool isDailyReset = (utcNow >= utcToday0000 && lastDailyReset < utcToday0000);
+        bool isWeeklyReset = (utcNow >= utcToday0000 && lastWeeklyReset < utcToday0000.AddDays(-((int)utcNow.DayOfWeek)));
 
         foreach (var achievement in achievements)
         {
-            if (achievement.isCompleted)
+            // 일일 또는 주간 업적 초기화가 필요한지 체크하여 초기화
+            if ((achievement.type == AchievementType.Daily && isDailyReset) ||
+                (achievement.type == AchievementType.Weekly && isWeeklyReset))
+            {
+                achievement.ResetProgress(); // 업적 진행도를 초기화
+            }
+
+            if (achievement.isCompleted) // 업적이 완료된 경우
             {
                 if (_completedAchievements.ContainsKey(achievement.type))
                     _completedAchievements[achievement.type].Add(achievement);
                 else
                     _completedAchievements[achievement.type] = new List<Achievement>() { achievement };
 
-                // 이미 클리어 한 업적 중 status를 상승시키는 업적이 있을 때 적용
+                // 이미 클리어한 업적 중 상태를 상승시키는 업적 적용
                 List<AchievementReward> statusRewards = achievement.rewards.Where(data => data.type == RewardType.RewardStatus).ToList();
-                foreach(AchievementReward statusReward in statusRewards)
+                foreach (AchievementReward statusReward in statusRewards)
                 {
-                    RewardPlayerForAchievement(statusReward);
+                    RewardPlayerForAchievement(statusReward); // 상태 보상을 적용
                 }
             }
-            else
+            else // 업적이 완료되지 않은 경우
             {
                 if (_pendingAchievements.ContainsKey(achievement.type))
                     _pendingAchievements[achievement.type].Add(achievement);
                 else
                     _pendingAchievements[achievement.type] = new List<Achievement>() { achievement };
             }
+        }
+
+        // 일일 및 주간 업적 리셋 시간 업데이트
+        if (isDailyReset)
+        {
+            Managers.PlayerData.LastDailyReset = utcNow; // 현재 시간을 마지막 일일 리셋 시간으로 업데이트
+        }
+        if (isWeeklyReset)
+        {
+            Managers.PlayerData.LastWeeklyReset = utcNow; // 현재 시간을 마지막 주간 리셋 시간으로 업데이트
         }
     }
 

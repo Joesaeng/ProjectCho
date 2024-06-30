@@ -28,6 +28,7 @@ public class PlayerOwnedSpellData
 [Serializable]
 public class PlayerData
 {
+    public string userId;
     public bool beginner = true;
     public PlayerSettingData settingData;
     public List<PlayerOwnedSpellData> ownedSpellDatas;
@@ -36,6 +37,8 @@ public class PlayerData
     public List<AchievementData> achievementDatas;
     public int coinAmount = 0;
     public int diaAmount = 0;
+    public DateTime lastDailyReset;
+    public DateTime lastWeeklyReset;
 }
 
 [Serializable]
@@ -52,7 +55,7 @@ public class PlayerDataManager
     PlayerData _playerData;
 
     #region GetProperty
-
+    public string UserId => _playerData.userId;
     public GameLanguage GameLanguage { get => _playerData.settingData.language; set => _playerData.settingData.language = value; }
 
     public int CoinAmount => _playerData.coinAmount;
@@ -66,6 +69,9 @@ public class PlayerDataManager
     public bool SfxOn { get => _playerData.settingData.sfxOn; set => _playerData.settingData.sfxOn = value; }
 
     public int FrameRate { get => _playerData.settingData.frameRate; set => _playerData.settingData.frameRate = value; }
+
+    public DateTime LastDailyReset { get => _playerData.lastDailyReset; set=>_playerData.lastDailyReset = value; }
+    public DateTime LastWeeklyReset { get => _playerData.lastWeeklyReset; set=>_playerData.lastWeeklyReset = value; }
 
     #endregion
 
@@ -126,9 +132,12 @@ public class PlayerDataManager
         newPlayerData.achievementDatas = new List<AchievementData>();
         newPlayerData.stageClearList = new();
 
-        newPlayerData.coinAmount = 1000;
-        newPlayerData.diaAmount = 1000;
+        newPlayerData.coinAmount = 0;
+        newPlayerData.diaAmount = 0;
         newPlayerData.settingData = new PlayerSettingData();
+
+        newPlayerData.lastDailyReset = DateTime.UtcNow;
+        newPlayerData.lastWeeklyReset = DateTime.UtcNow;
 
         return newPlayerData;
     }
@@ -198,13 +207,16 @@ public class PlayerDataManager
     {
         _playerData = NewPlayerData();
         Managers.InitManagersAfterLoadingPlayerData();
+#if UNITY_EDITOR
+#else
         SaveToFirebase();
+#endif
     }
 
     public void SaveToFirebase()
     {
         _playerData.beginner = false;
-
+        _playerData.userId = FirebaseManager.Instance.CurrentUserId;
         _playerData.inventoryData = Managers.Status.InventoryToData();
         _playerData.ownedSpellDatas = Managers.Status.SpellDataBaseToData();
         _playerData.achievementDatas = Managers.Achieve.ToData();
@@ -239,7 +251,7 @@ public class PlayerDataManager
             Debug.Log("Player data loaded successfully.");
             _playerData = playerData;
             Managers.InitManagersAfterLoadingPlayerData();
-            LoadedPlayerDataCollectionNullCheck();
+            LoadedPlayerDataNullCheck();
             Managers.Scene.LoadSceneWithLoadingScene(Scene.Lobby);
         }
         else
@@ -253,7 +265,7 @@ public class PlayerDataManager
         }
     }
 
-    void LoadedPlayerDataCollectionNullCheck()
+    void LoadedPlayerDataNullCheck()
     {
         if (_playerData.ownedSpellDatas == null)
             _playerData.ownedSpellDatas = new();
@@ -276,54 +288,11 @@ public class PlayerDataManager
             _playerData.achievementDatas = new();
         if (_playerData.settingData == null)
             _playerData.settingData = new();
+        if (_playerData.lastDailyReset == null)
+            _playerData.lastDailyReset = DateTime.UtcNow;
+        if(_playerData.lastWeeklyReset == null)
+            _playerData.lastWeeklyReset = DateTime.UtcNow;
     }
-
-    //public void SaveToJson()
-    //{
-    //    if (File.Exists(_path))
-    //        File.Delete(_path);
-    //    _playerData.beginner = false;
-
-    //    _playerData.inventoryData = Managers.Player.InventoryToData();
-    //    _playerData.ownedSpellDatas = Managers.Player.SpellDataBaseToData();
-    //    _playerData.achievementDatas = Managers.Achieve.ToData();
-
-    //    JsonSerializerSettings settings = new()
-    //    {
-    //        TypeNameHandling = TypeNameHandling.All
-    //    };
-
-    //    string json = JsonConvert.SerializeObject(_playerData, settings);
-
-    //    // byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
-    //    // 
-    //    // string encodedJson = System.Convert.ToBase64String(bytes);
-
-    //    File.WriteAllText(_path, json);
-
-    //}
-
-    //public void LoadFromJson()
-    //{
-    //    if (!File.Exists(_path))
-    //    {
-    //        _playerData = NewPlayerData();
-    //        return;
-    //    }
-
-    //    string jsonData = File.ReadAllText(_path);
-
-    //    JsonSerializerSettings settings = new()
-    //    {
-    //        TypeNameHandling = TypeNameHandling.All
-    //    };
-
-    //    // byte[] bytes = System.Convert.FromBase64String(jsonData);
-    //    // 
-    //    // string decodedJson = System.Text.Encoding.UTF8.GetString(bytes);
-
-    //    _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData, settings);
-    //}
 
     public void Clear()
     {

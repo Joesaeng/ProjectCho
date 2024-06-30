@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System;
 using Newtonsoft.Json;
-
+#if UNITY_EDITOR
 public class ImportGoogleSheetsToJson : EditorWindow
 {
     private string spreadsheetId = "13FxaHFa2dqualC039L4zP9r4CmmMfoGEL4gQHZLw2iw";
@@ -75,3 +75,4 @@ public class ImportGoogleSheetsToJson : EditorWindow
         Debug.Log($"Imported Google Sheets {sheetName} to {jsonFilePath}");
     }
 }
+#endif

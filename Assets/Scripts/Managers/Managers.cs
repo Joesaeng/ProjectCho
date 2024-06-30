@@ -22,7 +22,7 @@ public class Managers : MonoBehaviour
     public static AchievementManager Achieve { get { return Instance._achieve; } }
     #region Core
     PlayerDataManager _playerData = new();
-    DataManager _data = new();
+    DataManager _data;
     InputManager _input = new();
     PoolManager _pool = new();
     ResourceManager _resource = new();
@@ -38,8 +38,8 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static UIManager UI { get { return Instance._UI; } }
-    public static ComponentCacheManager CompCache { get {  return Instance._compCache; } }
-    public static PlayerDataManager PlayerData { get {  return Instance._playerData; } }
+    public static ComponentCacheManager CompCache { get { return Instance._compCache; } }
+    public static PlayerDataManager PlayerData { get { return Instance._playerData; } }
 
 
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -52,10 +52,10 @@ public class Managers : MonoBehaviour
 
     public static void Init()
     {
-        if(s_instance == null)
+        if (s_instance == null)
         {
             GameObject go = GameObject.Find("@Managers");
-            if(go == null)
+            if (go == null)
             {
                 go = new GameObject { name = "@Managers" };
                 go.AddComponent<Managers>();
@@ -70,6 +70,7 @@ public class Managers : MonoBehaviour
             {
                 s_instance._timer = go.GetOrAddComponent<TimerManager>();
                 s_instance._scene = go.GetOrAddComponent<SceneManagerEx>();
+                s_instance._data = go.GetOrAddComponent<DataManager>();
             }
 
             s_instance._time.Init();

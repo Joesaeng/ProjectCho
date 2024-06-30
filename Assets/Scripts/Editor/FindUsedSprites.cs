@@ -5,6 +5,7 @@ using System.IO;
 using UnityEditor.SceneManagement;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
 public class FindAndCopyUsedSprites : EditorWindow
 {
     private List<string> usedSprites = new List<string>();
@@ -251,3 +252,4 @@ public class FindAndCopyUsedSprites : EditorWindow
         AssetDatabase.SaveAssets();
     }
 }
+#endif

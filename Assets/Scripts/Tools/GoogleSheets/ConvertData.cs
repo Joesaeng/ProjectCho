@@ -5,10 +5,99 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public static class ConvertData
 {
     const string spreadsheetId = "13FxaHFa2dqualC039L4zP9r4CmmMfoGEL4gQHZLw2iw";
+
+    public static IEnumerator ConvertSheetDataToJson(string sheetName, Action<string> callback)
+    {
+        string url = $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/gviz/tq?tqx=out:csv&sheet={sheetName}";
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError(www.error);
+                callback(null);
+            }
+            else
+            {
+                string csvData = www.downloadHandler.text;
+                Debug.Log(csvData);
+                string jsonData = ConvertCsvToJson(csvData);
+                callback(jsonData);
+            }
+        }
+    }
+
+    private static string ConvertCsvToJson(string csvData)
+    {
+        var lines = csvData.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        if (lines.Length == 0)
+            return null;
+
+        var headers = lines[0].Split(',');
+        var jsonArray = new JArray();
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            var row = lines[i].Split(',');
+            var jsonObject = new JObject();
+            for (int j = 0; j < headers.Length; j++)
+            {
+                var header = headers[j].Trim('\"');
+                var value = row.Length > j ? row[j].Trim('\"') : null;
+                try
+                {
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        if (IsJson(value))
+                        {
+                            jsonObject[header] = JToken.Parse(value);
+                        }
+                        else if (IsBool(value))
+                        {
+                            jsonObject[header] = bool.Parse(value);
+                        }
+                        else if (IsNumeric(value))
+                        {
+                            if (int.TryParse(value, out int intValue))
+                            {
+                                jsonObject[header] = intValue;
+                            }
+                            else if (float.TryParse(value, out float floatValue))
+                            {
+                                jsonObject[header] = floatValue;
+                            }
+                        }
+                        else
+                        {
+                            jsonObject[header] = value;
+                        }
+                    }
+                    else
+                    {
+                        jsonObject[header] = null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Error parsing value '{value}' for header '{header}' in row {i}: {ex.Message}");
+                }
+            }
+            jsonArray.Add(jsonObject);
+        }
+
+        var finalJson = new JObject
+        {
+            ["datas"] = jsonArray
+        };
+
+        return finalJson.ToString();
+    }
 
     public static string ConvertSheetDataToJson(string sheetName)
     {

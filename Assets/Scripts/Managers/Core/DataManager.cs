@@ -7,16 +7,13 @@ using UnityEngine;
 using Data;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
-using Google.Apis.Sheets.v4.Data;
-using Newtonsoft.Json.Linq;
-using static UnityEngine.Rendering.DebugUI;
 
 public interface ILoader<Key, Value>
 {
     Dictionary<Key, Value> MakeDict();
 }
 
-public class DataManager
+public class DataManager : MonoBehaviour
 {
     public Dictionary<int, BaseEnemyData> BaseEnemyDataDict { get; private set; } = new Dictionary<int, BaseEnemyData>();
     public Dictionary<int, BaseSpellData> BaseSpellDataDict { get; private set; } = new Dictionary<int, BaseSpellData>();
@@ -30,7 +27,6 @@ public class DataManager
 
     public void Init()
     {
-#if UNITY_EDITOR
         BaseEnemyDataDict = LoadJson<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
         BaseSpellDataDict = LoadJson<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
         ProjectileDataDict = LoadJson<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
@@ -39,20 +35,52 @@ public class DataManager
         StageDataDict = LoadJson<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
         EquipmentOptionDataDict = LoadJson<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
         AchievementDataDict = LoadJson<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
-
         LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
-#else
-        BaseEnemyDataDict = LoadGoogleSheetData<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
-        BaseSpellDataDict = LoadGoogleSheetData<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
-        ProjectileDataDict = LoadGoogleSheetData<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
-        AOEEffectDataDict = LoadGoogleSheetData<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
-        UpgradeDataDict = LoadGoogleSheetData<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
-        StageDataDict = LoadGoogleSheetData<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
-        EquipmentOptionDataDict = LoadGoogleSheetData<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
-        AchievementDataDict = LoadGoogleSheetData<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
 
-        LanguageDataDict = LoadGoogleSheetData<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
-#endif
+        //BaseEnemyDataDict = LoadGoogleSheetData<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
+        //BaseSpellDataDict = LoadGoogleSheetData<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
+        //ProjectileDataDict = LoadGoogleSheetData<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
+        //AOEEffectDataDict = LoadGoogleSheetData<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
+        //UpgradeDataDict = LoadGoogleSheetData<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
+        //StageDataDict = LoadGoogleSheetData<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
+        //EquipmentOptionDataDict = LoadGoogleSheetData<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
+        //AchievementDataDict = LoadGoogleSheetData<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
+
+        //LanguageDataDict = LoadGoogleSheetData<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
+
+        // StartCoroutine(LoadAllData(onComplete));
+    }
+
+    private IEnumerator LoadAllData(Action onComplete)
+    {
+        List<IEnumerator> coroutines = new List<IEnumerator>
+        {
+            LoadGoogleSheetData<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData", loader =>
+                BaseEnemyDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData", loader =>
+                BaseSpellDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData", loader =>
+                ProjectileDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData", loader =>
+                AOEEffectDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData", loader =>
+                UpgradeDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<StageData>, int, Data.StageData>("StageData", loader =>
+                StageDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData", loader =>
+                EquipmentOptionDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<Datas<AchievementData>, int, Data.AchievementData>("AchievementData", loader =>
+                AchievementDataDict = loader.MakeDict()),
+            LoadGoogleSheetData<LanguageDatas, string, Data.LanguageData>("LanguageData", loader =>
+                LanguageDataDict = loader.MakeDict())
+        };
+
+        foreach (var coroutine in coroutines)
+        {
+            yield return StartCoroutine(coroutine);
+        }
+
+        onComplete?.Invoke();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
@@ -81,5 +109,26 @@ public class DataManager
         };
         Debug.Log($"{sheetName}.loaded");
         return JsonConvert.DeserializeObject<Loader>(json, settings);
+    }
+
+    private IEnumerator LoadGoogleSheetData<Loader, Key, Value>(string sheetName, Action<Loader> onLoadComplete) where Loader : ILoader<Key, Value>
+    {
+        yield return ConvertData.ConvertSheetDataToJson(sheetName, (json) =>
+        {
+            if (json != null)
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    Converters = new List<JsonConverter> { new StringEnumConverter() }
+                };
+                Debug.Log($"{sheetName} loaded");
+                var loader = JsonConvert.DeserializeObject<Loader>(json, settings);
+                onLoadComplete.Invoke(loader);
+            }
+            else
+            {
+                Debug.LogError($"Failed to load data for sheet: {sheetName}");
+            }
+        });
     }
 }

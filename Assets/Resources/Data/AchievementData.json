@@ -690,7 +690,7 @@
         {
           "type": "RewardDia",
           "statusType": "Spell",
-          "integerParam": 50,
+          "integerParam": 25,
           "floatParam": 0.0
         }
       ],

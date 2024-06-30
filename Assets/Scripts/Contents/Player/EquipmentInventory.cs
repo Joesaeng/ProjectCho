@@ -189,8 +189,6 @@ public class EquipmentInventory
                 case StatusType.IncreaseLightningSpellDamage:
                 case StatusType.IncreaseEarthSpellDamage:
                 case StatusType.IncreaseWindSpellDamage:
-                case StatusType.IncreaseLightSpellDamage:
-                case StatusType.IncreaseDarkSpellDamage:
                     if (equipmentStatus.floatOptions.ContainsKey(option.OptionType))
                     {
                         equipmentStatus.floatOptions[option.OptionType] += option.FloatParam1;

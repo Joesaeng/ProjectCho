@@ -18,7 +18,6 @@ public class DefenseScene : BaseScene
 #if UNITY_EDITOR
         Managers.PlayerData.NewPlayerLogin();
 #endif
-
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
     }

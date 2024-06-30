@@ -284,17 +284,15 @@ public class UI_AccountSetting : UI_Base
     {
         Button_Copy,
     }
-    RectTransform _copiedTextRect;
     public override void Init()
     {
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<GameObject>(typeof(Objects));
 
         GetText((int)Texts.Text_Account).text = Language.GetLanguage("AccountSettingTitle");
-        GetText((int)Texts.Text_UserID).text = FirebaseManager.Instance.CurrentUserId;
+        GetText((int)Texts.Text_UserID).text = Managers.PlayerData.UserId;
         GetText((int)Texts.Text_Copy).text = Language.GetLanguage("Copy");
         GetText((int)Texts.Text_CopiedToClipBoard).text = Language.GetLanguage("CopiedToClipBoard");
-        _copiedTextRect = GetText((int)Texts.Text_CopiedToClipBoard).rectTransform;
 
         GetObject((int)Objects.Button_Copy).AddUIEvent(ClickedCopy);
 

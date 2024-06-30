@@ -107,33 +107,33 @@
     },
     {
       "key": "IncreaseDamage_Desc",
-      "eng": "Damage to this Spell increases by {0}%",
-      "kr": "해당 스킬의 데미지가 {0}% 증가합니다"
+      "eng": "Damage to this Spell increases by [<color=#00FF00>{0}</color>%]",
+      "kr": "해당 스킬의 데미지가 [<color=#00FF00>{0}</color>%] 증가합니다"
     },
     {
       "key": "IncreaseSize_Desc",
-      "eng": "Size of the Spell increases by {0}%.",
-      "kr": "스킬의 크기가 {0}% 증가합니다."
+      "eng": "Size of the Spell increases by [<color=#00FF00>{0}</color>%].",
+      "kr": "스킬의 크기가 [<color=#00FF00>{0}</color>%] 증가합니다."
     },
     {
       "key": "AddExplosionOnImpact_Desc",
-      "eng": "Adds an explosion effect on impact dealing damage in a radius of {0}.",
-      "kr": "충돌 시 {0} 범위 내에 데미지를 주는 폭발 효과를 추가합니다."
+      "eng": "Adds an explosion effect on impact dealing damage in a radius of [<color=#00FF00>{0}</color>].",
+      "kr": "충돌 시 [<color=#00FF00>{0}</color>] 범위 내에 데미지를 주는 폭발 효과를 추가합니다."
     },
     {
       "key": "IncreasePierce_Desc",
-      "eng": "Increases the Spell's pierce count by {0}.",
-      "kr": "스킬의 관통 횟수를 {0} 증가시킵니다."
+      "eng": "Increases the Spell's pierce count by [<color=#00FF00>{0}</color>].",
+      "kr": "스킬의 관통 횟수를 [<color=#00FF00>{0}</color>] 증가시킵니다."
     },
     {
       "key": "DecreaseSpellDelay_Desc",
-      "eng": "Reduces the delay between casting the skill by {0}%.",
-      "kr": "스킬 시전 간의 지연 시간을 {0}% 감소시킵니다."
+      "eng": "Reduces the delay between casting the skill by [<color=#00FF00>{0}</color>%].",
+      "kr": "스킬 시전 간의 지연 시간을 [<color=#00FF00>{0}</color>%] 감소시킵니다."
     },
     {
       "key": "AddProjectile_Desc",
-      "eng": "Adds {0} additional projectiles.",
-      "kr": "추가 투사체 {0}개를 발사합니다."
+      "eng": "Adds [<color=#00FF00>{0}</color>] additional projectiles.",
+      "kr": "추가 투사체 [<color=#00FF00>{0}</color>]개를 발사합니다."
     },
     {
       "key": "IncreaseDamage",
@@ -391,16 +391,6 @@
       "kr": "제거된 적의 수"
     },
     {
-      "key": "BGM",
-      "eng": "BGM",
-      "kr": "배경음"
-    },
-    {
-      "key": "SFX",
-      "eng": "SFX",
-      "kr": "효과음"
-    },
-    {
       "key": "Lobby",
       "eng": "Lobby",
       "kr": "로비"
@@ -429,6 +419,113 @@
       "key": "AdsRewardx2",
       "eng": "Ads Reward x2",
       "kr": "광고 보상 x2"
+    },
+    {
+      "key": "WaveInfoFormat",
+      "eng": "Wave {0} : <color=#FF0000>{1}</color> Monsters",
+      "kr": "웨이브 {0} : <color=#FF0000>{1}</color> 몬스터"
+    },
+    {
+      "key": "NextWave",
+      "eng": "Next Wave",
+      "kr": "다음 웨이브"
+    },
+    {
+      "key": "KillCount",
+      "eng": "Kill Count",
+      "kr": "적 제거 수"
+    },
+    {
+      "key": "ItemOptionFilter",
+      "eng": "Item Option Filter",
+      "kr": "아이템 옵션 필터"
+    },
+    {
+      "key": "Apply",
+      "eng": "Apply",
+      "kr": "적용"
+    },
+    {
+      "key": "Reset",
+      "eng": "Reset",
+      "kr": "초기화"
+    },
+    {
+      "key": "Quit",
+      "eng": "Quit",
+      "kr": "닫기"
+    },
+    {
+      "key": "BGM",
+      "eng": "BGM",
+      "kr": "배경음"
+    },
+    {
+      "key": "SFX",
+      "eng": "SFX",
+      "kr": "효과음"
+    },
+    {
+      "key": "FrameSettingTitle",
+      "eng": "Game FrameRate Setting",
+      "kr": "프레임 설정"
+    },
+    {
+      "key": "LanguageSettingTitle",
+      "eng": "Language Setting",
+      "kr": "언어 설정"
+    },
+    {
+      "key": "AccountSettingTitle",
+      "eng": "Account",
+      "kr": "계정"
+    },
+    {
+      "key": "Copy",
+      "eng": "Copy",
+      "kr": "복사"
+    },
+    {
+      "key": "CopiedToClipBoard",
+      "eng": "Copied to clipboard",
+      "kr": "클립보드에 복사되었습니다"
+    },
+    {
+      "key": "LanguageSettingCheck",
+      "eng": "게임이 다시 로드됩니다",
+      "kr": "The game will reload"
+    },
+    {
+      "key": "Wave",
+      "eng": "Wave",
+      "kr": "웨이브"
+    },
+    {
+      "key": "Monsters",
+      "eng": "Monsters",
+      "kr": "몬스터"
+    },
+    {
+      "key": "Sell",
+      "eng": "Sell",
+      "kr": "판매"
+    },
+    {
+      "key": "Filter",
+      "eng": "Filter",
+      "kr": "필터"
+    },
+    {
+      "key": "SellCheckTitle",
+      "eng": "Profit from sale",
+      "kr": "판매 시 얻는 재화"
+    },
+    {
+      "key": "SettingTitle",
+      "eng": "Player Setting",
+      "kr": "사용자 설정"
     }
+
+
   ]
 }

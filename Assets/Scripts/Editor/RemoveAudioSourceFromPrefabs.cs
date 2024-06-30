@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
+
 public class RemoveAudioSourceFromPrefabs : EditorWindow
 {
     [MenuItem("Tools/Remove AudioSource from Prefabs")]
@@ -47,3 +49,4 @@ public class RemoveAudioSourceFromPrefabs : EditorWindow
         Debug.Log("Completed removing AudioSource from all prefabs.");
     }
 }
+#endif

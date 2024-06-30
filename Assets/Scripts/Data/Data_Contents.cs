@@ -105,9 +105,6 @@ public enum StatusType
     IncreaseLightningSpellDamage,
     IncreaseEarthSpellDamage,
     IncreaseWindSpellDamage,
-    IncreaseLightSpellDamage,
-    IncreaseDarkSpellDamage,
-
     // . . .
 }
 

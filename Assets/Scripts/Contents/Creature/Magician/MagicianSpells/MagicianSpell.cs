@@ -1,12 +1,8 @@
 using Data;
 using Interfaces;
 using MagicianSpellUpgrade;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Searcher;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 #region Spell Behavior
@@ -176,12 +172,20 @@ public abstract class MagicianSpell : ISetData
     public virtual void UseSpell(Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
         SpellBehavior.Execute(this, targetPos, projectileSpawnPoint);
+        PlayCastSFX();
         OnAddProjectile?.Invoke(projectileSpawnPoint);
     }
 
     public virtual void UseSpellOfUpgrade(Vector3 targetPos, Transform projectileSpawnPoint = null)
     {
         SpellBehavior.Execute(this, targetPos, projectileSpawnPoint);
+        PlayCastSFX();
+    }
+
+    void PlayCastSFX()
+    {
+        string sfxname = $"cast_{SpellName}";
+        Managers.Sound.PlayOnObject(sfxname, _ownTransform.position);
     }
 
     public abstract IHitable SearchTarget(Transform transform);

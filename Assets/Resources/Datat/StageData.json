@@ -1,22 +1,19 @@
 {
   "datas": [
     {
-      "id": 0,
+      "id": "0",
       "firstClearRewardData": {
         "type": "RewardDia",
         "value": 50
       },
-      "stageEnemysId": [
-        0,
-        1,
-        2
-      ],
+        "stageEnemysId": [
+          0,
+          1,
+          2
+        ],
       "waveDatas": [
         {
-          "waveEnemyIds": [
-            0,
-            1
-          ],
+          "waveEnemyIds": [ 0, 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 3
@@ -26,10 +23,7 @@
           "hpCoefficient": 1
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 5
@@ -39,10 +33,7 @@
           "hpCoefficient": 1.2
         },
         {
-          "waveEnemyIds": [
-            2,
-            1
-          ],
+          "waveEnemyIds": [ 2, 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 8
@@ -52,10 +43,7 @@
           "hpCoefficient": 1.4
         },
         {
-          "waveEnemyIds": [
-            0,
-            2
-          ],
+          "waveEnemyIds": [ 0, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 10
@@ -65,10 +53,7 @@
           "hpCoefficient": 1.6
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 13
@@ -78,10 +63,7 @@
           "hpCoefficient": 1.8
         },
         {
-          "waveEnemyIds": [
-            0,
-            2
-          ],
+          "waveEnemyIds": [ 0, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 15
@@ -91,10 +73,7 @@
           "hpCoefficient": 2
         },
         {
-          "waveEnemyIds": [
-            2,
-            0
-          ],
+          "waveEnemyIds": [ 2, 0 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 18
@@ -104,10 +83,7 @@
           "hpCoefficient": 2.2
         },
         {
-          "waveEnemyIds": [
-            0,
-            1
-          ],
+          "waveEnemyIds": [ 0, 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 20
@@ -117,10 +93,7 @@
           "hpCoefficient": 2.4
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 23
@@ -130,9 +103,7 @@
           "hpCoefficient": 2.6
         },
         {
-          "waveEnemyIds": [
-            0
-          ],
+          "waveEnemyIds": [ 0 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 25
@@ -142,9 +113,7 @@
           "hpCoefficient": 2.8
         },
         {
-          "waveEnemyIds": [
-            2
-          ],
+          "waveEnemyIds": [ 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 28
@@ -154,10 +123,7 @@
           "hpCoefficient": 3
         },
         {
-          "waveEnemyIds": [
-            0,
-            1
-          ],
+          "waveEnemyIds": [ 0, 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 30
@@ -167,9 +133,7 @@
           "hpCoefficient": 3.2
         },
         {
-          "waveEnemyIds": [
-            1
-          ],
+          "waveEnemyIds": [ 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 33
@@ -179,10 +143,7 @@
           "hpCoefficient": 3.4
         },
         {
-          "waveEnemyIds": [
-            0,
-            2
-          ],
+          "waveEnemyIds": [ 0, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 35
@@ -192,9 +153,7 @@
           "hpCoefficient": 3.6
         },
         {
-          "waveEnemyIds": [
-            2
-          ],
+          "waveEnemyIds": [ 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 38
@@ -204,9 +163,7 @@
           "hpCoefficient": 3.8
         },
         {
-          "waveEnemyIds": [
-            1
-          ],
+          "waveEnemyIds": [ 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 40
@@ -216,9 +173,7 @@
           "hpCoefficient": 4
         },
         {
-          "waveEnemyIds": [
-            0
-          ],
+          "waveEnemyIds": [ 0 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 43
@@ -228,10 +183,7 @@
           "hpCoefficient": 4.2
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 45
@@ -241,10 +193,7 @@
           "hpCoefficient": 4.4
         },
         {
-          "waveEnemyIds": [
-            0,
-            1
-          ],
+          "waveEnemyIds": [ 0, 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 48
@@ -254,9 +203,7 @@
           "hpCoefficient": 4.6
         },
         {
-          "waveEnemyIds": [
-            2
-          ],
+          "waveEnemyIds": [ 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 50
@@ -266,9 +213,9 @@
           "hpCoefficient": 4.8
         }
       ]
-    },
+      },
     {
-      "id": 1,
+      "id": "1",
       "firstClearRewardData": {
         "type": "RewardDia",
         "value": 50
@@ -280,10 +227,7 @@
       ],
       "waveDatas": [
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 4
@@ -293,10 +237,7 @@
           "hpCoefficient": 1.2
         },
         {
-          "waveEnemyIds": [
-            2,
-            3
-          ],
+          "waveEnemyIds": [ 2, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 6
@@ -306,10 +247,7 @@
           "hpCoefficient": 1.4
         },
         {
-          "waveEnemyIds": [
-            1,
-            3
-          ],
+          "waveEnemyIds": [ 1, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 10
@@ -319,10 +257,7 @@
           "hpCoefficient": 1.7
         },
         {
-          "waveEnemyIds": [
-            2,
-            3
-          ],
+          "waveEnemyIds": [ 2, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 12
@@ -332,10 +267,7 @@
           "hpCoefficient": 1.9
         },
         {
-          "waveEnemyIds": [
-            1,
-            3
-          ],
+          "waveEnemyIds": [ 1, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 16
@@ -345,10 +277,7 @@
           "hpCoefficient": 2.2
         },
         {
-          "waveEnemyIds": [
-            2,
-            3
-          ],
+          "waveEnemyIds": [ 2, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 18
@@ -358,10 +287,7 @@
           "hpCoefficient": 2.3
         },
         {
-          "waveEnemyIds": [
-            1,
-            3
-          ],
+          "waveEnemyIds": [ 1, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 22
@@ -371,10 +297,7 @@
           "hpCoefficient": 2.5
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 24
@@ -384,10 +307,7 @@
           "hpCoefficient": 2.8
         },
         {
-          "waveEnemyIds": [
-            2,
-            3
-          ],
+          "waveEnemyIds": [ 2, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 28
@@ -397,10 +317,7 @@
           "hpCoefficient": 3.1
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 31
@@ -410,9 +327,7 @@
           "hpCoefficient": 3.3
         },
         {
-          "waveEnemyIds": [
-            3
-          ],
+          "waveEnemyIds": [ 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 34
@@ -422,10 +337,7 @@
           "hpCoefficient": 3.5
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 37
@@ -435,9 +347,7 @@
           "hpCoefficient": 3.9
         },
         {
-          "waveEnemyIds": [
-            1
-          ],
+          "waveEnemyIds": [ 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 39
@@ -447,10 +357,7 @@
           "hpCoefficient": 4
         },
         {
-          "waveEnemyIds": [
-            2,
-            3
-          ],
+          "waveEnemyIds": [ 2, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 43
@@ -460,9 +367,7 @@
           "hpCoefficient": 4.4
         },
         {
-          "waveEnemyIds": [
-            3
-          ],
+          "waveEnemyIds": [ 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 46
@@ -472,9 +377,7 @@
           "hpCoefficient": 4.6
         },
         {
-          "waveEnemyIds": [
-            1
-          ],
+          "waveEnemyIds": [ 1 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 49
@@ -484,9 +387,7 @@
           "hpCoefficient": 4.8
         },
         {
-          "waveEnemyIds": [
-            3
-          ],
+          "waveEnemyIds": [ 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 52
@@ -496,10 +397,7 @@
           "hpCoefficient": 5.1
         },
         {
-          "waveEnemyIds": [
-            1,
-            2
-          ],
+          "waveEnemyIds": [ 1, 2 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 55
@@ -509,10 +407,7 @@
           "hpCoefficient": 5.4
         },
         {
-          "waveEnemyIds": [
-            1,
-            3
-          ],
+          "waveEnemyIds": [ 1, 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 58
@@ -522,9 +417,7 @@
           "hpCoefficient": 5.6
         },
         {
-          "waveEnemyIds": [
-            3
-          ],
+          "waveEnemyIds": [ 3 ],
           "waveRewardData": {
             "type": "RewardCoins",
             "value": 61

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using System;
-
+#if UNITY_EDITOR
 public class ExportJsonToGoogleSheets : EditorWindow
 {
     private string spreadsheetId = "13FxaHFa2dqualC039L4zP9r4CmmMfoGEL4gQHZLw2iw";
@@ -197,3 +197,4 @@ public class ExportJsonToGoogleSheets : EditorWindow
         clearRequestCall.Execute();
     }
 }
+#endif

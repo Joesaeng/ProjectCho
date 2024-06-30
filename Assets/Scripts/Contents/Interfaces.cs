@@ -19,7 +19,6 @@ namespace Interfaces
         MagicianSpell Spell { get; set; }
         void Init(IData data);
         void InitSpellUseable(IData data);
-        void PlayCastSFX();
         void OnUpdate();
     }
 
