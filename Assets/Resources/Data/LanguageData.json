@@ -524,6 +524,11 @@
       "key": "SettingTitle",
       "eng": "Player Setting",
       "kr": "사용자 설정"
+    },
+    {
+      "key": "RechargeReroll",
+      "eng": "Recharge\n Reroll <sprite name=Ads>",
+      "kr": "충전하기\n<sprite name=Ads> 광고"
     }
 
 

@@ -26,6 +26,8 @@ public static class ConstantData
 
     public const int    FrameRate60 = 60;
     public const int    FrameRate30 = 30;
+
+    public const int    MaxLevelupOptionRerollCount = 3;
     #endregion
 
     public static readonly Color[] TextColorsByElementTypes = new Color[]

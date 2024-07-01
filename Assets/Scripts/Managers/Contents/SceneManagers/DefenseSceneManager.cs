@@ -51,6 +51,7 @@ public class DefenseSceneManager : MonoBehaviour
 
     private int ClearWave = 0;
 
+    public int AvailableRerollCount { get; set; }
     #region StageData
 
     private int     CurStage = 0;
@@ -107,6 +108,8 @@ public class DefenseSceneManager : MonoBehaviour
 
         IsLastWave = false;
 
+        AvailableRerollCount = ConstantData.MaxLevelupOptionRerollCount;
+
         for (int i = 0; i < System.Enum.GetValues(typeof(ElementType)).Length; ++i)
         {
             DefeatEnemiesByElementType[(ElementType)i] = 0;
@@ -149,6 +152,7 @@ public class DefenseSceneManager : MonoBehaviour
         UI_GameOver = Managers.UI.ShowPopupUI<UI_GameOver>();
         UI_GameOver.Init();
         UI_GameOver.OnClickedLobby += LobbyListner;
+        UI_GameOver.OnClickedAds += AdsListner;
         UI_GameOver.gameObject.SetActive(false);
 
         PlayerWall.OnUpdatePlayerHp -= UpdatePlayerHpListner;
@@ -209,7 +213,11 @@ public class DefenseSceneManager : MonoBehaviour
 
     void LevelUpOptionsReroll()
     {
-        OnRerollLevelUpPopup.Invoke(CreateLevelUpOptions());
+        if(AvailableRerollCount > 0)
+        {
+            AvailableRerollCount--;
+            OnRerollLevelUpPopup.Invoke(CreateLevelUpOptions());
+        }
     }
 
     public List<LevelUpOptions> CreateLevelUpOptions()
@@ -349,6 +357,20 @@ public class DefenseSceneManager : MonoBehaviour
 
     private void LobbyListner()
     {
+        Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
+    }
+
+    private void AdsListner()
+    {
+        // 광고보기버튼을 선택한 경우 이번 스테이지에서 얻은 보상을 한번 더 얻음
+        foreach (var reward in StageRewardDict)
+        {
+            GainReward(reward.Key, reward.Value);
+        }
+        if (StageFirstClearReward != null)
+        {
+            GainReward(StageFirstClearReward.type, StageFirstClearReward.value);
+        }
         Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
     }
 

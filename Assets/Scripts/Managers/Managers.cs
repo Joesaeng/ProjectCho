@@ -12,6 +12,7 @@ public class Managers : MonoBehaviour
     TimeManager _time = new();
     ItemManager _item = new();
     AchievementManager _achieve = new();
+    GoogleRewardADManager _ads;
 
     public static GameManager Game { get { return Instance._game; } }
     public static PlayerStatusManager Status { get { return Instance._status; } }
@@ -20,6 +21,8 @@ public class Managers : MonoBehaviour
     public static TimeManager Time { get { return Instance._time; } }
     public static ItemManager Item { get { return Instance._item; } }
     public static AchievementManager Achieve { get { return Instance._achieve; } }
+    public static GoogleRewardADManager Ads { get { return Instance._ads; } }
+
     #region Core
     PlayerDataManager _playerData = new();
     DataManager _data;
@@ -71,6 +74,7 @@ public class Managers : MonoBehaviour
                 s_instance._timer = go.GetOrAddComponent<TimerManager>();
                 s_instance._scene = go.GetOrAddComponent<SceneManagerEx>();
                 s_instance._data = go.GetOrAddComponent<DataManager>();
+                s_instance._ads = go.GetOrAddComponent<GoogleRewardADManager>();
             }
 
             s_instance._time.Init();
@@ -78,6 +82,7 @@ public class Managers : MonoBehaviour
             s_instance._spell.Init();
             s_instance._item.Init();
             s_instance._sound.Init();
+            s_instance._ads.Init();
             // s_instance._game.Init();
         }
     }

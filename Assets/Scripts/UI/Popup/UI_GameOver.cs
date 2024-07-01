@@ -35,6 +35,7 @@ public class UI_GameOver : UI_Popup
     RectTransform _backTf;
     Transform _rewardsTf;
     public Action OnClickedLobby;
+    public Action OnClickedAds;
     public override void Init()
     {
         base.Init();
@@ -52,6 +53,7 @@ public class UI_GameOver : UI_Popup
         GetText((int)Texts.Text_AdsReward).text = Language.GetLanguage("AdsRewardx2");
 
         GetButton((int)Buttons.Button_Lobby).gameObject.AddUIEvent(ClickedLobby);
+        GetButton((int)Buttons.Button_AdsReward).gameObject.AddUIEvent((PointerEventData data) => Managers.Ads.ShowRewardedAd(()=> OnClickedAds.Invoke()));
     }
 
     void ClickedLobby(PointerEventData data)
