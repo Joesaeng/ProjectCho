@@ -407,6 +407,10 @@ public class DefenseSceneManager : MonoBehaviour
         {
             GainReward(StageFirstClearReward.type, StageFirstClearReward.value);
         }
+        if(type == GameoverType.Clear)
+        {
+            Managers.Achieve.SetAchievementValueByTargetType(AchievementTargetType.StageClear, 1);
+        }
     }
 
     void GainReward(RewardType type, int value)
