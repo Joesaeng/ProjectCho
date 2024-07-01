@@ -9,6 +9,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using Newtonsoft.Json;
 using Data;
+using System.Threading;
 
 public class FirebaseManager 
 {
@@ -28,6 +29,8 @@ public class FirebaseManager
     private FirebaseAuth auth; // 로그인 / 회원가입 등에 사용
     private FirebaseUser user; // 인증이 완료된 유저 정보
 
+    private SynchronizationContext mainThreadContext;
+
     public string CurrentUserId => user != null ? user.UserId : "Null";
 
     private bool isSignIn = false;
@@ -36,6 +39,7 @@ public class FirebaseManager
 
     public void Init()
     {
+        mainThreadContext = SynchronizationContext.Current;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             if (task.Result != DependencyStatus.Available)
@@ -92,7 +96,7 @@ public class FirebaseManager
         }
     }
 
-    public void TryGuestLogin()
+    public void TryGuestLogin(Action callback)
     {
         auth.SignInAnonymouslyAsync().ContinueWith(task => {
             if (task.IsCanceled)
@@ -109,6 +113,8 @@ public class FirebaseManager
             user = task.Result.User;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 user.DisplayName, user.UserId);
+
+            mainThreadContext.Post(_ => callback?.Invoke(), null);
         });
     }
 

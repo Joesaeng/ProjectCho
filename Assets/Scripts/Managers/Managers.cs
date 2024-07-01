@@ -96,7 +96,7 @@ public class Managers : MonoBehaviour
     }
     public static void Clear()
     {
-        // Sound.Clear();
+        //Sound.Clear();
         Input.Clear();
         Scene.Clear();
         UI.Clear();

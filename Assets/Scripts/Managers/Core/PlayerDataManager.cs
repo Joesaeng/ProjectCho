@@ -205,12 +205,9 @@ public class PlayerDataManager
 
     public void NewPlayerLogin()
     {
+        Debug.Log("NewPlayerLogin!");
         _playerData = NewPlayerData();
         Managers.InitManagersAfterLoadingPlayerData();
-#if UNITY_EDITOR
-#else
-        SaveToFirebase();
-#endif
     }
 
     public void SaveToFirebase()

@@ -11,6 +11,7 @@ public class UI_LoginScene : UI_Scene
         Button_TouchToStart,
         Button_Guest,
         Panel_SelectLogin,
+        Image_Loading,
     }
     public override void Init()
     {
@@ -18,7 +19,7 @@ public class UI_LoginScene : UI_Scene
 
         GetObject((int)Objects.Panel_SelectLogin).SetActive(false);
         GetObject((int)Objects.Button_TouchToStart).AddUIEvent(CkickedLoginScene);
-
+        GetObject((int)Objects.Image_Loading).SetActive(false);
         GetObject((int)(Objects.Button_Guest)).AddUIEvent(ClickedGuestLogin);
     }
 
@@ -31,7 +32,7 @@ public class UI_LoginScene : UI_Scene
         if (FirebaseManager.Instance.CurrentUserId != null)
         {
             Debug.Log("Using cached user from FirebaseAuth: " + FirebaseManager.Instance.CurrentUserId);
-            FirebaseManager.Instance.AvailableLoadPlayerData(FirebaseManager.Instance.CurrentUserId,(loadedPlayerData) =>
+            FirebaseManager.Instance.AvailableLoadPlayerData(FirebaseManager.Instance.CurrentUserId, (loadedPlayerData) =>
             {
                 if (loadedPlayerData != null)
                 {
@@ -47,9 +48,14 @@ public class UI_LoginScene : UI_Scene
 
     void ClickedGuestLogin(PointerEventData data)
     {
+        GetObject((int)Objects.Panel_SelectLogin).SetActive(false);
+        GetObject((int)Objects.Image_Loading).SetActive(true);
         FirebaseManager.Instance.SignOut(); // 기존 로그인 정보 지우기
-        FirebaseManager.Instance.TryGuestLogin();
-        Managers.PlayerData.NewPlayerLogin();
-        Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
+        FirebaseManager.Instance.TryGuestLogin(() =>
+            {
+                Managers.PlayerData.NewPlayerLogin();
+                Managers.Scene.LoadSceneWithLoadingScene(Define.Scene.Lobby);
+            });
     }
+
 }
