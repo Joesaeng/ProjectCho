@@ -532,7 +532,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -1336,8 +1336,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1453,9 +1453,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 1618831458227416686, guid: f80a55d9931bc374bbd9158d0286a190,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4703,7 +4704,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bafdb712bebb28d40988e5644ed9bf5b, type: 2}
+  - {fileID: 2100000, guid: 393d5fc6b6b26e549b3895e37e8c8c2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4743,8 +4744,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -4815,7 +4816,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d183c827bc2abaf49a3ea3e1aa649308, type: 2}
+  - {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4855,8 +4856,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -5385,7 +5386,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -6189,8 +6190,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -6306,9 +6307,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 7414595797958814493, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -10110,7 +10112,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -10914,8 +10916,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -11031,9 +11033,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 7162808989351888121, guid: f80a55d9931bc374bbd9158d0286a190,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -14227,7 +14230,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2100a057a8eb4d64e82373dc15870933, type: 2}
+  - {fileID: 2100000, guid: 393d5fc6b6b26e549b3895e37e8c8c2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14267,8 +14270,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -14812,7 +14815,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -15558,8 +15561,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -15675,9 +15678,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -3195711331797674983, guid: f80a55d9931bc374bbd9158d0286a190,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -18925,7 +18929,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a9024751c5247a48bcc5c5e2116d1e4, type: 2}
+  - {fileID: 2100000, guid: 393d5fc6b6b26e549b3895e37e8c8c2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18965,8 +18969,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}

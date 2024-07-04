@@ -15,15 +15,15 @@ public interface ILoader<Key, Value>
 
 public class DataManager : MonoBehaviour
 {
-    public Dictionary<int, BaseEnemyData> BaseEnemyDataDict { get; private set; } = new Dictionary<int, BaseEnemyData>();
-    public Dictionary<int, BaseSpellData> BaseSpellDataDict { get; private set; } = new Dictionary<int, BaseSpellData>();
-    public Dictionary<int, ProjectileData> ProjectileDataDict { get; private set; } = new Dictionary<int, ProjectileData>();
-    public Dictionary<int, AOEEffectData> AOEEffectDataDict { get; private set; } = new Dictionary<int, AOEEffectData>();
-    public Dictionary<int, SpellUpgradeDatas> UpgradeDataDict { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
-    public Dictionary<int, StageData> StageDataDict { get; private set; } = new Dictionary<int, StageData>();
+    public Dictionary<int, BaseEnemyData>       BaseEnemyDataDict       { get; private set; } = new Dictionary<int, BaseEnemyData>();
+    public Dictionary<int, BaseSpellData>       BaseSpellDataDict       { get; private set; } = new Dictionary<int, BaseSpellData>();
+    public Dictionary<int, ProjectileData>      ProjectileDataDict      { get; private set; } = new Dictionary<int, ProjectileData>();
+    public Dictionary<int, AOEEffectData>       AOEEffectDataDict       { get; private set; } = new Dictionary<int, AOEEffectData>();
+    public Dictionary<int, SpellUpgradeDatas>   UpgradeDataDict         { get; private set; } = new Dictionary<int, SpellUpgradeDatas>();
+    public Dictionary<int, StageData>           StageDataDict           { get; private set; } = new Dictionary<int, StageData>();
     public Dictionary<int, EquipmentOptionData> EquipmentOptionDataDict { get; private set; } = new Dictionary<int, EquipmentOptionData>();
-    public Dictionary<int, AchievementData> AchievementDataDict { get; private set; } = new Dictionary<int, AchievementData>();
-    public Dictionary<string, LanguageData> LanguageDataDict { get; private set; } = new Dictionary<string, LanguageData>();
+    public Dictionary<int, AchievementData>     AchievementDataDict     { get; private set; } = new Dictionary<int, AchievementData>();
+    public Dictionary<string, LanguageData>     LanguageDataDict        { get; private set; } = new Dictionary<string, LanguageData>();
 
     public void Init()
     {
@@ -37,19 +37,28 @@ public class DataManager : MonoBehaviour
         AchievementDataDict = LoadJson<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
         LanguageDataDict = LoadJson<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
 
-        //BaseEnemyDataDict = LoadGoogleSheetData<Datas<BaseEnemyData>, int, Data.BaseEnemyData>("BaseEnemyData").MakeDict();
-        //BaseSpellDataDict = LoadGoogleSheetData<Datas<BaseSpellData>, int, Data.BaseSpellData>("BaseSpellData").MakeDict();
-        //ProjectileDataDict = LoadGoogleSheetData<Datas<ProjectileData>, int, Data.ProjectileData>("ProjectileData").MakeDict();
-        //AOEEffectDataDict = LoadGoogleSheetData<Datas<AOEEffectData>, int, Data.AOEEffectData>("AOEEffectData").MakeDict();
-        //UpgradeDataDict = LoadGoogleSheetData<Datas<SpellUpgradeDatas>, int, Data.SpellUpgradeDatas>("SpellUpgradeData").MakeDict();
-        //StageDataDict = LoadGoogleSheetData<Datas<StageData>, int, Data.StageData>("StageData").MakeDict();
-        //EquipmentOptionDataDict = LoadGoogleSheetData<Datas<EquipmentOptionData>, int, Data.EquipmentOptionData>("EquipmentOptionData").MakeDict();
-        //AchievementDataDict = LoadGoogleSheetData<Datas<AchievementData>, int, Data.AchievementData>("AchievementData").MakeDict();
-
-        //LanguageDataDict = LoadGoogleSheetData<LanguageDatas, string, Data.LanguageData>("LanguageData").MakeDict();
-
-        // StartCoroutine(LoadAllData(onComplete));
+        
     }
+
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
+        if (textAsset == null)
+        {
+            Debug.LogError($"Failed to load JSON file at path: Data/{path}");
+            return default;
+        }
+
+        JsonSerializerSettings settings = new()
+        {
+            Converters = new List<JsonConverter> { new StringEnumConverter() }
+        };
+
+        return JsonConvert.DeserializeObject<Loader>(textAsset.text, settings);
+    }
+
+    #region 구글시트 데이터 로드
+    // StartCoroutine(LoadAllData(onComplete));
 
     private IEnumerator LoadAllData(Action onComplete)
     {
@@ -83,22 +92,7 @@ public class DataManager : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
-    {
-        TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
-        if (textAsset == null)
-        {
-            Debug.LogError($"Failed to load JSON file at path: Data/{path}");
-            return default;
-        }
-
-        JsonSerializerSettings settings = new()
-        {
-            Converters = new List<JsonConverter> { new StringEnumConverter() }
-        };
-
-        return JsonConvert.DeserializeObject<Loader>(textAsset.text, settings);
-    }
+    
 
     Loader LoadGoogleSheetData<Loader, Key, Value>(string sheetName) where Loader : ILoader<Key, Value>
     {
@@ -131,4 +125,5 @@ public class DataManager : MonoBehaviour
             }
         });
     }
+    #endregion
 }

@@ -13,7 +13,8 @@ public class UI_ItemOptionFilter : UI_Base
     enum Buttons
     {
         Button_Apply,
-        Button_Reset,
+        Button_AllToggleOn,
+        Button_AllToggleOff,
         Button_Quit,
     }
 
@@ -21,7 +22,8 @@ public class UI_ItemOptionFilter : UI_Base
     {
         Text_OptionFilter,
         Text_Apply,
-        Text_Reset,
+        Text_AllToggleOn,
+        Text_AllToggleOff,
         Text_Quit,
     }
     public Dictionary<StatusType,bool> _filterDict = new();
@@ -47,7 +49,8 @@ public class UI_ItemOptionFilter : UI_Base
     {
         GetText((int)Texts.Text_OptionFilter).text = Language.GetLanguage("ItemOptionFilter");
         GetText((int)Texts.Text_Apply).text = Language.GetLanguage("Apply");
-        GetText((int)Texts.Text_Reset).text = Language.GetLanguage("Reset");
+        GetText((int)Texts.Text_AllToggleOn).text = Language.GetLanguage("AllToggleOn");
+        GetText((int)Texts.Text_AllToggleOff).text = Language.GetLanguage("AllToggleOff");
         GetText((int)Texts.Text_Quit).text = Language.GetLanguage("Quit");
 
     }
@@ -55,7 +58,8 @@ public class UI_ItemOptionFilter : UI_Base
     void SetButtons()
     {
         GetButton((int)Buttons.Button_Apply).gameObject.AddUIEvent(ClickedApplyButton);
-        GetButton((int)Buttons.Button_Reset).gameObject.AddUIEvent(ClickedResetButton);
+        GetButton((int)Buttons.Button_AllToggleOn).gameObject.AddUIEvent(ClickedOnAllButton);
+        GetButton((int)Buttons.Button_AllToggleOff).gameObject.AddUIEvent(ClickedOffAllButton);
         GetButton((int)Buttons.Button_Quit).gameObject.AddUIEvent(ClickedQuitButton);
     }
 
@@ -86,9 +90,13 @@ public class UI_ItemOptionFilter : UI_Base
         }
     }
 
-    void ClickedResetButton(PointerEventData data)
+    void ClickedOnAllButton(PointerEventData data)
     {
-        ResetToggleOptions();
+        ResetToggleOptions(true);
+    }
+    void ClickedOffAllButton(PointerEventData data)
+    {
+        ResetToggleOptions(false);
     }
 
     void ClickedApplyButton(PointerEventData data)
@@ -101,15 +109,15 @@ public class UI_ItemOptionFilter : UI_Base
         gameObject.SetActive(false);
     }
 
-    void ResetToggleOptions()
+    void ResetToggleOptions(bool onoff)
     {
         Managers.Sound.Play("ui_click3");
         foreach (var type in _filterDict.Keys.ToList())
         {
-            _filterDict[type] = true;
+            _filterDict[type] = onoff;
             if (_toggleOptionsDict.ContainsKey(type))
             {
-                _toggleOptionsDict[type].SetToggleOn(true);
+                _toggleOptionsDict[type].SetToggleOn(onoff);
             }
         }
         OnResetFilter.Invoke();

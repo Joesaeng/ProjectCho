@@ -40,7 +40,7 @@
       "id": 3,
       "prefabName": "LightningMage",
       "elementType": "Lightning",
-      "baseHp": 8,
+      "baseHp": 10,
       "baseMoveSpeed": 2,
       "baseAttackDamage": 3,
       "baseAttackDelay": 3,

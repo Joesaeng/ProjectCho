@@ -105,6 +105,7 @@ public class UI_LevelUpPopup : UI_Popup
         {
             Managers.Ads.ShowRewardedAd(() =>
             {
+                Managers.Time.GamePause();
                 DefenseSceneManager.Instance.AvailableRerollCount = ConstantData.MaxLevelupOptionRerollCount;
                 SetRerollText();
             });

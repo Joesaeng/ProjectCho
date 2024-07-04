@@ -193,6 +193,7 @@ namespace Data
 
         #region ISpellData
         public int SpellId => id;
+        public int SpellLevel => 0;
         public int EffectId => effectId;
         public SpellBehaviorType SpellBehaviorType => spellBehaviorType;
         public MagicianAnim AnimType => animType;

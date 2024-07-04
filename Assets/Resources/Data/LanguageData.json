@@ -529,6 +529,16 @@
       "key": "RechargeReroll",
       "eng": "Recharge\n Reroll <sprite name=Ads>",
       "kr": "충전하기\n<sprite name=Ads> 광고"
+    },
+    {
+      "key": "AllToggleOn",
+      "eng": "OnAll",
+      "kr": "전부켜기"
+    },
+    {
+      "key": "AllToggleOff",
+      "eng": "OffAll",
+      "kr": "전부끄기"
     }
 
 

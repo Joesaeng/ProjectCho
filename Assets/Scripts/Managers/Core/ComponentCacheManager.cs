@@ -11,36 +11,6 @@ public class ComponentCacheManager
         List <Component> comps;
         if (CompCache.TryGetValue(gameObject, out comps))
         {
-            foreach(var comp in comps)
-            {
-                if (comp.GetType() == typeof(T))
-                {
-                    component = (T)comp;
-                    return;
-                }
-            }
-            component = gameObject.GetOrAddComponent<T>();
-            comps.Add(component);
-        }
-        else
-        {
-            component = gameObject.GetOrAddComponent<T>();
-            if (CompCache.TryGetValue(gameObject, out comps))
-                comps.Add(component);
-            else
-            {
-                comps = new List<Component>{ component };
-                CompCache.Add(gameObject, comps);
-            }
-        }
-    }
-
-    public void GetOrAddComponentCache<T>(GameObject gameObject) where T : Component
-    {
-        List <Component> comps;
-        T component;
-        if (CompCache.TryGetValue(gameObject, out comps))
-        {
             foreach (var comp in comps)
             {
                 if (comp.GetType() == typeof(T))
@@ -62,6 +32,31 @@ public class ComponentCacheManager
                 comps = new List<Component> { component };
                 CompCache.Add(gameObject, comps);
             }
+        }
+    }
+
+    public T GetOrAddComponentCache<T>(GameObject gameObject) where T : Component
+    {
+        List <Component> comps;
+        if (CompCache.TryGetValue(gameObject, out comps))
+        {
+            foreach (var comp in comps)
+            {
+                if (comp.GetType() == typeof(T))
+                {
+                    return (T)comp;
+                }
+            }
+            T component = gameObject.GetOrAddComponent<T>();
+            comps.Add(component);
+            return component;
+        }
+        else
+        {
+            T component = gameObject.GetOrAddComponent<T>();
+            comps = new List<Component> { component };
+            CompCache.Add(gameObject, comps);
+            return component;
         }
     }
 

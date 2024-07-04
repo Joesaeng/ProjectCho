@@ -12,6 +12,7 @@ using static Cinemachine.DocumentationSortingAttribute;
 public interface ISpellData
 {
     int SpellId { get; }
+    int SpellLevel { get; }
     int EffectId { get; }
     SpellBehaviorType SpellBehaviorType { get; }
     MagicianAnim AnimType { get; }
@@ -60,6 +61,7 @@ public class SpellDataByPlayerOwnedSpell : ISpellData
 
     #region ISpellData
     public int SpellId => id;
+    public int SpellLevel => spellLevel;
     public int EffectId => effectId;
     public SpellBehaviorType SpellBehaviorType => spellBehaviorType;
     public MagicianAnim AnimType => animType;

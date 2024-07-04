@@ -19,6 +19,7 @@ public class UI_MagiciansSpell : UI_Base
     enum Texts
     {
         Text_Name,
+        Text_Level,
         Text_Attributes,
         Text_AttributesValue,
         Text_Mechanics,
@@ -149,6 +150,7 @@ public class UI_MagiciansSpell : UI_Base
         _spellIconDict[spellId].SetEdge(_spellEdgeSprites[1]);
         _textDict[Texts.Text_Name].text = Language.GetLanguage(spellData.SpellName);
         _textDict[Texts.Text_Name].color = ConstantData.TextColorsByElementTypes[(int)spellData.ElementType];
+        _textDict[Texts.Text_Level].text = $"LV {spellData.SpellLevel}";
 
         _textDict[Texts.Text_Attributes].text =
         $"{Language.GetLanguage("ElementType")}\n" +

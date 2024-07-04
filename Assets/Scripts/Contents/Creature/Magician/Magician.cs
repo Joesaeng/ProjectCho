@@ -80,7 +80,7 @@ public class Magician : AttackableCreature, ISpellUseable
         return false;
     }
 
-    private void UpdateSpellDelay()
+    public void UpdateSpellDelay()
     {
         AttackDelay = Spell.SpellDelay;
         _animationController.SetAttackSpeed("Magician" + _animName,AttackDelay);

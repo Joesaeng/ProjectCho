@@ -505,6 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967ad8e5add9c4d4da5911502883bc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 892904186000227922, guid: abe38a2af228dc642bb29b70581412a5, type: 3}
   elementType: 3
   baseHp: 10
   baseMoveSpeed: 2

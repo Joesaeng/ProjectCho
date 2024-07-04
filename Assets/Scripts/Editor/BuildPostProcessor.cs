@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor.Build.Reporting;
 using UnityEditor.Build;
 using UnityEditor;
-using UnityEngine;
 using System.IO;
 
 public class BuildPostProcessor : IPostprocessBuildWithReport

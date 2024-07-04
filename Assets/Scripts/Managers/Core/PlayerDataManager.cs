@@ -26,6 +26,15 @@ public class PlayerOwnedSpellData
 }
 
 [Serializable]
+public class PlayerSettingData
+{
+    public GameLanguage language = GameLanguage.English;
+    public bool bgmOn = true;
+    public bool sfxOn = true;
+    public int frameRate = ConstantData.FrameRate60;
+}
+
+[Serializable]
 public class PlayerData
 {
     public string userId;
@@ -35,20 +44,12 @@ public class PlayerData
     public InventoryData inventoryData;
     public List<int> stageClearList;
     public List<AchievementData> achievementDatas;
-    public int coinAmount = 0;
-    public int diaAmount = 0;
+    public int coinAmount;
+    public int diaAmount;
     public DateTime lastDailyReset;
     public DateTime lastWeeklyReset;
 }
 
-[Serializable]
-public class PlayerSettingData
-{
-    public GameLanguage language = GameLanguage.English;
-    public bool bgmOn = true;
-    public bool sfxOn = true;
-    public int frameRate = ConstantData.FrameRate60;
-}
 
 public class PlayerDataManager
 {

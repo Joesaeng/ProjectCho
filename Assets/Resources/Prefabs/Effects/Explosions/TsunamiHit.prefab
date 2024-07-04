@@ -550,7 +550,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -1354,8 +1354,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1471,9 +1471,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 8810369815648105471, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4721,7 +4722,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 37571c35d17cf4f48a9de79064559df8, type: 2}
+  - {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4762,8 +4763,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -5328,7 +5329,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -6132,8 +6133,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -6249,9 +6250,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -658167096797365493, guid: 1e14c0f5c281d1b47a16be3d314a118e,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -9553,7 +9555,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 94ea036f70c55fc4abb67cf54a6940d5, type: 2}
+  - {fileID: 2100000, guid: b4eece845ae6c35468e69a15f987a259, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9594,8 +9596,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -10152,7 +10154,7 @@ ParticleSystem:
         m_RotationOrder: 0
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -10992,8 +10994,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -11109,9 +11111,10 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 2245323914470349233, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+        type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -14359,7 +14362,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 601e56a3f56e46c4eb3ed14522757ec3, type: 2}
+  - {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -14400,8 +14403,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
-  m_VertexStreams: 0001030405
+  m_UseCustomVertexStreams: 1
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}

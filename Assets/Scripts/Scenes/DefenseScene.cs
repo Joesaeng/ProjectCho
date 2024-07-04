@@ -15,7 +15,7 @@ public class DefenseScene : BaseScene
         base.Init();
 
         // TEST
-        //Managers.PlayerData.NewPlayerLogin();
+        // Managers.PlayerData.NewPlayerLogin();
         
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();

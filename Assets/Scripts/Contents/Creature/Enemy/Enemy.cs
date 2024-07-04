@@ -9,7 +9,7 @@ using UnityEngine.AI;
 
 // 적 객체
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class Enemy : AttackableCreature, IMoveable, IAttackable, IHitable
+public abstract class Enemy : AttackableCreature, IMoveable, IHitable
 {
     #region Variable
     private Vector3         _destination;

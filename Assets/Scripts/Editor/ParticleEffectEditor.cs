@@ -9,7 +9,7 @@ public class ParticleEffectEditor : Editor
     private static void ParticleEffectOptimization()
     {
         // Load ParticleEffect Prefabs
-        string folderPath = "Assets/Resources/Prefabs/Effects";
+        string folderPath = "Assets/Resources/Prefabs";
         string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
         for (int i = 0; i < prefabGUIDs.Length; i++)
         {
@@ -18,9 +18,9 @@ public class ParticleEffectEditor : Editor
             var go = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
             // 파티클 이펙트에 Poolable컴포넌트룰 추가하고
-            go.GetOrAddComponent<Poolable>();
+            // go.GetOrAddComponent<Poolable>();
 
-            int maxParticles = 100;
+            int maxParticles = 200;
             ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
             for (int j = 0; j < particles.Length; j++)
             {
@@ -30,7 +30,16 @@ public class ParticleEffectEditor : Editor
                 // 그림자 Off
                 ParticleSystemRenderer renderer = particles[j].GetComponent<ParticleSystemRenderer>();
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-
+                renderer.sortMode = ParticleSystemSortMode.None;
+                List<ParticleSystemVertexStream> vertex = new List<ParticleSystemVertexStream>()
+                {
+                    ParticleSystemVertexStream.Position,
+                    ParticleSystemVertexStream.Color,
+                    ParticleSystemVertexStream.UV,
+                    ParticleSystemVertexStream.AnimFrame,
+                    
+                };
+                renderer.SetActiveVertexStreams(vertex);
             }
         }
 

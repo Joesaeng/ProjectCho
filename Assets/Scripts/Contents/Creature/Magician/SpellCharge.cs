@@ -63,7 +63,7 @@ public class SpellCharge : AttackableCreature, ISpellUseable
         return false;
     }
 
-    private void UpdateSpellDelay()
+    public void UpdateSpellDelay()
     {
         AttackDelay = Spell.SpellDelay;
     }
