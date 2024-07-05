@@ -15,6 +15,9 @@ public class PlayerStatus
 
     public void ApplyPlayerStatus(AchievementStatus achievementStatus, EquipmentStatus equipmentStatus)
     {
+        floatOptions.Clear();
+        integerOptions.Clear();
+
         startingSpellId = equipmentStatus.startingSpellId;
         damage = equipmentStatus.damage;
         floatOptions = equipmentStatus.floatOptions;
