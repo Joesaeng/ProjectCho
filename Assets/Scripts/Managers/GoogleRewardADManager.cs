@@ -11,7 +11,7 @@ public class GoogleRewardADManager : MonoBehaviour
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
 #else
-  private string _adUnitId = "unused";
+  private string _adUnitId = "ca-app-pub-8162748831423136/7423843537";
 #endif
 
     // Start is called before the first frame update
