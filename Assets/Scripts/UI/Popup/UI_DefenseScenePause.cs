@@ -37,8 +37,8 @@ public class UI_DefenseScenePause : UI_Popup
     public Action OnClickedLobby;
 
     UI_DefeatEnemies _defeatEnemiesUI;
-    Sprite _soundOn;
-    Sprite _soundOff;
+    [SerializeField]Sprite _soundOn;
+    [SerializeField]Sprite _soundOff;
 
     public override void Init()
     {
@@ -63,8 +63,8 @@ public class UI_DefenseScenePause : UI_Popup
         _defeatEnemiesUI = Util.FindChild<UI_DefeatEnemies>(gameObject,"UI_DefeatEnemies",true);
         _defeatEnemiesUI.Init();
 
-        _soundOn = Resources.Load<Sprite>("UI/Useds/SoundOn");
-        _soundOff = Resources.Load<Sprite>("UI/Useds/SoundOff");
+        //_soundOn = Resources.Load<Sprite>("UI/Useds/SoundOn");
+        //_soundOff = Resources.Load<Sprite>("UI/Useds/SoundOff");
 
         GetButton((int)Buttons.Button_BGM).gameObject.AddUIEvent((PointerEventData data) => ClickedBGM());
         GetButton((int)Buttons.Button_SFX).gameObject.AddUIEvent((PointerEventData data) => ClickedSFX());

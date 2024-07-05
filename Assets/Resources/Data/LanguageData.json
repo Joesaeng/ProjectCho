@@ -539,6 +539,11 @@
       "key": "AllToggleOff",
       "eng": "OffAll",
       "kr": "전부끄기"
+    },
+    {
+      "key": "CantShowAds",
+      "eng": "Failed to load ad\nPlaese wait a second",
+      "kr": "광고를 로드하지 못했습니다\n잠시만 기다려 주세요"
     }
 
 

@@ -310,7 +310,7 @@ public class UI_AccountSetting : UI_Base
         Debug.Log($"Copied to clipboard: {te.text}");
 
         TextMeshProUGUI text = GetText((int)Texts.Text_CopiedToClipBoard);
-        text.LeanAlphaText(1, 0.3f).setOnComplete(()
-            => text.LeanAlphaText(0f, 0.3f));
+        text.LeanAlphaText(1, 0.5f).setOnComplete(()
+            => text.LeanAlphaText(0f, 0.5f));
     }
 }

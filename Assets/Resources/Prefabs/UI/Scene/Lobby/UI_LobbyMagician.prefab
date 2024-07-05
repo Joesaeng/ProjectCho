@@ -2376,6 +2376,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d41ba608d760949aea163808a6bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spellEdgeSprites:
+  - {fileID: 21300000, guid: 4aa7da0a18f96f34581cc993523762f1, type: 3}
+  - {fileID: 21300000, guid: 543fcb802fde40d449118ae7489084a0, type: 3}
 --- !u!1 &1295009466284746287
 GameObject:
   m_ObjectHideFlags: 0
@@ -12191,7 +12194,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5059499658469913119}
   m_HandleRect: {fileID: 4931348387764100502}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

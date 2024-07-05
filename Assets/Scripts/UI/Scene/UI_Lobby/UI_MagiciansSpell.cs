@@ -36,6 +36,7 @@ public class UI_MagiciansSpell : UI_Base
 
     Dictionary<Texts, TextMeshProUGUI> _textDict = new();
 
+    [SerializeField]
     Sprite[] _spellEdgeSprites = new Sprite[2];
 
     GameObject _spellDesc;
@@ -57,8 +58,8 @@ public class UI_MagiciansSpell : UI_Base
             _textDict.Add(text, GetText((int)text));
         }
 
-        _spellEdgeSprites[0] = Resources.Load<Sprite>("UI/Useds/UnSelected");
-        _spellEdgeSprites[1] = Resources.Load<Sprite>("UI/Useds/Selected");
+        //_spellEdgeSprites[0] = Resources.Load<Sprite>("UI/Useds/UnSelected");
+        //_spellEdgeSprites[1] = Resources.Load<Sprite>("UI/Useds/Selected");
 
         _iconsTf = GetObject((int)Objects.Panel_SpellIcons).transform;
         GetButton((int)Buttons.Button_LevelUp).gameObject.AddUIEvent(ClickedSpellLevelUp);

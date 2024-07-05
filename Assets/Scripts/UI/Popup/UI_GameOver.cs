@@ -53,7 +53,8 @@ public class UI_GameOver : UI_Popup
         GetText((int)Texts.Text_AdsReward).text = Language.GetLanguage("AdsRewardx2");
 
         GetButton((int)Buttons.Button_Lobby).gameObject.AddUIEvent(ClickedLobby);
-        GetButton((int)Buttons.Button_AdsReward).gameObject.AddUIEvent((PointerEventData data) => Managers.Ads.ShowRewardedAd(()=> OnClickedAds.Invoke()));
+        GetButton((int)Buttons.Button_AdsReward).gameObject.AddUIEvent((PointerEventData data)
+            => Managers.Ads.ShowRewardedAd(() => OnClickedAds.Invoke()));
     }
 
     void ClickedLobby(PointerEventData data)
@@ -69,7 +70,7 @@ public class UI_GameOver : UI_Popup
         LeanTween.scale(_backTf, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutCirc).setIgnoreTimeScale(true);
     }
 
-    public void SetGameoverUI(GameoverType type,Dictionary<RewardType,int> stageRewards, StageRewardData stageClearReward)
+    public void SetGameoverUI(GameoverType type, Dictionary<RewardType, int> stageRewards, StageRewardData stageClearReward)
     {
         switch (type)
         {
@@ -82,12 +83,12 @@ public class UI_GameOver : UI_Popup
                 Managers.Sound.Play("ui_win");
                 break;
         }
-        foreach(var reward in stageRewards)
+        foreach (var reward in stageRewards)
         {
             UI_GameoverReward ui = Managers.UI.MakeSubItem<UI_GameoverReward>(_rewardsTf);
-            ui.SetReward(false,reward.Key,reward.Value);
+            ui.SetReward(false, reward.Key, reward.Value);
         }
-        if(stageClearReward != null)
+        if (stageClearReward != null)
         {
             UI_GameoverReward ui = Managers.UI.MakeSubItem<UI_GameoverReward>(_rewardsTf);
             ui.SetReward(true, stageClearReward.type, stageClearReward.value);

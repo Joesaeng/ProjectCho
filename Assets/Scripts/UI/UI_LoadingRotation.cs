@@ -12,6 +12,6 @@ public class UI_LoadingRotation : MonoBehaviour
     }
     void Update()
     {
-        _rectUI.Rotate(_rotateVector * Time.deltaTime);
+        _rectUI.Rotate(_rotateVector * Time.unscaledDeltaTime);
     }
 }

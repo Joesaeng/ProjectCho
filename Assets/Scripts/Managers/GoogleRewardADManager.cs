@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System;
+using System.Threading;
 
 public class GoogleRewardADManager : MonoBehaviour
 {
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-8162748831423136/7423843537";
+    private string _adUnitId = "ca-app-pub-8162748831423136/7423843537"; 
+    // private string _adUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트 ID
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
 #else
-  private string _adUnitId = "ca-app-pub-8162748831423136/7423843537";
+  private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
 #endif
+    private SynchronizationContext mainThreadContext;
+    private RewardedAd rewardedAd;
 
     // Start is called before the first frame update
     public void Init()
     {
+        mainThreadContext = SynchronizationContext.Current;
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
             // This callback is called once the MobileAds SDK is initialized.
@@ -24,7 +29,7 @@ public class GoogleRewardADManager : MonoBehaviour
         });
     }
 
-    private RewardedAd rewardedAd;
+
 
     /// <summary>
     /// Loads the rewarded ad.
@@ -70,13 +75,21 @@ public class GoogleRewardADManager : MonoBehaviour
         {
             rewardedAd.Show((Reward reward) =>
             {
-                callback?.Invoke();
+                mainThreadContext.Post(_ =>
+                {
+                    Debug.Log("Rewarded ad was watched completely.");
+                    callback?.Invoke();
+                }, null);
             });
         }
         else
         {
-            Debug.LogWarning("Rewarded ad is not ready to be shown.");
-            // 광고가 로드되지 않았거나 준비되지 않은 경우 대체 로직을 추가할 수 있습니다.
+            mainThreadContext.Post(_ =>
+            {
+                Debug.LogWarning("Rewarded ad is not ready to be shown.");
+                var cantShowAd = Managers.UI.ShowPopupUI<UI_CantShowAds>();
+                cantShowAd.ShowCantShowAds(callback);
+            }, null);
         }
     }
 

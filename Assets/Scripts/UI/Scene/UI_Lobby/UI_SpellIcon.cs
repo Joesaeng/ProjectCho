@@ -12,7 +12,7 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
     private int _spellId;
     private Image _spellImage;
     private Image _spellEdge;
-    private Image _ImageLock;
+    private Image _imageLock;
     private Slider _slider;
     private TextMeshProUGUI _ownedCountText;
 
@@ -26,7 +26,7 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
     {
         _spellImage = GetComponent<Image>();
         _spellEdge = Util.FindChild<Image>(gameObject, "Image_SpellEdge");
-        _ImageLock = Util.FindChild<Image>(gameObject, "Image_Lock");
+        _imageLock = Util.FindChild<Image>(gameObject, "Image_Lock");
         _slider = Util.FindChild<Slider>(gameObject, "Slider_LevelUpSlider");
         _ownedCountText = Util.FindChild<TextMeshProUGUI>(gameObject, "Text_OwnedCount");
 
@@ -76,18 +76,18 @@ public class UI_SpellIcon : UI_Base, IDragHandler, IBeginDragHandler, IEndDragHa
     public void SetImages(int spellId, Sprite edgeImage)
     {
         _spellImage.sprite = Managers.Spell.SpellSpriteDict[spellId];
-        _spellEdge.sprite = edgeImage;
+        SetEdge(edgeImage);
     }
 
     public void SetLock()
     {
-        _ImageLock.gameObject.SetActive(true);
+        _imageLock.gameObject.SetActive(true);
         _isLock = true;
     }
 
     public void SetUnlock()
     {
-        _ImageLock.gameObject.SetActive(false);
+        _imageLock.gameObject.SetActive(false);
         _isLock = false;
     }
 
