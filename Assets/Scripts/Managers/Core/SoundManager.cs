@@ -24,7 +24,7 @@ public class SoundManager
         {
             root = new GameObject { name = "@Sound" };
             Object.DontDestroyOnLoad(root);
-            
+
             string[] soundNames = System.Enum.GetNames(typeof(Define.Sound));
             for (int i = 0; i < soundNames.Length - 1; ++i)
             {
@@ -44,7 +44,7 @@ public class SoundManager
         Managers.Time.OnGameResume += ResumeAllSFX;
         Managers.Time.OnChangeTimeScale += ChangeSFXFitch;
     }
-    
+
     public void InitAfterLoadingPlayerData()
     {
         Managers.Game.OnSetBgmOnOff += OnOffBGMListner;
@@ -56,6 +56,10 @@ public class SoundManager
         {
             audioSource.clip = null;
             audioSource.Stop();
+        }
+        while (_audioSourcePool.Count > 0)
+        {
+            _audioSourcePool.Dequeue();
         }
         _audioClips.Clear();
     }
@@ -181,6 +185,8 @@ public class SoundManager
 
     void ReturnToPool(AudioSource audioSource)
     {
+        if (audioSource == null)
+            return;
         audioSource.gameObject.SetActive(false);
         audioSource.clip = null;
         _audioSourcePool.Enqueue(audioSource);

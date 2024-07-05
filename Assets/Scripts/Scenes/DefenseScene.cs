@@ -16,7 +16,7 @@ public class DefenseScene : BaseScene
 
         // TEST
 #if UNITY_EDITOR 
-        Managers.PlayerData.NewPlayerLogin();
+        // Managers.PlayerData.NewPlayerLogin();
 #endif
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
