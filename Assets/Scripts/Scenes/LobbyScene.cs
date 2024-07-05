@@ -8,7 +8,9 @@ public class LobbyScene : BaseScene
     {
         base.Init();
         // Test
-        Managers.PlayerData.NewPlayerLogin();
+#if UNITY_EDITOR
+        // Managers.PlayerData.NewPlayerLogin();
+#endif
         LobbySceneManager.Instance.Init();
         Managers.Sound.Play("bgm_lobby", Define.Sound.Bgm);
     }

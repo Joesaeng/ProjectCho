@@ -101,11 +101,13 @@ public class UI_ItemOptionFilter : UI_Base
 
     void ClickedApplyButton(PointerEventData data)
     {
+        Managers.Sound.Play("ui_click3");
         ApplyItemOptionFilter();
     }
 
     void ClickedQuitButton(PointerEventData data)
     {
+        Managers.Sound.Play("ui_click3");
         gameObject.SetActive(false);
     }
 

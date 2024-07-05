@@ -15,8 +15,9 @@ public class DefenseScene : BaseScene
         base.Init();
 
         // TEST
-        // Managers.PlayerData.NewPlayerLogin();
-        
+#if UNITY_EDITOR 
+        Managers.PlayerData.NewPlayerLogin();
+#endif
         Managers.Pool.Init();
         DefenseSceneManager.Instance.Init();
         Managers.Sound.Play("bgm_defense", Define.Sound.Bgm);

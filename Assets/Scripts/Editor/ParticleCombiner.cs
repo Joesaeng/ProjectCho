@@ -351,6 +351,9 @@ public class ParticleCombiner : EditorWindow
                 newMaterial = new Material(mat); // Create a copy of the original material
                 newMaterials[size] = newMaterial;
 
+                // 머티리얼 설정
+                newMaterial.SetFloat("_Blend", 0); // 블렌드 모드를 Alpha로 변경
+                
                 foreach (var textureProperty in mat.GetTexturePropertyNames())
                 {
                     foreach (var texture in kvp.Value)
