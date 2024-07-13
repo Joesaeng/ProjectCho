@@ -30,16 +30,6 @@ public class ParticleEffectEditor : Editor
                 // 그림자 Off
                 ParticleSystemRenderer renderer = particles[j].GetComponent<ParticleSystemRenderer>();
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                renderer.sortMode = ParticleSystemSortMode.None;
-                List<ParticleSystemVertexStream> vertex = new List<ParticleSystemVertexStream>()
-                {
-                    ParticleSystemVertexStream.Position,
-                    ParticleSystemVertexStream.Color,
-                    ParticleSystemVertexStream.UV,
-                    ParticleSystemVertexStream.AnimFrame,
-                    
-                };
-                renderer.SetActiveVertexStreams(vertex);
             }
         }
 

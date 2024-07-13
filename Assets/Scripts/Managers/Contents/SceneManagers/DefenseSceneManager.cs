@@ -269,7 +269,7 @@ public class DefenseSceneManager : MonoBehaviour
     void CreateSpellUseable(int spellId, ISpellUseable spellUseable)
     {
         BaseSpellData data = Managers.Data.BaseSpellDataDict[spellId];
-        GameObject aura = Managers.Resource.Instantiate($"Aura/Aura{data.elementType}",
+        GameObject aura = Managers.Resource.Instantiate($"Effects/Aura/Aura{data.elementType}",
                 SpellUseablePoints[SpellUseableCount].position + new Vector3(0, 0.1f, 0));
         aura.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
         spellUseable.Init(data);

@@ -568,7 +568,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 200
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -1442,7 +1442,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 0
     sprites:
-    - sprite: {fileID: 8676067095057379601, guid: c3dee87fdbdca8842a2fe5e816439321,
+    - sprite: {fileID: 8676067095057379601, guid: a242902f09556054b85ce4e676916ae8,
         type: 3}
     flipU: 0
     flipV: 0
@@ -4745,7 +4745,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 56783d5e3fbb00042bb0cb29953e90ad, type: 2}
+  - {fileID: 2100000, guid: 5821b4613d3941941b013d7814a5c200, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4785,8 +4785,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 1
-  m_VertexStreams: 00030409
+  m_UseCustomVertexStreams: 0
+  m_VertexStreams: 0001030405
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4300000, guid: 1aa60d6d8e1bb1445b0486ffb8b130fb, type: 3}
@@ -5407,7 +5407,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 200
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -6308,7 +6308,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 0
     sprites:
-    - sprite: {fileID: 8168846952120836174, guid: eb18009e3e285cf46a7ba23067cef7e8,
+    - sprite: {fileID: 8168846952120836174, guid: d8fee41978619844e992e7bc3320a277,
         type: 3}
     flipU: 0
     flipV: 0
@@ -9611,7 +9611,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81e1962eaf98780448d3104ed72bb3ca, type: 2}
+  - {fileID: 2100000, guid: fa868041c6a2e414497f19e691699436, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9651,8 +9651,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 1
-  m_VertexStreams: 00030409
+  m_UseCustomVertexStreams: 0
+  m_VertexStreams: 0001030405
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4300000, guid: 124296fd140e75741befe7d19e5a0538, type: 3}
@@ -10245,7 +10245,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 200
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -11110,7 +11110,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 0
     sprites:
-    - sprite: {fileID: -99359631488998523, guid: eb18009e3e285cf46a7ba23067cef7e8,
+    - sprite: {fileID: -99359631488998523, guid: d8fee41978619844e992e7bc3320a277,
         type: 3}
     flipU: 0
     flipV: 0
@@ -14413,7 +14413,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81e1962eaf98780448d3104ed72bb3ca, type: 2}
+  - {fileID: 2100000, guid: fa868041c6a2e414497f19e691699436, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14453,8 +14453,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 1
-  m_VertexStreams: 00030409
+  m_UseCustomVertexStreams: 0
+  m_VertexStreams: 0001030405
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4300000, guid: cffd22707eee67548aae595eca29342b, type: 3}
@@ -15052,7 +15052,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 200
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -15944,7 +15944,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 0
     sprites:
-    - sprite: {fileID: 2161228787401957759, guid: eb18009e3e285cf46a7ba23067cef7e8,
+    - sprite: {fileID: 2161228787401957759, guid: d8fee41978619844e992e7bc3320a277,
         type: 3}
     flipU: 0
     flipV: 0
@@ -19247,7 +19247,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81e1962eaf98780448d3104ed72bb3ca, type: 2}
+  - {fileID: 2100000, guid: fa868041c6a2e414497f19e691699436, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19287,8 +19287,8 @@ ParticleSystemRenderer:
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 1
-  m_VertexStreams: 00030409
+  m_UseCustomVertexStreams: 0
+  m_VertexStreams: 0001030405
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -19385,34 +19385,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
-    - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792050328, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[3]
-      value: 9
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: f88ded546a6ce6b4a81e509a590cd15d, type: 2}
     - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: m_CastShadows
@@ -19420,34 +19395,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
-    - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792055860, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[3]
-      value: 9
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: f88ded546a6ce6b4a81e509a590cd15d, type: 2}
     - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: m_CastShadows
@@ -19455,34 +19405,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9195a8388e339f242bf4d9da0a0770a3, type: 2}
-    - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381133953792063532, guid: f77aed0e97e1c824fa08d2e70218371f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[3]
-      value: 9
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: f88ded546a6ce6b4a81e509a590cd15d, type: 2}
     - target: {fileID: 3381133953792881480, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: UVModule.mode
@@ -19501,13 +19426,13 @@ PrefabInstance:
     - target: {fileID: 3381133953792881480, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792881480, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: UVModule.sprites.Array.data[0].sprite
       value: 
-      objectReference: {fileID: 2436897358818191152, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+      objectReference: {fileID: 2436897358818191152, guid: f92f10ef2140cfb48b082a45e01b54af,
         type: 3}
     - target: {fileID: 3381133953792949350, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
@@ -19527,13 +19452,13 @@ PrefabInstance:
     - target: {fileID: 3381133953792949350, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792949350, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: UVModule.sprites.Array.data[0].sprite
       value: 
-      objectReference: {fileID: -3947991311917445925, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+      objectReference: {fileID: -3947991311917445925, guid: f92f10ef2140cfb48b082a45e01b54af,
         type: 3}
     - target: {fileID: 3381133953792954352, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
@@ -19553,13 +19478,13 @@ PrefabInstance:
     - target: {fileID: 3381133953792954352, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3381133953792954352, guid: f77aed0e97e1c824fa08d2e70218371f,
         type: 3}
       propertyPath: UVModule.sprites.Array.data[0].sprite
       value: 
-      objectReference: {fileID: -3947991311917445925, guid: 83599e3b5d0b4a847ad3895d39ceabf9,
+      objectReference: {fileID: -3947991311917445925, guid: f92f10ef2140cfb48b082a45e01b54af,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

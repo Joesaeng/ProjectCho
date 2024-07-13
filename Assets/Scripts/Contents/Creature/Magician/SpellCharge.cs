@@ -19,7 +19,7 @@ public class SpellCharge : AttackableCreature, ISpellUseable
         InitSpellUseable(data);
 
         InitAttackable(data);
-        Managers.Resource.Instantiate($"Charge/{Spell.ElementType}Charge",transform);
+        Managers.Resource.Instantiate($"Effects/Charge/{Spell.ElementType}Charge",transform);
     }
 
     public void InitSpellUseable(IData data)
